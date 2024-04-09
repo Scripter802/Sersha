@@ -3,7 +3,7 @@
   background: linear-gradient(0deg, rgba(146,37,70,1) 0%, rgba(60,29,50,1) 50%, rgba(47,32,47,1) 100%); 
 }
 
-* {
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;

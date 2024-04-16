@@ -1,0 +1,13 @@
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\bin\Debug\netcoreapp3.1\Persistence.deps.json
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\bin\Debug\netcoreapp3.1\Persistence.dll
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\bin\Debug\netcoreapp3.1\Persistence.pdb
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\bin\Debug\netcoreapp3.1\Domain.dll
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\bin\Debug\netcoreapp3.1\Domain.pdb
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\obj\Debug\netcoreapp3.1\Persistence.csproj.AssemblyReference.cache
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\obj\Debug\netcoreapp3.1\Persistence.GeneratedMSBuildEditorConfig.editorconfig
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\obj\Debug\netcoreapp3.1\Persistence.AssemblyInfoInputs.cache
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\obj\Debug\netcoreapp3.1\Persistence.AssemblyInfo.cs
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\obj\Debug\netcoreapp3.1\Persistence.csproj.CoreCompileInputs.cache
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\obj\Debug\netcoreapp3.1\Persistence.csproj.CopyComplete
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\obj\Debug\netcoreapp3.1\Persistence.dll
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\obj\Debug\netcoreapp3.1\Persistence.pdb

@@ -1,0 +1,15 @@
+E:\Udruzenje\Projekti\Sersha\sershaback\Application\bin\Debug\netcoreapp3.1\Application.deps.json
+E:\Udruzenje\Projekti\Sersha\sershaback\Application\bin\Debug\netcoreapp3.1\Application.dll
+E:\Udruzenje\Projekti\Sersha\sershaback\Application\bin\Debug\netcoreapp3.1\Application.pdb
+E:\Udruzenje\Projekti\Sersha\sershaback\Application\bin\Debug\netcoreapp3.1\Domain.dll
+E:\Udruzenje\Projekti\Sersha\sershaback\Application\bin\Debug\netcoreapp3.1\Persistence.dll
+E:\Udruzenje\Projekti\Sersha\sershaback\Application\bin\Debug\netcoreapp3.1\Domain.pdb
+E:\Udruzenje\Projekti\Sersha\sershaback\Application\bin\Debug\netcoreapp3.1\Persistence.pdb
+E:\Udruzenje\Projekti\Sersha\sershaback\Application\obj\Debug\netcoreapp3.1\Application.csproj.AssemblyReference.cache
+E:\Udruzenje\Projekti\Sersha\sershaback\Application\obj\Debug\netcoreapp3.1\Application.GeneratedMSBuildEditorConfig.editorconfig
+E:\Udruzenje\Projekti\Sersha\sershaback\Application\obj\Debug\netcoreapp3.1\Application.AssemblyInfoInputs.cache
+E:\Udruzenje\Projekti\Sersha\sershaback\Application\obj\Debug\netcoreapp3.1\Application.AssemblyInfo.cs
+E:\Udruzenje\Projekti\Sersha\sershaback\Application\obj\Debug\netcoreapp3.1\Application.csproj.CoreCompileInputs.cache
+E:\Udruzenje\Projekti\Sersha\sershaback\Application\obj\Debug\netcoreapp3.1\Application.csproj.CopyComplete
+E:\Udruzenje\Projekti\Sersha\sershaback\Application\obj\Debug\netcoreapp3.1\Application.dll
+E:\Udruzenje\Projekti\Sersha\sershaback\Application\obj\Debug\netcoreapp3.1\Application.pdb

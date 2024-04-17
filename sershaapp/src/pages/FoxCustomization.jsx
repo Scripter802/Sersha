@@ -37,9 +37,9 @@ const FoxCustomization = () => {
 
   return (
     <div className='customizationWrapper'>
-      <div>
-        <div>Customize <span>Character</span></div>
-        <div>
+      <div className='titleWrapper'>
+        <div className='title'>Customize <span className='titleChar'>Character</span></div>
+        <div className='customizeOptions'>
           <img src={browse} alt="" />
           <img src={shop} alt="" />
           <img src={inventory} alt="" />
@@ -68,8 +68,9 @@ const FoxCustomization = () => {
         </div>
       </div>
       
-      <div>
+      <div className='footer'>
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
+        <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
     </div>
   )

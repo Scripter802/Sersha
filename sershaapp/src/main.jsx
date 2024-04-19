@@ -6,6 +6,7 @@ import './index.css'
 import HomePage from './pages/HomePage.jsx'
 import Header from './components/Header.jsx'
 import FoxCustomization from './pages/FoxCustomization.jsx'
+import Dm from './pages/Dm.jsx'
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: '/foxcustomization',
     element: <FoxCustomization />
+  },
+  {
+    path: '/dm',
+    element: <Dm />
   }
 ]);
 

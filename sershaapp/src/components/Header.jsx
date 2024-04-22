@@ -1,6 +1,7 @@
 import './header.css'
 import { game, home, logo, map, messages, rectangle, search, coin, level, avatar } from './../assets/images/navbar/index.js'
 
+
 const Header = () => {
   return (
     <div className='headerWrapper'>

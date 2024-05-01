@@ -3,10 +3,9 @@
     justify-content: space-evenly;
     background: rgb(146,37,70);
     background: linear-gradient(0deg, rgba(146,37,70,1) 0%, rgba(60,29,50,1) 50%, rgba(47,32,47,1) 100%); 
-    
     position: relative;
     border-radius: 30px 30px;
-    min-height: 100%;
+    overflow-y: hidden;
 }
 
 .dmsWrapper {
@@ -99,6 +98,7 @@
     justify-content: end;
     color: #ffffff;
     cursor: pointer;
+    margin-top: 1rem;
 }
 
 .answer {
@@ -123,6 +123,7 @@
     justify-content: space-between;
     align-items: center;
     margin: 2rem 4rem;
+    color: #FFB496;
 }
 
 .madeWith {

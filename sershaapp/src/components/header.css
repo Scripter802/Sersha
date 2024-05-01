@@ -25,12 +25,34 @@
     border-radius: 100%;
     justify-content: center;
     align-items: center;
-    
+    cursor: pointer;
 }
 
 .map:hover, .game:hover, .home:hover, .messages:hover, .search:hover {
         background: #C26F4D;
     }
+
+.dm {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    background-color: #C26F4D;
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.currentHome {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    background-color: #C26F4D;
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
 
 .navigationWrapper {
     display: flex;

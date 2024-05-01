@@ -1,0 +1,184 @@
+.rightAnswerQuizWrapper {
+    display: flex;
+    flex-direction: column;
+
+    background: rgb(146,37,70);
+    background: linear-gradient(0deg, rgba(146,37,70,1) 0%, rgba(60,29,50,1) 50%, rgba(47,32,47,1) 100%); 
+    position: relative;
+    border-radius: 30px 30px;
+    min-height: 100vh;
+    padding-top: 2.95rem;
+}
+
+.msgPreview {
+    background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+    height: fit-content;
+}
+
+.receivedMsgWrapper {
+    display: flex;
+    gap: 2rem
+}
+
+.receivedMsg {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+
+.receivedMsg img {
+    height: 40px;
+    width: auto;
+}
+
+.rightAnswerTitleWrapper {
+    display: flex;
+    justify-content: space-evenly;
+    margin-inline: 9rem;
+}
+
+.rightAnswerTitle {
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    gap: 0.625rem;
+}
+
+.inventory {
+    display: flex;
+    align-items: center;
+}
+
+.hearts {
+    color: #FFB496;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+}
+
+.hhh {
+    border: 1.15px;
+    border-color: #C26F4D;
+    border-radius: 50%;
+}
+
+.heartWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #C26F4D;
+    border-radius: 40px;
+}
+
+.heart {
+    width: 30px;
+    height: 30px;
+    background-color: #C26F4D;
+    border-radius: 40px;
+}
+
+.heartFull {
+    width: 30px;
+    height: 30px;
+    color: #ffffff;
+}
+
+.sershaLogo {
+    display: flex;
+    align-items: center;
+    font-size: 1.125rem;
+    color: #ffffff;
+    gap: 1rem;
+    width: 500;
+}
+
+.quizWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 3.125rem;
+    gap: 2rem;
+}
+
+.evilFoxWrapper {
+    position: relative;
+}
+
+.evilFox {
+    margin-top: 10%;
+}
+
+.tictac {
+    position: absolute;
+    right: 2.5rem;
+    top: 10%;
+}
+
+.answerWrapper {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 0.315rem;
+    flex-wrap: wrap;
+}
+
+.possibleAnswers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    height: 40px;
+    width: fit-content;
+    gap: 0.315rem;
+}
+
+.dropBox {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border-radius: 20px 20px;
+  width: 180px;
+  height: 40px;
+  padding: .75rem;
+  margin-block: .315rem;
+  cursor: pointer;
+  text-align: center;
+  border: 1px dashed #FFB496;
+  color: #FFB496;
+  font-size: 0.875rem;
+}
+
+.groupingFinished {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 40px;
+    width: fit-content;
+    color: #000000;
+    background-color: #ffffff;
+    border-radius: 20px 20px;
+    padding: .75rem;
+}
+
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 4rem;
+    color: #FFB496;
+}
+
+.madeWith {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    color: #FFB496;
+}

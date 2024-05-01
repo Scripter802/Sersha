@@ -29,8 +29,8 @@ const HomePage = () => {
 
   return (
     <div className='posts'>
-      {posts.map((post) => (
-      <div className='postWrapper'>
+      {posts.map((post, index) => (
+      <div className='postWrapper' key={index}>
         <div><p className='postTitle'>{post.title}</p></div>
         <img src={post.img ? post.img : ''} alt={post.img ? 'post' : ''} className='postImg' />
         <div className='postLikeWrapper'>

@@ -2,6 +2,7 @@ import './dm.css'
 import avatar from '../assets/images/navbar/userpick.png'
 import { heart } from '../assets/images/customization/items/index.js'
 import { useState } from 'react'
+import Popup from '../components/Popup.jsx'
 
 
 const Dm = () => {
@@ -33,7 +34,7 @@ const Dm = () => {
   const [message, setMessage] = useState(`${messages[0].name}`);
   const [answer, setAnswer] = useState()
   console.log(answer)
-
+  
 
   return (
     <div className='customizationWrapper'>
@@ -62,7 +63,7 @@ const Dm = () => {
             <img src={messages[0].avatar} alt="" />
             {messages[0].message}
           </div>
-          <h5>Answer options</h5>
+          {!answer ? <h5>Answer options</h5> : '' }
           
           <div>
           {messages.map(msg => (
@@ -88,6 +89,7 @@ const Dm = () => {
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
+      <Popup />
     </div>
   )
 }

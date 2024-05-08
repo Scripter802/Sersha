@@ -1,9 +1,9 @@
-import browse from '../assets/images/customization/browse.png'
-import shop from '../assets/images/customization/shop.png'
-import inventory from '../assets/images/customization/inventory.png'
-import fox from '../assets/images/customization/fox.png'
-import foxbottompart from '../assets/images/customization/foxbottompart.png'
-import foxtoppart from '../assets/images/customization/foxtoppart.png'
+import browse from '../../assets/images/customization/browse.png'
+import shop from '../../assets/images/customization/shop.png'
+import inventory from '../../assets/images/customization/inventory.png'
+import fox from '../../assets/images/customization/fox.png'
+import foxbottompart from '../../assets/images/customization/foxbottompart.png'
+import foxtoppart from '../../assets/images/customization/foxtoppart.png'
 import { item1, 
          item2, 
          item3, 
@@ -15,12 +15,11 @@ import { item1,
          item9, 
          toLeft, 
          toRight, 
-         heart } from '../assets/images/customization/items/index.js'
+         heart } from '../../assets/images/customization/items/index.js'
 
 import './foxcustomization.css'
+import CustomizationSlider from '../../components/FoxCustomization/CustomizationSlider.jsx'
 
-import TinySlider from "tiny-slider-react";
-import 'tiny-slider/dist/tiny-slider.css';
 
 
 
@@ -53,18 +52,7 @@ const FoxCustomization = () => {
           <img src={foxbottompart} />
         </div>
         <div className='itemSlider'>
-          <TinySlider settings={settings} className='singleImg'>
-            {items.map((el, index) => (
-              <div key={index}  >
-                <img
-                  className={`tns-lazy-img`}
-                  src={el}
-                  data-src={el}
-                  alt=""
-                />
-              </div>
-            ))}
-          </TinySlider>
+          <CustomizationSlider items={items} settings />
         </div>
       </div>
       

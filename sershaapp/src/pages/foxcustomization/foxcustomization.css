@@ -43,16 +43,3 @@
     align-items: center;
     justify-content: space-evenly;
 }
-
-.footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 2rem 4rem;
-}
-
-.madeWith {
-    display: flex;
-    align-items: center;
-    gap: .75rem;
-}

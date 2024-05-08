@@ -87,9 +87,9 @@ const RightAnswerQuiz = () => {
           
       </div>
 
-        <div className='msgPreview'>
+        <div className='rightAnswerWrapper'>
           <h5>Question</h5>
-          <div className='receivedMsg'>
+          <div className='rightAnswerAssignment'>
             {messages[0].message}
           </div>
           <h5>Answer options</h5>
@@ -97,14 +97,14 @@ const RightAnswerQuiz = () => {
           <div>
           {messages.map(msg => (
             message === msg.name && !answer ? msg.answer?.map(ans => (
-              <div className='possibleAnsWrapper' onClick={() => setAnswer(`${ans}`)}>
-                <p className='possibleAnswers'>{ans}</p>
+              <div className='rightAnswerOfferedWrapper' onClick={() => setAnswer(`${ans}`)}>
+                <p className='rightAnswerOfferedAnswers'>{ans}</p>
               </div>
             )) : ``
             ))}
             {answer ?
-            <div className='answerWrapper'>
-              <div className='answer'>
+            <div className='rightAnswerSelectedWrapper'>
+              <div className='rightAnswerSelected'>
                 <img src={messages[0].avatar} alt="" />
                 {answer ? `${answer}` : ''}
               </div>

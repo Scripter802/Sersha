@@ -57,11 +57,11 @@ const FillInTheBlank = () => {
   
 
   return (
-    <div className='rightAnswerQuizWrapper'>
+    <div className='fillBlankQuizWrapper'>
       
-      <div className='rightAnswerTitleWrapper'>
+      <div className='fillBlankQuizTitleWrapper'>
 
-        <div className='rightAnswerTitle'>
+        <div className='fillBlankQuizTitle'>
           <img src={close} alt="" />
           <h1>The battle has begun</h1>
         </div>
@@ -99,14 +99,14 @@ const FillInTheBlank = () => {
           
       </div>
 
-        <div className='msgPreview'>
+        <div className='fillInBlankWrapper'>
           <h5>Fill in the Blank</h5>
-          <div className='receivedMsg'>
+          <div className='fillInAssignment'>
             {fillInTheBlank[0]}{<div ref={drop}> {dropped ? `${dropped}` : <img src={dropPlace} alt='dropplace' />}</div>}{fillInTheBlank[1]}
           </div>
           <h5>Answer options</h5>
           
-          <div className='answerWrapper'>
+          <div className='fillInBlankAnswerWrapper'>
             {optionAnswer.map((item, index) => {
               const [{ isDragging }, drag] = useDrag(() => ({
                 type: "answer",
@@ -124,8 +124,8 @@ const FillInTheBlank = () => {
             }), [item]);
 
             return (
-              <div className='possibleAnsWrapper' key={index}>
-                <p className='possibleAnswers' ref={drag}>{item}</p>
+              <div className='fillBlankOfferedAnswersWrapper' key={index}>
+                <p className='fillBlankOfferedAnswers' ref={drag}>{item}</p>
               </div>
             );
             })}

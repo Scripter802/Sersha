@@ -55,9 +55,9 @@ const Grouping = () => {
   };
 
   return (
-    <div className='rightAnswerQuizWrapper'>
-      <div className='rightAnswerTitleWrapper'>
-        <div className='rightAnswerTitle'>
+    <div className='GroupingQuizWrapper'>
+      <div className='GroupingQuizTitleWrapper'>
+        <div className='GroupingQuizTitle'>
           <img src={close} alt="" />
           <h1>The battle has begun</h1>
         </div>
@@ -85,19 +85,52 @@ const Grouping = () => {
           </div>
         </div>
 
-        <div className='msgPreview'>
-          <h5>Place the words into the appropriate groups</h5>
-          <div className='receivedMsgWrapper'>
-            <div className='receivedMsg'>
-              {dropped.map((item, index) => (
-                <DropBox key={index} index={index} handleDrop={handleDrop} currentItem={item} updateDropped={updateDropped} />
-              ))}
+        <div className='groupingWrapper'>
+          <h5 className='groupingAsignmentTitle'>Place the words into the appropriate groups</h5>
+          <div className='groupingDropBoxesWrapper'>
+            <div className='groupingDropBoxesTitles'>
+              <h5>{messages[0].group}</h5>
+              <h5>{messages[1].group}</h5>
+            </div>
+          <div className='groupingDropBoxes'>
+            <div className='fruitDropBoxes'>
+              {dropped.map((item, index) => {
+                if (index < 3) {
+                  return (
+                    <DropBox
+                      key={index}
+                      index={index}
+                      handleDrop={handleDrop}
+                      currentItem={item}
+                      updateDropped={updateDropped}
+                    />
+                  );
+                }
+                return null;
+              })}
+            </div>
+            <div className='vegetableDropBoxes'>
+              {dropped.map((item, index) => {
+                if (index >= 3) {
+                  return (
+                    <DropBox
+                      key={index}
+                      index={index}
+                      handleDrop={handleDrop}
+                      currentItem={item}
+                      updateDropped={updateDropped}
+                    />
+                  );
+                }
+                return null;
+              })}
             </div>
           </div>
+          </div>
 
-          <h5>Words</h5>
+          <h5 className='words'>Words</h5>
 
-          <div className='answerWrapper'>
+          <div className='groupingOfferedAnswerWrapper'>
             {optionAnswer.map((item, index) => (
               <DraggableItem key={index} item={item} index={index} dropped={dropped} />
             ))}
@@ -128,15 +161,15 @@ const DraggableItem = ({ item, index, dropped }) => {
 
   if (isDropped) {
     return (
-      <div className='possibleAnsWrapper' key={index}>
-        <p className='possibleAnswers' style={{ color: 'transparent', background: 'transparent', border: '1px dashed #FFB496', cursor: 'default' }}>{item}</p>
+      <div className='groupingOfferedAnswerDroppedWrapper' key={index}>
+        <p className='groupingOfferedAnswerDropped' style={{ color: 'transparent', background: 'transparent', border: '1px dashed #FFB496', cursor: 'default' }}>{item}</p>
       </div>
     );
   }
 
   return (
-    <div className='possibleAnsWrapper' key={index}>
-      {!isDragging && <p className='possibleAnswers' ref={drag}>{item}</p>}
+    <div className='groupingOfferedAnswerDroppedWrapper' key={index}>
+      {!isDragging && <p className='groupingOfferedAnswerDropped' ref={drag}>{item}</p>}
     </div>
   );
 };
@@ -183,9 +216,9 @@ const DropBox = ({ index, handleDrop, currentItem, updateDropped }) => {
   };
 
   return (
-    <div ref={drop} className='dropBox' onDragOver={onDragOver} onDrop={onDrop}>
+    <div ref={drop} className='dropBox' onDragOver={onDragOver} onDrop={onDrop} style={{ backgroundColor: currentItem !== "Drop here" ? '#C26F4D' : "", color: currentItem !== "Drop here" ? '#FFFFFF' : "#FFB496", border: currentItem !== "Drop here" ? "none" : "1px dashed #FFB496" }}>
       {currentItem !== "Drop here" && (
-        <DraggableDroppedItem item={currentItem} index={index} onDragStart={onDragStart} />
+        <DraggableDroppedItem item={currentItem} index={index} onDragStart={onDragStart}  />
       )}
       {currentItem === "Drop here" && <p>{currentItem}</p>}
     </div>

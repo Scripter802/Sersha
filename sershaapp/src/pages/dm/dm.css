@@ -117,17 +117,3 @@
     width: 40px;
     height: 40px;
 }
-
-.footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 2rem 4rem;
-    color: #FFB496;
-}
-
-.madeWith {
-    display: flex;
-    align-items: center;
-    gap: .75rem;
-}

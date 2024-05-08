@@ -1,4 +1,4 @@
-.rightAnswerQuizWrapper {
+.correctAnswerQuizWrapper {
     display: flex;
     flex-direction: column;
 
@@ -10,104 +10,67 @@
     padding-top: 2.95rem;
 }
 
-.msgPreview {
-    background: linear-gradient(180deg, #2F202F33 0%, #460C2333 100%);
 
-}
-
-.rightAnswerTitleWrapper {
+.correctAnswerTitleWrapper {
     display: flex;
     justify-content: space-evenly;
     margin-inline: 9rem;
 }
 
-.rightAnswerTitle {
+.correctAnswerTitle {
     display: flex;
     align-items: center;
     color: #ffffff;
     gap: 0.625rem;
 }
 
-.inventory {
-    display: flex;
-    align-items: center;
-}
-
-.hearts {
-    color: #FFB496;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.625rem;
-}
-
-.hhh {
-    border: 1.15px;
-    border-color: #C26F4D;
-    border-radius: 50%;
-}
-
-.heartWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background-color: #C26F4D;
-    border-radius: 40px;
-}
-
-.heart {
-    width: 30px;
-    height: 30px;
-    background-color: #C26F4D;
-    border-radius: 40px;
-}
-
-.heartFull {
-    width: 30px;
-    height: 30px;
-    color: #ffffff;
-}
-
-.sershaLogo {
-    display: flex;
-    align-items: center;
-    font-size: 1.125rem;
-    color: #ffffff;
-    gap: 1rem;
-    width: 500;
-}
-
-.quizWrapper {
+.correctQuizzWrapper {
     display: flex;
     justify-content: center;
     margin-top: 3.125rem;
     gap: 2rem;
 }
 
-.evilFoxWrapper {
-    position: relative;
+.correctAnswerWrapper {
+    width: 500px;
+    height: 520px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+    color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 20px 20px;
 }
 
-.evilFox {
-    margin-top: 10%;
+.correctAnswerWrapper h5 {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #FFB496;
+    margin-block: 0.95rem;
+      
 }
 
-.tictac {
-    position: absolute;
-    right: 2.5rem;
-    top: 10%;
+.correctAnswerAssignment {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    gap: 1rem;
+    background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+    border-radius: 20px 20px;
+    padding: 1rem;
 }
 
-.answerWrapper {
+.correctAnswerAnsWrapper {
     display: flex;
     justify-content: space-around;
     align-items: center;
     gap: 1.25rem;
+    width: 100%;
+    color: #ffffff;
+    cursor: pointer;
 }
 
-.possibleAnswers {
+.correctOfferedAnswers {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -115,19 +78,8 @@
     height: 80px;
     width: 210px;
     gap: 0.315rem;
-}
-
-.footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 2rem 4rem;
-    color: #FFB496;
-}
-
-.madeWith {
-    display: flex;
-    align-items: center;
-    gap: .75rem;
-    color: #FFB496;
+    background: #C26F4D;
+    border-radius: 20px 20px;
+    padding: .75rem;
+    cursor: pointer;
 }

@@ -47,9 +47,9 @@ const CorrectAnswerQuiz = () => {
   console.log(answer)
 
   return (
-    <div className='rightAnswerQuizWrapper'>
+    <div className='correctAnswerQuizWrapper'>
       
-      <div className='rightAnswerTitleWrapper'>
+      <div className='correctAnswerTitleWrapper'>
 
         <div className='rightAnswerTitle'>
           <img src={close} alt="" />
@@ -72,7 +72,7 @@ const CorrectAnswerQuiz = () => {
         </div>
       </div>
 
-      <div className='quizWrapper'>
+      <div className='correctQuizzWrapper'>
         <div className='evilFoxWrapper'>
           <div className='health'>
             <HealthBar />
@@ -89,18 +89,18 @@ const CorrectAnswerQuiz = () => {
           
       </div>
 
-        <div className='msgPreview'>
+        <div className='correctAnswerWrapper'>
           <h5>Statement</h5>
-          <div className='receivedMsg'>
+          <div className='correctAnswerAssignment'>
             {messages[0].message}
           </div>
           <h5>Answer options</h5>
           
-          <div className='answerWrapper'>
+          <div className='correctAnswerAnsWrapper'>
           {messages.map(msg => (
             message === msg.name && !answer ? msg.answer?.map(ans => (
-              <div className='possibleAnsWrapper' onClick={() => setAnswer(`${ans}`)}>
-                <p className='possibleAnswers' style={{ backgroundColor: `${ans === "True" ? "#B2F0B6" : "#FFB6B6"}` }}>{ans === "True" ? <><img src={done} alt='done' />{ans}</> : <><img src={incorrect} alt='done' />{ans}</> }</p>
+              <div className='correctOfferedAnswersWrapper' onClick={() => setAnswer(`${ans}`)}>
+                <p className='correctOfferedAnswers' style={{ backgroundColor: `${ans === "True" ? "#B2F0B6" : "#FFB6B6"}` }}>{ans === "True" ? <><img src={done} alt='done' />{ans}</> : <><img src={incorrect} alt='done' />{ans}</> }</p>
               </div>
             )) : ``
             ))}

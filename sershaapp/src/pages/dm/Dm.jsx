@@ -1,8 +1,10 @@
 import './dm.css'
-import avatar from '../assets/images/navbar/userpick.png'
-import { heart } from '../assets/images/customization/items/index.js'
+import avatar from '../../assets/images/navbar/userpick.png'
+import { heart } from '../../assets/images/customization/items/index.js'
 import { useState } from 'react'
-import Popup from '../components/Popup.jsx'
+import Popup from '../../components/Popup.jsx'
+import NewMessage from '../../components/Dm/NewMessage.jsx'
+import AnswersMsg from '../../components/Dm/AnswersMsg.jsx'
 
 
 const Dm = () => {
@@ -41,23 +43,9 @@ const Dm = () => {
 
       <div className='dmsWrapper'>
         <div className='newMsgWrapper'>
-          {messages.map(msg => (
-          <div className='msgWrapper' onClick={() => setMessage(`${msg.name}`)}>
-
-            <div>
-              <img src={msg.avatar} alt="" srcset="" />
-            </div>
-            <div>
-              <h5>{msg.name}</h5>
-              <p>{msg.message}</p>
-            </div>
-          </div>
-          ))}
-          </div>
-        <div>
-          
+          <NewMessage messages={messages}/>
         </div>
-
+        
         <div className='msgPreview'>
           <div className='receivedMsg'>
             <img src={messages[0].avatar} alt="" />
@@ -66,21 +54,7 @@ const Dm = () => {
           {!answer ? <h5>Answer options</h5> : '' }
           
           <div>
-          {messages.map(msg => (
-            message === msg.name && !answer ? msg.answer?.map(ans => (
-              <div className='possibleAnsWrapper' onClick={() => setAnswer(`${ans}`)}>
-                <p className='possibleAnswers'>{ans}</p>
-              </div>
-            )) : ``
-            ))}
-            {answer ?
-            <div className='answerWrapper'>
-              <div className='answer'>
-                <img src={messages[0].avatar} alt="" />
-                {answer ? `${answer}` : ''}
-              </div>
-            </div> : ''
-            }
+            <AnswersMsg messages={messages} message={message} answer={answer} setAnswer={setAnswer} />
           </div>
         </div>
       </div>
@@ -89,7 +63,7 @@ const Dm = () => {
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
-      <Popup />
+      {/* <Popup /> */}
     </div>
   )
 }

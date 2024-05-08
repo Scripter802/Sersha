@@ -1,0 +1,9 @@
+.userContainer {
+    margin: 20px auto;
+    width: 80%;
+    color: #ffffff;
+    background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+    opacity: 0.9;
+}
+
+

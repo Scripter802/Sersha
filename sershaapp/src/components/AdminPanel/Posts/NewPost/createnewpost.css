@@ -14,7 +14,7 @@
     margin-bottom: 20px;
 }
 
-input[type="text"],
+.postProfileName,
 textarea {
     width: 100%;
     padding: 10px;

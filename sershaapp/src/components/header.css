@@ -4,15 +4,23 @@
     box-sizing: border-box;
 }
 
+
 .headerWrapper {
     min-height: 50px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     padding: 1rem;
+    background: black;
 }
 
 .logo {
+    width: 150px;
+    height: 50px;
+    margin-left: 3rem;
+}
+
+.logoImg {
     width: 150px;
     height: 50px;
 }
@@ -59,6 +67,7 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    margin-left: 5rem;
 }
 
 .home {
@@ -84,8 +93,9 @@
 
 .rightWrapper {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+    margin-right: 5rem;
 }
 
 .profileWrapper {

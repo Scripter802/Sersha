@@ -32,7 +32,36 @@ const AppProvider = ({ children }) => {
         { id: 4, username: 'Jessi', email: 'jessi.glaser@test.com', signupDate: '12.05.2024',  currentLevel: '1' },
         { id: 5, username: 'Jay', email: 'jay.bilzerian@test.com', signupDate: '12.05.2024', currentLevel: '4' }
 ]);
-  
+
+
+/* _______________________________________________________________________________ */
+
+/* SIGN IN_SIGN UP PAGE *//* SIGN IN_SIGN UP PAGE *//* SIGN IN_SIGN UP PAGE *//* SIGN IN_SIGN UP PAGE *//* SIGN IN_SIGN UP PAGE */
+
+const [logIn, setLogIn] = useState(true);
+
+/* LOG IN FORM COMPONENT */
+
+const [logEmail, setLogEmail] = useState("");
+const [logPassword, setLogPassword] = useState("");
+const [logRemember, setLogRemember] = useState(false);
+const [logValidate, setLogValidate] = useState({});
+const [logShowPassword, setLogShowPassword] = useState(false);
+
+
+/* REGISTER FORM COMPONENT */
+
+  const [registerNameOfParent, setRegisterNameOfParent] = useState("");
+  const [registerNameOfChild, setRegisterNameOfChild] = useState("");
+  const [registerAgeOfChild, setRegisterAgeOfChild] = useState("");
+  const [registerPhoneNumber, setRegisterPhoneNumber] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [registerRePassword, setRegisterRePassword] = useState("");
+  const [registerValidate, setRegisterValidate] = useState({});
+  const [registerShowPassword, setRegisterShowPassword] = useState(false);
+
+/* _______________________________________________________________________________ */
 
   return (
     <AppContext.Provider 
@@ -45,6 +74,36 @@ const AppProvider = ({ children }) => {
         setAllUsers,
         createNewPost,
         setCreateNewPost,
+        logEmail,
+        setLogEmail,
+        logPassword,
+        setLogPassword,
+        logRemember,
+        setLogRemember,
+        logValidate,
+        setLogValidate,
+        logShowPassword,
+        setLogShowPassword,
+        logIn,
+        setLogIn,
+        registerNameOfParent,
+        setRegisterNameOfParent,
+        registerNameOfChild,
+        setRegisterNameOfChild,
+        registerAgeOfChild,
+        setRegisterAgeOfChild,
+        registerPhoneNumber,
+        setRegisterPhoneNumber,
+        registerEmail,
+        setRegisterEmail,
+        registerPassword,
+        setRegisterPassword,
+        registerRePassword,
+        setRegisterRePassword,
+        registerValidate,
+        setRegisterValidate,
+        registerShowPassword,
+        setRegisterShowPassword,
       }}
       >
         {children}

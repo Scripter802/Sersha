@@ -40,7 +40,7 @@ const CreatePost = () => {
             <h3 className="p-3 text-center">Create New Post</h3>
             <div>
                 <label>Profile Name:</label>
-                <input type="text" value={profileName} onChange={(e) => setProfileName(e.target.value)} />
+                <input className='postProfileName' type="text" value={profileName} onChange={(e) => setProfileName(e.target.value)} />
             </div>
             <div>
                 <label>Text:</label>

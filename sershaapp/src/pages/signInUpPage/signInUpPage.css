@@ -1,0 +1,147 @@
+.logInWrapper {
+    display: flex;
+    background-image: url('../../assets/images/login/logInBackground.png');
+    background-size: cover;
+    height: 100vh;
+}
+
+.leftSideWrapper {
+    flex: 1;
+    position: relative;
+}
+
+.leftSideBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../assets/images/login/logInLeftSideBackground.png');
+    background-size: cover;
+    opacity: 0.5;
+}
+
+.leftSideContent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    color: #FFFFFF;
+}
+
+.slideImage {
+    /* position: absolute; */
+}
+
+.leftSideText {
+    display: flex;
+    flex-direction: column;
+    /* position: absolute; */
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: -4rem;
+    /* top: 60vh; */
+}
+
+.leftSideText h1 {
+    width: 50%;
+    font-size: 2.125rem;
+    font-weight: 500;
+    line-height: 34px;
+    margin-bottom: 1.25rem;
+}
+
+.leftSideText p {
+    width: 55%;
+    color: #FFB496;
+    font-weight: 500;
+}
+
+
+article{
+    position:absolute;
+    left:0;
+    right:0;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  /*   border:4px solid rgb(83, 110, 143); */
+    opacity:0;
+  }
+
+
+.sliderBtn{
+    position:absolute;
+    transform: translateY(-50%);
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius: 50%;
+    color:white;
+    background:#C26F4D;
+    transition: all 0.3s linear;
+    font-size: 24px;
+}
+  
+.sliderBtn:hover{
+    cursor:pointer;
+    background:rgb(98, 122, 92);
+}
+  
+.prev{
+   left: 20%;
+   top: 90vh;
+}
+  
+.next{
+    right: 20%;
+    top: 90vh;
+}
+  
+article.activeSlide {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+article.lastSlide {
+    transform: translateX(-100%);
+}
+
+article.nextSlide {
+    transform: translateX(100%);
+}
+    
+.sliderDots {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 90vh;
+}
+  
+.dot {
+    width: 6px;
+    height: 6px;
+    border: 1px solid #C26F4D;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+    background: transparent;
+}
+  
+.dot.active {
+    background-color: #FFFFFF; /* Change to your desired active dot color */
+}
+        
+.rightSideWrapper {
+    flex: 1;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

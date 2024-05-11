@@ -1,0 +1,82 @@
+.logInHeaderWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.logInHeaderRightSide {
+    display: flex;
+    gap: 0.625rem;
+    color: #FFFFFF;
+    align-items: center;
+}
+
+.signUpButton {
+    color: #FFB496;
+    cursor: pointer;
+}
+
+.logInHeaderRightSide img {
+    width: 24px;
+    height: 24px;
+}
+
+.logInFormWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+.logInFormWrapper h1 {
+    color: #FFFFFF;
+    margin-block: 2.5rem;
+}
+
+
+.formWrapper {
+    width: 80%;
+}
+
+.extra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block: 1.875rem;
+}
+
+.form-check, .forgot-password {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.315rem;
+}
+
+.form-check-input {
+    width: 24px;
+    height: 24px;
+    accent-color: #FFB496;
+    background-color: transparent;
+}
+
+.form-check-input label {
+    font-size: 12px;
+}
+
+.forgotPassLink {
+    text-decoration: none;
+    color: #FFB496;
+    font-size: 12px;
+}
+
+.btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px 30px;
+    border: 0px;
+    background: #FFFFFF;
+    height: 50px;
+}

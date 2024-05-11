@@ -1,0 +1,153 @@
+.friendOrFoeWrapper {
+  display: flex;
+  flex-direction: column;
+  background-image: url('../../../assets/images/miniGames/miniGamesBackground.png');
+  background-size: cover;
+  position: relative;
+  border-radius: 30px 30px;
+  min-height: 100vh;
+  padding-top: 2.95rem;
+}
+
+.friendOrFoeTitleWrapper {
+  display: flex;
+  width: 960px;
+  justify-content: space-between;
+  margin: 0 auto;
+  margin-bottom: 1.875rem;
+}
+
+.friendOrFoeTitle {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  gap: 0.625rem;
+}
+
+.friendOrFoeAnswersNumber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.315rem;
+}
+
+.friendOrFoeAnswersNumber > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #C26F4D;
+  color: #FBA07A;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.friendOrFoeGameWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.friendOrFoeGameContainer {
+  display: flex;
+  width: 960px;
+  height: 457px;
+  background-image: url(../../../assets/images/miniGames/emojiEmotions/EmojiEmotionsCardBackground.png);
+  background: linear-gradient(180deg, #2F202F33 0%, #460C2333 100%);
+  border-radius: 10px 10px;
+  padding: 40px;
+}
+
+.friendOrFoeLeftSideContent {
+  position: relative;
+  flex: 1;
+}
+
+.friendOrFoeMiddleContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.friendOrFoeGameCard {
+  width: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  gap: .625rem;
+}
+
+.messageGameCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+  border-radius: 20px 20px;
+  padding: 1.5rem;
+  gap: 1.125rem;
+}
+
+.messageGameCard > img {
+  width: 80px;
+  height: 80px;
+}
+
+.messageName {
+ font-size: 16px;
+ line-height: 20px;
+ color: #FFFFFF;
+ margin-bottom: 0.3rem;
+}
+
+.messageText {
+  font-size: 14px;
+  line-height: 16px;
+  color: #FFB496;
+}
+
+.friendOrFoeOptionAnswers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .315rem;
+}
+
+.friendOrFoeDeclineButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px 30px;
+  border: 0;
+  padding: .5rem;  
+  width: 140px;
+  height: 50px;
+  background: #FFB6B6;
+  font-size: 1rem;
+  font-weight: 500;
+  gap: 5px;
+}
+
+.friendOrFoeAcceptButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px 30px;
+  padding: .5rem;  
+  width: 140px;
+  height: 50px;
+  background: #B2F0B6;
+  font-size: 1rem;
+  font-weight: 500;
+  gap: 5px;
+}
+
+.friendOrFoeRightSideContent {
+  flex: 1;
+  display: flex;
+  justify-content: end; 
+  position: relative;
+}

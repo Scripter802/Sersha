@@ -1,0 +1,148 @@
+.postingChallengeWrapper {
+  display: flex;
+  flex-direction: column;
+  background-image: url('../../../assets/images/miniGames/miniGamesBackground.png');
+  background-size: cover;
+  position: relative;
+  border-radius: 30px 30px;
+  min-height: 100vh;
+  padding-top: 2.95rem;
+}
+
+.postingChallengeTitleWrapper {
+  display: flex;
+  width: 960px;
+  justify-content: space-between;
+  margin: 0 auto;
+  margin-bottom: 1.875rem;
+}
+
+.postingChallengeTitle {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  gap: 0.625rem;
+}
+
+.postingChallengeAnswersNumber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.315rem;
+}
+
+.postingChallengeAnswersNumber > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #C26F4D;
+  color: #FBA07A;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.postingChallengeGameWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.postingChallengeGameContainer {
+  display: flex;
+  width: 960px;
+  height: 457px;
+  background-image: url(../../../assets/images/miniGames/postingChallenge/background.png);
+  border-radius: 10px 10px;
+  padding: 40px;
+  border: none;
+}
+
+.postingChallengeLeftSideContent {
+  position: relative;
+  flex: 1;
+}
+
+.postingChallengeMiddleContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.postingChallengeGameCard {
+  width: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.postingGameCard {
+  background: #FFF;
+  border-radius: 20px 20px;
+  box-shadow: 25px 30px 45px 0px #00000031;
+
+}
+
+.postingProfileInfo {
+  padding: 1rem;
+}
+
+.postingProfilePhoto {
+  border-radius: 20px 20px;
+}
+
+.postingProfileName {
+  font-size: 14px;
+}
+
+.postingPostText {
+  font-size: 1rem;
+  color: #000;
+}
+
+.postingChallengeOptionAnswers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .315rem;
+  margin-top: 1.875rem;
+}
+
+.postingChallengeDeclineButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px 30px;
+  border: 0;
+  padding: .5rem;  
+  width: 155px;
+  height: 55px;
+  background: #FFB6B6;
+  font-size: 1rem;
+  font-weight: 500;
+  gap: 5px;
+}
+
+.postingChallengeAcceptButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px 30px;
+  padding: .5rem;  
+  width: 155px;
+  height: 55px;
+  background: #B2F0B6;
+  font-size: 1rem;
+  font-weight: 500;
+  gap: 5px;
+}
+
+.postingChallengeRightSideContent {
+  flex: 1;
+  display: flex;
+  justify-content: end; 
+  position: relative;
+}

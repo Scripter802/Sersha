@@ -1,0 +1,73 @@
+.registerHeaderWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.registerHeaderRightSide {
+    display: flex;
+    gap: 0.625rem;
+    color: #FFFFFF;
+    align-items: center;
+}
+
+.registerButton {
+    color: #FFB496;
+    cursor: pointer;
+}
+
+.registerHeaderRightSide img {
+    width: 24px;
+    height: 24px;
+}
+
+.registerFormWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+.registerFormWrapper h1 {
+    color: #FFFFFF;
+    margin-block: 2.5rem;
+}
+
+.registerFormWrapper label {
+    display: flex;
+    flex-direction: column;
+}
+
+.regFormWrapper {
+    width: 80%;
+}
+
+.namesFieldWrapper, .agePhoneWrapper, .passwordWrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.25rem;
+}
+
+.parentName input, .childName input, .childAge input, .phone input, .regPassword input, .regRePassword input {
+    width: 100%;
+    background: transparent;
+    border: 1px solid #FFB496;
+    height: 50px;
+    border-radius: 30px 30px;
+    color: #FFB496;
+    font-size: 1rem;
+    padding-inline: 1.5rem;
+}
+
+.regBtn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px 30px;
+    border: 0px;
+    background: #FFFFFF;
+    height: 50px;
+}
+

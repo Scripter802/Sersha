@@ -8,7 +8,7 @@ const Header = () => {
 
   return (
     <div className='headerWrapper'>
-        <div className='logo' ><img src={logo} className='logo' alt="logo" /></div>
+        <div className='logo' ><img src={logo} className='logoImg' alt="logo" /></div>
         <div className='navigationWrapper'>
             <div className='map'><img src={map} alt="map" /></div>
             <div className='game'><img src={game} alt="game" /></div>

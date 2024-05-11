@@ -2,6 +2,7 @@
 
 *{
   font-family: "Baloo 2", sans-serif;
+  font-weight: 500;
 }
 
 body {
@@ -11,7 +12,7 @@ body {
   background-color: black;
 }
 
-/* QUIZZES */
+/* QUIZZES *//* QUIZZES *//* QUIZZES *//* QUIZZES *//* QUIZZES *//* QUIZZES */
 
 .inventory {
   display: flex;
@@ -90,7 +91,7 @@ body {
 
 
 
-/* FOOTER */
+/* FOOTER *//* FOOTER *//* FOOTER *//* FOOTER *//* FOOTER *//* FOOTER */
 
 .footer {
   display: flex;
@@ -105,4 +106,148 @@ body {
   align-items: center;
   gap: .75rem;
   color: #FFB496;
+}
+
+/* SIGN IN UP PAGE*//* SIGN IN UP PAGE*//* SIGN IN UP PAGE*//* SIGN IN UP PAGE*//* SIGN IN UP PAGE*/
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  color: #FFB496;
+  gap: .625rem;
+}
+
+label > input {
+  background: transparent;
+  border: 1px solid #FFB496;
+  height: 50px;
+  border-radius: 30px 30px;
+  color: #FFB496;
+  font-size: 1rem;
+  padding-inline: 1.5rem;
+}
+
+.footerWrapper {
+  width: 50%;
+  position: absolute;
+  bottom: 0;
+}
+
+
+/* MINI-GAMES *//* MINI-GAMES *//* MINI-GAMES *//* MINI-GAMES *//* MINI-GAMES */
+
+.gameResult {
+  display: flex;
+  flex-direction: column;
+  gap: .625rem;
+}
+
+.correctAnswered {
+  display: flex;
+  align-items: center;
+  color: #B2F0B6;
+  width: fit-content;
+}
+
+.incorrectAnswered {
+  display: flex;
+  align-items: center;
+  color: #FFB6B6;
+  width: fit-content;
+}
+
+.correctAnswered > img, .incorrectAnswered > img {
+  padding-right: .3125rem;
+}
+
+.gameDescription {
+  position: absolute;
+  bottom: 0;
+  width: 200px;
+  color: #FFF;
+}
+
+.foxWrap {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}
+
+.foxTought {
+  position: absolute;
+  right: 1.5rem;
+  z-index: 1;
+}
+
+.foxTextTought {
+  position: absolute;
+  right: .75rem;
+  top: .6rem;
+  font-size: 19px;
+  z-index: 10;
+  width: 130px;
+  height: 68px;
+  color: #FFB496;
+  line-height: 19px;
+}
+
+.gamePad {
+  position: absolute;
+  bottom: 10%;
+  right: 0;
+  transform: translate(-50%, -50%);
+  width: 35px;
+  line-height: 35px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 32px;
+  color: #ffffff;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to { 
+    transform: rotate(360deg);
+  }
+}
+ 
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to { 
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.gameTimeCirkle {
+  position: absolute;
+  bottom: 10%;
+  right: 0;
+  width: 70px;
+  height: 70px;
+  margin: 50px auto 0;
+  border:solid 3px #ffffff;
+  border-radius: 50%;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  -webkit-transition: all 0.5s ease-in;
+  -webkit-animation-name:             rotate; 
+  -webkit-animation-duration:         1.0s; 
+  -webkit-animation-iteration-count:  infinite;
+  -webkit-animation-timing-function: linear;
+  transition: all 0.5s ease-in;
+  animation-name:             rotate; 
+  animation-duration:         1.0s; 
+  animation-iteration-count:  infinite;
+  animation-timing-function: linear;        
 }

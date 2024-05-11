@@ -60,6 +60,26 @@ const FoxCustomization = () => {
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
+      <div className='ovalOne'></div>
+      <div className='ovalTwo'></div>
+      <div className='ovalThree'></div>
+      <div className='ovalFour'></div>
+      <div className='ovalFive'></div>
+      <div className='ovalSix'></div>
+      <div className='ovalSeven'></div>
+      <div className='ovalEight'></div>
+      <div className='ovalNine'></div>
+      <div className='ovalTen'></div>
+      <div className='ovalEleven'></div>
+      <div className='ovalTwelve'></div>
+      <div className='maskOne'></div>
+      <div className='maskTwo'></div>
+      <div className='back'></div>
+      <div className='maskThree'></div>
+      <div className='rectangleOne'></div>
+      <div className='rectangleTwo'></div>
+      <div className='rectangleThree'></div>
+      <div className='rectangleFour'></div>
     </div>
   )
 }

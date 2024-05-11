@@ -1,9 +1,8 @@
 .rightAnswerQuizWrapper {
     display: flex;
     flex-direction: column;
-
-    background: rgb(146,37,70);
-    background: linear-gradient(0deg, rgba(146,37,70,1) 0%, rgba(60,29,50,1) 50%, rgba(47,32,47,1) 100%); 
+    background-image: url('../../assets/images/quiz/quizBackground.png');
+    background-size: cover;
     position: relative;
     border-radius: 30px 30px;
     min-height: 100vh;

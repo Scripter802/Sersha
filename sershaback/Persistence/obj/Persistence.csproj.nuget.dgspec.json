@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj": {}
+    "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj": {}
   },
   "projects": {
-    "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj": {
+    "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
+        "projectUniqueName": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\jelen\\.nuget\\packages\\",
-        "outputPath": "D:\\projekti\\Sersha\\sershaback\\Domain\\obj\\",
+        "projectPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\Dimit\\.nuget\\packages\\",
+        "outputPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\jelen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Dimit\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -51,8 +54,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -61,21 +63,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj": {
+    "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj",
+        "projectUniqueName": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "D:\\projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj",
-        "packagesPath": "C:\\Users\\jelen\\.nuget\\packages\\",
-        "outputPath": "D:\\projekti\\Sersha\\sershaback\\Persistence\\obj\\",
+        "projectPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj",
+        "packagesPath": "C:\\Users\\Dimit\\.nuget\\packages\\",
+        "outputPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\jelen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Dimit\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -89,8 +94,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj": {
-                "projectPath": "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj"
+              "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj": {
+                "projectPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj"
               }
             }
           }
@@ -136,8 +141,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -146,7 +150,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

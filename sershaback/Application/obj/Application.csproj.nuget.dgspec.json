@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Application\\Application.csproj": {}
+    "D:\\projekti\\Sersha\\sershaback\\Application\\Application.csproj": {}
   },
   "projects": {
-    "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Application\\Application.csproj": {
+    "D:\\projekti\\Sersha\\sershaback\\Application\\Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Application\\Application.csproj",
+        "projectUniqueName": "D:\\projekti\\Sersha\\sershaback\\Application\\Application.csproj",
         "projectName": "Application",
-        "projectPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Application\\Application.csproj",
-        "packagesPath": "C:\\Users\\Dimit\\.nuget\\packages\\",
-        "outputPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Application\\obj\\",
+        "projectPath": "D:\\projekti\\Sersha\\sershaback\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\jelen\\.nuget\\packages\\",
+        "outputPath": "D:\\projekti\\Sersha\\sershaback\\Application\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Dimit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jelen\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -31,11 +28,11 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj": {
-                "projectPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj"
+              "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj"
               },
-              "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj": {
-                "projectPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj"
+              "D:\\projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj": {
+                "projectPath": "D:\\projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj"
               }
             }
           }
@@ -49,13 +46,28 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "FluentValidation.AspNetCore": {
+              "target": "Package",
+              "version": "[11.3.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Microsoft.Data.Sqlite.Core": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -64,24 +76,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj": {
+    "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\Dimit\\.nuget\\packages\\",
-        "outputPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\obj\\",
+        "projectPath": "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\jelen\\.nuget\\packages\\",
+        "outputPath": "D:\\projekti\\Sersha\\sershaback\\Domain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Dimit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jelen\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -106,13 +115,20 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.Data.Sqlite.Core": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -121,24 +137,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj": {
+    "D:\\projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj",
+        "projectUniqueName": "D:\\projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj",
-        "packagesPath": "C:\\Users\\Dimit\\.nuget\\packages\\",
-        "outputPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Persistence\\obj\\",
+        "projectPath": "D:\\projekti\\Sersha\\sershaback\\Persistence\\Persistence.csproj",
+        "packagesPath": "C:\\Users\\jelen\\.nuget\\packages\\",
+        "outputPath": "D:\\projekti\\Sersha\\sershaback\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Dimit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jelen\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -152,8 +165,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj": {
-                "projectPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj"
+              "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj"
               }
             }
           }
@@ -167,13 +180,40 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.Data.Sqlite.Core": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.15, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[3.1.15, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite.Core": {
+              "target": "Package",
+              "version": "[3.1.15, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[3.1.15, )"
+            },
+            "SQLitePCLRaw.provider.e_sqlite3": {
+              "target": "Package",
+              "version": "[*, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -182,7 +222,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -92,10 +92,10 @@
     .customizationBackground {
         background-image: url('../../assets/images/customization/background.png');
         background-size: cover;
+        background-position: center;
         margin-bottom: 4rem;
         border-radius: 0 0 30px 30px;
         padding-top: 4rem;
-    
     }
 
     .titleWrapper {

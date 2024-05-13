@@ -5,9 +5,13 @@ import { useState } from 'react'
 import Popup from '../../components/Popup.jsx'
 import NewMessage from '../../components/Dm/NewMessage.jsx'
 import AnswersMsg from '../../components/Dm/AnswersMsg.jsx'
-
+import { useGlobalContext } from '../../context/context.jsx'
+import userpic from '../../assets/images/dms/userpick.png'
+import backButton from '../../assets/images/dms/backbuttonResponsive.png'
 
 const Dm = () => {
+  const {selectedMessagePreview, setSelectedMessagePreview} = useGlobalContext()
+
   const messages = [
     {
       avatar: avatar,
@@ -24,37 +28,50 @@ const Dm = () => {
     {
       avatar: avatar,
       name: 'Nicky',
-      message: 'What iconic bridge connects the boroughs …'
+      message: 'What iconic bridge connects the boroughs …',
+      answer: ["It was alright, nothing too exiciting", "Decent, just another day"],
+
     },
     {
       avatar: avatar,
       name: 'Sam',
-      message: 'What iconic bridge connects the boroughs …'
+      message: 'What iconic bridge connects the boroughs …',
+      answer: ["Pretty good, can't complain", "It was alright", "Decent, just another day"],
+
     },
   ]
 
   const [message, setMessage] = useState(`${messages[0].name}`);
   const [answer, setAnswer] = useState()
   console.log(answer)
-  
+
+  const [selectedMessage, setSelectedMessage] = useState(messages[0]);
 
   return (
     <div className='dmsWrapper'>
 
       <div className='dmsContainer'>
-        <div className='newMsgWrapper'>
-          <NewMessage messages={messages}/>
+        <div className={`${window.innerWidth < 1000 && selectedMessagePreview === true ? 'responsiveNewMsgWrapper' : 'newMsgWrapper'}`}>
+          <NewMessage messages={messages} onSelectMessage={setSelectedMessage} setSelectedMessagePreview={setSelectedMessagePreview} setAnswer={setAnswer} />
         </div>
+
+        {window.innerWidth < 1000 && selectedMessagePreview === true && (
+          <div className='responsiveSingleMessageHeader'>
+            <div><img src={userpic} alt="backbutton" /></div>
+            <div><p>{selectedMessage.name}</p></div>
+            <div><img src={backButton} alt="backbutton" className='resHeaderAvatarImg' /></div>
+          </div>
+        )}
         
-        <div className='msgPreview'>
+        <div className={`${window.innerWidth < 1000 && selectedMessagePreview === true ? 'responsiveMsgPreview' : 'msgPreview'}`}>
           <div className='receivedMsg'>
-            <img src={messages[0].avatar} alt="" />
-            {messages[0].message}
+            <img src={selectedMessage?.avatar} alt="" />
+            {selectedMessage?.message}
           </div>
           {!answer ? <h5>Answer options</h5> : '' }
           
           <div>
-            <AnswersMsg messages={messages} message={message} answer={answer} setAnswer={setAnswer} />
+            <AnswersMsg selectedMessage={selectedMessage} answer={answer} setAnswer={setAnswer} selectedMessagePreview={selectedMessagePreview} />
           </div>
         </div>
       </div>

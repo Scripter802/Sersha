@@ -39,9 +39,9 @@ const Dm = () => {
   
 
   return (
-    <div className='customizationWrapper'>
+    <div className='dmsWrapper'>
 
-      <div className='dmsWrapper'>
+      <div className='dmsContainer'>
         <div className='newMsgWrapper'>
           <NewMessage messages={messages}/>
         </div>

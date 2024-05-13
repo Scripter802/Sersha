@@ -1,13 +1,15 @@
-.customizationWrapper {
+.dmsWrapper {
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
     background-image: url('../../assets/images/dms/dmsBackground.png');
+    background-size: cover;
     position: relative;
     border-radius: 30px 30px;
     overflow-y: hidden;
 }
 
-.dmsWrapper {
+.dmsContainer {
     display: flex;
     justify-content: center;
     margin-top: 3.125rem;
@@ -115,4 +117,8 @@
 .answer img {
     width: 40px;
     height: 40px;
+}
+
+@media only screen and (max-width: 480px) { 
+    
 }

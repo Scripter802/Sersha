@@ -6,6 +6,7 @@
     position: relative;
     border-radius: 30px 30px;
     min-height: 100vh;
+    margin-bottom: 50px;
 }
 
 .postWrapper {   
@@ -43,4 +44,56 @@
 
 .postBy P {
     margin-left: .5rem;
+}
+
+@media only screen and (max-width: 480px) {
+    html {
+        position: relative;
+    }
+    
+    .homePageWrapper {
+        background-color: hsl(0, 0%, 0%);
+    }
+
+    .homePageContainer {
+        background-image: url('../../assets/images/home/homePageBackground.png');
+        border-radius: 0 0 30px 30px;
+        background-position-x: center;
+    }
+
+    .posts {
+        flex-direction: column;
+        padding-block: 2rem;
+        border-radius: 0 0 30px 30px;
+        background-position: center;
+        height: 100%;
+        margin-bottom: 4.5rem;
+        padding-top: 5rem;
+    }
+
+    .postWrapper {
+        width: 90%;
+        margin-block: .5rem;
+        padding-block: 0;
+        gap: 1rem;
+    }
+
+    .postImg, .postTitle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-inline: 1rem;
+        padding-block: 0;
+        color: #FFB496;
+    }
+
+    .postTitle {
+        padding-top: 1rem;
+    }
+
+    .postLikeWrapper {
+        padding-block: 0;
+        padding-bottom: 1rem;
+    }
+    
 }

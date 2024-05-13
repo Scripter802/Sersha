@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "2qJyVNz/9F71HUKD18MO9l0EvIFetWPT6koIDdd21n5atPHI0ilxTdXOOW2mY2OtxuoqOhl8g2ofLq1jhCvv5g==",
+  "dgSpecHash": "GiR/zMow0hapu65XGvDxFCw8bV1AxI34mhO1v861XrIBVm3CCYWLLFsKd4Wu77I+FhUbN6vezy4ysTKZ869vsg==",
   "success": true,
-  "projectFilePath": "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
+  "projectFilePath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\jelen\\.nuget\\packages\\microsoft.data.sqlite.core\\8.0.4\\microsoft.data.sqlite.core.8.0.4.nupkg.sha512",
-    "C:\\Users\\jelen\\.nuget\\packages\\sqlitepclraw.core\\2.1.6\\sqlitepclraw.core.2.1.6.nupkg.sha512",
-    "C:\\Users\\jelen\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
+    "C:\\Users\\Dimit\\.nuget\\packages\\microsoft.data.sqlite.core\\8.0.4\\microsoft.data.sqlite.core.8.0.4.nupkg.sha512",
+    "C:\\Users\\Dimit\\.nuget\\packages\\sqlitepclraw.core\\2.1.6\\sqlitepclraw.core.2.1.6.nupkg.sha512",
+    "C:\\Users\\Dimit\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512"
   ],
   "logs": []
 }

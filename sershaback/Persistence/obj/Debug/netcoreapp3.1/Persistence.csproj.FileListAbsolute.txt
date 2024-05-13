@@ -27,3 +27,6 @@ D:\projekti\Sersha\sershaback\Persistence\obj\Debug\netcoreapp3.1\Persistence.pd
 D:\projekti\Sersha\sershaback\Persistence\bin\Debug\netcoreapp3.1\Persistence.runtimeconfig.json
 D:\projekti\Sersha\sershaback\Persistence\bin\Debug\netcoreapp3.1\Persistence.runtimeconfig.dev.json
 D:\projekti\Sersha\sershaback\Persistence\obj\Debug\netcoreapp3.1\Persistence.genruntimeconfig.cache
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\bin\Debug\netcoreapp3.1\Persistence.runtimeconfig.json
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\bin\Debug\netcoreapp3.1\Persistence.runtimeconfig.dev.json
+E:\Udruzenje\Projekti\Sersha\sershaback\Persistence\obj\Debug\netcoreapp3.1\Persistence.genruntimeconfig.cache

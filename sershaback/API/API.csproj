@@ -1,15 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\Application\Application.csproj"/>
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.4"/>
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="8.0.4"/>
+    <PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.8"/>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
+    <PackageReference Include="Newtonsoft.Json" Version="*"/>
+  </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-  </ItemGroup>
-
-
 </Project>

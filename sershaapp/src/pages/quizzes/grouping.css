@@ -1,0 +1,161 @@
+.GroupingQuizWrapper {
+    display: flex;
+    flex-direction: column;
+    background-image: url('../../assets/images/quiz/quizBackground.png');
+    background-size: cover;
+    position: relative;
+    border-radius: 30px 30px;
+    min-height: 100vh;
+    padding-top: 2.95rem;
+}
+
+.GroupingQuizTitleWrapper {
+    display: flex;
+    justify-content: space-evenly;
+    margin-inline: 9rem;
+}
+
+.GroupingQuizTitle {
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    gap: 0.625rem;
+}
+
+.groupingWrapper {
+    background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+    height: fit-content;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 20px 20px;
+}
+
+.groupingWrapper h5 {
+    margin-top: .95rem;
+}
+
+.groupingAsignmentTitle, .words {
+    color: rgb(255, 180, 150);
+}
+
+
+.groupingDropBoxesWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.groupingDropBoxes {
+    display: flex;
+    grid-template-columns: auto auto;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    border-radius: 20px 20px;
+    padding: 1rem;
+}
+
+.fruitDropBoxes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+    border-radius: 20px 20px;
+    padding: 1rem;
+}
+
+.vegetableDropBoxes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+    border-radius: 20px 20px;
+    padding: 1rem;
+}
+
+
+.groupingDropBoxes img {
+    height: 40px;
+    width: auto;
+}
+
+.groupingDropBoxesTitles {
+    display: grid;
+    grid-template-columns: auto auto;
+    -ms-grid-column-align: center;
+    align-items: center;
+}
+
+.groupingDropBoxesTitles h5:last-child {
+    margin-left: 6rem;
+}
+
+
+
+.groupingOfferedAnswerWrapper {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 0.315rem;
+    flex-wrap: wrap;
+    width: 100%;
+    color: #ffffff;
+    cursor: pointer;
+    margin-top: 1rem;
+
+}
+
+.groupingOfferedAnswerDropped {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    height: 40px;
+    width: fit-content;
+    gap: 0.315rem;
+    background: #C26F4D;
+    border-radius: 20px 20px;
+    padding: .75rem;
+    margin-block: .315rem;
+    cursor: pointer;
+
+}
+
+.dropBox {
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border-radius: 20px 20px;
+  width: 180px;
+  height: 40px;
+  margin-block: .315rem;
+  cursor: pointer;
+  text-align: center;
+  border: 1px dashed #FFB496;
+  color: #FFB496;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.groupingFinished {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 40px;
+    width: fit-content;
+    color: #000000;
+    background-color: #ffffff;
+    border-radius: 20px 20px;
+    padding: .75rem;
+}

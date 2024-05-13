@@ -1,0 +1,118 @@
+.customizationWrapper {
+    display: flex;
+    justify-content: space-evenly;
+    background-image: url('../../assets/images/dms/dmsBackground.png');
+    position: relative;
+    border-radius: 30px 30px;
+    overflow-y: hidden;
+}
+
+.dmsWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 3.125rem;
+    gap: 2rem;
+}
+
+.newMsgWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+}
+
+.msgWrapper {
+    display: flex;
+    align-items: center;
+    width: 400px;
+    background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+    border-radius: 20px 20px;
+    padding: 1.25rem;
+    color: white;
+}
+
+.msgWrapper img {
+    width: 40px;
+    height: 40px;
+    margin-right: .9rem;
+}
+
+.msgWrapper p {
+    color: #FFB496;
+    cursor: pointer;
+}
+
+.msgPreview {
+    width: 500px;
+    height: 520px;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+    color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 20px 20px;
+}
+
+.receivedMsg {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    gap: 1rem;
+    
+    background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+    border-radius: 20px 20px;
+    padding: 1rem;
+}
+
+.msgPreview h5 {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #FFB496;
+    margin-block: 1.5rem;
+    margin-left: 1rem;
+}
+
+.receivedMsg img {
+    width: 40px;
+    height: 40px;
+}
+
+.possibleAnswers {
+    background: #C26F4D;
+    color: #ffffff;
+    border-radius: 20px 20px;
+    width: fit-content;
+    padding: .75rem;
+    margin-block: .315rem;
+    cursor: pointer;
+}
+
+.possibleAnswers:hover {
+    background: #EBCBBE;
+    color: #000000;
+}
+
+.answerWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    color: #ffffff;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.answer {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    background: #C26F4D30;
+    border-radius: 20px 20px;
+    padding: .75rem;
+    margin-block: .315rem;
+    padding-right: 1.875rem;
+    gap: 1rem;
+}
+
+.answer img {
+    width: 40px;
+    height: 40px;
+}

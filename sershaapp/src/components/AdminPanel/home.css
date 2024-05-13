@@ -1,0 +1,9 @@
+.tabsWrapper {
+    position: relative;
+    width: calc(100vw - 290px);
+    background-image: url('../../assets/images/customization/fox.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+    
+}

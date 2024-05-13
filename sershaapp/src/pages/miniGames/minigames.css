@@ -1,0 +1,151 @@
+
+
+.miniGamesWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: calc(100vh - 86px);
+  
+
+}
+
+.contentWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 40vw;
+  height: 80%;
+}
+
+.top-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-40%, -10%);
+}
+.top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(30%, -10%);
+}
+.bottom-left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transform: translate(-15%, 35%);
+}
+.bottom-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(20%, 30%);
+}
+
+.gameContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.gameContent > h1 {
+  color: #FFF;
+  font-size: 34px;
+}
+
+.gameContent > p {
+  color: #FFB496;
+}
+
+.startGameButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px 30px;
+  padding: .5rem;  
+  width: 122px;
+  height: 54px;
+  margin-top: 30px;
+}
+
+.footerGames {
+  width: 80%;
+  position: absolute;
+  bottom: 0;
+}
+
+/* Rectangle */
+.rectangle {
+  box-sizing: border-box;
+  
+  position: absolute;
+  width: 230px;
+  height: 167px;
+  left: -10%;
+  top: 30%;
+  
+  mix-blend-mode: normal;
+  opacity: 0.2;
+  border: 1.15px solid #C26F4D;
+  border-radius: 11.4657px;
+  transform: rotate(-36deg);
+}
+
+
+/* Rectangle */
+.rectangle-1 {
+  box-sizing: border-box;
+  
+  position: absolute;
+  width: 230px;
+  height: 167px;
+  right: -1rem;
+  top: 55%;
+  
+  mix-blend-mode: normal;
+  opacity: 0.2;
+  border: 1.15px solid #C26F4D;
+  border-radius: 11.4657px;
+  transform: rotate(-36deg);
+}
+
+
+/* Rectangle */
+.rectangle-2 {
+  box-sizing: border-box;
+  
+  position: absolute;
+  width: 198px;
+  height: 144px;
+  left: 63.08px;
+  top: 50%;
+  
+  mix-blend-mode: normal;
+  opacity: 0.2;
+  border: 0.991617px solid #C26F4D;
+  border-radius: 9.8866px;
+  transform: rotate(-11deg);
+
+}
+
+
+/* Rectangle */
+.rectangle-3 {
+  box-sizing: border-box;
+  
+  position: absolute;
+  width: 198px;
+  height: 144px;
+  right: 5%;
+  top: 25%;
+  
+  mix-blend-mode: normal;
+  opacity: 0.2;
+  border: 0.991617px solid #C26F4D;
+  border-radius: 9.8866px;
+  transform: rotate(14deg);
+}

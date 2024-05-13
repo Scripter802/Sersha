@@ -1,0 +1,83 @@
+.healthBarWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 130px;
+    border: 2px solid #C26F4D;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border-left: 0;
+    padding: .25rem;
+}
+
+.healthBar {
+    position: relative;
+    width: 100%;
+    height: 24px;
+    border-radius: 20px;
+    z-index: 0;
+}
+
+.healthBarEmpty {
+    position: absolute;
+    width: 100%;
+    height: 24px;
+    border-radius: 20px;
+    background-color: #C26F4D;
+    z-index: 0;
+    top: 0;
+}
+
+.separator {
+    border: 1px solid #F66616;
+    position: absolute;
+    left: 20%;
+    top: 0;
+    height: 100%;
+    z-index: 100;
+}
+
+.separatorTwo {
+    border: 1px solid #F66616;
+    position: absolute;
+    left: 40%;
+    top: 0;
+    height: 100%;
+    z-index: 100;
+}
+
+.separatorThree {
+    border: 1px solid #F66616;
+    position: absolute;
+    left: 60%;
+    top: 0;
+    height: 100%;
+    z-index: 100;
+}
+
+.separatorFour {
+    border: 1px solid #F66616;
+    position: absolute;
+    left: 80%;
+    top: 0;
+    height: 100%;
+    z-index: 100;
+}
+
+.healthBarFill {
+    position: relative;
+    height: 100%;
+    background: linear-gradient(270deg, #CE3D21 0%, #922627 181.92%);
+    z-index: 10;
+}
+
+.evilFoxHealth img{
+    position: absolute;
+    left: -40px;
+    top: -.50rem;
+    border: 2px solid #C26F4D;
+    border-radius: 50%;
+    padding: .15rem;
+    
+}

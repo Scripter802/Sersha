@@ -1,12 +1,11 @@
 .customizationWrapper {
     display: flex;
     flex-direction: column;
-    background: rgb(146,37,70);
-    background: linear-gradient(0deg, rgba(146,37,70,1) 0%, rgba(60,29,50,1) 50%, rgba(47,32,47,1) 100%); 
-    
     position: relative;
     border-radius: 30px 30px;
     min-height: 100%;
+    background-image: url('../../assets/images/customization/background.png');
+    background-size: cover;
 }
 
 .titleWrapper {
@@ -44,17 +43,4 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-}
-
-.footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 2rem 4rem;
-}
-
-.madeWith {
-    display: flex;
-    align-items: center;
-    gap: .75rem;
 }

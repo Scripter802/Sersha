@@ -1,0 +1,118 @@
+.snapJudgmentGameWrapper {
+  display: flex;
+  flex-direction: column;
+  background-image: url('../../../assets/images/miniGames/miniGamesBackground.png');
+  background-size: cover;
+  position: relative;
+  border-radius: 30px 30px;
+  min-height: 100vh;
+  padding-top: 2.95rem;
+}
+
+.snapJudgmentTitleWrapper {
+  display: flex;
+  width: 960px;
+  justify-content: space-between;
+  margin: 0 auto;
+  margin-bottom: 1.875rem;
+}
+
+.snapJudgmentTitle {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  gap: 0.625rem;
+}
+
+.snapAnswersNumber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.315rem;
+}
+
+.snapAnswersNumber > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #C26F4D;
+  color: #FBA07A;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.snapGameWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.snapGameContainer {
+  display: flex;
+  width: 960px;
+  height: 457px;
+  background-image: url(../../../assets/images/miniGames/snapJudgment/snapJudgmentCardBackground.png);
+  padding: 40px;
+}
+
+.snapLeftSideContent {
+  position: relative;
+  flex: 1;
+}
+
+.snapMiddleContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.snapGameCard {
+  width: 206px;
+  height: 293px;
+  background: #FFF;
+  border-radius: 20px 20px;
+  box-shadow: 25px 30px 45px 0px #00000031;
+
+}
+
+.snapProfilePhoto {
+  border-radius: 20px 20px;
+}
+
+.snapProfileName {
+  font-size: 12px;
+  padding-inline: 25px;
+}
+
+.snapPostText {
+  font-size: 1rem;
+  padding-inline: 25px;
+  color: #000;
+}
+
+.snapOptionAnswers {
+  width: 206px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.875rem;
+}
+
+.snapOptionAnswers > img {
+  width: 40px;
+  height: 40px;
+}
+
+.neutralAnswer {
+  margin-top: .95rem;
+}
+
+.snapRightSideContent {
+  flex: 1;
+  display: flex;
+  justify-content: end; 
+  position: relative;
+}
+

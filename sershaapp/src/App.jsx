@@ -21,10 +21,13 @@ import EmojiEmotions from './pages/miniGames/emojiEmotions/EmojiEmotions.jsx'
 import FriendOrFoe from './pages/miniGames/friendOrFoe/FriendOrFoe.jsx'
 import PostingChallenge from './pages/miniGames/postingChallenge/PostingChallenge.jsx'
 import SnapJudgment from './pages/miniGames/snapJudgment/SnapJudgment.jsx'
+import { useGlobalContext } from './context/context.jsx'
 
 
 
 const App = () => {
+  const {selectedMessagePreview} = useGlobalContext()
+
   const router = createBrowserRouter([
     {
       path: '/signin-up',
@@ -84,11 +87,11 @@ const App = () => {
     }
   ]);
 
-  console.log(window.location.pathname)
+  console.log(selectedMessagePreview)
 
   return (
     <DndProvider backend={HTML5Backend}>
-     {window.location.pathname !== "/admin" && window.location.pathname !== "/signin-up" && <Header /> }
+     {window.location.pathname !== "/admin" && window.location.pathname !== "/signin-up" && (window.innerWidth < 1000 && selectedMessagePreview === false) && <Header /> }
       <RouterProvider router={router} />
     </DndProvider>
   )

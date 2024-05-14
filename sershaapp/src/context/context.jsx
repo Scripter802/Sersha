@@ -63,6 +63,13 @@ const [logShowPassword, setLogShowPassword] = useState(false);
 
 /* _______________________________________________________________________________ */
 
+
+/* DMS  *//* DMS  *//* DMS  *//* DMS  *//* DMS  *//* DMS  *//* DMS  *//* DMS  *//* DMS  */
+
+
+  const [selectedMessagePreview, setSelectedMessagePreview] = useState(false);
+
+
   return (
     <AppContext.Provider 
       value={{
@@ -104,6 +111,8 @@ const [logShowPassword, setLogShowPassword] = useState(false);
         setRegisterValidate,
         registerShowPassword,
         setRegisterShowPassword,
+        selectedMessagePreview,
+        setSelectedMessagePreview,
       }}
       >
         {children}

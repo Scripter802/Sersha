@@ -29,9 +29,13 @@ const HomePage = () => {
   ]
 
   return (
-    <div className='posts'>
-      <Posts posts={posts} />
-    </div>
+    <div className='homePageWrapper'>
+      <div className='homePageContainer'>
+        <div className='posts'>
+          <Posts posts={posts} />
+        </div>
+      </div>
+      </div>
   )
 }
 

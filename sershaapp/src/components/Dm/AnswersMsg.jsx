@@ -1,19 +1,19 @@
-import React from 'react'
+import userpic from '../../assets/images/dms/userpick.png'
+import backButton from '../../assets/images/dms/backbuttonResponsive.png'
 
-const AnswersMsg = ({ messages, message, answer, setAnswer }) => {
+const AnswersMsg = ({ selectedMessage, answer, setAnswer, selectedMessagePreview }) => {
   return (
     <>
-        {messages.map(msg => (
-            message === msg.name && !answer ? msg.answer?.map(ans => (
+        {selectedMessage?.answer.map(ans => (
+          !answer && (
               <div className='possibleAnsWrapper' onClick={() => setAnswer(`${ans}`)}>
                 <p className='possibleAnswers'>{ans}</p>
-              </div>
-            )) : ``
+              </div> )
             ))}
             {answer ?
             <div className='answerWrapper'>
               <div className='answer'>
-                <img src={messages[0].avatar} alt="" />
+                <img src={selectedMessage?.avatar} alt="" />
                 {answer ? `${answer}` : ''}
               </div>
             </div> : ''

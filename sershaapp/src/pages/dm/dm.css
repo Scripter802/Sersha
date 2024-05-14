@@ -1,13 +1,15 @@
-.customizationWrapper {
+.dmsWrapper {
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
     background-image: url('../../assets/images/dms/dmsBackground.png');
+    background-size: cover;
     position: relative;
     border-radius: 30px 30px;
     overflow-y: hidden;
 }
 
-.dmsWrapper {
+.dmsContainer {
     display: flex;
     justify-content: center;
     margin-top: 3.125rem;
@@ -115,4 +117,119 @@
 .answer img {
     width: 40px;
     height: 40px;
+}
+
+@media only screen and (max-width: 480px) { 
+    .dmsWrapper {
+        margin-bottom: 4rem;
+        background-image: none;
+        border-radius: 0;
+    }
+    
+    .dmsContainer {
+        background-image: url('/src/assets/images/dms/dmsBackground.png');
+        background-size: cover;
+        margin-top: 0;
+        background-position: center;
+        border-radius: 0 0 30px 30px;
+    }
+
+    .msgPreview {
+        display: none;
+    }
+
+    .responsiveMsgPreview {
+        display: flex;
+        width: 500px;
+        height: 520px;
+        display: flex;
+        flex-direction: column;
+        color: #ffffff;
+        padding: 2.5rem;
+        border-radius: 20px 20px;
+     }
+
+    .newMsgWrapper {
+        align-items: center;
+        width: 100%;
+        padding-top: 4rem;
+        margin-bottom: 4rem;
+        
+    }
+
+    .responsiveNewMsgWrapper {
+        align-items: center;
+        width: 100%;
+        padding-top: 4rem;
+        margin-bottom: 4rem;
+        display: none;
+    }
+    
+    .msgWrapper {
+        width: 90%;
+    }
+    
+    .msgWrapper img {
+        width: 35px;
+        height: 35px;
+        margin-right: .9rem;
+    }
+    
+    .msgWrapper p {
+        font-size: 17px;
+    }
+
+    .msgShortPreview {
+        display: flex;
+        flex-direction: column;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 100%;
+        display: inherit;
+    }
+
+    .responsiveSingleMessageHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row-reverse;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: .5rem 1rem;
+        color: #FFF;
+        font-size: 23px;
+    }
+
+    .responsiveSingleMessageHeader div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .resHeaderAvatarImg {
+        width: 45px;
+        height: 45px;
+    }
+
+    .receivedMsg {
+        width: 100%;
+        margin-top: 2rem;
+        background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+    }
+
+    .receivedMsg img {
+        display: none;
+    }
+
+    .receivedMsg h5 {
+        padding-top: 1.5rem;
+        font-size: 12px;
+    }
+
+    .possibleAnswers {
+        height: 45px;
+    }
 }

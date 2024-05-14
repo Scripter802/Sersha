@@ -36,11 +36,122 @@
 .itemSlider {
     display: flex;
     justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 }
 
 .singleImg {
-    width: 80%;
+    width: auto;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+}
+
+.sliderLeftButton, .sliderRightButton {
+    background: transparent;
+    border: 0;
+}
+
+.sliderControls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.sliderLeftButton {
+    position: absolute;
+    left: 0;
+    bottom: 20px;
+}
+
+.sliderRightButton {
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+}
+
+.tinySlidWrapper {
+    width: 95vw;
+}
+
+@media only screen and (max-width: 480px) {
+    
+    .customizationWrapper {
+        flex-direction: column;
+        background: #000;
+        position: relative;
+        padding-bottom: 1rem;
+    }
+    
+    .customizationBackground {
+        background-image: url('../../assets/images/customization/background.png');
+        background-size: cover;
+        background-position: center;
+        margin-bottom: 4rem;
+        border-radius: 0 0 30px 30px;
+        padding-top: 4rem;
+    }
+
+    .titleWrapper {
+        justify-content: center;
+    }
+    
+    .title {
+        display: none;
+    }
+    
+    .customizeOptions {
+        gap: 1.35rem;
+    }
+
+    .customizeOptions > img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .foxTopPart {
+        width: 90px;
+        height: 90px;
+        position: relative;
+        left: 4rem;
+        top: 3rem;
+    }
+
+    .foxMiddle {
+        width: 280px;
+        height: 280px;
+    }
+
+    .foxBottomPart {
+        width: 90px;
+        height: 90px;
+        position: relative;
+        right: 3.5rem;
+        top: 3rem;
+    }
+
+    .singleImg {
+        gap: 0.5rem;
+        width: 50%;
+    }
+    
+    .singleImg > div > img {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .tinySlidWrapper {
+        width: 100%;
+    }
+
+    .sliderControls {
+        display: none;
+    }
+    
 }

@@ -251,3 +251,12 @@ label > input {
   animation-iteration-count:  infinite;
   animation-timing-function: linear;        
 }
+
+@media only screen and (max-width: 480px) {
+ .footerWrapper {
+    display: none;
+ } 
+ .footer {
+    display: none;
+ } 
+}

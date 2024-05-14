@@ -48,7 +48,7 @@ namespace API
 
             services.AddControllers();
             
-            services.AddSwaggerGen();
+            //services.AddSwaggerGen();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo{
@@ -56,6 +56,8 @@ namespace API
                     Title = "Implement Swagger UI",
                     Description = "A simple example to Implement Swagger UI",
                 });
+                
+                c.CustomSchemaIds(x => x.FullName.Replace("+", "."));
             });
 
             services.AddMvc()

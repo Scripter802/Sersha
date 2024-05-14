@@ -2,7 +2,7 @@
   "version": 2,
   "dgSpecHash": "ZneXPgk5qWxuPVULnY8D+715FgFLGPuAwUbbKDdlysaX3rqf5IO+C4TYHyIpVmpZwkzOskhh6E7SlKYqCG56OA==",
   "success": true,
-  "projectFilePath": "D:\\projekti\\Sersha\\sershaback\\Application\\Application.csproj",
+  "projectFilePath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Application\\Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jelen\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
     "C:\\Users\\jelen\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",

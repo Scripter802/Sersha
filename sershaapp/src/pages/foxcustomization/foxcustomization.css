@@ -93,9 +93,9 @@
         background-image: url('../../assets/images/customization/background.png');
         background-size: cover;
         background-position: center;
-        margin-bottom: 4rem;
+        margin-bottom: 3.7rem;
         border-radius: 0 0 30px 30px;
-        padding-top: 4rem;
+        padding-top: 2rem;
     }
 
     .titleWrapper {
@@ -134,6 +134,11 @@
         position: relative;
         right: 3.5rem;
         top: 3rem;
+    }
+
+    .itemSlider {
+        padding-bottom: 1rem;
+
     }
 
     .singleImg {

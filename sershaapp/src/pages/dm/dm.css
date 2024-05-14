@@ -121,7 +121,7 @@
 
 @media only screen and (max-width: 480px) { 
     .dmsWrapper {
-        margin-bottom: 4rem;
+        
         background-image: none;
         border-radius: 0;
     }
@@ -132,6 +132,7 @@
         margin-top: 0;
         background-position: center;
         border-radius: 0 0 30px 30px;
+        margin-bottom: 4rem;
     }
 
     .msgPreview {
@@ -145,7 +146,7 @@
         display: flex;
         flex-direction: column;
         color: #ffffff;
-        padding: 2.5rem;
+        padding: 2.5rem 1rem;
         border-radius: 20px 20px;
      }
 
@@ -224,12 +225,20 @@
         display: none;
     }
 
-    .receivedMsg h5 {
-        padding-top: 1.5rem;
+    .responsiveMsgPreview h5 {
+        padding: 1.25rem 0 .5rem 0;
         font-size: 12px;
     }
 
     .possibleAnswers {
         height: 45px;
+    }
+
+    .answer {
+        width: 75%;
+    }
+
+    .backButtonRespDm {
+        cursor: pointer;
     }
 }

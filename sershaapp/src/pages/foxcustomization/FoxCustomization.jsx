@@ -19,6 +19,7 @@ import { item1,
 
 import './foxcustomization.css'
 import CustomizationSlider from '../../components/FoxCustomization/CustomizationSlider.jsx'
+import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive.jsx'
 
 
 
@@ -31,6 +32,7 @@ const FoxCustomization = () => {
 
   return (
     <div className='customizationWrapper'>
+      {window.innerWidth < 1000 && <HeaderResponsive />}
       <div className='customizationBackground'>
         <div className='titleWrapper'>
           <div className='title'>Customize <span className='titleChar'>Character</span></div>

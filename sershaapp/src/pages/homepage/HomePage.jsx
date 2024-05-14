@@ -4,6 +4,7 @@ import authorImg from '../../assets/images/posts/authorimg.png'
 import Posts from '../../components/HomePage/Posts'
 
 import './homepage.css'
+import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive'
 
 
 const HomePage = () => {
@@ -30,6 +31,7 @@ const HomePage = () => {
 
   return (
     <div className='homePageWrapper'>
+      {window.innerWidth < 1000 && <HeaderResponsive />}
       <div className='homePageContainer'>
         <div className='posts'>
           <Posts posts={posts} />

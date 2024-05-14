@@ -1,3 +1,4 @@
+import HeaderResponsive from "../HeaderResponsive/HeaderResponsive";
 
 
 const NewMessage = ({ messages, onSelectMessage, selectedMessagePreview, setSelectedMessagePreview }) => {
@@ -11,6 +12,10 @@ const NewMessage = ({ messages, onSelectMessage, selectedMessagePreview, setSele
 
   return (
     <>
+        {window.innerWidth < 1000 && (
+          <HeaderResponsive />
+        )}
+
         {messages.map(msg => (
           <div className='msgWrapper' key={msg.name} onClick={() => messageSelect(msg)}>
 

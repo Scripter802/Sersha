@@ -211,6 +211,11 @@ body {
     margin-top: 60px;
     height: 300px;
   }
+
+  .adminBackground {
+    background-image: url('../../assets/images/home/homePageBackground.png');
+    background-size: cover;
+  }
   
   /* End Main  */
   

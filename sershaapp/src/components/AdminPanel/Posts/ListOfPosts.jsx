@@ -26,9 +26,12 @@ const ListOfPosts = () => {
             <table className="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>Posted by</th>
+                        <th>Title</th>
+                        <th>Content</th>
                         <th>Image</th>
-                        <th>Text</th>
+                        <th>Stage</th>
+                        <th>Author</th>
+                        <th>Author photo</th>
                         <th>Edit/Delete</th>
                     </tr>
                 </thead>

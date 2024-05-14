@@ -9,7 +9,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240513113903_FirstMigration")]
+    [Migration("20240514193512_FirstMigration")]
     partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,16 +24,7 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Author")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("AuthorImage")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Content")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Image")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("PublishedDate")
@@ -43,6 +34,12 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("imagePath")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

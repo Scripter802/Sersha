@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jhnxmdNmWNmnR56VggF8Iw4zuc2EE3xQv+/VcJXVaDj9++9M1rO6M1wimOtjoU8vQc1z6Yw23Q7f9LAavDKG6A==",
+  "dgSpecHash": "ESCbtE74WnuYdIPdQeGdMO/kPBfSJ+oZqHFGuYcJ5FA2y2qjI3vOCUvtjzuxh4CYFvD99C29N4TCUGk0PUrWGg==",
   "success": true,
-  "projectFilePath": "D:\\projekti\\Sersha\\sershaback\\API\\API.csproj",
+  "projectFilePath": "D:\\projekti\\Sersha\\sershaback\\api\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jelen\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
     "C:\\Users\\jelen\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",

@@ -14,11 +14,10 @@ namespace Persistence.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Title = table.Column<string>(nullable: true),
                     Content = table.Column<string>(nullable: true),
-                    Author = table.Column<string>(nullable: true),
                     PublishedDate = table.Column<DateTime>(nullable: false),
-                    Image = table.Column<string>(nullable: true),
+                    imagePath = table.Column<string>(nullable: true),
                     Stage = table.Column<string>(nullable: true),
-                    AuthorImage = table.Column<string>(nullable: true)
+                    Type = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

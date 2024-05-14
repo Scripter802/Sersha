@@ -78,10 +78,14 @@
           "SQLitePCLRaw.core": "2.1.6"
         },
         "compile": {
-          "lib/netstandard2.0/Microsoft.Data.Sqlite.dll": {}
+          "lib/netstandard2.0/Microsoft.Data.Sqlite.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/netstandard2.0/Microsoft.Data.Sqlite.dll": {}
+          "lib/netstandard2.0/Microsoft.Data.Sqlite.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.Extensions.DependencyInjection.Abstractions/2.2.0": {
@@ -569,23 +573,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Dimit\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\jelen\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
+      "projectUniqueName": "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
       "projectName": "Domain",
-      "projectPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
-      "packagesPath": "C:\\Users\\Dimit\\.nuget\\packages\\",
-      "outputPath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\obj\\",
+      "projectPath": "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
+      "packagesPath": "C:\\Users\\jelen\\.nuget\\packages\\",
+      "outputPath": "D:\\projekti\\Sersha\\sershaback\\Domain\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Dimit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\jelen\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -626,7 +626,8 @@
           "net47",
           "net471",
           "net472",
-          "net48"
+          "net48",
+          "net481"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -635,7 +636,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

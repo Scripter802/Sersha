@@ -22,6 +22,7 @@ namespace Application.Posts
             public IFormFile Image {get; set;}
             public string Stage{get; set;}
             //public string AuthorImage{get;set;}
+            public string Type {get; set;}
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -64,17 +65,18 @@ namespace Application.Posts
             
                 post.Stage = request.Stage ?? post.Stage;
                 //post.AuthorImage = request.AuthorImage ?? post.AuthorImage;
+                post.Type= request.Type ?? post.Type;
                 
                 String path = Directory.GetCurrentDirectory() + "Images\\postImages\\" + request.Stage;
                 if(request.Image != null){
-                    string fileName = request.Title + DateTime.Now.ToString() + request.Image.FileName;
+                    string fileName = request.Title + request.Image.FileName;
                     Directory.CreateDirectory(path);
                     path = Path.Combine(path, fileName);
 
                     using (var fs = new FileStream(path, FileMode.Create)){
                         await request.Image.CopyToAsync(fs);
                     }
-                    post.imagePath = "Images\\postImages\\" + request.Stage + fileName;
+                    post.imagePath = "Images/postImages/" + request.Stage + fileName;
                 }
                 
                 var success = await _context.SaveChangesAsync() > 0 ;

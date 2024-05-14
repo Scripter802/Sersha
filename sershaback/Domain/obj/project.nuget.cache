@@ -2,7 +2,7 @@
   "version": 2,
   "dgSpecHash": "TlPG7DfLJsHy361ebwwcGOuihOcoAolAiYZ/q0XrgrLXQkknPDg+kPPOuytvjtoZqkteGx3AHK+NZxrvzoSd4g==",
   "success": true,
-  "projectFilePath": "E:\\Udruzenje\\Projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
+  "projectFilePath": "D:\\projekti\\Sersha\\sershaback\\Domain\\Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jelen\\.nuget\\packages\\microsoft.aspnetcore.http\\2.2.2\\microsoft.aspnetcore.http.2.2.2.nupkg.sha512",
     "C:\\Users\\jelen\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",

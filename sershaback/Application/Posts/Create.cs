@@ -21,9 +21,9 @@ namespace Application.Posts
             public string Content { get; set; }
             //public string Author{get;set;}
             public IFormFile Image {get; set;}
-          
             public string Stage{get; set;}
             //public string AuthorImage{get;set;}
+            public string Type {get; set;}
          }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -31,11 +31,10 @@ namespace Application.Posts
             public CommandValidator()
             {
                 RuleFor(x=>x.Title).NotEmpty();
-                RuleFor(x=>x.Content).NotEmpty();
                 //RuleFor(x=>x.Author).NotEmpty();
-                RuleFor(x=>x.Image).NotEmpty();
                 RuleFor(x=>x.Stage).NotEmpty();
                 //RuleFor(x=>x.AuthorImage).NotEmpty();
+                RuleFor(x=>x.Type).NotEmpty();
             }
         }
 
@@ -59,20 +58,21 @@ namespace Application.Posts
                     Content = request.Content,
                     //Author = request.Author,
                     PublishedDate = DateTime.Now,
-                    Stage = request.Stage
+                    Stage = request.Stage,
                     //AuthorImage = request.AuthorImage
+                    Type = request.Type
                 };
                 
                 String path = Directory.GetCurrentDirectory() + "Images\\postImages\\" + request.Stage;
                 if(request.Image != null){
-                    string fileName = request.Title + DateTime.Now.ToString() + request.Image.FileName;
+                    string fileName = request.Title + request.Image.FileName;
                     Directory.CreateDirectory(path);
                     path = Path.Combine(path, fileName);
 
                     using (var fs = new FileStream(path, FileMode.Create)){
                         await request.Image.CopyToAsync(fs);
                     }
-                    post.imagePath = "Images\\postImages\\" + request.Stage + fileName;
+                    post.imagePath = "Images/postImages/" + request.Stage + fileName;
                 }
 
                 

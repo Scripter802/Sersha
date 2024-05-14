@@ -31,7 +31,7 @@ namespace API
             services.AddControllersWithViews();
             services.Configure<FormOptions>(options =>
             {
-                options.MultipartBodyLengthLimit = 52428800; // Limit to 50 MB
+                //options.MultipartBodyLengthLimit = 52428800; // Limit to 50 MB
             });
 
             services.AddDbContext<DataContext>(opt =>

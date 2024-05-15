@@ -10,27 +10,23 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 
 
-namespace Application.Posts
+namespace Application.Authors
 {
     public class Create
     {
          public class Command: IRequest
          {
             public Guid Id {get; set;}
-            public string Title {get;set;}
-            public string Content { get; set; }
-            public IFormFile Image {get; set;}
-            public string Stage{get; set;}
-            public string Type {get; set;}
+            public string authorName{get;set;}
+            public IFormFile AuthorImage{get;set;}
+            public string authorImagePath {get;set;}
          }
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(x=>x.Title).NotEmpty();
-                RuleFor(x=>x.Stage).NotEmpty();
-                RuleFor(x=>x.Type).NotEmpty();
+                RuleFor(x=>x.authorName).NotEmpty();
             }
         }
 
@@ -47,32 +43,26 @@ namespace Application.Posts
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var post = new Post
+                var author = new Author
                 {
                     Id = request.Id,
-                    Title = request.Title,
-                    Content = request.Content,
-                    PublishedDate = DateTime.Now,
-                    Stage = request.Stage,
-                    Type = request.Type
+                    AuthorName = request.authorName,
+                    AuthorImagePath = request.authorImagePath
                 };
                 
-                String path = Directory.GetCurrentDirectory() + "Images\\postImages\\" + request.Stage;
-                if(request.Image != null){
-                    string fileName = request.Title + request.Image.FileName;
+                String path = Directory.GetCurrentDirectory() + "Images\\authorImages\\" + request.Id;
+                if(request.AuthorImage != null){
+                    string fileName = request.authorName + request.AuthorImage.FileName;
                     Directory.CreateDirectory(path);
                     path = Path.Combine(path, fileName);
 
                     using (var fs = new FileStream(path, FileMode.Create)){
-                        await request.Image.CopyToAsync(fs);
+                        await request.AuthorImage.CopyToAsync(fs);
                     }
-                    post.ImagePath = "Images/postImages/" + request.Stage + fileName;
+                    author.AuthorImagePath = "Images/postImages/" + request.Id + fileName;
                 }
 
-                
-
-
-                _context.Posts.Add(post);
+                _context.Authors.Add(author);
                 var success = await _context.SaveChangesAsync() > 0 ;
 
                 if(success) return Unit.Value;

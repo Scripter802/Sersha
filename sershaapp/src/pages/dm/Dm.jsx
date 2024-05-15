@@ -57,9 +57,9 @@ const Dm = () => {
 
         {window.innerWidth < 1000 && selectedMessagePreview === true && (
           <div className='responsiveSingleMessageHeader'>
-            <div><img src={userpic} alt="backbutton" /></div>
+            <div><img src={userpic} alt="avatar" /></div>
             <div><p>{selectedMessage.name}</p></div>
-            <div><img src={backButton} alt="backbutton" className='resHeaderAvatarImg' /></div>
+            <div onClick={() => setSelectedMessagePreview(false)} className='backButtonRespDm'><img src={backButton} alt="backbutton" className='resHeaderAvatarImg' /></div>
           </div>
         )}
         

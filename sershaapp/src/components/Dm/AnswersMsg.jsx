@@ -1,5 +1,4 @@
-import userpic from '../../assets/images/dms/userpick.png'
-import backButton from '../../assets/images/dms/backbuttonResponsive.png'
+
 
 const AnswersMsg = ({ selectedMessage, answer, setAnswer, selectedMessagePreview }) => {
   return (

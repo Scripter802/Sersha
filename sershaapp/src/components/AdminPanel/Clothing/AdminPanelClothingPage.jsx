@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './clothingPage.css';
+import './adminPanelClothingPage.css';
 
-const ClothingPage = () => {
+const AdminPanelClothingPage = () => {
     // Sample clothing data
     const [clothingData, setClothingData] = useState([
         { id: 1, image: 'url_to_image_1', price: '$20' },
@@ -59,4 +59,4 @@ const ClothingPage = () => {
     );
 };
 
-export default ClothingPage;
+export default AdminPanelClothingPage;

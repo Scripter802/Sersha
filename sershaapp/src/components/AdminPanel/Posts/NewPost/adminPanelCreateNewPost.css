@@ -7,7 +7,7 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     color: #FFB496;
-    
+
     background: linear-gradient(180deg, #2F202F 0%, #460C23CC 100%);
 }
 
@@ -18,7 +18,10 @@
 }
 
 .postProfileName,
-textarea, .postAuthor, .postType, .postBundles {
+textarea,
+.postAuthor,
+.postType,
+.postBundles {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -26,7 +29,7 @@ textarea, .postAuthor, .postType, .postBundles {
     border-radius: 4px;
     box-sizing: border-box;
     background: transparent;
-    color: #FFFFFF;   
+    color: #FFFFFF;
 }
 
 .dropzone {
@@ -58,10 +61,7 @@ select option {
     color: #FFF
 }
 
-select option:checked {
-     
-     
-}
+select option:checked {}
 
 .newPostBtn {
     padding: 10px 20px;
@@ -89,7 +89,7 @@ select option:checked {
     cursor: pointer;
 }
 
-.close-btn > img {
+.close-btn>img {
     width: 35px;
     height: 35px;
 }

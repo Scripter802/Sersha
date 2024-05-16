@@ -1,59 +1,62 @@
-.listOfPostsContainer {
+.clothing-page {
     margin: 20px auto;
     width: 80%;
     color: #ffffff;
     background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
     opacity: 0.9;
-    padding: .75rem;
-    border-radius: 30px 30px;
+    padding: 20px;
+    border-radius: 8px;
 }
 
-.create-post-btn {
-    margin-block: 20px;
+.create-new-item-btn {
+    display: block;
+    margin-bottom: 20px;
     padding: 10px 20px;
     background-color: #444648;
     color: #fff;
-    border: none;   
+    border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-  }
-  
-  .create-post-btn:hover {
+}
+
+.create-new-item-btn:hover {
     background-color: #C26F4D;
-  }
-  
-  .table {
+}
+
+.clothing-table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  .table th, .table td {
+}
+
+.clothing-table th,
+.clothing-table td {
     padding: 8px;
     border: 1px solid #ddd;
-  }
-  
-  .table th {
     color: #FFB496;
-    font-weight: bold;
-  }
-  
-  .table tbody tr:hover {
+}
 
+.clothing-table th {
+    font-weight: bold;
+}
+
+.clothing-table tbody tr:hover {
     background-color: #d96f4630;
-  }
-  
-  .table img {
+}
+
+.clothing-image {
     max-width: 100px;
     height: auto;
-  }
+    display: block;
+    margin: 0 auto;
+}
 
-  .settingsData {
+.settingsData {
     width: 1%;
     white-space: nowrap;
-  }
+}
 
-  .edit-btn,
+.edit-btn,
 .delete-btn {
     margin-right: 5px;
     padding: 8px 16px;
@@ -77,4 +80,3 @@
 .delete-btn:hover {
     background-color: #C26F4D;
 }
-

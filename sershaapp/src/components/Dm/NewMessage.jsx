@@ -12,22 +12,22 @@ const NewMessage = ({ messages, onSelectMessage, selectedMessagePreview, setSele
 
   return (
     <>
-        {window.innerWidth < 1000 && (
-          <HeaderResponsive />
-        )}
+      {window.innerWidth < 1000 && (
+        <HeaderResponsive />
+      )}
 
-        {messages.map(msg => (
-          <div className='msgWrapper' key={msg.name} onClick={() => messageSelect(msg)}>
+      {messages.map(msg => (
+        <div className='msgWrapper' key={msg.name} onClick={() => messageSelect(msg)}>
 
-            <div>
-              <img src={msg.avatar} alt="" srcset="" />
-            </div>
-            <div className="msgShortPreview">
-              <h5>{msg.name}</h5>
-              <p>{msg.message}</p>
-            </div>
+          <div>
+            <img src={msg.avatar} alt="avatar" />
           </div>
-          ))}
+          <div className="msgShortPreview">
+            <h5>{msg.name}</h5>
+            <p>{msg.message}</p>
+          </div>
+        </div>
+      ))}
     </>
   )
 }

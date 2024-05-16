@@ -1,14 +1,16 @@
 import { useState } from 'react'
-import Header from '../../components/AdminPanel/Header'
-import Sidebar from '../../components/AdminPanel/Sidebar'
-import Home from '../../components/AdminPanel/Home'
+import Header from '../../components/AdminPanel/AdminPanelHeader'
+import Sidebar from '../../components/AdminPanel/AdminPanelSidebar'
+import Home from '../../components/AdminPanel/AdminPanelHome'
 
 import './adminpanel.css'
+import { useGlobalContext } from '../../context/context'
 
 
 const AdminPanel = () => {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
-  
+  const { fillInTheBlankCreateNew } = useGlobalContext();
+
 
   const OpenSidebar = () => {
     setOpenSidebarToggle(!openSidebarToggle)
@@ -16,8 +18,8 @@ const AdminPanel = () => {
 
   return (
     <div className='adminBackground'>
-      <div className='grid-container'>
-        <Header OpenSidebar={OpenSidebar}/>
+      <div className={fillInTheBlankCreateNew ? 'grid-fillInTheBlank' : `grid-container`}>
+        <Header OpenSidebar={OpenSidebar} />
         <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} />
         <Home />
       </div>

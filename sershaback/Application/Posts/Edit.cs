@@ -76,7 +76,7 @@ namespace Application.Posts
                     using (var fs = new FileStream(path, FileMode.Create)){
                         await request.Image.CopyToAsync(fs);
                     }
-                    post.imagePath = "Images/postImages/" + request.Stage + fileName;
+                    post.ImagePath = "Images/postImages/" + request.Stage + fileName;
                 }
                 
                 var success = await _context.SaveChangesAsync() > 0 ;

@@ -15,14 +15,14 @@ import './correctanswerquiz.css'
 import HealthBar from '../../components/HealthBar'
 
 const CorrectAnswerQuiz = () => {
-  const [ heartsNum, setHeartsNum ] = useState(2)
+  const [heartsNum, setHeartsNum] = useState(2)
 
   const messages = [
     {
       avatar: avatar,
       name: 'Jess',
       message: 'The Great Wall of China is visible from space.',
-      answer: ["True", "False" ],
+      answer: ["True", "False"],
     },
     {
       avatar: avatar,
@@ -48,27 +48,38 @@ const CorrectAnswerQuiz = () => {
 
   return (
     <div className='correctAnswerQuizWrapper'>
-      
+
       <div className='correctAnswerTitleWrapper'>
 
-        <div className='rightAnswerTitle'>
-          <img src={close} alt="" />
-          <h1>The battle has begun</h1>
+        <div className='correctAnswerTitle'>
+
+          <div>
+            <img src={close} alt="" />
+            <h1>The battle has begun</h1>
+          </div>
+
+          <div className='healthResponsive'>
+            <HealthBar />
+          </div>
         </div>
 
-        <div className='inventory'>
-          <img src={inventory} alt="" />
-        </div>
+        <div className='rightObenWrapper'>
 
-        <div className='hearts'>
-          <div className='heartWrapper'>{heartsNum === 1 || heartsNum === 2 || heartsNum === 3 ? <FaHeart className='heartFull' />  : <CiHeart className='heart' />} </div>
-          <div className='heartWrapper'>{heartsNum === 2 || heartsNum === 3 ? <FaHeart className='heartFull' />  : <CiHeart className='heart' />} </div>
-          <div className='heartWrapper'>{heartsNum === 3 ? <FaHeart className='heartFull' />  : <CiHeart className='heart' />} </div>
-        </div>
+          <div className='inventory'>
+            <img src={inventory} alt="" />
+          </div>
 
-        <div className='sershaLogo'>
-          <p>Sersha</p>
-          <img src={sershafox} alt="" />
+          <div className='hearts'>
+            <div className='heartWrapper'>{heartsNum === 1 || heartsNum === 2 || heartsNum === 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />} </div>
+            <div className='heartWrapper'>{heartsNum === 2 || heartsNum === 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />} </div>
+            <div className='heartWrapper'>{heartsNum === 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />} </div>
+          </div>
+
+          <div className='sershaLogo'>
+            <p>Sersha</p>
+            <img src={sershafox} alt="" />
+          </div>
+
         </div>
       </div>
 
@@ -86,31 +97,31 @@ const CorrectAnswerQuiz = () => {
           </div>
         </div>
         <div>
-          
-      </div>
+
+        </div>
 
         <div className='correctAnswerWrapper'>
           <h5>Statement</h5>
           <div className='correctAnswerAssignment'>
             {messages[0].message}
           </div>
-          <h5>Answer options</h5>
-          
+          {answer ? '' : <h5>Answer options</h5>}
+
           <div className='correctAnswerAnsWrapper'>
-          {messages.map(msg => (
-            message === msg.name && !answer ? msg.answer?.map(ans => (
-              <div className='correctOfferedAnswersWrapper' onClick={() => setAnswer(`${ans}`)}>
-                <p className='correctOfferedAnswers' style={{ backgroundColor: `${ans === "True" ? "#B2F0B6" : "#FFB6B6"}` }}>{ans === "True" ? <><img src={done} alt='done' />{ans}</> : <><img src={incorrect} alt='done' />{ans}</> }</p>
-              </div>
-            )) : ``
+            {messages.map(msg => (
+              message === msg.name && !answer ? msg.answer?.map(ans => (
+                <div className='correctOfferedAnswersWrapper' onClick={() => setAnswer(`${ans}`)}>
+                  <p className='correctOfferedAnswers' style={{ backgroundColor: `${ans === "True" ? "#B2F0B6" : "#FFB6B6"}` }}>{ans === "True" ? <><img src={done} alt='done' />{ans}</> : <><img src={incorrect} alt='done' />{ans}</>}</p>
+                </div>
+              )) : ``
             ))}
             {answer ?
-            <div className='answerWrapper'>
-              <div className='answer'>
-                <img src={messages[0].avatar} alt="" />
-                {answer ? `${answer}` : ''}
-              </div>
-            </div> : ''
+              <div className='correctAnswerSelectedWrapper'>
+                <div className='correctAnswerSelected'>
+                  <img src={messages[0].avatar} alt="" />
+                  {answer ? `${answer}` : ''}
+                </div>
+              </div> : ''
             }
           </div>
         </div>

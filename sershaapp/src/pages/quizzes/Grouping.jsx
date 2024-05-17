@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { heart } from '../../assets/images/customization/items/index';
 import avatar from '../../assets/images/navbar/userpick.png';
 import close from '../../assets/images/quiz/close.png';
+import done from '../../assets/images/quiz/done.png';
 import inventory from '../../assets/images/quiz/inventory.png';
 import { CiHeart } from 'react-icons/ci';
 import { FaHeart } from "react-icons/fa";
@@ -30,13 +31,13 @@ const Grouping = () => {
   const [heartsNum, setHeartsNum] = useState(2);
   const [dropped, setDropped] = useState(["Drop here", "Drop here", "Drop here", "Drop here", "Drop here", "Drop here"]);
   const [optionAnswer, setOptionAnswer] = useState([]);
-  
+
   useEffect(() => {
     const tempOptionAnswer = [];
     messages.forEach(item => item.answers.forEach(ans => tempOptionAnswer.push(ans)));
     setOptionAnswer(tempOptionAnswer);
   }, []);
-  
+
 
   const handleDrop = (index, item) => {
     const newDropped = [...dropped];
@@ -56,26 +57,40 @@ const Grouping = () => {
 
   return (
     <div className='GroupingQuizWrapper'>
+
       <div className='GroupingQuizTitleWrapper'>
+
         <div className='GroupingQuizTitle'>
-          <img src={close} alt="" />
-          <h1>The battle has begun</h1>
+
+          <div>
+            <img src={close} alt="" />
+            <h1>The battle has begun</h1>
+          </div>
+
+          <div className='healthResponsive'>
+            <HealthBar />
+          </div>
         </div>
-        <div className='inventory'>
-          <img src={inventory} alt="" />
-        </div>
-        <div className='hearts'>
-          <div className='heartWrapper'>{heartsNum >= 1 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />}</div>
-          <div className='heartWrapper'>{heartsNum >= 2 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />}</div>
-          <div className='heartWrapper'>{heartsNum >= 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />}</div>
-        </div>
-        <div className='sershaLogo'>
-          <p>Sersha</p>
-          <img src={sershafox} alt="" />
+
+        <div className='rightObenWrapper'>
+          <div className='inventory'>
+            <img src={inventory} alt="" />
+          </div>
+
+          <div className='hearts'>
+            <div className='heartWrapper'>{heartsNum >= 1 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />}</div>
+            <div className='heartWrapper'>{heartsNum >= 2 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />}</div>
+            <div className='heartWrapper'>{heartsNum >= 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />}</div>
+          </div>
+
+          <div className='sershaLogo'>
+            <p>Sersha</p>
+            <img src={sershafox} alt="" />
+          </div>
         </div>
       </div>
 
-      <div className='quizWrapper'>
+      <div className='GroupingquizWrapper'>
         <div className='evilFoxWrapper'>
           <div className='health'>
             <HealthBar />
@@ -92,40 +107,40 @@ const Grouping = () => {
               <h5>{messages[0].group}</h5>
               <h5>{messages[1].group}</h5>
             </div>
-          <div className='groupingDropBoxes'>
-            <div className='fruitDropBoxes'>
-              {dropped.map((item, index) => {
-                if (index < 3) {
-                  return (
-                    <DropBox
-                      key={index}
-                      index={index}
-                      handleDrop={handleDrop}
-                      currentItem={item}
-                      updateDropped={updateDropped}
-                    />
-                  );
-                }
-                return null;
-              })}
+            <div className='groupingDropBoxes'>
+              <div className='fruitDropBoxes'>
+                {dropped.map((item, index) => {
+                  if (index < 3) {
+                    return (
+                      <DropBox
+                        key={index}
+                        index={index}
+                        handleDrop={handleDrop}
+                        currentItem={item}
+                        updateDropped={updateDropped}
+                      />
+                    );
+                  }
+                  return null;
+                })}
+              </div>
+              <div className='vegetableDropBoxes'>
+                {dropped.map((item, index) => {
+                  if (index >= 3) {
+                    return (
+                      <DropBox
+                        key={index}
+                        index={index}
+                        handleDrop={handleDrop}
+                        currentItem={item}
+                        updateDropped={updateDropped}
+                      />
+                    );
+                  }
+                  return null;
+                })}
+              </div>
             </div>
-            <div className='vegetableDropBoxes'>
-              {dropped.map((item, index) => {
-                if (index >= 3) {
-                  return (
-                    <DropBox
-                      key={index}
-                      index={index}
-                      handleDrop={handleDrop}
-                      currentItem={item}
-                      updateDropped={updateDropped}
-                    />
-                  );
-                }
-                return null;
-              })}
-            </div>
-          </div>
           </div>
 
           <h5 className='words'>Words</h5>
@@ -136,7 +151,7 @@ const Grouping = () => {
             ))}
           </div>
 
-          {dropped.includes("Drop here") ? '' : <div className='groupingFinished'>I'm Done</div>}
+          {dropped.includes("Drop here") ? '' : <div className='groupingFinished'><img src={done} alt="done" />I'm Done</div>}
         </div>
       </div>
 
@@ -210,15 +225,15 @@ const DropBox = ({ index, handleDrop, currentItem, updateDropped }) => {
   const onDrop = (e) => {
     const draggedIndex = e.dataTransfer.getData("index");
 
-    if(index === draggedIndex) return
-    
+    if (index === draggedIndex) return
+
     updateDropped(index, draggedIndex);
   };
 
   return (
     <div ref={drop} className='dropBox' onDragOver={onDragOver} onDrop={onDrop} style={{ backgroundColor: currentItem !== "Drop here" ? '#C26F4D' : "", color: currentItem !== "Drop here" ? '#FFFFFF' : "#FFB496", border: currentItem !== "Drop here" ? "none" : "1px dashed #FFB496" }}>
       {currentItem !== "Drop here" && (
-        <DraggableDroppedItem item={currentItem} index={index} onDragStart={onDragStart}  />
+        <DraggableDroppedItem item={currentItem} index={index} onDragStart={onDragStart} />
       )}
       {currentItem === "Drop here" && <p>{currentItem}</p>}
     </div>

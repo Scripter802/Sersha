@@ -46,7 +46,7 @@
     font-weight: 500;
     color: #FFB496;
     margin-block: 0.95rem;
-      
+
 }
 
 .correctAnswerAssignment {
@@ -81,4 +81,79 @@
     border-radius: 20px 20px;
     padding: .75rem;
     cursor: pointer;
+}
+
+.correctAnswerSelectedWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    color: #ffffff;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.correctAnswerSelected {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    background: #C26F4D30;
+    border-radius: 20px 20px;
+    padding: .75rem;
+    margin-block: .315rem;
+    padding-right: 1.875rem;
+    gap: 1rem;
+}
+
+@media only screen and (max-width: 480px) {
+    .correctAnswerQuizWrapper {
+        border-radius: 0;
+        background-position: center;
+        padding-top: 1rem;
+    }
+
+    .correctAnswerTitleWrapper {
+        justify-content: unset;
+        margin-inline: 0;
+    }
+
+    .correctAnswerTitle {
+        width: 95%;
+        margin-left: 1rem;
+        gap: calc(100% - 180px);
+    }
+
+    .correctAnswerTitle h1 {
+        display: none;
+    }
+
+    .correctAnswerWrapper {
+        padding: 1.0rem 1.5rem;
+        background: none;
+        width: 100%;
+    }
+
+    .correctAnswerWrapper h5 {
+        margin-bottom: .25rem;
+    }
+
+    .correctAnswerAnsWrapper {
+        flex-direction: column;
+    }
+
+    .correctQuizzWrapper {
+        margin-top: 0;
+        gap: 0;
+    }
+
+    .correctOfferedAnswersWrapper {
+        width: 100%;
+    }
+
+    .correctOfferedAnswers {
+        width: 100%;
+    }
+
+    .correctAnswerSelected {
+        width: fit-content;
+    }
 }

@@ -91,7 +91,7 @@ const AppProvider = ({ children }) => {
 
   /* POSTS *//* POSTS *//* POSTS */
 
-  //GET ALL
+  //GET ALL               //GET ALL
   const getAllPosts = async () => {
     try {
       const response = axios
@@ -107,8 +107,13 @@ const AppProvider = ({ children }) => {
       setIsPostsLoading(false);
     }
   };
-
   //________________________________________
+  //POST METHOD               //POST METHOD
+
+
+
+
+
 
   return (
     <AppContext.Provider

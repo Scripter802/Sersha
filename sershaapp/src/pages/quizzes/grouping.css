@@ -37,7 +37,8 @@
     margin-top: .95rem;
 }
 
-.groupingAsignmentTitle, .words {
+.groupingAsignmentTitle,
+.words {
     color: rgb(255, 180, 150);
 }
 
@@ -131,31 +132,129 @@
 }
 
 .dropBox {
-  display: grid;
-  grid-template-columns: auto auto;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  border-radius: 20px 20px;
-  width: 180px;
-  height: 40px;
-  margin-block: .315rem;
-  cursor: pointer;
-  text-align: center;
-  border: 1px dashed #FFB496;
-  color: #FFB496;
-  font-size: 0.875rem;
-  font-weight: 500;
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    border-radius: 20px 20px;
+    width: 180px;
+    height: 40px;
+    margin-block: .315rem;
+    cursor: pointer;
+    text-align: center;
+    border: 1px dashed #FFB496;
+    color: #FFB496;
+    font-size: 0.875rem;
+    font-weight: 500;
 }
 
 .groupingFinished {
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     height: 40px;
     width: fit-content;
     color: #000000;
     background-color: #ffffff;
     border-radius: 20px 20px;
     padding: .75rem;
+}
+
+.GroupingquizWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 3.125rem;
+    gap: 2rem;
+}
+
+.groupingFinished img {
+    padding-right: .25rem
+}
+
+@media only screen and (max-width: 480px) {
+    .GroupingQuizWrapper {
+        border-radius: 0;
+        background-position: center;
+        padding-top: 1rem;
+    }
+
+    .GroupingQuizTitleWrapper {
+        justify-content: unset;
+        margin-inline: 0;
+    }
+
+    .GroupingQuizTitle {
+        width: 95%;
+        margin-left: 1rem;
+        gap: calc(100% - 180px);
+    }
+
+    .GroupingQuizTitle h1 {
+        display: none;
+    }
+
+    .GroupingquizWrapper {
+        align-items: center;
+        margin-top: 0;
+        gap: 0;
+    }
+
+    .groupingWrapper {
+        padding: 1.0rem 0;
+        background: none;
+        width: 95%;
+    }
+
+    .groupingWrapper h5 {
+        margin-block: 0;
+        margin-top: .5rem;
+        margin-bottom: .25rem;
+    }
+
+    .groupingDropBoxes {
+        padding: 0;
+        justify-content: unset;
+        gap: .25rem;
+    }
+
+    .fruitDropBoxes {
+        gap: .75rem;
+        width: 50%;
+        padding: .75rem;
+
+    }
+
+    .vegetableDropBoxes {
+        gap: .75rem;
+        width: 50%;
+        padding: .75rem;
+    }
+
+
+    .fillInAssignment {
+        flex-direction: column;
+    }
+
+    .dropHereBox {
+        display: flex;
+        padding-block: 10px;
+    }
+
+    .dropBox {
+        width: 100%;
+        margin-block: 0;
+    }
+
+    .groupingOfferedAnswerWrapper {
+        margin-top: 0;
+    }
+
+    .groupingFinished {
+        margin: .5rem auto;
+    }
+
+    .groupingFinished img {
+        padding-right: .25rem
+    }
 }

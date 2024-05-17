@@ -10,7 +10,7 @@ import userpic from '../../assets/images/dms/userpick.png'
 import backButton from '../../assets/images/dms/backbuttonResponsive.png'
 
 const Dm = () => {
-  const {selectedMessagePreview, setSelectedMessagePreview} = useGlobalContext()
+  const { selectedMessagePreview, setSelectedMessagePreview } = useGlobalContext()
 
   const messages = [
     {
@@ -62,14 +62,14 @@ const Dm = () => {
             <div onClick={() => setSelectedMessagePreview(false)} className='backButtonRespDm'><img src={backButton} alt="backbutton" className='resHeaderAvatarImg' /></div>
           </div>
         )}
-        
+
         <div className={`${window.innerWidth < 1000 && selectedMessagePreview === true ? 'responsiveMsgPreview' : 'msgPreview'}`}>
           <div className='receivedMsg'>
             <img src={selectedMessage?.avatar} alt="" />
             {selectedMessage?.message}
           </div>
-          {!answer ? <h5>Answer options</h5> : '' }
-          
+          {!answer ? <h5>Answer options</h5> : ''}
+
           <div>
             <AnswersMsg selectedMessage={selectedMessage} answer={answer} setAnswer={setAnswer} selectedMessagePreview={selectedMessagePreview} />
           </div>
@@ -80,7 +80,7 @@ const Dm = () => {
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
-      {/* <Popup /> */}
+      <Popup />
     </div>
   )
 }

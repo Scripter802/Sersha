@@ -1,17 +1,25 @@
+body {
+  overflow: hidden;
+}
 
+.mainWrapper {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  background: linear-gradient(0deg, rgba(146, 37, 70, 1) 0%, rgba(60, 29, 50, 1) 50%, rgba(47, 32, 47, 1) 100%);
+  overflow-x: hidden;
+  background-image: url('../../assets/images/miniGames/miniGamesBackground.png');
+  background-size: cover;
+}
 
 .miniGamesWrapper {
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 86px);
-  
-
 }
 
 .contentWrapper {
-  position: relative;
+  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,27 +27,33 @@
   height: 80%;
 }
 
-.top-left {
+.top-left,
+.top-right,
+.bottom-left,
+.bottom-right {
   position: absolute;
+}
+
+.top-left {
   top: 0;
   left: 0;
   transform: translate(-40%, -10%);
 }
+
 .top-right {
-  position: absolute;
   top: 0;
   right: 0;
   transform: translate(30%, -10%);
 }
+
 .bottom-left {
-  position: absolute;
-  bottom: 0;
+  bottom: 3rem;
   left: 0;
   transform: translate(-15%, 35%);
 }
+
 .bottom-right {
-  position: absolute;
-  bottom: 0;
+  bottom: 3rem;
   right: 0;
   transform: translate(20%, 30%);
 }
@@ -49,15 +63,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  margin-bottom: 6rem;
 }
 
-.gameContent > h1 {
+.gameContent>h1 {
   color: #FFF;
   font-size: 34px;
 }
 
-.gameContent > p {
+.gameContent>p {
   color: #FFB496;
 }
 
@@ -65,8 +79,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 30px 30px;
-  padding: .5rem;  
+  border-radius: 30px;
+  padding: .5rem;
   width: 122px;
   height: 54px;
   margin-top: 30px;
@@ -79,73 +93,165 @@
 }
 
 /* Rectangle */
-.rectangle {
+.rectangle,
+.rectangle-1,
+.rectangle-2,
+.rectangle-3 {
   box-sizing: border-box;
-  
   position: absolute;
+  mix-blend-mode: normal;
+  opacity: 0.2;
+  border: 1.15px solid #C26F4D;
+  border-radius: 11.4657px;
+}
+
+.rectangle {
   width: 230px;
   height: 167px;
   left: -10%;
   top: 30%;
-  
-  mix-blend-mode: normal;
-  opacity: 0.2;
-  border: 1.15px solid #C26F4D;
-  border-radius: 11.4657px;
   transform: rotate(-36deg);
 }
 
-
-/* Rectangle */
 .rectangle-1 {
-  box-sizing: border-box;
-  
-  position: absolute;
   width: 230px;
   height: 167px;
   right: -1rem;
   top: 55%;
-  
-  mix-blend-mode: normal;
-  opacity: 0.2;
-  border: 1.15px solid #C26F4D;
-  border-radius: 11.4657px;
   transform: rotate(-36deg);
 }
 
-
-/* Rectangle */
 .rectangle-2 {
-  box-sizing: border-box;
-  
-  position: absolute;
   width: 198px;
   height: 144px;
   left: 63.08px;
   top: 50%;
-  
-  mix-blend-mode: normal;
-  opacity: 0.2;
   border: 0.991617px solid #C26F4D;
   border-radius: 9.8866px;
   transform: rotate(-11deg);
-
 }
 
-
-/* Rectangle */
 .rectangle-3 {
-  box-sizing: border-box;
-  
-  position: absolute;
   width: 198px;
   height: 144px;
   right: 5%;
   top: 25%;
-  
-  mix-blend-mode: normal;
-  opacity: 0.2;
   border: 0.991617px solid #C26F4D;
   border-radius: 9.8866px;
   transform: rotate(14deg);
+}
+
+.footerGames {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 4rem;
+  color: #FFB496;
+}
+
+.gamesMadeWith {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  color: #FFB496;
+}
+
+@media only screen and (max-width: 1000px) {
+  .mainWrapper {
+    background: none;
+    height: 90vh;
+  }
+
+  .responsiveRightWrapper {
+    background: transparent;
+  }
+
+  .responsiveNavigationWrapper {
+    bottom: .15rem;
+    left: 0;
+    z-index: 100;
+    right: 0;
+
+  }
+
+  .contentWrapper {
+    width: 100%;
+    position: relative;
+    height: auto;
+    margin-top: 6rem;
+  }
+
+  .miniGamesWrapper {
+    position: relative;
+    width: 100%;
+    background-image: url('/src/assets/images/miniGames/miniGamesBackgroundRes.png');
+    background-size: cover;
+  }
+
+  .gameContent {
+    margin-top: 5rem;
+    position: unset;
+  }
+
+  .gameContent p {
+    width: 50%;
+    text-align: center;
+  }
+
+  .footerGames {
+    display: none;
+  }
+
+  .roundImagesWrapper {
+    /* position: relative; */
+  }
+
+  .overflow-wrap {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .top-left,
+  .top-right,
+  .bottom-left,
+  .bottom-right {
+    width: fit-content;
+    height: 133px;
+  }
+
+  .top-left {
+    top: -1rem;
+    left: 0;
+    transform: translate(0, 0);
+  }
+
+  .top-right {
+    top: -1rem;
+    right: 0;
+    transform: translate(0, 0);
+  }
+
+  .bottom-left {
+    bottom: -2rem;
+    left: 0;
+    transform: translate(0, 0);
+  }
+
+  .bottom-right {
+    bottom: -2rem;
+    right: 0;
+    transform: translate(0, 0);
+  }
+
+  .rectangle,
+  .rectangle-1,
+  .rectangle-2,
+  .rectangle-3 {
+    display: none;
+  }
+
+  .startGameButton {
+    margin-top: 1rem;
+  }
 }

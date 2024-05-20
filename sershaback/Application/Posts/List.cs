@@ -7,28 +7,32 @@ using Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
+using AutoMapper;
 
 namespace Application.Posts
 {
     public class List
     {
-        public class Query: IRequest<List<Post>>{}
+        public class Query: IRequest<List<PostDto>>{}
 
-        public class Handler : IRequestHandler<Query, List<Post>>
+        public class Handler : IRequestHandler<Query, List<PostDto>>
         {
             private readonly DataContext _context;
             private readonly ILogger<List> _logger;
+            private readonly IMapper _mapper;
 
-        public ILogger<List> Logger { get;set; }
+            public ILogger<List> Logger { get;set; }
 
-            public Handler(DataContext context, ILogger<List> logger)
+            public Handler(DataContext context, ILogger<List> logger, IMapper mapper)
             {
                 _logger = logger;
                 _context = context;
+                _mapper = mapper;
             }
 
 
-            public async Task<List<Post>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<PostDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 try
                 {
@@ -43,8 +47,12 @@ namespace Application.Posts
                     _logger.LogInformation("Task was cancelled");
                 }
 
-                var posts = await _context.Posts.ToListAsync(cancellationToken);
-                return posts;
+                
+                var posts = _context.Posts
+                    .Include(x=>x.Author)
+                    .ToList();
+            
+                return _mapper.Map<List<Post>, List<PostDto>>(posts);
                 
             }
         }

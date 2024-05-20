@@ -8,6 +8,8 @@ using MediatR;
 using Persistence;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Application.Posts
@@ -22,6 +24,7 @@ namespace Application.Posts
             public IFormFile Image {get; set;}
             public string Stage{get; set;}
             public string Type {get; set;}
+            public Guid AuthorId{get;set;}
          }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -31,6 +34,7 @@ namespace Application.Posts
                 RuleFor(x=>x.Title).NotEmpty();
                 RuleFor(x=>x.Stage).NotEmpty();
                 RuleFor(x=>x.Type).NotEmpty();
+                RuleFor(x=>x.AuthorId).NotEmpty();
             }
         }
 
@@ -47,6 +51,8 @@ namespace Application.Posts
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+                var author =await _context.Authors.FirstOrDefaultAsync(x=>x.Id == request.AuthorId);
+
                 var post = new Post
                 {
                     Id = request.Id,
@@ -54,10 +60,13 @@ namespace Application.Posts
                     Content = request.Content,
                     PublishedDate = DateTime.Now,
                     Stage = request.Stage,
-                    Type = request.Type
+                    Type = request.Type,
+                    Author = author,
+                    AuthorId = request.AuthorId
+                    
                 };
                 
-                String path = Directory.GetCurrentDirectory() + "Images\\postImages\\" + request.Stage;
+                String path = Directory.GetCurrentDirectory() + "\\Images\\postImages\\" + request.Stage;
                 if(request.Image != null){
                     string fileName = request.Title + request.Image.FileName;
                     Directory.CreateDirectory(path);
@@ -66,7 +75,7 @@ namespace Application.Posts
                     using (var fs = new FileStream(path, FileMode.Create)){
                         await request.Image.CopyToAsync(fs);
                     }
-                    post.ImagePath = "Images/postImages/" + request.Stage + fileName;
+                    post.ImagePath = "/Images/postImages/" + request.Stage + fileName;
                 }
 
                 

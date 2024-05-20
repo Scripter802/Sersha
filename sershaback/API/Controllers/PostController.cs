@@ -25,17 +25,17 @@ namespace API.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<List<Post>>> List(CancellationToken ct){
+        public async Task<ActionResult<List<PostDto>>> List(CancellationToken ct){
             return await _mediator.Send(new List.Query(), ct);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Post>> Details(Guid id){
+        public async Task<ActionResult<PostDto>> Details(Guid id){
             return await _mediator.Send(new Application.Posts.Details.Query{Id = id});
         }
 
         [HttpGet("ListPerStages/{stage}")]
-        public async Task<ActionResult<List<Post>>> ListPerStage(string stage){
+        public async Task<ActionResult<List<PostDto>>> ListPerStage(string stage){
             return await _mediator.Send(new Application.Posts.ListPerStage.Query{Stage = stage});
         }
 

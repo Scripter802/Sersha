@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Http;
 namespace Domain
 {
     public class Author
-{
-    public Guid Id { get; set; }
-    public string AuthorName { get; set; }
+    {
+        public Guid Id { get; set; }
+        public string AuthorName { get; set; }
 
-    [NotMapped]
-    public IFormFile AuthorImage { get; set; }
-    public string AuthorImagePath { get; set; }
-    public ICollection<Post> Posts { get; set; }
-}
+        [NotMapped]
+        public IFormFile AuthorImage { get; set; }
+        public string AuthorImagePath { get; set; }
+        public ICollection<Post> Posts { get; set; }
+    }
 }

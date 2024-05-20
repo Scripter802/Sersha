@@ -15,13 +15,11 @@ namespace Application.Authors
     {
         public class Command: IRequest
         {
-             public Guid Id {get; set;}
-            public string Title {get;set;}
-            public string Content { get; set; }
-            public IFormFile Image {get; set;}
-            public string Stage{get; set;}
-            //public string AuthorImage{get;set;}
-            public string Type {get; set;}
+            public Guid Id {get; set;}
+            public string authorName{get;set;}
+            public IFormFile AuthorImage{get;set;}
+            public string authorImagePath {get;set;}
+            
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -52,30 +50,26 @@ namespace Application.Authors
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
                 //handler logic 
-                var post = await _context.Posts.FindAsync(request.Id);
+                var author = await _context.Authors.FindAsync(request.Id);
 
-                 if(post==null){
-                    throw new RestException(HttpStatusCode.NotFound, new {post = "Not found"});
+                 if(author==null){
+                    throw new RestException(HttpStatusCode.NotFound, new {author = "Not found"});
                 }
 
-                post.Title = request.Title ?? post.Title;
-                post.Content = request.Content ?? post.Content;
-                //post.Author = request.Author ?? post.Author;
-            
-                post.Stage = request.Stage ?? post.Stage;
-                //post.AuthorImage = request.AuthorImage ?? post.AuthorImage;
-                post.Type= request.Type ?? post.Type;
+                author.AuthorName = request.authorName ?? author.AuthorName;
+                author.AuthorImage = request.AuthorImage ?? author.AuthorImage;
                 
-                String path = Directory.GetCurrentDirectory() + "Images\\postImages\\" + request.Stage;
-                if(request.Image != null){
-                    string fileName = request.Title + request.Image.FileName;
+                
+                String path = Directory.GetCurrentDirectory() + "\\Images\\authorImages\\" + request.Id;
+                if(request.AuthorImage != null){
+                    string fileName = request.authorName + request.AuthorImage.FileName;
                     Directory.CreateDirectory(path);
                     path = Path.Combine(path, fileName);
 
                     using (var fs = new FileStream(path, FileMode.Create)){
-                        await request.Image.CopyToAsync(fs);
+                        await request.AuthorImage.CopyToAsync(fs);
                     }
-                    post.ImagePath = "Images/postImages/" + request.Stage + fileName;
+                    author.AuthorImagePath = "/Images/authorImages/" + request.Id+ fileName;
                 }
                 
                 var success = await _context.SaveChangesAsync() > 0 ;

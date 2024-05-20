@@ -50,7 +50,7 @@ namespace Application.Authors
                     AuthorImagePath = request.authorImagePath
                 };
                 
-                String path = Directory.GetCurrentDirectory() + "Images\\authorImages\\" + request.Id;
+                String path = Directory.GetCurrentDirectory() + "\\Images\\authorImages\\" + request.Id;
                 if(request.AuthorImage != null){
                     string fileName = request.authorName + request.AuthorImage.FileName;
                     Directory.CreateDirectory(path);
@@ -59,7 +59,7 @@ namespace Application.Authors
                     using (var fs = new FileStream(path, FileMode.Create)){
                         await request.AuthorImage.CopyToAsync(fs);
                     }
-                    author.AuthorImagePath = "Images/postImages/" + request.Id + fileName;
+                    author.AuthorImagePath = "/Images/postImages/" + request.Id + fileName;
                 }
 
                 _context.Authors.Add(author);

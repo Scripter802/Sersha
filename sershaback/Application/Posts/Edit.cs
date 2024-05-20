@@ -8,6 +8,7 @@ using MediatR;
 using Persistence;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Posts
 {
@@ -18,11 +19,11 @@ namespace Application.Posts
              public Guid Id {get; set;}
             public string Title {get;set;}
             public string Content { get; set; }
-            //public string Author{get;set;}
             public IFormFile Image {get; set;}
             public string Stage{get; set;}
-            //public string AuthorImage{get;set;}
             public string Type {get; set;}
+            public Guid AuthorId{get;set;}
+            
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -66,8 +67,18 @@ namespace Application.Posts
                 post.Stage = request.Stage ?? post.Stage;
                 //post.AuthorImage = request.AuthorImage ?? post.AuthorImage;
                 post.Type= request.Type ?? post.Type;
+                if(post.AuthorId != request.AuthorId)
+                {
+                    var author =await _context.Authors.FirstOrDefaultAsync(x=>x.Id == request.AuthorId);
+                    post.Author = author;
+                    post.AuthorId = author.Id;
+                }else
+                {
+                    post.Author =post.Author;
+                    post.AuthorId = post.AuthorId;
+                }
                 
-                String path = Directory.GetCurrentDirectory() + "Images\\postImages\\" + request.Stage;
+                String path = Directory.GetCurrentDirectory() + "\\Images\\postImages\\" + request.Stage;
                 if(request.Image != null){
                     string fileName = request.Title + request.Image.FileName;
                     Directory.CreateDirectory(path);
@@ -76,7 +87,7 @@ namespace Application.Posts
                     using (var fs = new FileStream(path, FileMode.Create)){
                         await request.Image.CopyToAsync(fs);
                     }
-                    post.ImagePath = "Images/postImages/" + request.Stage + fileName;
+                    post.ImagePath = "/Images/postImages/" + request.Stage + fileName;
                 }
                 
                 var success = await _context.SaveChangesAsync() > 0 ;

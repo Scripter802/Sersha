@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Comfortaa:wght@500;700&family=Kalam:wght@300;400;700&display=swap');
 
-*{
+* {
   font-family: "Baloo 2", sans-serif;
   font-weight: 500;
 }
@@ -12,7 +12,12 @@ body {
   background-color: black;
 }
 
-/* QUIZZES *//* QUIZZES *//* QUIZZES *//* QUIZZES *//* QUIZZES *//* QUIZZES */
+/* QUIZZES */
+/* QUIZZES */
+/* QUIZZES */
+/* QUIZZES */
+/* QUIZZES */
+/* QUIZZES */
 
 .inventory {
   display: flex;
@@ -86,12 +91,43 @@ body {
   top: 10%;
 }
 
+@media only screen and (max-width: 480px) {
+
+  .evilFoxWrapper {
+    display: none;
+  }
+
+  .rightObenWrapper {
+    position: absolute;
+    bottom: 1rem;
+    margin: 0;
+    width: 95%;
+    flex-direction: row-reverse;
+    margin-left: 1rem;
+  }
+
+  .sershaLogo p {
+    display: none;
+  }
+
+  .healthResponsive {
+    display: flex;
+  }
+
+  .inventory {
+    padding-right: 0.5rem;
+  }
 
 
+}
 
 
-
-/* FOOTER *//* FOOTER *//* FOOTER *//* FOOTER *//* FOOTER *//* FOOTER */
+/* FOOTER */
+/* FOOTER */
+/* FOOTER */
+/* FOOTER */
+/* FOOTER */
+/* FOOTER */
 
 .footer {
   display: flex;
@@ -108,7 +144,11 @@ body {
   color: #FFB496;
 }
 
-/* SIGN IN UP PAGE*//* SIGN IN UP PAGE*//* SIGN IN UP PAGE*//* SIGN IN UP PAGE*//* SIGN IN UP PAGE*/
+/* SIGN IN UP PAGE*/
+/* SIGN IN UP PAGE*/
+/* SIGN IN UP PAGE*/
+/* SIGN IN UP PAGE*/
+/* SIGN IN UP PAGE*/
 
 form {
   display: flex;
@@ -124,7 +164,7 @@ label {
   gap: .625rem;
 }
 
-label > input {
+label>input {
   background: transparent;
   border: 1px solid #FFB496;
   height: 50px;
@@ -141,7 +181,11 @@ label > input {
 }
 
 
-/* MINI-GAMES *//* MINI-GAMES *//* MINI-GAMES *//* MINI-GAMES *//* MINI-GAMES */
+/* MINI-GAMES */
+/* MINI-GAMES */
+/* MINI-GAMES */
+/* MINI-GAMES */
+/* MINI-GAMES */
 
 .gameResult {
   display: flex;
@@ -163,7 +207,8 @@ label > input {
   width: fit-content;
 }
 
-.correctAnswered > img, .incorrectAnswered > img {
+.correctAnswered>img,
+.incorrectAnswered>img {
   padding-right: .3125rem;
 }
 
@@ -215,16 +260,18 @@ label > input {
   from {
     transform: rotate(0deg);
   }
-  to { 
+
+  to {
     transform: rotate(360deg);
   }
 }
- 
+
 @-webkit-keyframes rotate {
   from {
     -webkit-transform: rotate(0deg);
   }
-  to { 
+
+  to {
     -webkit-transform: rotate(360deg);
   }
 }
@@ -236,27 +283,28 @@ label > input {
   width: 70px;
   height: 70px;
   margin: 50px auto 0;
-  border:solid 3px #ffffff;
+  border: solid 3px #ffffff;
   border-radius: 50%;
   border-right-color: transparent;
   border-bottom-color: transparent;
   -webkit-transition: all 0.5s ease-in;
-  -webkit-animation-name:             rotate; 
-  -webkit-animation-duration:         1.0s; 
-  -webkit-animation-iteration-count:  infinite;
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 1.0s;
+  -webkit-animation-iteration-count: infinite;
   -webkit-animation-timing-function: linear;
   transition: all 0.5s ease-in;
-  animation-name:             rotate; 
-  animation-duration:         1.0s; 
-  animation-iteration-count:  infinite;
-  animation-timing-function: linear;        
+  animation-name: rotate;
+  animation-duration: 1.0s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 @media only screen and (max-width: 480px) {
- .footerWrapper {
+  .footerWrapper {
     display: none;
- } 
- .footer {
+  }
+
+  .footer {
     display: none;
- } 
+  }
 }

@@ -19,23 +19,23 @@ const SnapJudgment = () => {
 
   const intervalIdRef = useRef(null);
 
-useEffect(() => {
-  intervalIdRef.current = setInterval(() => {
-    setSeconds(prevSeconds => prevSeconds - 1);
-  }, 1000);
+  useEffect(() => {
+    intervalIdRef.current = setInterval(() => {
+      setSeconds(prevSeconds => prevSeconds - 1);
+    }, 1000);
 
-  return () => clearInterval(intervalIdRef.current);
-}, []);
+    return () => clearInterval(intervalIdRef.current);
+  }, []);
 
-useEffect(() => {
-  if (seconds === 0) {
-    clearInterval(intervalIdRef.current);
-  }
-}, [seconds]);
+  useEffect(() => {
+    if (seconds === 0) {
+      clearInterval(intervalIdRef.current);
+    }
+  }, [seconds]);
 
   return (
     <div className='snapJudgmentGameWrapper'>
-      
+
       <div className='snapJudgmentTitleWrapper'>
 
         <div className='snapJudgmentTitle'>
@@ -62,11 +62,11 @@ useEffect(() => {
         <div className='snapGameContainer'>
 
           <div className='snapLeftSideContent'>
-              <div className='gameResult'>
-                <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered} correct`} </div>
-                <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered} mistake`}</div>
-              </div>
-              <div className='gameDescription'>Decide whether this post is positive, negative, or neutral</div>
+            <div className='gameResult'>
+              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered}`} <span>correct</span> </div>
+              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered}`} <span>mistake</span></div>
+            </div>
+            <div className='gameDescription'>Decide whether this post is positive, negative, or neutral</div>
           </div>
 
           <div className='snapMiddleContent'>
@@ -85,8 +85,8 @@ useEffect(() => {
           <div className='snapRightSideContent'>
             <div className='foxWrap'><p className='foxTextTought'>You’re awesome!</p><img className='foxTought' src={foxTought} alt="foxtought" /><img className='foxUserPick' src={foxuserpick} alt="foxuserpick" /></div>
             <div className='gameTimerWrapper'>
-                <div className='gameTimeCirkle'></div>
-                <p className='gamePad'>{seconds}</p>
+              <div className='gameTimeCirkle'></div>
+              <p className='gamePad'>{seconds}</p>
             </div>
           </div>
 
@@ -97,8 +97,8 @@ useEffect(() => {
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
-      
-    </div>
+
+    </div >
   )
 }
 

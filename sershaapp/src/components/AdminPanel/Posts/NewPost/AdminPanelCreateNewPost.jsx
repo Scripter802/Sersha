@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useGlobalContext } from '../../../../context/context';
 import Dropzone from 'react-dropzone';
 import closeButton from '../../../../assets/images/adminPanel/closeButton.png'
-import './createnewpost.css'
+import './adminPanelCreateNewPost.css'
 
-const CreatePost = () => {
-    const { allPosts, setAllPosts,  createNewPost, setCreateNewPost } = useGlobalContext();
+const AdminPanelCreateNewPost = () => {
+    const { allPosts, setAllPosts, createNewPost, setCreateNewPost } = useGlobalContext();
     const [postProfileName, setPostProfileName] = useState('');
     const [postContentImage, setPostContentImage] = useState(null);
     const [postAuthor, setPostAuthor] = useState('');
@@ -82,7 +82,7 @@ const CreatePost = () => {
                     <option value="hard">Hard Bundle</option>
                 </select>
             </div>
-            
+
             <div>
                 <label>Type of Post</label>
                 <select className='postType' type="dropdown" value={postType} placeholder='Type of Post' onChange={(e) => setPostType(e.target.value)} >
@@ -97,4 +97,4 @@ const CreatePost = () => {
     );
 };
 
-export default CreatePost;
+export default AdminPanelCreateNewPost;

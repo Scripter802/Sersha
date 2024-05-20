@@ -31,7 +31,7 @@
   gap: 0.315rem;
 }
 
-.snapAnswersNumber > div {
+.snapAnswersNumber>div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,7 +100,7 @@
   margin-top: 1.875rem;
 }
 
-.snapOptionAnswers > img {
+.snapOptionAnswers>img {
   width: 40px;
   height: 40px;
 }
@@ -112,7 +112,51 @@
 .snapRightSideContent {
   flex: 1;
   display: flex;
-  justify-content: end; 
+  justify-content: end;
   position: relative;
 }
 
+@media only screen and (max-width: 1000px) {
+
+  .snapJudgmentGameWrapper {
+    border-radius: 0;
+    padding-top: 0;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .snapJudgmentTitleWrapper {
+    padding-inline: .5rem;
+  }
+
+  .snapGameContainer {
+    background-image: none;
+  }
+
+  .foxWrap {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+  }
+
+  .foxTextTought,
+  .foxTought {
+    display: none;
+  }
+
+  .snapRightSideContent {
+    position: unset;
+  }
+
+  .gameResult {
+    flex-direction: row;
+  }
+
+  .gameResult {}
+
+  .correctAnswered>span,
+  .incorrectAnswered>span {
+    display: none;
+  }
+
+}

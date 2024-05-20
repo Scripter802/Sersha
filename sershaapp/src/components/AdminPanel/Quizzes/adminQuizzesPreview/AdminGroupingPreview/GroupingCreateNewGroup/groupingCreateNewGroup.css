@@ -1,0 +1,111 @@
+.newGroupingContainer {
+  position: relative;
+  margin: 20px auto;
+  width: 100%;
+  background-color: transparent;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #FFB496;
+
+  background: linear-gradient(180deg, #2F202F 0%, #460C23F2 100%);
+}
+
+.newGroupingContainer h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #FFF;
+}
+
+.groupsWrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.groupOneFormWrapper,
+.groupTwoFormWrapper {
+  width: 50%;
+}
+
+.groupOneFormWrapper h5,
+.groupTwoFormWrapper h5 {
+  text-align: center;
+  font-size: 16px;
+  color: #FFF;
+}
+
+.groupingTitleInput {
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: transparent;
+  color: #FFFFFF;
+}
+
+.groupingFieldLabel,
+.groupItemsTitle {
+  font-size: .85rem;
+  padding-bottom: .5rem;
+}
+
+.groupingOptionBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 1rem;
+}
+
+.groupingOptionBox label {
+  width: 100%;
+}
+
+.groupingOptionBox input[type='checkbox'] {
+  width: 30px;
+
+}
+
+.groupingOptionBox input {
+  height: 40px;
+}
+
+.newPostBtn {
+  margin-block: 20px;
+  padding: 10px 20px;
+  background-color: #C26F4D;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.newPostBtn:hover {
+  background-color: #0056b3;
+}
+
+.groupingNewOptionFieldAdd {
+  display: flex;
+  justify-content: center;
+}
+
+.groupingAddNewOptionFieldBtn {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  padding: 5px 15px;
+  background-color: #C26F4D;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.groupingIncrementCharacter {
+  font-size: 20px;
+  line-height: 15px;
+}

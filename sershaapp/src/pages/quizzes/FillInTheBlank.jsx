@@ -19,7 +19,7 @@ const FillInTheBlank = () => {
       avatar: avatar,
       name: 'Jess',
       message: 'Water freezes at # degrees Celsius.',
-      answer: ["25", "0", "-15", "-35" ],
+      answer: ["25", "0", "-15", "-35"],
     },
     {
       avatar: avatar,
@@ -38,15 +38,15 @@ const FillInTheBlank = () => {
       message: 'What iconic bridge connects the boroughs …'
     },
   ]
-  
-  const [ heartsNum, setHeartsNum ] = useState(2)
+
+  const [heartsNum, setHeartsNum] = useState(2)
   const [message, setMessage] = useState(`${messages[0].name}`);
   const [dropped, setDropped] = useState();
   const fillInTheBlank = messages[0].message.split('#');
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: "answer",
-    drop: () => ({ name: 'fill blank'}),
+    drop: () => ({ name: 'fill blank' }),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
       canDrop: !!monitor.canDrop(),
@@ -54,35 +54,45 @@ const FillInTheBlank = () => {
   }), []);
 
   let optionAnswer = messages[0].answer.map(item => item);
-  
+
 
   return (
     <div className='fillBlankQuizWrapper'>
-      
+
       <div className='fillBlankQuizTitleWrapper'>
 
         <div className='fillBlankQuizTitle'>
-          <img src={close} alt="" />
-          <h1>The battle has begun</h1>
+
+          <div>
+            <img src={close} alt="" />
+            <h1>The battle has begun</h1>
+          </div>
+
+          <div className='healthResponsive'>
+            <HealthBar />
+          </div>
         </div>
 
-        <div className='inventory'>
-          <img src={inventory} alt="" />
+        <div className='rightObenWrapper'>
+          <div className='inventory'>
+            <img src={inventory} alt="" />
+          </div>
+
+          <div className='hearts'>
+            <div className='heartWrapper'>{heartsNum === 1 || heartsNum === 2 || heartsNum === 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />} </div>
+            <div className='heartWrapper'>{heartsNum === 2 || heartsNum === 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />} </div>
+            <div className='heartWrapper'>{heartsNum === 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />} </div>
+          </div>
+
+          <div className='sershaLogo'>
+            <p>Sersha</p>
+            <img src={sershafox} alt="" />
+          </div>
         </div>
 
-        <div className='hearts'>
-          <div className='heartWrapper'>{heartsNum === 1 || heartsNum === 2 || heartsNum === 3 ? <FaHeart className='heartFull' />  : <CiHeart className='heart' />} </div>
-          <div className='heartWrapper'>{heartsNum === 2 || heartsNum === 3 ? <FaHeart className='heartFull' />  : <CiHeart className='heart' />} </div>
-          <div className='heartWrapper'>{heartsNum === 3 ? <FaHeart className='heartFull' />  : <CiHeart className='heart' />} </div>
-        </div>
-
-        <div className='sershaLogo'>
-          <p>Sersha</p>
-          <img src={sershafox} alt="" />
-        </div>
       </div>
 
-      <div className='quizWrapper'>
+      <div className='fillInTheBlankquizWrapper'>
         <div className='evilFoxWrapper'>
           <div className='health'>
             <HealthBar />
@@ -96,38 +106,37 @@ const FillInTheBlank = () => {
           </div>
         </div>
         <div>
-          
-      </div>
+
+        </div>
 
         <div className='fillInBlankWrapper'>
           <h5>Fill in the Blank</h5>
           <div className='fillInAssignment'>
-            {fillInTheBlank[0]}{<div ref={drop}> {dropped ? `${dropped}` : <img src={dropPlace} alt='dropplace' />}</div>}{fillInTheBlank[1]}
+            {fillInTheBlank[0]}{<div className={`${dropped ? 'droppedAnswer' : 'dropHereBox'}`} ref={drop}> {dropped ? `${dropped}` : <img src={dropPlace} alt='dropplace' />}</div>}{fillInTheBlank[1]}
           </div>
           <h5>Answer options</h5>
-          
+
           <div className='fillInBlankAnswerWrapper'>
             {optionAnswer.map((item, index) => {
               const [{ isDragging }, drag] = useDrag(() => ({
                 type: "answer",
                 item: { name: item },
                 end: (item, monitor) => {
-              const dropResult = monitor.getDropResult();
-              if (item && dropResult) {
-                alert(`You threw ${item.name} into ${dropResult.name} `)
-                setDropped(item.name);
-              }
-            },
-            collect: (monitor) => ({
-              isDragging: !!monitor.isDragging(),
-            })
-            }), [item]);
+                  const dropResult = monitor.getDropResult();
+                  if (item && dropResult) {
+                    setDropped(item.name);
+                  }
+                },
+                collect: (monitor) => ({
+                  isDragging: !!monitor.isDragging(),
+                })
+              }), [item]);
 
-            return (
-              <div className='fillBlankOfferedAnswersWrapper' key={index}>
-                <p className='fillBlankOfferedAnswers' ref={drag}>{item}</p>
-              </div>
-            );
+              return (
+                <div className='fillBlankOfferedAnswersWrapper' key={index}>
+                  <p className='fillBlankOfferedAnswers' ref={drag}>{item}</p>
+                </div>
+              );
             })}
 
           </div>

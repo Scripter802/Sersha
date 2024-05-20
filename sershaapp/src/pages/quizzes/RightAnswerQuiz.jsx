@@ -13,7 +13,7 @@ import './rightanswerquiz.css'
 import HealthBar from '../../components/HealthBar'
 
 const RightAnswerQuiz = () => {
-  const [ heartsNum, setHeartsNum ] = useState(2)
+  const [heartsNum, setHeartsNum] = useState(2)
 
   const messages = [
     {
@@ -46,31 +46,42 @@ const RightAnswerQuiz = () => {
 
   return (
     <div className='rightAnswerQuizWrapper'>
-      
+
       <div className='rightAnswerTitleWrapper'>
 
         <div className='rightAnswerTitle'>
-          <img src={close} alt="" />
-          <h1>The battle has begun</h1>
+          <div>
+            <img src={close} alt="" />
+            <h1>The battle has begun</h1>
+          </div>
+
+          <div className='healthResponsive'>
+            <HealthBar />
+          </div>
         </div>
 
-        <div className='inventory'>
-          <img src={inventory} alt="" />
-        </div>
+        <div className='rightObenWrapper'>
 
-        <div className='hearts'>
-          <div className='heartWrapper'>{heartsNum === 1 || heartsNum === 2 || heartsNum === 3 ? <FaHeart className='heartFull' />  : <CiHeart className='heart' />} </div>
-          <div className='heartWrapper'>{heartsNum === 2 || heartsNum === 3 ? <FaHeart className='heartFull' />  : <CiHeart className='heart' />} </div>
-          <div className='heartWrapper'>{heartsNum === 3 ? <FaHeart className='heartFull' />  : <CiHeart className='heart' />} </div>
-        </div>
+          <div className='inventory'>
+            <img src={inventory} alt="" />
+          </div>
 
-        <div className='sershaLogo'>
-          <p>Sersha</p>
-          <img src={sershafox} alt="" />
+          <div className='hearts'>
+            <div className='heartWrapper'>{heartsNum === 1 || heartsNum === 2 || heartsNum === 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />} </div>
+            <div className='heartWrapper'>{heartsNum === 2 || heartsNum === 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />} </div>
+            <div className='heartWrapper'>{heartsNum === 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />} </div>
+          </div>
+
+          <div className='sershaLogo'>
+            <p>Sersha</p>
+            <img src={sershafox} alt="" />
+          </div>
+
         </div>
       </div>
 
-      <div className='quizWrapper'>
+
+      <div className='rightAnswerquizWrapper'>
         <div className='evilFoxWrapper'>
           <div className='health'>
             <HealthBar />
@@ -84,31 +95,31 @@ const RightAnswerQuiz = () => {
           </div>
         </div>
         <div>
-          
-      </div>
+
+        </div>
 
         <div className='rightAnswerWrapper'>
           <h5>Question</h5>
           <div className='rightAnswerAssignment'>
             {messages[0].message}
           </div>
-          <h5>Answer options</h5>
-          
+          {answer ? '' : <h5>Answer options</h5>}
+
           <div>
-          {messages.map(msg => (
-            message === msg.name && !answer ? msg.answer?.map(ans => (
-              <div className='rightAnswerOfferedWrapper' onClick={() => setAnswer(`${ans}`)}>
-                <p className='rightAnswerOfferedAnswers'>{ans}</p>
-              </div>
-            )) : ``
+            {messages.map(msg => (
+              message === msg.name && !answer ? msg.answer?.map(ans => (
+                <div className='rightAnswerOfferedWrapper' onClick={() => setAnswer(`${ans}`)}>
+                  <p className='rightAnswerOfferedAnswers'>{ans}</p>
+                </div>
+              )) : ``
             ))}
             {answer ?
-            <div className='rightAnswerSelectedWrapper'>
-              <div className='rightAnswerSelected'>
-                <img src={messages[0].avatar} alt="" />
-                {answer ? `${answer}` : ''}
-              </div>
-            </div> : ''
+              <div className='rightAnswerSelectedWrapper'>
+                <div className='rightAnswerSelected'>
+                  <img src={messages[0].avatar} alt="" />
+                  {answer ? `${answer}` : ''}
+                </div>
+              </div> : ''
             }
           </div>
         </div>

@@ -1,0 +1,25 @@
+import React from 'react'
+import foxbg from '../../assets/images/customization/fox.png'
+import './adminPanelHome.css'
+import { useGlobalContext } from '../../context/context'
+import AdminPanelListOfPosts from './Posts/AdminPanelListOfPosts'
+import AdminPanelUsers from './Users/AdminPanelUsers'
+import AdminPanelClothingPage from './Clothing/AdminPanelClothingPage'
+import AdminPanelQuizzes from './Quizzes/AdminPanelQuizzes'
+
+function AdminPanelHome() {
+  const { activeTab, createNewPost } = useGlobalContext()
+
+
+  return (
+    <main className='tabsWrapper'>
+      {activeTab === 'Users' && <AdminPanelUsers />}
+      {activeTab === 'Posts' && <AdminPanelListOfPosts />}
+      {activeTab === 'Clothing' && <AdminPanelClothingPage />}
+      {activeTab === 'Quizzes' && <AdminPanelQuizzes />}
+    </main>
+
+  )
+}
+
+export default AdminPanelHome

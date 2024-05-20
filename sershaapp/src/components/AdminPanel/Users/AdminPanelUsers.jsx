@@ -1,9 +1,9 @@
 import React from 'react'
 import { useGlobalContext } from '../../../context/context';
 
-import './users.css'
+import './adminPanelUsers.css'
 
-const Users = () => {
+const AdminPanelUsers = () => {
     const { allUsers, setAllUsers } = useGlobalContext();
 
     const handleDelete = (userId) => {
@@ -14,13 +14,14 @@ const Users = () => {
 
     };
 
-  return (
-    <div className="userContainer">
+    return (
+        <div className="userContainer">
             <h3 className="p-3 text-center">All Users</h3>
             {/* <button className="create-post-btn">Create New Post</button> */}
             <table className="table table-striped table-bordered">
                 <thead>
                     <tr>
+                        <th>No.</th>
                         <th>Username</th>
                         <th>Email</th>
                         <th>Date of signup</th>
@@ -28,9 +29,10 @@ const Users = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {allUsers && allUsers.map(user =>
+                    {allUsers && allUsers.map((user, index) =>
                         <tr key={user.id}>
-                            <td> {user.username}</td>
+                            <td>{index + 1}</td>
+                            <td>{user.username}</td>
                             <td>{user.email}</td>
                             <td>{user.signupDate}</td>
                             <td>{user.currentLevel}</td>
@@ -47,4 +49,4 @@ const Users = () => {
     );
 }
 
-export default Users
+export default AdminPanelUsers

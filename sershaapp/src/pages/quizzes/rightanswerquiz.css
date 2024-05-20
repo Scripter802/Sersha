@@ -92,3 +92,86 @@
     padding-right: 1.875rem;
     gap: 1rem;
 }
+
+.rightObenWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+    margin-right: 1.875rem;
+}
+
+.healthResponsive {
+    display: none;
+}
+
+.rightAnswerquizWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 3.125rem;
+    gap: 2rem;
+}
+
+.rightAnswerSelectedWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    color: #ffffff;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.rightAnswerSelected {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    background: #C26F4D30;
+    border-radius: 20px 20px;
+    padding: .75rem;
+    margin-block: .315rem;
+    padding-right: 1.875rem;
+    gap: 1rem;
+}
+
+@media only screen and (max-width: 480px) {
+    .rightAnswerQuizWrapper {
+        border-radius: 0;
+        background-position: center;
+        padding-top: 1rem;
+    }
+
+    .rightAnswerTitle h1 {
+        display: none;
+    }
+
+    .rightAnswerTitleWrapper {
+        justify-content: unset;
+        margin-inline: 0;
+    }
+
+    .rightAnswerTitle {
+        width: 95%;
+        margin-left: 1rem;
+        gap: calc(100% - 180px);
+    }
+
+    .rightAnswerquizWrapper {
+        margin-top: 0;
+        gap: 0;
+        width: 100%;
+    }
+
+    .rightAnswerWrapper {
+        padding: 1.0rem 1.5rem;
+        background: none;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .rightAnswerWrapper h5 {
+        margin-bottom: .25rem;
+    }
+
+    .rightAnswerSelected {
+        width: fit-content;
+    }
+}

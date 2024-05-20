@@ -15,6 +15,12 @@
   justify-content: space-between;
   margin: 0 auto;
   margin-bottom: 1.875rem;
+  position: relative;
+}
+
+.snapGameInfo {
+  position: absolute;
+  right: 20%;
 }
 
 .snapJudgmentTitle {
@@ -123,14 +129,63 @@
     padding-top: 0;
     background-position: center;
     background-size: cover;
+    background-image: url('../../../assets/images/miniGames/snapJudgment/snapJudgmentCardBackgroundRes.png');
+
+
   }
 
   .snapJudgmentTitleWrapper {
     padding-inline: .5rem;
+    width: unset;
+    margin: 0;
+    margin-bottom: 1.875rem;
+  }
+
+  .snapJudgmentTitle {
+    width: 100%;
+    position: relative;
+    padding-top: .5rem;
+  }
+
+  .snapJudgmentTitle img {
+    position: absolute;
+  }
+
+  .snapJudgmentTitle h1 {
+    margin: 0 auto;
+    font-size: 23px;
+  }
+
+  .gameTimerWrapper {
+    position: absolute;
+    top: 5.35rem;
+    left: 50%;
+    width: 45px;
+    height: 45px;
+  }
+
+  .gameTimeCirkle {
+    bottom: 30%;
+    right: 10px;
+    width: 55px;
+    height: 55px;
+  }
+
+  .gamePad {
+    right: 0;
+    width: 35px;
+    height: 35px;
+  }
+
+  .snapGameInfo {
+    position: unset;
+    right: 0;
   }
 
   .snapGameContainer {
     background-image: none;
+    display: unset;
+    padding-inline: 1rem;
   }
 
   .foxWrap {
@@ -144,19 +199,69 @@
     display: none;
   }
 
+  .gameResult,
+  .gameDescription {
+    display: none;
+  }
+
+  .gameDescRes {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .gameDescRes p {
+    text-align: center;
+    width: 200px;
+    color: #FFF;
+  }
+
+  .gameResultRes {
+    flex-direction: row;
+    position: absolute;
+    right: 1rem;
+    display: flex;
+    gap: 1rem;
+    font-size: 19px;
+  }
+
   .snapRightSideContent {
     position: unset;
   }
 
-  .gameResult {
-    flex-direction: row;
+  .snapMiddleContent {
+    margin-top: 2.5rem;
   }
 
-  .gameResult {}
+  .snapOptionAnswers {
+    width: 80%;
+    margin-bottom: 1.5rem;
+  }
+
+  .neutralAnswer {
+    margin-top: 1.5rem;
+  }
+
+  .snapOptionAnswers img {
+    width: 55px;
+    height: 55px;
+  }
 
   .correctAnswered>span,
   .incorrectAnswered>span {
     display: none;
+  }
+
+  .restAssignment {
+    position: absolute;
+    left: 1.25rem;
+    color: #FFB6B6;
+    font-size: 23px;
+  }
+
+  .correctAnswered img {
+    padding-right: .3rem;
   }
 
 }

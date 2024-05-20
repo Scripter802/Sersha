@@ -20,58 +20,72 @@ const PostingChallenge = () => {
 
   const intervalIdRef = useRef(null);
 
-useEffect(() => {
-  intervalIdRef.current = setInterval(() => {
-    setSeconds(prevSeconds => prevSeconds - 1);
-  }, 1000);
+  useEffect(() => {
+    intervalIdRef.current = setInterval(() => {
+      setSeconds(prevSeconds => prevSeconds - 1);
+    }, 1000);
 
-  return () => clearInterval(intervalIdRef.current);
-}, []);
+    return () => clearInterval(intervalIdRef.current);
+  }, []);
 
-useEffect(() => {
-  if (seconds === 0) {
-    clearInterval(intervalIdRef.current);
+  useEffect(() => {
+    if (seconds === 0) {
+      clearInterval(intervalIdRef.current);
+    }
+  }, [seconds]);
+
+  const handleAnswerSubmission = () => {
+
   }
-}, [seconds]);
-
-const handleAnswerSubmission = () => {
-
-}
 
   return (
     <div className='postingChallengeWrapper'>
-      
+
       <div className='postingChallengeTitleWrapper'>
 
         <div className='postingChallengeTitle'>
           <img src={close} alt="" />
           <h1>Posting Challenge</h1>
         </div>
+      </div>
 
-        <div className='postingChallengeAnswersNumber'>
-          <div>1</div>
-          <div>2</div>
-          <div>3</div>
-          <div>4</div>
-          <div>5</div>
-          <div>6</div>
-          <div>7</div>
-          <div>8</div>
-          <div>9</div>
-          <div>10</div>
-        </div>
+      <div className='postingGameInfo'>
+        {window.innerWidth < 1000 ? (
+          <div>
+            <div className='restAssignment'>
+              <p>{totalAnswered <= 10 ? totalAnswered + 1 : totalAnswered} of 10</p>
+            </div>
 
+            <div className='postingGameResultRes'>
+              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered}`} <span>correct</span> </div>
+              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered}`} <span>mistake</span></div>
+            </div>
+          </div>
+        ) : (
+          <div className='postingChallengeAnswersNumber'>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div>10</div>
+          </div>
+        )}
       </div>
 
       <div className='postingChallengeGameWrapper'>
         <div className='postingChallengeGameContainer'>
 
           <div className='postingChallengeLeftSideContent'>
-              <div className='gameResult'>
-                <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered} correct`} </div>
-                <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered} mistake`}</div>
-              </div>
-              <div className='gameDescription'>Decide what kind of content you need to post.</div>
+            <div className='gameResult'>
+              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered} correct`} </div>
+              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered} mistake`}</div>
+            </div>
+            <div className='gameDescription'>Decide what kind of content you need to post.</div>
           </div>
 
           <div className='postingChallengeMiddleContent'>
@@ -89,11 +103,17 @@ const handleAnswerSubmission = () => {
             </div>
           </div>
 
+          {window.innerWidth <= 1000 && (
+            <div className='postingGameDescRes'>
+              <p>Decide what kind of content you need to post.</p>
+            </div>
+          )}
+
           <div className='postingChallengeRightSideContent'>
-            <div className='foxWrap'><p className='foxTextTought'>Multi kill! Awesome!</p><img className='foxTought' src={foxTought} alt="foxtought" /><img className='foxUserPick' src={foxuserpick} alt="foxuserpick" /></div>
-            <div className='gameTimerWrapper'> 
-                <div className='gameTimeCirkle'></div>
-                <p className='gamePad'>{seconds}</p>
+            <div className='postingFoxWrap'><p className='postingFoxTextTought'>Multi kill! Awesome!</p><img className='postingFoxTought' src={foxTought} alt="foxtought" /><img className='foxUserPick' src={foxuserpick} alt="foxuserpick" /></div>
+            <div className='postingGameTimerWrapper'>
+              <div className='postingGameTimeCirkle'></div>
+              <p className='postingGamePad'>{seconds}</p>
             </div>
           </div>
 
@@ -104,7 +124,7 @@ const handleAnswerSubmission = () => {
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
-      
+
     </div>
   )
 }

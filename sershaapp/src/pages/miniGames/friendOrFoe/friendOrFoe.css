@@ -31,7 +31,7 @@
   gap: 0.315rem;
 }
 
-.friendOrFoeAnswersNumber > div {
+.friendOrFoeAnswersNumber>div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,7 +77,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+
   gap: .625rem;
 }
 
@@ -91,16 +91,16 @@
   gap: 1.125rem;
 }
 
-.messageGameCard > img {
+.messageGameCard>img {
   width: 80px;
   height: 80px;
 }
 
 .messageName {
- font-size: 16px;
- line-height: 20px;
- color: #FFFFFF;
- margin-bottom: 0.3rem;
+  font-size: 16px;
+  line-height: 20px;
+  color: #FFFFFF;
+  margin-bottom: 0.3rem;
 }
 
 .messageText {
@@ -122,7 +122,7 @@
   align-items: center;
   border-radius: 30px 30px;
   border: 0;
-  padding: .5rem;  
+  padding: .5rem;
   width: 140px;
   height: 50px;
   background: #FFB6B6;
@@ -136,7 +136,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 30px 30px;
-  padding: .5rem;  
+  padding: .5rem;
   width: 140px;
   height: 50px;
   background: #B2F0B6;
@@ -148,6 +148,276 @@
 .friendOrFoeRightSideContent {
   flex: 1;
   display: flex;
-  justify-content: end; 
+  justify-content: end;
   position: relative;
+}
+
+.friendOrFoeFoxWrap {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}
+
+.friendOrFoeFoxTextTought {
+  position: absolute;
+  right: .75rem;
+  top: .6rem;
+  font-size: 19px;
+  z-index: 10;
+  width: 130px;
+  height: 68px;
+  color: #FFB496;
+  line-height: 19px;
+}
+
+.friendOrFoeFoxTought {
+  position: absolute;
+  right: 1.5rem;
+  z-index: 1;
+}
+
+.friendOrFoeGameTimeCirkle {
+  position: absolute;
+  bottom: 10%;
+  right: 0;
+  width: 70px;
+  height: 70px;
+  margin: 50px auto 0;
+  border: solid 3px #ffffff;
+  border-radius: 50%;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  -webkit-transition: all 0.5s ease-in;
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 1.0s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  transition: all 0.5s ease-in;
+  animation-name: rotate;
+  animation-duration: 1.0s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.friendOrFoeGamePad {
+  position: absolute;
+  bottom: 10%;
+  right: 0;
+  transform: translate(-50%, -50%);
+  width: 35px;
+  line-height: 35px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 32px;
+  color: #ffffff;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.friendOrFoeGameInfo {
+  position: absolute;
+  right: 20%;
+}
+
+
+@media only screen and (max-width: 1000px) {
+
+  .friendOrFoeWrapper {
+    border-radius: 0;
+    padding-top: 0;
+    background-position: center;
+    background-size: cover;
+    background-image: url('../../../assets/images/miniGames/snapJudgment/snapJudgmentCardBackgroundRes.png');
+    min-height: unset;
+    height: 100%;
+    padding-bottom: 10rem;
+  }
+
+  .friendOrFoeTitleWrapper {
+    padding-inline: .5rem;
+    width: unset;
+    margin: 0;
+    margin-bottom: 1.875rem;
+  }
+
+  .friendOrFoeTitle {
+    width: 100%;
+    position: relative;
+    padding-top: .5rem;
+  }
+
+  .friendOrFoeTitle img {
+    position: absolute;
+  }
+
+  .friendOrFoeTitle h1 {
+    margin: 0 auto;
+    font-size: 23px;
+  }
+
+  .friendOrFoeGameWrapper {
+    width: 100%;
+  }
+
+
+  .friendOrFoeGameInfo {
+    position: unset;
+    right: 0;
+  }
+
+  .friendOrFoeGameContainer {
+    background-image: none;
+    display: unset;
+    padding-inline: 1rem;
+    width: 100%;
+  }
+
+  .friendOrFoeGameCard {
+    margin-bottom: 2rem;
+    width: 353px;
+  }
+
+  .friendOrFoeGameCard div {
+    height: 120px;
+  }
+
+  .middleGamePhoto {
+    width: 100%;
+  }
+
+  .friendOrFoeFoxWrap {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+  }
+
+  .friendOrFoeFoxTextTought {
+    right: 0;
+    top: 4.5rem;
+    width: unset;
+    height: unset;
+    display: none;
+  }
+
+  .friendOrFoeFoxTought {
+    right: -1rem;
+    top: 2.75rem;
+    display: none;
+  }
+
+  .gameResult,
+  .gameDescription {
+    display: none;
+  }
+
+  .friendOrFoeGameDescRes {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .friendOrFoeGameDescRes p {
+    width: 80%;
+    text-align: center;
+    color: #FFF;
+    margin-top: 2rem;
+  }
+
+
+  .gameResultRes {
+    flex-direction: row;
+    position: absolute;
+    right: 1rem;
+    display: flex;
+    gap: 1rem;
+    font-size: 19px;
+  }
+
+
+  .friendOrFoeMiddleContent {
+    margin-top: 2.5rem;
+  }
+
+  .middleInfoUser {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+  }
+
+  .friendOrFoeOptionAnswers {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .friendOrFoeOptionAnswers div {
+    width: 100%;
+    height: 75px;
+  }
+
+  .friendOrFoeOptionAnswers div:hover {
+    background: #FFF;
+    color: #000;
+  }
+
+  .friendOrFoeRightSideContent {
+    position: unset;
+  }
+
+  .correctAnswered>span,
+  .incorrectAnswered>span {
+    display: none;
+  }
+
+  .restAssignment {
+    position: absolute;
+    left: 1.25rem;
+    color: #FFB6B6;
+    font-size: 23px;
+  }
+
+  .correctAnswered img {
+    padding-right: .3rem;
+  }
+
+  .friendOrFoeGameTimerWrapper {
+    position: absolute;
+    top: 5.35rem;
+    left: 50%;
+    width: 45px;
+    height: 45px;
+    margin-left: -22.5px;
+  }
+
+  .friendOrFoeGameTimeCirkle {
+    bottom: 40%;
+    right: .75rem;
+    width: 45px;
+    height: 45px;
+  }
+
+  .friendOrFoeGamePad {
+    right: 0;
+    width: 35px;
+    height: 35px;
+  }
 }

@@ -31,7 +31,7 @@
   gap: 0.315rem;
 }
 
-.postingChallengeAnswersNumber > div {
+.postingChallengeAnswersNumber>div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -117,7 +117,7 @@
   align-items: center;
   border-radius: 30px 30px;
   border: 0;
-  padding: .5rem;  
+  padding: .5rem;
   width: 155px;
   height: 55px;
   background: #FFB6B6;
@@ -131,7 +131,7 @@
   justify-content: center;
   align-items: center;
   border-radius: 30px 30px;
-  padding: .5rem;  
+  padding: .5rem;
   width: 155px;
   height: 55px;
   background: #B2F0B6;
@@ -143,6 +143,255 @@
 .postingChallengeRightSideContent {
   flex: 1;
   display: flex;
-  justify-content: end; 
+  justify-content: end;
   position: relative;
+}
+
+.postingFoxWrap {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}
+
+.postingFoxTought {
+  position: absolute;
+  right: 1.5rem;
+  z-index: 1;
+}
+
+.postingFoxTextTought {
+  position: absolute;
+  right: .75rem;
+  top: .75rem;
+  font-size: 19px;
+  z-index: 10;
+  width: 130px;
+  height: 68px;
+  color: #FFB496;
+  line-height: 19px;
+}
+
+.postingGamePad {
+  position: absolute;
+  bottom: 10%;
+  right: 0;
+  transform: translate(-50%, -50%);
+  width: 35px;
+  line-height: 35px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 32px;
+  color: #ffffff;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.postingGameTimeCirkle {
+  position: absolute;
+  bottom: 10%;
+  right: 0;
+  width: 70px;
+  height: 70px;
+  margin: 50px auto 0;
+  border: solid 3px #ffffff;
+  border-radius: 50%;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  -webkit-transition: all 0.5s ease-in;
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 1.0s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  transition: all 0.5s ease-in;
+  animation-name: rotate;
+  animation-duration: 1.0s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.postingGameInfo {
+  position: absolute;
+  right: 20%;
+}
+
+@media only screen and (max-width: 1000px) {
+
+  .postingChallengeWrapper {
+    border-radius: 0;
+    padding-top: 0;
+    background-position: center;
+    background-size: cover;
+    background-image: url('../../../assets/images/miniGames/postingChallenge/backgroundRes.png');
+    min-height: unset;
+    height: 100%;
+    padding-bottom: 12rem;
+  }
+
+  .postingChallengeTitleWrapper {
+    padding-inline: 1.25rem;
+    width: unset;
+    margin: 0;
+    margin-bottom: 1.875rem;
+  }
+
+  .postingChallengeTitle {
+    width: 100%;
+    position: relative;
+    padding-top: .5rem;
+  }
+
+  .postingChallengeTitle img {
+    position: absolute;
+  }
+
+  .postingChallengeTitle h1 {
+    margin: 0 auto;
+    font-size: 23px;
+  }
+
+
+  .postingGameInfo {
+    position: unset;
+    right: 0;
+  }
+
+  .postingChallengeGameContainer {
+    background-image: none;
+    display: unset;
+    padding-inline: 1rem;
+  }
+
+  .postingGameCard {
+    margin-bottom: 3rem;
+  }
+
+  .postingFoxWrap {
+    position: absolute;
+    top: .5rem;
+    right: 1.25rem;
+  }
+
+  .postingFoxTextTought {
+    right: 0;
+    top: 4.5rem;
+    width: unset;
+    height: unset;
+    display: none;
+  }
+
+  .postingFoxTought {
+    right: -1rem;
+    top: 2.75rem;
+    display: none;
+  }
+
+  .gameResult,
+  .gameDescription {
+    display: none;
+  }
+
+  .postingGameDescRes {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .postingGameDescRes p {
+    width: 80%;
+    text-align: center;
+    color: #FFF;
+    margin-top: 1rem;
+  }
+
+
+  .postingGameResultRes {
+    flex-direction: row;
+    position: absolute;
+    right: 1rem;
+    display: flex;
+    gap: 1rem;
+    font-size: 19px;
+  }
+
+  .postingChallengeRightSideContent {
+    position: unset;
+  }
+
+  .postingChallengeMiddleContent {
+    margin-top: 2.5rem;
+  }
+
+  .postingChallengeOptionAnswers {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    margin-top: 0;
+  }
+
+  .postingChallengeOptionAnswers div {
+    width: 100%;
+    height: 75px;
+  }
+
+  .postingChallengeOptionAnswers div:hover {
+    background: #FFF;
+    color: #000;
+  }
+
+  .correctAnswered>span,
+  .incorrectAnswered>span {
+    display: none;
+  }
+
+  .restAssignment {
+    position: absolute;
+    left: 1.25rem;
+    color: #FFB6B6;
+    font-size: 23px;
+  }
+
+  .correctAnswered img {
+    padding-right: .3rem;
+  }
+
+  .postingGameTimerWrapper {
+    position: absolute;
+    top: 5.35rem;
+    left: 50%;
+    width: 45px;
+    height: 45px;
+    margin-left: -15px;
+  }
+
+  .postingGameTimeCirkle {
+    bottom: 40%;
+    right: .75rem;
+    width: 45px;
+    height: 45px;
+  }
+
+  .postingGamePad {
+    right: 0;
+    width: 35px;
+    height: 35px;
+  }
+
 }

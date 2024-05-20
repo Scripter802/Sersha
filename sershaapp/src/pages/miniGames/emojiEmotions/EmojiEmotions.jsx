@@ -4,7 +4,8 @@ import close from '../../../assets/images/quiz/close.png'
 import correctAnswer from '../../../assets/images/miniGames/correctAnswer.png'
 import incorrectAnswer from '../../../assets/images/miniGames/incorrectAnswer.png'
 import foxuserpick from '../../../assets/images/miniGames/foxuserpick.png'
-import foxTought from '../../../assets/images/miniGames/foxTought.png'
+import foxToughtRes from '../../../assets/images/miniGames/emojiEmotions/foxToughtRes.png'
+import foxTought from '../../../assets/images/miniGames/emojiEmotions/foxTought.png'
 import emojiOne from '../../../assets/images/miniGames/emojiEmotions/smajliOne.png'
 import emojiTwo from '../../../assets/images/miniGames/emojiEmotions/smajliTwo.png'
 import emojiThree from '../../../assets/images/miniGames/emojiEmotions/smajliThree.png'
@@ -26,83 +27,99 @@ const EmojiEmotions = () => {
 
   const intervalIdRef = useRef(null);
 
-useEffect(() => {
-  intervalIdRef.current = setInterval(() => {
-    setSeconds(prevSeconds => prevSeconds - 1);
-  }, 1000);
+  useEffect(() => {
+    intervalIdRef.current = setInterval(() => {
+      setSeconds(prevSeconds => prevSeconds - 1);
+    }, 1000);
 
-  return () => clearInterval(intervalIdRef.current);
-}, []);
+    return () => clearInterval(intervalIdRef.current);
+  }, []);
 
-useEffect(() => {
-  if (seconds === 0) {
-    clearInterval(intervalIdRef.current);
-  }
-}, [seconds]);
-
-const handleAnswerSubmission = (index) => {
-  if (emojis.length > 1) {
-    setTotalAnswered((prev) => prev + 1);
-    setTotalAnswered((prev) => prev);
-    // Get the chosen answer
-    const chosenAnswer = emojisAnswers[index];
-    
-    const correctAnswer = rightAnswer[totalAnswered]
-
-    // Compare the chosen answer with the correct answer
-    if (chosenAnswer === correctAnswer) {
-      // If the chosen answer is correct, increment the correctAnswered state
-      setCorrectAnswered(prevCorrect => prevCorrect + 1);
-    } else {
-      // If the chosen answer is incorrect, increment the incorrectAnswered state
-      setIncorrectAnswered(prevIncorrect => prevIncorrect + 1);
+  useEffect(() => {
+    if (seconds === 0) {
+      clearInterval(intervalIdRef.current);
     }
+  }, [seconds]);
 
-    
-    
-    if(passedEmojis.length === 0) {
-    setPassedEmojis([emojis[0]])
-    }
+  const handleAnswerSubmission = (index) => {
+    if (emojis.length > 1) {
+      setTotalAnswered((prev) => prev + 1);
+      setTotalAnswered((prev) => prev);
+      // Get the chosen answer
+      const chosenAnswer = emojisAnswers[index];
 
-    if(passedEmojis.length === 1) {
-    setPassedEmojis(prev => [...prev, emojis[1]])
+      const correctAnswer = rightAnswer[totalAnswered]
+
+      // Compare the chosen answer with the correct answer
+      if (chosenAnswer === correctAnswer) {
+        // If the chosen answer is correct, increment the correctAnswered state
+        setCorrectAnswered(prevCorrect => prevCorrect + 1);
+      } else {
+        // If the chosen answer is incorrect, increment the incorrectAnswered state
+        setIncorrectAnswered(prevIncorrect => prevIncorrect + 1);
+      }
+
+
+
+      if (passedEmojis.length === 0) {
+        setPassedEmojis([emojis[0]])
+      }
+
+      if (passedEmojis.length === 1) {
+        setPassedEmojis(prev => [...prev, emojis[1]])
+      }
+
+      if (passedEmojis.length > 1 && emojis.length > 2) {
+        setPassedEmojis(prev => [...prev, emojis[1]])
+      }
+
+      setPassedEmojis(prev => prev)
+      console.log(passedEmojis)
+      console.log(totalAnswered)
+      // Move emojis to the left
+      setEmojis(prevEmojis => prevEmojis.slice(1));
+      console.log(emojis)
     }
-    
-    if(passedEmojis.length > 1 && emojis.length > 2) {
-    setPassedEmojis(prev => [...prev, emojis[1]])
   }
-    
-    setPassedEmojis(prev => prev)
-    console.log(passedEmojis)
-    console.log(totalAnswered)
-    // Move emojis to the left
-    setEmojis(prevEmojis => prevEmojis.slice(1));
-    console.log(emojis)
-  }
-}
 
   return (
     <div className='emojiEmotionsWrapper'>
-      
+
       <div className='emojiEmotionsTitleWrapper'>
 
         <div className='emojiEmotionsTitle'>
-          <img src={close} alt="" />
+          <img src={close} alt="closeBtn" />
           <h1>Emoji Emotions</h1>
         </div>
+      </div>
 
-        <div className='emojiEmotionsAnswersNumber'>
-          <div>1</div>
-          <div>2</div>
-          <div>3</div>
-          <div>4</div>
-          <div>5</div>
-          <div>6</div>
-          <div>7</div>
-          <div>8</div>
-          <div>9</div>
-          <div>10</div>
-        </div>
+      <div className='emojiGameInfo'>
+        {window.innerWidth < 1000 ? (
+          <div>
+            <div className='restAssignment'>
+              <p>{totalAnswered <= 10 ? totalAnswered + 1 : totalAnswered} of 10</p>
+            </div>
+
+            <div className='gameResultRes'>
+              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered}`} <span>correct</span> </div>
+              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered}`} <span>mistake</span></div>
+            </div>
+          </div>
+        ) : (
+          <div className='emojiEmotionsAnswersNumber'>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div>10</div>
+          </div>
+        )
+        }
 
       </div>
 
@@ -110,36 +127,36 @@ const handleAnswerSubmission = (index) => {
         <div className='emojiEmotionsGameContainer'>
 
           <div className='emojiEmotionsLeftSideContent'>
-              <div className='gameResult'>
-                <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered} correct`} </div>
-                <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered} mistake`}</div>
-              </div>
-              <div className='gameDescription'>Which emojis match the correct emotions or situations.</div>
+            <div className='gameResult'>
+              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered} correct`} </div>
+              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered} mistake`}</div>
+            </div>
+            <div className='gameDescription'>Which emojis match the correct emotions or situations.</div>
           </div>
 
           <div className='emojiEmotionsMiddleContent'>
-          <div className='emojiGameCard'>
-  {/* Display emojis in positions 3, 4, and 5 */}
-  <div className='emojiWrap'>
-    {totalAnswered < 2 ? <img src={questionMark} alt='hidden emoji' /> : <img src={passedEmojis && passedEmojis[passedEmojis.length - 2]} alt='emojis' />}
-  </div>
-  <div className='emojiWrap'>
-    {totalAnswered === 0 ? <img src={questionMark} alt='hidden emoji' /> : totalAnswered === 1 ? <img src={passedEmojis[0]} alt='emojis' /> : <img src={passedEmojis[passedEmojis.length - 1]} alt='emojis' />}
-  </div>
-  <div className='emojiWrap'>
-    {emojis.length === 2 && <img src={emojis[1]} alt='emojis' />}
-    {emojis.length === 1 && <img src={emojis[0]} alt='emojis' />}
-    {emojis.length > 2 && totalAnswered === 0 ? <img src={emojis[0]} alt='emojis' /> : emojis.length > 2 && totalAnswered === 1 ? <img src={emojis[1]} alt='emojis' /> : emojis.length > 2 && <img src={emojis[2]} alt='emojis' /> }
-  </div>
+            <div className='emojiGameCard'>
+              {/* Display emojis in positions 3, 4, and 5 */}
+              <div className='emojiWrap'>
+                {totalAnswered < 2 ? <img src={questionMark} alt='hidden emoji' /> : <img src={passedEmojis && passedEmojis[passedEmojis.length - 2]} alt='emojis' />}
+              </div>
+              <div className='emojiWrap'>
+                {totalAnswered === 0 ? <img src={questionMark} alt='hidden emoji' /> : totalAnswered === 1 ? <img src={passedEmojis[0]} alt='emojis' /> : <img src={passedEmojis[passedEmojis.length - 1]} alt='emojis' />}
+              </div>
+              <div className='emojiWrap'>
+                {emojis.length === 2 && <img src={emojis[1]} alt='emojis' />}
+                {emojis.length === 1 && <img src={emojis[0]} alt='emojis' />}
+                {emojis.length > 2 && totalAnswered === 0 ? <img src={emojis[0]} alt='emojis' /> : emojis.length > 2 && totalAnswered === 1 ? <img src={emojis[1]} alt='emojis' /> : emojis.length > 2 && <img src={emojis[2]} alt='emojis' />}
+              </div>
 
-  {/* Show a question mark for positions 1 and 2 */}
-  <div className='emojiHidden'>
-    <img src={questionMark} alt='hidden emoji' />
-  </div>
-  <div className='emojiHidden'>
-    <img src={questionMark} alt='hidden emoji' />
-  </div>
-</div>
+              {/* Show a question mark for positions 1 and 2 */}
+              <div className='emojiHidden'>
+                <img src={questionMark} alt='hidden emoji' />
+              </div>
+              <div className='emojiHidden'>
+                <img src={questionMark} alt='hidden emoji' />
+              </div>
+            </div>
 
             <div className='emojiEmotionsOptionAnswers'>
               {emojisAnswers.map((ans, index) => (
@@ -148,11 +165,17 @@ const handleAnswerSubmission = (index) => {
             </div>
           </div>
 
+          {window.innerWidth <= 1000 && (
+            <div className='emojiGameDescRes'>
+              <p>Which emojis match the correct emotions or situations.</p>
+            </div>
+          )}
+
           <div className='emojiEmotionsRightSideContent'>
-            <div className='foxWrap'><p className='foxTextTought'>Multi kill! Awesome!</p><img className='foxTought' src={foxTought} alt="foxtought" /><img className='foxUserPick' src={foxuserpick} alt="foxuserpick" /></div>
-            <div className='gameTimerWrapper'> 
-                <div className='gameTimeCirkle'></div>
-                <p className='gamePad'>{seconds}</p>
+            <div className='emojifoxWrap'><p className='emojifoxTextTought'>Multi kill! Awesome!</p><img className='emojifoxTought' src={window.innerWidth < 1000 ? foxToughtRes : foxTought} alt="foxtought" /><img className='foxUserPick' src={foxuserpick} alt="foxuserpick" /></div>
+            <div className='emojiGameTimerWrapper'>
+              <div className='emojiGameTimeCirkle'></div>
+              <p className='emojiGamePad'>{seconds}</p>
             </div>
           </div>
 
@@ -163,7 +186,7 @@ const handleAnswerSubmission = (index) => {
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
-      
+
     </div>
   )
 }

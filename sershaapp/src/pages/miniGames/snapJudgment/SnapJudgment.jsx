@@ -16,6 +16,7 @@ const SnapJudgment = () => {
   const [seconds, setSeconds] = useState(25);
   const [correctAnswered, setCorrectAnswered] = useState(0);
   const [incorrectAnswered, setIncorrectAnswered] = useState(0);
+  let totalAnswered = correctAnswered + incorrectAnswered;
 
   const intervalIdRef = useRef(null);
 
@@ -37,24 +38,39 @@ const SnapJudgment = () => {
     <div className='snapJudgmentGameWrapper'>
 
       <div className='snapJudgmentTitleWrapper'>
-
         <div className='snapJudgmentTitle'>
           <img src={close} alt="" />
           <h1>Snap Judgment</h1>
         </div>
+      </div>
 
-        <div className='snapAnswersNumber'>
-          <div>1</div>
-          <div>2</div>
-          <div>3</div>
-          <div>4</div>
-          <div>5</div>
-          <div>6</div>
-          <div>7</div>
-          <div>8</div>
-          <div>9</div>
-          <div>10</div>
-        </div>
+      <div className='snapGameInfo'>
+        {window.innerWidth < 1000 ? (
+          <div>
+            <div className='restAssignment'>
+              <p>{totalAnswered <= 10 ? totalAnswered + 1 : totalAnswered} of 10</p>
+            </div>
+
+            <div className='gameResultRes'>
+              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered}`} <span>correct</span> </div>
+              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered}`} <span>mistake</span></div>
+            </div>
+          </div>
+        ) : (
+          <div className='snapAnswersNumber'>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div>10</div>
+          </div>
+        )
+        }
 
       </div>
 
@@ -81,6 +97,12 @@ const SnapJudgment = () => {
               <img src={like} alt="like" />
             </div>
           </div>
+
+          {window.innerWidth <= 1000 && (
+            <div className='gameDescRes'>
+              <p>Decide whether this post is positive, negative, or neutral</p>
+            </div>
+          )}
 
           <div className='snapRightSideContent'>
             <div className='foxWrap'><p className='foxTextTought'>You’re awesome!</p><img className='foxTought' src={foxTought} alt="foxtought" /><img className='foxUserPick' src={foxuserpick} alt="foxuserpick" /></div>

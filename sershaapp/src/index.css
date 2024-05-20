@@ -91,7 +91,7 @@ body {
   top: 10%;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 1000px) {
 
   .evilFoxWrapper {
     display: none;
@@ -299,7 +299,7 @@ label>input {
   animation-timing-function: linear;
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 1000px) {
   .footerWrapper {
     display: none;
   }

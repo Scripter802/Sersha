@@ -31,7 +31,7 @@
   gap: 0.315rem;
 }
 
-.emojiEmotionsAnswersNumber > div {
+.emojiEmotionsAnswersNumber>div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,7 +80,7 @@
   gap: .625rem;
 }
 
-.emojiGameCard > div {
+.emojiGameCard>div {
   width: 54px;
   height: 54px;
   display: flex;
@@ -90,7 +90,7 @@
   background: #C26F4D;
 }
 
-.emojiGameCard > div > img {
+.emojiGameCard>div>img {
   width: 34px;
   height: 34px;
 }
@@ -103,7 +103,7 @@
   gap: .315rem;
 }
 
-.emojiEmotionsOptionAnswers > div {
+.emojiEmotionsOptionAnswers>div {
   width: 210px;
   height: 80px;
   display: flex;
@@ -114,7 +114,7 @@
   border-radius: 20px 20px;
 }
 
-.optionAnswers > img {
+.optionAnswers>img {
   width: 40px;
   height: 40px;
 }
@@ -126,6 +126,253 @@
 .emojiEmotionsRightSideContent {
   flex: 1;
   display: flex;
-  justify-content: end; 
+  justify-content: end;
   position: relative;
+}
+
+.emojifoxWrap {
+  display: flex;
+  align-items: start;
+  justify-content: center;
+}
+
+.emojifoxTextTought {
+  position: absolute;
+  right: .75rem;
+  top: .6rem;
+  font-size: 19px;
+  z-index: 10;
+  width: 130px;
+  height: 68px;
+  color: #FFB496;
+  line-height: 19px;
+}
+
+.emojifoxTought {
+  position: absolute;
+  right: 1.5rem;
+  z-index: 1;
+}
+
+.emojiGameTimeCirkle {
+  position: absolute;
+  bottom: 10%;
+  right: 0;
+  width: 70px;
+  height: 70px;
+  margin: 50px auto 0;
+  border: solid 3px #ffffff;
+  border-radius: 50%;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  -webkit-transition: all 0.5s ease-in;
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 1.0s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  transition: all 0.5s ease-in;
+  animation-name: rotate;
+  animation-duration: 1.0s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.emojiGamePad {
+  position: absolute;
+  bottom: 10%;
+  right: 0;
+  transform: translate(-50%, -50%);
+  width: 35px;
+  line-height: 35px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 32px;
+  color: #ffffff;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.emojiGameInfo {
+  position: absolute;
+  right: 20%;
+}
+
+@media only screen and (max-width: 1000px) {
+
+  .emojiEmotionsWrapper {
+    border-radius: 0;
+    padding-top: 0;
+    background-position: center;
+    background-size: cover;
+    background-image: url('../../../assets/images/miniGames/snapJudgment/snapJudgmentCardBackgroundRes.png');
+    min-height: unset;
+    height: 100%;
+    padding-bottom: 10rem;
+  }
+
+  .emojiEmotionsTitleWrapper {
+    padding-inline: 1.25rem;
+    width: unset;
+    margin: 0;
+    margin-bottom: 1.875rem;
+  }
+
+  .emojiEmotionsTitle {
+    width: 100%;
+    position: relative;
+    padding-top: .5rem;
+  }
+
+  .emojiEmotionsTitle img {
+    position: absolute;
+  }
+
+  .emojiEmotionsTitle h1 {
+    margin: 0 auto;
+    font-size: 23px;
+  }
+
+
+  .emojiGameInfo {
+    position: unset;
+    right: 0;
+  }
+
+  .emojiEmotionsGameContainer {
+    background-image: none;
+    display: unset;
+    padding-inline: 1rem;
+  }
+
+  .emojiGameCard {
+    margin-bottom: 2.5rem;
+  }
+
+  .emojifoxWrap {
+    position: absolute;
+    top: .5rem;
+    right: 1.25rem;
+  }
+
+  .emojifoxTextTought {
+    right: 0;
+    top: 4.5rem;
+    width: unset;
+    height: unset;
+    display: none;
+  }
+
+  .emojifoxTought {
+    right: -1rem;
+    top: 2.75rem;
+    display: none;
+  }
+
+  .gameResult,
+  .gameDescription {
+    display: none;
+  }
+
+  .emojiGameDescRes {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .emojiGameDescRes p {
+    width: 80%;
+    text-align: center;
+    color: #FFF;
+    margin-top: 3.375rem;
+  }
+
+
+  .gameResultRes {
+    flex-direction: row;
+    position: absolute;
+    right: 1rem;
+    display: flex;
+    gap: 1rem;
+    font-size: 19px;
+  }
+
+  .emojiEmotionsRightSideContent {
+    position: unset;
+  }
+
+  .emojiEmotionsMiddleContent {
+    margin-top: 2.5rem;
+  }
+
+  .emojiEmotionsOptionAnswers {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+
+  .emojiEmotionsOptionAnswers div {
+    width: 100%;
+    height: 75px;
+  }
+
+  .emojiEmotionsOptionAnswers div:hover {
+    background: #FFF;
+    color: #000;
+  }
+
+  .correctAnswered>span,
+  .incorrectAnswered>span {
+    display: none;
+  }
+
+  .restAssignment {
+    position: absolute;
+    left: 1.25rem;
+    color: #FFB6B6;
+    font-size: 23px;
+  }
+
+  .correctAnswered img {
+    padding-right: .3rem;
+  }
+
+  .emojiGameTimerWrapper {
+    position: absolute;
+    top: 5.35rem;
+    left: 50%;
+    width: 45px;
+    height: 45px;
+    margin-left: -22.5px;
+  }
+
+  .emojiGameTimeCirkle {
+    bottom: 40%;
+    right: .75rem;
+    width: 45px;
+    height: 45px;
+  }
+
+  .emojiGamePad {
+    right: 0;
+    width: 35px;
+    height: 35px;
+  }
 }

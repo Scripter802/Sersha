@@ -12,7 +12,8 @@ const RightAnswerCreateNewAnswer = () => {
       { option: '', isCorrect: false },
       { option: '', isCorrect: false },
       { option: '', isCorrect: false }
-    ]
+    ],
+    stage: ''
   });
 
   const handleSubmit = () => {
@@ -22,7 +23,8 @@ const RightAnswerCreateNewAnswer = () => {
       options: rightAnswerNewQuestion.options.map(option => ({
         option: option.option,
         isCorrect: option.isCorrect
-      }))
+      })),
+      stage: rightAnswerNewQuestion.stage
     };
 
     // Update the list of questions
@@ -35,7 +37,8 @@ const RightAnswerCreateNewAnswer = () => {
         { option: '', isCorrect: false },
         { option: '', isCorrect: false },
         { option: '', isCorrect: false }
-      ]
+      ],
+      stage: ''
     });
 
 
@@ -113,6 +116,14 @@ const RightAnswerCreateNewAnswer = () => {
           </>
         ))}
 
+      </div>
+      <div>
+        <label>Bundle</label>
+        <select className='postBundles' type="dropdown" value={rightAnswerNewQuestion.stage} placeholder='Choose a bundle' onChange={(e) => setRightAnswerNewQuestion({ ...rightAnswerNewQuestion, stage: e.target.value })} >
+          <option value="Easy">Easy Bundle</option>
+          <option value="Medium">Medium Bundle</option>
+          <option value="Hard">Hard Bundle</option>
+        </select>
       </div>
 
 

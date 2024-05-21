@@ -21,7 +21,8 @@ const AdminRightAnswerPreview = () => {
           option: 'Very good',
           isCorrect: false,
         },
-      ]
+      ],
+      Stage: "Hard"
     },
     {
       Question: "How Are You?",
@@ -38,7 +39,8 @@ const AdminRightAnswerPreview = () => {
           option: 'Very good',
           isCorrect: false,
         },
-      ]
+      ],
+      Stage: "Hard"
     },
     {
       Question: "How Are You?",
@@ -55,7 +57,8 @@ const AdminRightAnswerPreview = () => {
           option: 'Very good',
           isCorrect: false,
         },
-      ]
+      ],
+      Stage: "Hard"
     },
   ]
 
@@ -75,6 +78,7 @@ const AdminRightAnswerPreview = () => {
                 <th>Question</th>
                 <th>Options</th>
                 <th>Correct answer</th>
+                <th>Bundle</th>
                 <th>Edit/Delete</th>
               </tr>
             </thead>
@@ -87,7 +91,7 @@ const AdminRightAnswerPreview = () => {
                     <p>{q.option}</p>
                   ))}</td>
                   <td>{quest.Options.map(q => q.isCorrect === true && <p>{q.option}</p>)}</td>
-
+                  <td>{quest.Stage}</td>
                   <td className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEdit(index)}>Edit</button>
 

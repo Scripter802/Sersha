@@ -8,6 +8,7 @@ import avatar from '../assets/images/navbar/userpick.png'
 
 const AppContext = createContext();
 const baseUrl = "http://localhost:5000";
+const baseUrlImage = "C:/Users/MacBook/Desktop/Sersha/sershaback/API";
 
 const AppProvider = ({ children }) => {
 
@@ -24,7 +25,9 @@ const AppProvider = ({ children }) => {
   // { id: 4, profilePicture: 'Jessi', profileName: 'Glaser', image: 'jessi.glaser@test.com', text: 'User' },
   // { id: 5, profilePicture: 'Jay', profileName: 'Bilzerian', image: 'jay.bilzerian@test.com', text: 'User' }
 
-  const [createNewPost, setCreateNewPost] = useState(false)
+  const [createNewPost, setCreateNewPost] = useState(false);
+  const [isPostEdit, setIsPostEdit] = useState(false);
+  const [editingPost, setEditingPost] = useState([]);
 
   /* ADMIN users */
   const [allUsers, setAllUsers] = useState([
@@ -79,6 +82,11 @@ const AppProvider = ({ children }) => {
 
   /* _______________________________________________________________________________ */
 
+  /* HOMEPAGE *//* HOMEPAGE *//* HOMEPAGE *//* HOMEPAGE *//* HOMEPAGE *//* HOMEPAGE *//* HOMEPAGE */
+  const [postsPerStage, setPostsPerStage] = useState([]);
+  const [randomPosts, setRandomPosts] = useState([]);
+
+
 
   /* DMS  *//* DMS  *//* DMS  *//* DMS  *//* DMS  *//* DMS  *//* DMS  *//* DMS  *//* DMS  */
 
@@ -94,19 +102,47 @@ const AppProvider = ({ children }) => {
   //GET ALL               //GET ALL
   const getAllPosts = async () => {
     try {
-      const response = axios
-        .get(`${baseUrl}/post`,
-        )
-        .then((response) => {
-          if (response.status === 200) {
-            setAllPosts(response.data);
-            setIsPostsLoading(false);
-          }
-        });
+      setIsPostsLoading(true); // Set loading state to true before making the request
+      const response = await axios.get(`${baseUrl}/Post`);
+      if (response.status === 200) {
+        setAllPosts(response.data); // Directly set the data
+      }
     } catch (error) {
+      console.error(error);
+    } finally {
+      setIsPostsLoading(false); // Set loading state to false after the request is completed
+    }
+  };
+  //GET ALL POSTS PER STAGE
+  const getPostsPerStage = async () => {
+    try {
+      setIsPostsLoading(true); // Set loading state to true before making the request
+      const response = await axios.get(`${baseUrl}/Post/ListPerStages/Medium`);
+      if (response.status === 200) {
+        setPostsPerStage(response.data); // Directly set the data
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsPostsLoading(false); // Set loading state to false after the request is completed
+    }
+  };
+  //DELETE POST
+  const handleDelete = async (postId) => {
+    try {
+      setIsPostsLoading(true);
+      const response = await axios.delete(`${baseUrl}/Post/${postId}`);
+      if (response.status === 200) {
+        // Remove the deleted post from the state
+        setAllPosts(allPosts.filter(post => post.id !== postId));
+      }
+    } catch (error) {
+      console.error('Failed to delete post:', error);
+    } finally {
       setIsPostsLoading(false);
     }
   };
+
   //________________________________________
   //POST METHOD               //POST METHOD
 
@@ -119,16 +155,25 @@ const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         baseUrl,
+        baseUrlImage,
         activeTab,
         setActiveTab,
         allPosts,
         setAllPosts,
+        postsPerStage,
+        setPostsPerStage,
+        randomPosts,
+        setRandomPosts,
         isPostsLoading,
         setIsPostsLoading,
         allUsers,
         setAllUsers,
         createNewPost,
         setCreateNewPost,
+        isPostEdit,
+        setIsPostEdit,
+        editingPost,
+        setEditingPost,
         quizzesActiveTab,
         setQuizzesActiveTab,
         rightAnswerCreateNew,
@@ -180,6 +225,8 @@ const AppProvider = ({ children }) => {
         selectedMessagePreview,
         setSelectedMessagePreview,
         getAllPosts,
+        getPostsPerStage,
+        handleDelete,
       }}
     >
       {children}

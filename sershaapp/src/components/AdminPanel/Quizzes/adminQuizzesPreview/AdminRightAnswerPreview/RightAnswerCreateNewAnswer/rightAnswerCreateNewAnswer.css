@@ -35,7 +35,11 @@
   padding-bottom: .5rem;
 }
 
-.newRightAnswerOptions {}
+.newRightAnswerOptions {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
 
 .optionBox {
   width: 100%;

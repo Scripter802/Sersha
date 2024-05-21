@@ -12,18 +12,22 @@ const AdminCorrectIncorrectPreview = () => {
     {
       Statement: "The Great Wall of China is visible from space.",
       isTrue: true,
+      Stage: 'Easy',
     },
     {
       Statement: "The Great Wall of China is visible from space.",
       isTrue: false,
+      Stage: 'Easy',
     },
     {
       Statement: "The Great Wall of China is visible from space.",
       isTrue: true,
+      Stage: 'Easy',
     },
     {
       Statement: "The Great Wall of China is visible from space.",
       isTrue: false,
+      Stage: 'Easy',
     },
   ]
   return (
@@ -41,6 +45,7 @@ const AdminCorrectIncorrectPreview = () => {
                 <th>No.</th>
                 <th>Question</th>
                 <th>Correct Answer</th>
+                <th>Bundle</th>
                 <th>Edit/Delete</th>
               </tr>
             </thead>
@@ -50,6 +55,7 @@ const AdminCorrectIncorrectPreview = () => {
                   <td>{index + 1}</td>
                   <td>{state.Statement}</td>
                   <td>{state.isTrue === true ? "True" : 'False'}</td>
+                  <td>{state.Stage}</td>
 
                   <td className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEdit(index)}>Edit</button>

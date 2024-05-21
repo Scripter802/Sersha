@@ -175,3 +175,8 @@ E:\Udruzenje\Projekti\Sersha\sershaback\API\bin\Debug\netcoreapp3.1\runtimes\win
 E:\Udruzenje\Projekti\Sersha\sershaback\API\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
 D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\AutoMapper.dll
 D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\projekti\Sersha\sershaback\API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\projekti\Sersha\sershaback\API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\projekti\Sersha\sershaback\API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\projekti\Sersha\sershaback\API\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
+D:\projekti\Sersha\sershaback\API\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll

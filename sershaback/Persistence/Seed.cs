@@ -7,15 +7,62 @@ using Microsoft.EntityFrameworkCore.Internal;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.VisualBasic;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace Persistence
 {
     public class Seed
     {
         
-        public static void SeedData(DataContext context)
+        public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
         {
-            if(!context.Posts.Any()){
+
+            if(!userManager.Users.Any())
+            {
+                var users = new List<AppUser>
+                {
+                    new AppUser
+                    {
+                        UserEmail = "UserEmail@email.com",
+                        Pass = "",
+                        FullName = "Pera Peric",
+                        ParentsFullName = "",
+                        UserImage = null,
+                        UserImagePath  = null,
+                        Level = 10,
+                        CoinBalance = 50,
+                        ParentPhoneNumber = "+381 66 123456",
+                        UserBirthDate = new DateTime(2004, 1, 1),
+                        Type = "User"
+
+                    },
+                    new AppUser
+                    {
+                        UserEmail = "email2@email.com",
+                        Pass = "",
+                        FullName = "Pera Peric",
+                        ParentsFullName = "",
+                        UserImage = null,
+                        UserImagePath  = null,
+                        Level = 10,
+                        CoinBalance = 50,
+                        ParentPhoneNumber = "+381 66 123456",
+                        UserBirthDate = new DateTime(2005, 3, 1),
+                        Type = "User"
+
+                    }
+                };
+
+                foreach (var user in users)
+                {
+                    await userManager.CreateAsync(user, "Pa$$w0rd");
+                }
+                context.Users.AddRange(users);
+                context.SaveChanges();
+            }
+
+            /*if(!context.Posts.Any()){
                 var posts = new List<Post>
                 {
                     new Post
@@ -49,7 +96,8 @@ namespace Persistence
                 };
                 context.Posts.AddRange(posts);
                 context.SaveChanges();
-            }
+            }*/
+            
         }
     }
 }

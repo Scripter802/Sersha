@@ -1,11 +1,13 @@
 using API.Middleware;
 using Application.Posts;
 using AutoMapper;
+using Domain;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +15,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Persistence;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.DependencyInjection;
+
+
 
 namespace API
 {
@@ -65,6 +71,14 @@ namespace API
             services.AddMvc()
                 .AddFluentValidation(cfg =>cfg.RegisterValidatorsFromAssemblyContaining<Create>())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+
+            var builder = services.AddIdentityCore<AppUser>();
+            var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+            identityBuilder.AddEntityFrameworkStores<DataContext>();
+            identityBuilder.AddSignInManager<SignInManager<AppUser>>();
+            
+            services.AddSingleton<ISystemClock, SystemClock>();
 
         }
 

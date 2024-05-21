@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cknZ02Zza7MCwtcPJ3KG/pFmVfGTOtY5tHTZm08xs9o+IHgEe/LmSkaNjETyH8j/UTryvUsB7a/PZYxFFZmakQ==",
+  "dgSpecHash": "N314hXbxRq5QqHq9oq5ZizFCSbGHHlE1TKhceR2xeSo/guHRF+uLf5XwNbaAWSWaASSSOSaYNAGnFdfcHAALeg==",
   "success": true,
-  "projectFilePath": "D:\\projekti\\Sersha\\sershaback\\api\\API.csproj",
+  "projectFilePath": "D:\\projekti\\Sersha\\sershaback\\API\\API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jelen\\.nuget\\packages\\automapper\\8.1.1\\automapper.8.1.1.nupkg.sha512",
     "C:\\Users\\jelen\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\6.1.1\\automapper.extensions.microsoft.dependencyinjection.6.1.1.nupkg.sha512",

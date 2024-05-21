@@ -59,7 +59,7 @@ namespace Application.Authors
                     using (var fs = new FileStream(path, FileMode.Create)){
                         await request.AuthorImage.CopyToAsync(fs);
                     }
-                    author.AuthorImagePath = "/Images/postImages/" + request.Id + fileName;
+                    author.AuthorImagePath = "/Images/authorImages/" + request.Id + "/" + fileName;
                 }
 
                 _context.Authors.Add(author);

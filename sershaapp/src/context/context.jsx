@@ -136,7 +136,12 @@ const AppProvider = ({ children }) => {
   const getPostsPerStage = async () => {
     try {
       setIsPostsLoading(true); // Set loading state to true before making the request
-      const response = await axios.get(`${baseUrl}/Post/ListPerStages/Easy`);
+      const response = await axios.get(`${baseUrl}/Post/ListPerStages/Easy`, {
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        }
+      }
+      );
       if (response.status === 200) {
         setPostsPerStage(response.data); // Directly set the data
         console.log(postsPerStage)

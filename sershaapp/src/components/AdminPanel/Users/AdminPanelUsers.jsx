@@ -31,16 +31,15 @@ const AdminPanelUsers = () => {
                 <tbody>
                     {allUsers && allUsers.map((user, index) =>
                         <tr key={user.id}>
-                            <td>{index + 1}</td>
-                            <td>{user.username}</td>
-                            <td>{user.email}</td>
-                            <td>{user.signupDate}</td>
-                            <td>{user.currentLevel}</td>
+                            <td data-label="No.">{index + 1}</td>
+                            <td data-label="Username">{user.username}</td>
+                            <td data-label="Email">{user.email}</td>
+                            <td data-label="Date of signup">{user.signupDate}</td>
+                            <td data-label="Current level">{user.currentLevel}</td>
                             {/* <td className='settingsData'>
-                                <button className="edit-btn" onClick={() => handleEdit(post.id)}>Edit</button>
-                            
-                                <button className="delete-btn" onClick={() => handleDelete(post.id)}>Delete</button>
-                            </td> */}
+                            <button className="edit-btn" onClick={() => handleEdit(user.id)}>Edit</button>
+                            <button className="delete-btn" onClick={() => handleDelete(user.id)}>Delete</button>
+                        </td> */}
                         </tr>
                     )}
                 </tbody>

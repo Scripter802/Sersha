@@ -266,6 +266,10 @@ body {
 /* Small <= 768px */
 
 @media screen and (max-width: 768px) {
+  .adminBackground {
+    background-position: center;
+  }
+
   .main-cards {
     grid-template-columns: 1fr;
     gap: 10px;
@@ -281,7 +285,23 @@ body {
 /* Extra Small <= 576px */
 
 @media screen and (max-width: 576px) {
+  .adminBackground {
+    background-position: center;
+  }
+
+  .grid-container {
+    height: unset;
+  }
+
   .hedaer-left {
     display: none;
+  }
+
+  .header-right {
+    justify-content: start;
+  }
+
+  #sidebar {
+    overflow-y: unset;
   }
 }

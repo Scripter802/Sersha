@@ -6,7 +6,7 @@ import './adminPanelEditPost.css';
 import axios from 'axios';
 
 const AdminPanelEditPost = () => {
-    const { baseUrl, editingPost, setIsPostEdit, setAllPosts } = useGlobalContext();
+    const { baseUrl, editingPost, setIsPostEdit, setAllPosts, allAuthors } = useGlobalContext();
     const [postHeadline, setPostHeadline] = useState('');
     const [postContentImage, setPostContentImage] = useState(null);
     const [postAuthor, setPostAuthor] = useState(editingPost.postAuthor);
@@ -78,12 +78,11 @@ const AdminPanelEditPost = () => {
 
             <div>
                 <label>Author</label>
-                <select className='postAuthor' value={postAuthor} onChange={(e) => setPostAuthor(e.target.value)}>
-                    <option value="fox" selected={postAuthor === 'Sersha the fox'}>Sersha the fox</option>
-                    <option value="Jess" selected={postAuthor === 'Jess'}>Jess</option>
-                    <option value="John" selected={postAuthor === 'John'}>John</option>
-                    <option value="Nicky" selected={postAuthor === 'Nicky'}>Nicky</option>
-                    <option value="Sam" selected={postAuthor === 'Sam'}>Sam</option>
+                <select className='postAuthor' type="dropdown" value={postAuthor} placeholder='Author' onChange={(e) => setPostAuthor(e.target.value)} >
+                    {allAuthors.map((author) => (
+                        <option value={author.id} key={author.id}>{author.authorName}</option>
+                    ))}
+                    {console.log(postAuthor)}
                 </select>
             </div>
 

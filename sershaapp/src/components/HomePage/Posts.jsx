@@ -9,6 +9,7 @@ const Posts = ({ posts }) => {
     getPostsPerStage();
 
     const selectedPosts = getRandomPosts(postsPerStage, 5);
+    console.log('Selected Posts:', selectedPosts);
     setRandomPosts(selectedPosts);
   }, []);
 
@@ -25,10 +26,10 @@ const Posts = ({ posts }) => {
         <div className='postWrapper' key={index}>
           {console.log(post)}
           <div><p className='postTitle'>{post.title}</p></div>
-          <img src={post.img || ''} alt={post.img ? 'post' : ''} className='postImg' />
+          <img src={`http://192.168.1.7:8080/api${post.imagePath}` || ''} alt={post.img ? 'post' : ''} className='postImg' />
           <div className='postLikeWrapper'>
             <div className='postBy'>
-              <img src={post.authorImg} alt="postbyimg" />
+              <img src={`http://192.168.1.7:8080/api${post.authorImg}`} alt="postbyimg" />
               <p>{post.authorName}</p>
             </div>
             <div>

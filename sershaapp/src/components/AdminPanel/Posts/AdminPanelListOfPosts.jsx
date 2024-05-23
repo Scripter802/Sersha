@@ -7,10 +7,11 @@ import AdminPanelCreateNewPost from './NewPost/AdminPanelCreateNewPost';
 import AdminPanelEditPost from './EditPost/AdminPanelEditPost';
 
 const AdminPanelListOfPosts = () => {
-  const { baseUrl, baseUrlImage, allPosts, setAllPosts, createNewPost, setCreateNewPost, isPostEdit, setIsPostEdit, isPostsLoading, setIsPostsLoading, getAllPosts, handleDelete, setEditingPost } = useGlobalContext();
+  const { baseUrl, baseUrlImage, allPosts, setAllPosts, getAllAuthors, createNewPost, setCreateNewPost, isPostEdit, setIsPostEdit, isPostsLoading, setIsPostsLoading, getAllPosts, handleDelete, setEditingPost } = useGlobalContext();
 
   useEffect(() => {
     getAllPosts()
+    getAllAuthors()
   }, [createNewPost]);
 
   console.log(allPosts)
@@ -50,12 +51,12 @@ const AdminPanelListOfPosts = () => {
                   {allPosts && allPosts.map(post =>
                     <tr key={post.id}>
                       <td>{post.title}{console.log(post)}</td>
-                      <td><img src={`${baseUrlImage}${post.imagePath}`} alt="postImage" /></td>
+                      <td>{post.imagePath != null ? <img src={`http://192.168.1.7:8080/api${post.imagePath}`} alt="postImage" /> : <p style={{ textAlign: 'center' }}>/</p>}</td>
                       <td>
                         {post.stage}
                       </td>
                       <td>{post.type}</td>
-                      <td></td>
+                      <td>{post.author.authorName}</td>
                       <td className='settingsData'>
                         <button className="edit-btn" onClick={() => handleEdit(post)}>Edit</button>
 

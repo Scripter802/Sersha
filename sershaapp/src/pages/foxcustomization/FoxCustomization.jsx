@@ -4,18 +4,20 @@ import inventory from '../../assets/images/customization/inventory.png'
 import fox from '../../assets/images/customization/fox.png'
 import foxbottompart from '../../assets/images/customization/foxbottompart.png'
 import foxtoppart from '../../assets/images/customization/foxtoppart.png'
-import { item1, 
-         item2, 
-         item3, 
-         item4, 
-         item5, 
-         item6, 
-         item7, 
-         item8, 
-         item9, 
-         toLeft, 
-         toRight, 
-         heart } from '../../assets/images/customization/items/index.js'
+import {
+  item1,
+  item2,
+  item3,
+  item4,
+  item5,
+  item6,
+  item7,
+  item8,
+  item9,
+  toLeft,
+  toRight,
+  heart
+} from '../../assets/images/customization/items/index.js'
 
 import './foxcustomization.css'
 import CustomizationSlider from '../../components/FoxCustomization/CustomizationSlider.jsx'
@@ -27,7 +29,7 @@ import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive
 const FoxCustomization = () => {
   const items = [item1, item2, item3, item4, item5, item6, item7, item8, item9, item1, item2, item3, item4, item5, item6, item7, item8, item9]
 
-  
+
 
 
   return (
@@ -50,10 +52,10 @@ const FoxCustomization = () => {
             <img className='foxBottomPart' src={foxbottompart} />
           </div>
           <div className='itemSlider'>
-            <CustomizationSlider items={items} toLeft={toLeft} toRight={toRight}  />
+            <CustomizationSlider items={items} toLeft={toLeft} toRight={toRight} />
           </div>
         </div>
-        
+
         <div className='footer'>
           <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
           <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>

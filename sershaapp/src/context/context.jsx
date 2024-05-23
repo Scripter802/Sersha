@@ -99,6 +99,25 @@ const AppProvider = ({ children }) => {
 
   /* POSTS *//* POSTS *//* POSTS */
 
+  //GET ALL AUTHORS GET ALL AUTHORS GET ALL AUTHORS
+  const [allAuthors, setAllAuthors] = useState([]);
+
+  const getAllAuthors = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/Author`);
+      if (response.status === 200) {
+        setAllAuthors(response.data); // Directly set the data
+      }
+      console.log(allAuthors);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsPostsLoading(false); // Set loading state to false after the request is completed
+    }
+  };
+
+
+
   //GET ALL               //GET ALL
   const getAllPosts = async () => {
     try {
@@ -117,9 +136,10 @@ const AppProvider = ({ children }) => {
   const getPostsPerStage = async () => {
     try {
       setIsPostsLoading(true); // Set loading state to true before making the request
-      const response = await axios.get(`${baseUrl}/Post/ListPerStages/Medium`);
+      const response = await axios.get(`${baseUrl}/Post/ListPerStages/Easy`);
       if (response.status === 200) {
         setPostsPerStage(response.data); // Directly set the data
+        console.log(postsPerStage)
       }
     } catch (error) {
       console.error(error);
@@ -162,6 +182,7 @@ const AppProvider = ({ children }) => {
         setAllPosts,
         postsPerStage,
         setPostsPerStage,
+        getPostsPerStage,
         randomPosts,
         setRandomPosts,
         isPostsLoading,
@@ -174,6 +195,9 @@ const AppProvider = ({ children }) => {
         setIsPostEdit,
         editingPost,
         setEditingPost,
+        allAuthors,
+        setAllAuthors,
+        getAllAuthors,
         quizzesActiveTab,
         setQuizzesActiveTab,
         rightAnswerCreateNew,
@@ -225,7 +249,6 @@ const AppProvider = ({ children }) => {
         selectedMessagePreview,
         setSelectedMessagePreview,
         getAllPosts,
-        getPostsPerStage,
         handleDelete,
       }}
     >

@@ -15,7 +15,7 @@ import SignInUpPage from './pages/signInUpPage/SignInUpPage.jsx'
 import './index.css'
 
 import { DndProvider } from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import MiniGames from './pages/miniGames/MiniGames.jsx'
 import EmojiEmotions from './pages/miniGames/emojiEmotions/EmojiEmotions.jsx'
 import FriendOrFoe from './pages/miniGames/friendOrFoe/FriendOrFoe.jsx'
@@ -53,7 +53,7 @@ const App = () => {
     },
     {
       path: '/quizzes/fillintheblank',
-      element: <FillInTheBlank  />
+      element: <FillInTheBlank />
     },
     {
       path: '/quizzes/grouping',
@@ -88,7 +88,7 @@ const App = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
-     {window.location.pathname !== "/admin" && window.location.pathname !== "/signin-up" && window.innerWidth > 1000 && <Header /> }
+      {window.location.pathname !== "/admin/" && window.location.pathname !== "/admin" && window.location.pathname !== "/signin-up" && window.innerWidth > 1000 && <Header />}
       <RouterProvider router={router} />
     </DndProvider>
   )

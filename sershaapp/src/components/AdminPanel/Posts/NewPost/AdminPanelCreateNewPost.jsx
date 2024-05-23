@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
 const AdminPanelCreateNewPost = () => {
-    const { baseUrl, allPosts, setAllPosts, createNewPost, setCreateNewPost } = useGlobalContext();
+    const { baseUrl, allAuthors, getAllAuthors, allPosts, setAllPosts, createNewPost, setCreateNewPost } = useGlobalContext();
     const [postHeadline, setPostHeadline] = useState('');
     const [postContentImage, setPostContentImage] = useState(null);
     const [postAuthor, setPostAuthor] = useState('');
@@ -32,8 +32,8 @@ const AdminPanelCreateNewPost = () => {
         newPostFormData.append("Image", postContentImage);
         newPostFormData.append("Stage", postBundle);
         newPostFormData.append("Type", postType);
-        newPostFormData.append("AuthorId", "89630d98-a01e-495d-884d-1b5542893116");
-
+        newPostFormData.append("AuthorId", postAuthor);
+        console.log(postAuthor.id)
         // Reset form fields
         setPostHeadline('');
         setPostContentImage('');
@@ -79,18 +79,18 @@ const AdminPanelCreateNewPost = () => {
             <div>
                 <label>Author</label>
                 <select className='postAuthor' type="dropdown" value={postAuthor} placeholder='Author' onChange={(e) => setPostAuthor(e.target.value)} >
-                    <option value="fox">Sersha the fox</option>
-                    <option value="Jess">Jess</option>
-                    <option value="John">John</option>
-                    <option value="Nicky">Nicky</option>
-                    <option value="Sam">Sam</option>
-                    <option value="Jess">Jess</option>
+                    <option value="" disabled >Select Author</option>
+                    {allAuthors.map((author) => (
+                        <option value={author.id} key={author.id}>{author.authorName}</option>
+                    ))}
+                    {console.log(postAuthor)}
                 </select>
             </div>
 
             <div>
                 <label>Bundle</label>
                 <select className='postBundles' type="dropdown" value={postBundle} placeholder='Choose a bundle' onChange={(e) => setPostBundle(e.target.value)} >
+                    <option value="" disabled>Select Bundle</option>
                     <option value="Easy">Easy Bundle</option>
                     <option value="Medium">Medium Bundle</option>
                     <option value="Hard">Hard Bundle</option>
@@ -100,6 +100,7 @@ const AdminPanelCreateNewPost = () => {
             <div>
                 <label>Type of Post</label>
                 <select className='postType' type="dropdown" value={postType} placeholder='Type of Post' onChange={(e) => setPostType(e.target.value)} >
+                    <option value="" disabled>Select Type</option>
                     <option value="Check-in">Check-in</option>
                     <option value="Headline">Headline</option>
                     <option value="Status">Status</option>

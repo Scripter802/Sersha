@@ -8,7 +8,7 @@ import AdminPanelClothingPage from './Clothing/AdminPanelClothingPage'
 import AdminPanelQuizzes from './Quizzes/AdminPanelQuizzes'
 
 function AdminPanelHome() {
-  const { activeTab, createNewPost } = useGlobalContext()
+  const { activeTab } = useGlobalContext()
 
 
   return (

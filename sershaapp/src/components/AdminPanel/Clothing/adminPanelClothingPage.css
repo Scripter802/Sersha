@@ -80,3 +80,9 @@
 .delete-btn:hover {
     background-color: #C26F4D;
 }
+
+@media (max-width: 1000px) {
+    .clothing-page {
+        width: 100%;
+    }
+}

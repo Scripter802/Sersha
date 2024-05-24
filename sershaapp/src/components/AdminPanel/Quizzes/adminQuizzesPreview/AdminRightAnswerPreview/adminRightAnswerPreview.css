@@ -34,3 +34,132 @@
 .rightAnswerWrapperList tbody {
   color: #fff;
 }
+
+@media only screen and (max-width: 768px) {
+  .rightAnswerQuizWrapper {
+    padding: 10px;
+  }
+
+  .rightAnswerTitleWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .rightObenWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .createNewQuestionBtn,
+  .quizTitle {
+    padding: 10px 10px;
+  }
+
+  .inventory img,
+  .sershaLogo img,
+  .evilFox img {
+    width: 30px;
+  }
+
+  .rightAnswerquizWrapper {
+    flex-direction: column;
+  }
+
+  .rightAnswerWrapper {
+    margin-left: 0;
+  }
+
+  .healthResponsive {
+    display: block;
+  }
+
+  .tictac img {
+    width: 40px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .rightAnswerQuizWrapper {
+    padding: 5px;
+  }
+
+  .rightAnswerTitleWrapper {
+    padding: 10px;
+  }
+
+  .rightAnswerTitle img {
+    width: 20px;
+  }
+
+  .rightObenWrapper {
+    gap: 0.5rem;
+  }
+
+  .createNewQuestionBtn,
+  .quizTitle {
+    padding: 10px 10px;
+  }
+
+  .inventory img,
+  .sershaLogo img,
+  .evilFox img {
+    width: 25px;
+  }
+
+  .hearts {
+    gap: 0.25rem;
+  }
+
+  .rightAnswerquizWrapper {
+    padding: 10px;
+  }
+
+  .tictac img {
+    width: 30px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .rightAnswerQuizWrapper {
+    padding: 5px;
+  }
+
+  .rightAnswerTitleWrapper {
+    padding: 5px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .rightObenWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .createNewQuestionBtn,
+  .quizTitle {
+    padding: 10px 10px;
+  }
+
+  .inventory img,
+  .sershaLogo img,
+  .evilFox img {
+    width: 20px;
+  }
+
+  .hearts {
+    gap: 0.25rem;
+  }
+
+  .rightAnswerquizWrapper {
+    padding: 5px;
+    flex-direction: column;
+  }
+
+  .rightAnswerWrapper {
+    margin-left: 0;
+  }
+
+  .tictac img {
+    width: 25px;
+  }
+}

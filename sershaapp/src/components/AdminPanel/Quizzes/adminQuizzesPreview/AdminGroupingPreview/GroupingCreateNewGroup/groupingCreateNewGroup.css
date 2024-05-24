@@ -1,13 +1,13 @@
 .newGroupingContainer {
   position: relative;
   margin: 20px auto;
-  width: 100%;
+  width: 90%;
+  max-width: 800px;
   background-color: transparent;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: #FFB496;
-
   background: linear-gradient(180deg, #2F202F 0%, #460C23F2 100%);
 }
 
@@ -19,17 +19,18 @@
 
 .groupsWrapper {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.groupOneFormWrapper,
-.groupTwoFormWrapper {
-  width: 50%;
+.groupFormWrapper {
+  width: 100%;
+  max-width: 380px;
 }
 
-.groupOneFormWrapper h5,
-.groupTwoFormWrapper h5 {
+.groupFormWrapper h5 {
   text-align: center;
   font-size: 16px;
   color: #FFF;
@@ -58,6 +59,7 @@
   display: flex;
   flex-direction: row-reverse;
   gap: 1rem;
+  margin-bottom: 10px;
 }
 
 .groupingOptionBox label {
@@ -66,15 +68,23 @@
 
 .groupingOptionBox input[type='checkbox'] {
   width: 30px;
-
 }
 
 .groupingOptionBox input {
   height: 40px;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: transparent;
+  color: #FFFFFF;
 }
 
 .newPostBtn {
-  margin-block: 20px;
+  display: block;
+  width: 100%;
+  margin-top: 20px;
   padding: 10px 20px;
   background-color: #C26F4D;
   color: #fff;
@@ -108,4 +118,40 @@
 .groupingIncrementCharacter {
   font-size: 20px;
   line-height: 15px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .groupsWrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .groupFormWrapper {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .newGroupingContainer {
+    padding: 15px;
+  }
+
+  .groupingTitleInput,
+  .groupingOptionBox input {
+    height: 35px;
+    padding: 8px;
+  }
+
+  .newPostBtn {
+    padding: 8px 16px;
+  }
+
+  .groupingAddNewOptionFieldBtn {
+    padding: 3px 10px;
+  }
+
+  .groupingIncrementCharacter {
+    font-size: 18px;
+  }
 }

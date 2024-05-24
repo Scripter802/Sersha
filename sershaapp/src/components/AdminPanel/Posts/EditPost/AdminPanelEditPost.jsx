@@ -52,7 +52,7 @@ const AdminPanelEditPost = () => {
     };
 
     return (
-        <div className="newpostcontainer">
+        <div className="editpostcontainer">
             <div className="close-btn" onClick={() => setIsPostEdit(false)}><img src={closeButton} alt='close' /></div>
             <h3 className="p-3 text-center">Edit Post</h3>
             <div>

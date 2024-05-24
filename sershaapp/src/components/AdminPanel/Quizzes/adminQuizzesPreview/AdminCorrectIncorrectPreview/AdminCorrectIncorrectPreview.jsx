@@ -45,19 +45,19 @@ const AdminCorrectIncorrectPreview = () => {
                 <th>No.</th>
                 <th>Question</th>
                 <th>Correct Answer</th>
-                <th>Bundle</th>
+                <th>BundleBundle</th>
                 <th>Edit/Delete</th>
               </tr>
             </thead>
             <tbody>
               {statement && statement.map((state, index) =>
                 <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{state.Statement}</td>
-                  <td>{state.isTrue === true ? "True" : 'False'}</td>
-                  <td>{state.Stage}</td>
+                  <td data-label="No.">{index + 1}</td>
+                  <td data-label="Question">{state.Statement}</td>
+                  <td data-label="Correct Answer">{state.isTrue === true ? "True" : 'False'}</td>
+                  <td data-label="Bundle">{state.Stage}</td>
 
-                  <td className='settingsData'>
+                  <td data-label="Edit/Delete" className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEdit(index)}>Edit</button>
 
                     <button className="delete-btn" onClick={() => handleDelete(index)}>Delete</button>

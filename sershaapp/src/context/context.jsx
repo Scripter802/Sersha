@@ -95,11 +95,18 @@ const AppProvider = ({ children }) => {
 
 
 
+  /* FOX CUSTOMIZATION FOX CUSTOMIZATION FOX CUSTOMIZATION FOX CUSTOMIZATION FOX CUSTOMIZATION */
+  const [isTopPart, setIsTopPart] = useState(false);
+  const [isBottomPart, setIsBottomPart] = useState(false);
+
   /* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS */
 
   /* POSTS *//* POSTS *//* POSTS */
 
   //GET ALL AUTHORS GET ALL AUTHORS GET ALL AUTHORS
+  const [createNewPostAuthor, setCreateNewPostAuthor] = useState(false)
+  const [isPostAuthorEdit, setIsPostAuthorEdit] = useState(false)
+  const [editingPostAuthor, setEditingPostAuthor] = useState([])
   const [allAuthors, setAllAuthors] = useState([]);
 
   const getAllAuthors = async () => {
@@ -113,6 +120,22 @@ const AppProvider = ({ children }) => {
       console.error(error);
     } finally {
       setIsPostsLoading(false); // Set loading state to false after the request is completed
+    }
+  };
+
+
+  //DELETE Author
+  const handleDeleteAuthor = async (authorId) => {
+    try {
+      const response = await axios.delete(`${baseUrl}/Author/${authorId}`);
+      if (response.status === 200) {
+        // Remove the deleted post from the state
+        setAllPosts(allAuthors.filter(author => author.id !== authorId));
+      }
+    } catch (error) {
+      console.error('Failed to delete author:', error);
+    } finally {
+      console.log('success')
     }
   };
 
@@ -153,7 +176,7 @@ const AppProvider = ({ children }) => {
     }
   };
   //DELETE POST
-  const handleDelete = async (postId) => {
+  const handleDeletePost = async (postId) => {
     try {
       setIsPostsLoading(true);
       const response = await axios.delete(`${baseUrl}/Post/${postId}`);
@@ -200,9 +223,20 @@ const AppProvider = ({ children }) => {
         setIsPostEdit,
         editingPost,
         setEditingPost,
+        isTopPart,
+        setIsTopPart,
+        isBottomPart,
+        setIsBottomPart,
         allAuthors,
         setAllAuthors,
+        createNewPostAuthor,
+        setCreateNewPostAuthor,
+        isPostAuthorEdit,
+        setIsPostAuthorEdit,
+        editingPostAuthor,
+        setEditingPostAuthor,
         getAllAuthors,
+        handleDeleteAuthor,
         quizzesActiveTab,
         setQuizzesActiveTab,
         rightAnswerCreateNew,
@@ -254,7 +288,7 @@ const AppProvider = ({ children }) => {
         selectedMessagePreview,
         setSelectedMessagePreview,
         getAllPosts,
-        handleDelete,
+        handleDeletePost,
       }}
     >
       {children}

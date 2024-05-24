@@ -236,6 +236,10 @@ body {
   background-size: cover;
 }
 
+#sidebar {
+  overflow-y: unset;
+}
+
 /* End Main  */
 
 
@@ -250,6 +254,10 @@ body {
       'main';
   }
 
+  .grid-fillInTheBlank {
+    display: unset;
+  }
+
   #sidebar {
     display: none;
   }
@@ -260,6 +268,10 @@ body {
 
   .sidebar-title>span {
     display: inline;
+  }
+
+  #sidebar {
+    overflow-y: unset;
   }
 }
 
@@ -279,6 +291,10 @@ body {
   .charts {
     grid-template-columns: 1fr;
     margin-top: 30px;
+  }
+
+  #sidebar {
+    overflow-y: unset;
   }
 }
 

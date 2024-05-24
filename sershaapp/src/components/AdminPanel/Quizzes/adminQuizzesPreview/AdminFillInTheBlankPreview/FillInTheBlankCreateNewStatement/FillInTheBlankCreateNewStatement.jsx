@@ -53,9 +53,10 @@ const FillInTheBlankCreateNewStatement = () => {
       ...fillInTheBlankNewStatement,
       options: [
         ...fillInTheBlankNewStatement.options,
-        { option: [] }
+        ''
       ]
     });
+    console.log(fillInTheBlankNewStatement.options)
   };
 
   return (

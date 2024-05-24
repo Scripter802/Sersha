@@ -85,14 +85,14 @@ const AdminRightAnswerPreview = () => {
             <tbody>
               {questions && questions.map((quest, index) =>
                 <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{quest.Question}</td>
-                  <td>{quest.Options.map(q => (
+                  <td data-label="No.">{index + 1}</td>
+                  <td data-label="Question">{quest.Question}</td>
+                  <td data-label="Options">{quest.Options.map(q => (
                     <p>{q.option}</p>
                   ))}</td>
-                  <td>{quest.Options.map(q => q.isCorrect === true && <p>{q.option}</p>)}</td>
-                  <td>{quest.Stage}</td>
-                  <td className='settingsData'>
+                  <td data-label="Correct answer">{quest.Options.map(q => q.isCorrect === true && <p>{q.option}</p>)}</td>
+                  <td data-label="Bundle">{quest.Stage}</td>
+                  <td data-label="Edit/Delete" className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEdit(index)}>Edit</button>
 
                     <button className="delete-btn" onClick={() => handleDelete(index)}>Delete</button>

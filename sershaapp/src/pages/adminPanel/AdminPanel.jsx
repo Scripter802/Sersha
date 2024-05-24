@@ -13,7 +13,9 @@ const AdminPanel = () => {
 
 
   const OpenSidebar = () => {
-    setOpenSidebarToggle(!openSidebarToggle)
+    if (window.innerWidth < 768) {
+      setOpenSidebarToggle(!openSidebarToggle)
+    }
   }
 
   return (

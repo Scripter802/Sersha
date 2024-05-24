@@ -7,7 +7,7 @@ import AdminPanelCreateNewPost from './NewPost/AdminPanelCreateNewPost';
 import AdminPanelEditPost from './EditPost/AdminPanelEditPost';
 
 const AdminPanelListOfPosts = () => {
-  const { baseUrl, baseUrlImage, allPosts, setAllPosts, getAllAuthors, createNewPost, setCreateNewPost, isPostEdit, setIsPostEdit, isPostsLoading, setIsPostsLoading, getAllPosts, handleDelete, setEditingPost } = useGlobalContext();
+  const { baseUrl, baseUrlImage, allPosts, setAllPosts, getAllAuthors, createNewPost, setCreateNewPost, isPostEdit, setIsPostEdit, isPostsLoading, setIsPostsLoading, getAllPosts, handleDeletePost, setEditingPost } = useGlobalContext();
 
   useEffect(() => {
     getAllPosts()
@@ -18,7 +18,7 @@ const AdminPanelListOfPosts = () => {
 
 
 
-  const handleEdit = (post) => {
+  const handleEditPost = (post) => {
     setEditingPost(post);
     setIsPostEdit(true);
   };
@@ -58,9 +58,9 @@ const AdminPanelListOfPosts = () => {
                       <td>{post.type}</td>
                       <td>{post.author.authorName}</td>
                       <td className='settingsData'>
-                        <button className="edit-btn" onClick={() => handleEdit(post)}>Edit</button>
+                        <button className="edit-btn" onClick={() => handleEditPost(post)}>Edit</button>
 
-                        <button className="delete-btn" onClick={() => handleDelete(post.id)}>Delete</button>
+                        <button className="delete-btn" onClick={() => handleDeletePost(post.id)}>Delete</button>
                       </td>
                     </tr>
                   )}

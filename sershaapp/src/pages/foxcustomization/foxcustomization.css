@@ -48,6 +48,11 @@
     justify-content: space-evenly;
 }
 
+.tns-lazy-img {
+    height: 80px;
+    width: 80px;
+}
+
 .sliderLeftButton,
 .sliderRightButton {
     background: transparent;

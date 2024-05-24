@@ -1,11 +1,18 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import TinySlider from "tiny-slider-react";
 import 'tiny-slider/dist/tiny-slider.css';
+import { useGlobalContext } from "../../context/context";
 
-const CustomizationSlider = ({ items, toLeft, toRight }) => {
+const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight }) => {
+  const { isTopPart, isBottomPart } = useGlobalContext();
   const [sliderIndex, setSliderIndex] = useState(0);
-
   const sliderRef = useRef(null);
+
+  useEffect(() => {
+    if (sliderRef.current) {
+      sliderRef.current.slider.refresh();
+    }
+  }, [isTopPart, isBottomPart]);
 
   const moveSliderToLeft = () => {
     if (sliderRef.current) {
@@ -31,16 +38,43 @@ const CustomizationSlider = ({ items, toLeft, toRight }) => {
     onIndexChanged: (index) => setSliderIndex(index),
     responsive: {
       460: {
-        items: 5 
-        },
+        items: 5
+      },
       700: {
         items: 5
       },
       1000: {
         items: 9
       }
-      }
-    };
+    }
+  };
+
+  const renderItems = () => {
+    if (isTopPart) {
+      return itemsTopPart.map((el, index) => (
+        <div key={index} className="toppart">
+          <img
+            className="tns-lazy-img"
+            src={el}
+            data-src={el}
+            alt=""
+          />
+        </div>
+      ));
+    } else if (isBottomPart) {
+      return itemsBottomPart.map((el, index) => (
+        <div key={index} className="bottompart">
+          <img
+            className="tns-lazy-img"
+            src={el}
+            data-src={el}
+            alt=""
+          />
+        </div>
+      ));
+    }
+    return null; // If no items to render, return null
+  };
 
   return (
     <>
@@ -53,21 +87,14 @@ const CustomizationSlider = ({ items, toLeft, toRight }) => {
         </div>
       </div>
       <div className="tinySlidWrapper">
-        <TinySlider settings={settings} className='singleImg' ref={sliderRef}>
-          {items.map((el, index) => (
-            <div key={index}>
-              <img
-                className={`tns-lazy-img`}
-                src={el}
-                data-src={el}
-                alt=""
-              />
-            </div>
-          ))}
-        </TinySlider>
+        {isTopPart || isBottomPart ? (
+          <TinySlider settings={settings} className="singleImg" ref={sliderRef}>
+            {renderItems()}
+          </TinySlider>
+        ) : null}
       </div>
     </>
-  )
-}
+  );
+};
 
 export default CustomizationSlider;

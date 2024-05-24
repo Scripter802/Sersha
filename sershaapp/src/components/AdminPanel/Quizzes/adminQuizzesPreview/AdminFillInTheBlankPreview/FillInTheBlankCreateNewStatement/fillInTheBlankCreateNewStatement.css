@@ -9,7 +9,6 @@
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   color: #FFB496;
-
   background: linear-gradient(180deg, #2F202F 0%, #460C23CC 100%);
 }
 
@@ -38,7 +37,6 @@
   font-size: .85rem;
   padding-bottom: .5rem;
 }
-
 
 .fillInTheBlankOptionBox {
   width: 100%;
@@ -90,4 +88,58 @@
 .fillInTheBlankIncrementCharacter {
   font-size: 20px;
   line-height: 15px;
+}
+
+@media (max-width: 768px) {
+  .newFillInTheBlankContainer {
+    width: 70%;
+  }
+}
+
+@media (max-width: 480px) {
+  .newFillInTheBlankContainer {
+    width: 90%;
+    padding: 10px;
+  }
+
+  .newFillInTheBlankInput {
+    height: 35px;
+    padding: 8px;
+  }
+
+  .fillInTheBlankOptionBox input {
+    height: 35px;
+  }
+
+  .fillInTheBlankOptionBoxSubmitBtn {
+    padding: 8px 16px;
+  }
+
+  .fillInTheBlankAddNewOptionFieldBtn {
+    padding: 4px 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .newFillInTheBlankContainer {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .newFillInTheBlankInput {
+    height: 35px;
+    padding: 8px;
+  }
+
+  .fillInTheBlankOptionBox input {
+    height: 35px;
+  }
+
+  .fillInTheBlankOptionBoxSubmitBtn {
+    padding: 8px 16px;
+  }
+
+  .fillInTheBlankAddNewOptionFieldBtn {
+    padding: 4px 10px;
+  }
 }

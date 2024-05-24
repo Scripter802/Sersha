@@ -6,6 +6,7 @@ import AdminPanelListOfPosts from './Posts/AdminPanelListOfPosts'
 import AdminPanelUsers from './Users/AdminPanelUsers'
 import AdminPanelClothingPage from './Clothing/AdminPanelClothingPage'
 import AdminPanelQuizzes from './Quizzes/AdminPanelQuizzes'
+import PostAuthorList from './Author/CreateNewPostAuthor/PostAuthorList'
 
 function AdminPanelHome() {
   const { activeTab } = useGlobalContext()
@@ -14,6 +15,7 @@ function AdminPanelHome() {
   return (
     <main className='tabsWrapper'>
       {activeTab === 'Users' && <AdminPanelUsers />}
+      {activeTab === 'Author' && <PostAuthorList />}
       {activeTab === 'Posts' && <AdminPanelListOfPosts />}
       {activeTab === 'Clothing' && <AdminPanelClothingPage />}
       {activeTab === 'Quizzes' && <AdminPanelQuizzes />}

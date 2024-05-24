@@ -8,7 +8,7 @@ import avatar from '../assets/images/navbar/userpick.png'
 
 const AppContext = createContext();
 const baseUrl = "http://localhost:5000";
-const baseUrlImage = "C:/Users/MacBook/Desktop/Sersha/sershaback/API";
+const baseUrlImage = "http://172.28.176.1:8080/api";
 
 const AppProvider = ({ children }) => {
 
@@ -130,7 +130,7 @@ const AppProvider = ({ children }) => {
       const response = await axios.delete(`${baseUrl}/Author/${authorId}`);
       if (response.status === 200) {
         // Remove the deleted post from the state
-        setAllPosts(allAuthors.filter(author => author.id !== authorId));
+        setAllAuthors(allAuthors.filter(author => author.id !== authorId));
       }
     } catch (error) {
       console.error('Failed to delete author:', error);

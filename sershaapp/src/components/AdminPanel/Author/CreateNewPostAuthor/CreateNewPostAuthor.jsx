@@ -39,6 +39,7 @@ const CreateNewPostAuthor = () => {
         },
       });
       console.log(response.data);
+      setCreateNewPostAuthor(false);
     } catch (error) {
       console.log(error);
     }

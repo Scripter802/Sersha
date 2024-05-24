@@ -4,7 +4,8 @@ import axios from 'axios'
 
 import './postAuthorList.css'
 import CreateNewPostAuthor from './CreateNewPostAuthor';
-import AdminPanelEditPostAuthor from './AdminPanelEditPostAuthor';
+import AdminPanelEditPostAuthor from './EditPostAuthor';
+import EditPostAuthor from './EditPostAuthor';
 
 const PostAuthorList = () => {
   const { baseUrl, baseUrlImage, getAllAuthors, allAuthors, createNewPostAuthor, setCreateNewPostAuthor, isPostAuthorEdit, setIsPostAuthorEdit, editingPostAuthor, setEditingPostAuthor, handleDeleteAuthor } = useGlobalContext();
@@ -15,8 +16,8 @@ const PostAuthorList = () => {
 
 
 
-  const handleEdit = (post) => {
-    setEditingAuthorPost(post);
+  const handleEdit = (author) => {
+    setEditingPostAuthor(author);
     setIsPostAuthorEdit(true);
   };
 
@@ -25,7 +26,7 @@ const PostAuthorList = () => {
       {createNewPostAuthor === true ? (
         <CreateNewPostAuthor />) :
         isPostAuthorEdit === true ? (
-          <AdminPanelEditPostAuthor />
+          <EditPostAuthor />
         )
           : (
             <div className="listOfPostsContainer">
@@ -43,11 +44,12 @@ const PostAuthorList = () => {
                   </tr>
                 </thead>
                 <tbody>
+
                   {allAuthors && allAuthors.map((author, index) =>
                     <tr key={author.id}>
                       <td data-label="No.">{index + 1}</td>
                       <td data-label="Author Name">{author.authorName}</td>
-                      <td data-label="Author Image">{author.authorImagePath ? <img src={`http://192.168.1.7:8080/api${author.authorImagePath}`} alt="postAuthorImage" /> : <p style={{ textAlign: 'center' }}>/</p>}</td>
+                      <td data-label="Author Image">{author.authorImagePath ? <img src={`${baseUrlImage}${author.authorImagePath}`} alt="postAuthorImage" /> : <p style={{ textAlign: 'center' }}>/</p>}</td>
 
                       <td data-label="Edit/delete" className='settingsData'>
                         <button className="edit-btn" onClick={() => handleEdit(author)}>Edit</button>

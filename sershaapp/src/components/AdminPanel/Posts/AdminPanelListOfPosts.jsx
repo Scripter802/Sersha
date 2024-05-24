@@ -51,7 +51,7 @@ const AdminPanelListOfPosts = () => {
                   {allPosts && allPosts.map(post =>
                     <tr key={post.id}>
                       <td>{post.title}{console.log(post)}</td>
-                      <td>{post.imagePath != null ? <img src={`http://192.168.1.7:8080/api${post.imagePath}`} alt="postImage" /> : <p style={{ textAlign: 'center' }}>/</p>}</td>
+                      <td>{post.imagePath != null ? <img src={`${baseUrlImage}${post.imagePath}`} alt="postImage" /> : <p style={{ textAlign: 'center' }}>/</p>}</td>
                       <td>
                         {post.stage}
                       </td>

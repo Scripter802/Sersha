@@ -162,7 +162,8 @@ body {
   z-index: 12 !important;
 }
 
-.adminQuizzesSubMenu {
+.adminQuizzesSubMenu,
+.adminMiniGamesSubMenu {
   margin-left: 1.5rem;
 }
 

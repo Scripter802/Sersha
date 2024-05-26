@@ -113,7 +113,6 @@ D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\runtimes\maccatalyst-a
 D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\runtimes\maccatalyst-x64\native\libe_sqlite3.dylib
 D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\runtimes\osx-arm64\native\libe_sqlite3.dylib
 D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\MediatR.dll
-D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\MediatR.Contracts.dll
 D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\MediatR.Extensions.Microsoft.DependencyInjection.dll
 D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\FluentValidation.dll
 D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\FluentValidation.AspNetCore.dll
@@ -180,3 +179,14 @@ D:\projekti\Sersha\sershaback\API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.C
 D:\projekti\Sersha\sershaback\API\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 D:\projekti\Sersha\sershaback\API\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
 D:\projekti\Sersha\sershaback\API\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
+D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\Infrastructure.dll
+D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\Infrastructure.pdb
+D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Abstractions.dll
+D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
+D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

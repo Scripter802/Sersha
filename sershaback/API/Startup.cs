@@ -16,8 +16,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Persistence;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.Extensions.DependencyInjection;
-
+using Application.Interfaces;
+using Infrastructure.Security;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 
 namespace API
@@ -41,17 +46,29 @@ namespace API
                 //options.MultipartBodyLengthLimit = 52428800; // Limit to 50 MB
             });
 
-            services.AddDbContext<DataContext>(opt =>
+            /*services.AddDbContext<DataContext>(opt =>
             {
                 opt.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+            });*/
+            services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            /*services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<DataContext>()
+                .AddDefaultTokenProviders();*/
+
             services.AddCors(opt=>{
                 opt.AddPolicy("CorsPolicy", policy =>
                 {
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:5173");
                 });
             });
+            
             services.AddMediatR(typeof(List.Handler).Assembly);
+           
+
             services.AddAutoMapper(typeof(List.Handler));
 
             services.AddControllers();
@@ -68,7 +85,11 @@ namespace API
                 c.CustomSchemaIds(x => x.FullName.Replace("+", "."));
             });
 
-            services.AddMvc()
+            services.AddMvc(opt=>
+            {
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                opt.Filters.Add(new AuthorizeFilter(policy));
+            })
                 .AddFluentValidation(cfg =>cfg.RegisterValidatorsFromAssemblyContaining<Create>())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
@@ -77,8 +98,38 @@ namespace API
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
             identityBuilder.AddEntityFrameworkStores<DataContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Password settings
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = true;
+            });
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+            });
+            
             
             services.AddSingleton<ISystemClock, SystemClock>();
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opt=>
+                {
+                    opt.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = key,
+                        ValidateAudience = false,
+                        ValidateIssuer = false
+                    };
+                });
+
+            services.AddScoped<IJwtGenerator, JwtGenerator>();
 
         }
 
@@ -97,6 +148,7 @@ namespace API
             }
 
             //app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();

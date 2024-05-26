@@ -1,0 +1,17 @@
+D:\projekti\Sersha\sershaback\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csproj.AssemblyReference.cache
+D:\projekti\Sersha\sershaback\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\projekti\Sersha\sershaback\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.AssemblyInfoInputs.cache
+D:\projekti\Sersha\sershaback\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.AssemblyInfo.cs
+D:\projekti\Sersha\sershaback\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csproj.CoreCompileInputs.cache
+D:\projekti\Sersha\sershaback\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.deps.json
+D:\projekti\Sersha\sershaback\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.dll
+D:\projekti\Sersha\sershaback\Infrastructure\bin\Debug\netcoreapp3.1\Infrastructure.pdb
+D:\projekti\Sersha\sershaback\Infrastructure\bin\Debug\netcoreapp3.1\Application.dll
+D:\projekti\Sersha\sershaback\Infrastructure\bin\Debug\netcoreapp3.1\Domain.dll
+D:\projekti\Sersha\sershaback\Infrastructure\bin\Debug\netcoreapp3.1\Persistence.dll
+D:\projekti\Sersha\sershaback\Infrastructure\bin\Debug\netcoreapp3.1\Application.pdb
+D:\projekti\Sersha\sershaback\Infrastructure\bin\Debug\netcoreapp3.1\Domain.pdb
+D:\projekti\Sersha\sershaback\Infrastructure\bin\Debug\netcoreapp3.1\Persistence.pdb
+D:\projekti\Sersha\sershaback\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.csproj.CopyComplete
+D:\projekti\Sersha\sershaback\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.dll
+D:\projekti\Sersha\sershaback\Infrastructure\obj\Debug\netcoreapp3.1\Infrastructure.pdb

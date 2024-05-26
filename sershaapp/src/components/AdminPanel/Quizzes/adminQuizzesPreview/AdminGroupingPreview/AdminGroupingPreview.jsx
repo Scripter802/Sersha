@@ -69,17 +69,17 @@ const AdminGroupingPreview = () => {
             <tbody>
               {groups && groups.map((group, index) =>
                 <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{group.GroupOne.Title}</td>
-                  <td>{group.GroupOne.Words.map(word => (
+                  <td data-label="No.">{index + 1}</td>
+                  <td data-label="Group 1">{group.GroupOne.Title}</td>
+                  <td data-label="Words">{group.GroupOne.Words.map(word => (
                     <p>{word}</p>
                   ))}</td>
-                  <td>{group.GroupTwo.Title}</td>
-                  <td>{group.GroupTwo.Words.map(word => (
+                  <td data-label="Group 2">{group.GroupTwo.Title}</td>
+                  <td data-label="Words">{group.GroupTwo.Words.map(word => (
                     <p>{word}</p>
                   ))}</td>
 
-                  <td className='settingsData'>
+                  <td data-label="Edit/Delete" className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEdit(index)}>Edit</button>
 
                     <button className="delete-btn" onClick={() => handleDelete(index)}>Delete</button>

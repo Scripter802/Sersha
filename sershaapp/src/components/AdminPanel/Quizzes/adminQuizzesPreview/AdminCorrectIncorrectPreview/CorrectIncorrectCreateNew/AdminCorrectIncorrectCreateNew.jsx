@@ -19,6 +19,7 @@ const AdminCorrectIncorrectCreateNew = () => {
     const newStatement = {
       Statement: correctIncorrectNewStatement.Statement,
       isTrue: correctIncorrectNewStatement.isTrue,
+      Stage: correctIncorrectNewStatement.Stage
     }
 
     // Update the list of questions
@@ -28,6 +29,7 @@ const AdminCorrectIncorrectCreateNew = () => {
     setCorrectIncorrectNewStatement({
       Statement: '',
       isTrue: null,
+      Stage: '',
     });
 
 
@@ -49,7 +51,7 @@ const AdminCorrectIncorrectCreateNew = () => {
       <h3 className="p-3 text-center">Create New Statement</h3>
       <div>
         <label className='correctIncorrectStatementFieldLabel'>Statement</label>
-        <input className='newCorrectIncorrectStatementInput' type="text" value={correctIncorrectNewStatement.Statement} placeholder='Statement' onChange={(e) => setCorrectIncorrectNewStatement({ ...correctIncorrectNewStatement, Statement: e.target.value })} />
+        <input className='newCorrectIncorrectStatementInput' style={{ marginBottom: '1rem' }} type="text" value={correctIncorrectNewStatement.Statement} placeholder='Statement' onChange={(e) => setCorrectIncorrectNewStatement({ ...correctIncorrectNewStatement, Statement: e.target.value })} />
       </div>
 
       <div className='newCorrectIncorrectOptions'>
@@ -66,6 +68,15 @@ const AdminCorrectIncorrectCreateNew = () => {
         </div>
 
 
+      </div>
+
+      <div style={{ marginTop: '1rem' }}>
+        <label>Bundle</label>
+        <select className='postBundles' type="dropdown" value={correctIncorrectNewStatement.Stage} placeholder='Choose a bundle' onChange={(e) => setCorrectIncorrectNewStatement({ ...correctIncorrectNewStatement, Stage: e.target.value })} >
+          <option value="Easy">Easy Bundle</option>
+          <option value="Medium">Medium Bundle</option>
+          <option value="Hard">Hard Bundle</option>
+        </select>
       </div>
 
 

@@ -17,7 +17,7 @@
     color: #FFF;
 }
 
-.postProfileName,
+.postHeadline,
 textarea,
 .postAuthor,
 .postType,
@@ -92,4 +92,14 @@ select option:checked {}
 .close-btn>img {
     width: 35px;
     height: 35px;
+}
+
+@media only screen and (max-width: 768px) {
+    .newpostcontainer {
+        width: 100%;
+    }
+
+    .dropzone p {
+        text-align: center;
+    }
 }

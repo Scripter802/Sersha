@@ -2,6 +2,7 @@ import React from 'react'
 import { BsFillBellFill, BsFillEnvelopeFill, BsPersonCircle, BsSearch, BsJustify }
   from 'react-icons/bs'
 import { game, home, logo, map, messages, rectangle, search, coin, level, avatar } from '../../assets/images/navbar/index'
+import './adminPanelHeader.css'
 
 function AdminPanelHeader({ OpenSidebar }) {
   const path = window.location.pathname

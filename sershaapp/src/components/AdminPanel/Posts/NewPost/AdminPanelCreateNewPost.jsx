@@ -3,10 +3,12 @@ import { useGlobalContext } from '../../../../context/context';
 import Dropzone from 'react-dropzone';
 import closeButton from '../../../../assets/images/adminPanel/closeButton.png'
 import './adminPanelCreateNewPost.css'
+import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 const AdminPanelCreateNewPost = () => {
-    const { allPosts, setAllPosts, createNewPost, setCreateNewPost } = useGlobalContext();
-    const [postProfileName, setPostProfileName] = useState('');
+    const { baseUrl, allAuthors, getAllAuthors, allPosts, setAllPosts, createNewPost, setCreateNewPost } = useGlobalContext();
+    const [postHeadline, setPostHeadline] = useState('');
     const [postContentImage, setPostContentImage] = useState(null);
     const [postAuthor, setPostAuthor] = useState('');
     const [postBundle, setPostBundle] = useState('');
@@ -18,32 +20,44 @@ const AdminPanelCreateNewPost = () => {
         setPostContentImage(file);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const uniqueId = uuidv4();
+
         // Save the new post data
-        const newPost = {
-            id: allPosts.length + 1, // Generate a unique ID for the new post
-            profileName,
-            text,
-            image: image ? URL.createObjectURL(image) : null, // Convert image to URL
-        };
-
-        // Update the list of posts
-        setAllPosts([...allPosts, newPost]);
-
+        const newPostFormData = new FormData();
+        newPostFormData.append("Id", uniqueId);
+        newPostFormData.append("Title", postHeadline);
+        newPostFormData.append("Content", "/");
+        newPostFormData.append("Image", postContentImage);
+        newPostFormData.append("Stage", postBundle);
+        newPostFormData.append("Type", postType);
+        newPostFormData.append("AuthorId", postAuthor);
+        console.log(postAuthor.id)
         // Reset form fields
-        setProfileName('');
-        setText('');
-        setImage(null);
-        setCreateNewPost(false);
+        setPostHeadline('');
+        setPostContentImage('');
+        try {
+            const response = await axios.post(`${baseUrl}/Post`, newPostFormData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            setCreateNewPost(false);
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
+    console.log(allPosts)
     return (
         <div className="newpostcontainer">
             <div className="close-btn" onClick={() => setCreateNewPost(false)}><img src={closeButton} alt='close' /></div>
             <h3 className="p-3 text-center">Create New Post</h3>
             <div>
                 <label>Headline:</label>
-                <input className='postProfileName' type="text" value={postProfileName} placeholder='Title' onChange={(e) => setPostProfileName(e.target.value)} />
+                <input className='postHeadline' type="text" value={postHeadline} placeholder='Title' onChange={(e) => setPostHeadline(e.target.value)} />
             </div>
 
             <div>
@@ -65,30 +79,31 @@ const AdminPanelCreateNewPost = () => {
             <div>
                 <label>Author</label>
                 <select className='postAuthor' type="dropdown" value={postAuthor} placeholder='Author' onChange={(e) => setPostAuthor(e.target.value)} >
-                    <option value="fox">Sersha the fox</option>
-                    <option value="Jess">Jess</option>
-                    <option value="John">John</option>
-                    <option value="Nicky">Nicky</option>
-                    <option value="Sam">Sam</option>
-                    <option value="Jess">Jess</option>
+                    <option value="" disabled >Select Author</option>
+                    {allAuthors.map((author) => (
+                        <option value={author.id} key={author.id}>{author.authorName}</option>
+                    ))}
+                    {console.log(postAuthor)}
                 </select>
             </div>
 
             <div>
                 <label>Bundle</label>
                 <select className='postBundles' type="dropdown" value={postBundle} placeholder='Choose a bundle' onChange={(e) => setPostBundle(e.target.value)} >
-                    <option value="easy">Easy Bundle</option>
-                    <option value="medium">Medium Bundle</option>
-                    <option value="hard">Hard Bundle</option>
+                    <option value="" disabled>Select Bundle</option>
+                    <option value="Easy">Easy Bundle</option>
+                    <option value="Medium">Medium Bundle</option>
+                    <option value="Hard">Hard Bundle</option>
                 </select>
             </div>
 
             <div>
                 <label>Type of Post</label>
                 <select className='postType' type="dropdown" value={postType} placeholder='Type of Post' onChange={(e) => setPostType(e.target.value)} >
-                    <option value="check-in">Check-in</option>
-                    <option value="headline">Headline</option>
-                    <option value="status">Status</option>
+                    <option value="" disabled>Select Type</option>
+                    <option value="Check-in">Check-in</option>
+                    <option value="Headline">Headline</option>
+                    <option value="Status">Status</option>
                 </select>
             </div>
 

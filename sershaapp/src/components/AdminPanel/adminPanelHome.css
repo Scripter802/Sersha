@@ -5,5 +5,33 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 50%;
-    
+    padding: 1rem;
+    /* Add padding for better spacing on small screens */
+}
+
+@media only screen and (max-width: 768px) {
+    .tabsWrapper {
+        width: 100vw;
+        /* Make it full width for smaller screens */
+        background-size: 70%;
+        /* Adjust background size */
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .tabsWrapper {
+        width: 100%;
+        /* Make it full width for smaller screens */
+        background-size: 80%;
+        /* Adjust background size */
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .tabsWrapper {
+        width: 100%;
+        /* Make it full width for smaller screens */
+        background-size: 90%;
+        /* Adjust background size */
+    }
 }

@@ -59,7 +59,7 @@
     align-items: center;
     width: fit-content;
     gap: 1rem;
-    
+
     background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
     border-radius: 20px 20px;
     padding: 1rem;
@@ -119,13 +119,13 @@
     height: 40px;
 }
 
-@media only screen and (max-width: 480px) { 
+@media only screen and (max-width: 780px) {
     .dmsWrapper {
-        
+
         background-image: none;
         border-radius: 0;
     }
-    
+
     .dmsContainer {
         background-image: url('/src/assets/images/dms/dmsBackground.png');
         background-size: cover;
@@ -148,14 +148,14 @@
         color: #ffffff;
         padding: 2.5rem 1rem;
         border-radius: 20px 20px;
-     }
+    }
 
     .newMsgWrapper {
         align-items: center;
         width: 100%;
         padding-top: 4rem;
         margin-bottom: 4rem;
-        
+
     }
 
     .responsiveNewMsgWrapper {
@@ -165,17 +165,17 @@
         margin-bottom: 4rem;
         display: none;
     }
-    
+
     .msgWrapper {
         width: 90%;
     }
-    
+
     .msgWrapper img {
         width: 35px;
         height: 35px;
         margin-right: .9rem;
     }
-    
+
     .msgWrapper p {
         font-size: 17px;
     }

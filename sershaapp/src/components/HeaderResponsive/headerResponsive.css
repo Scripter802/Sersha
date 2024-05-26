@@ -1,6 +1,7 @@
 .responsiveHeaderWrapper {
-  min-height: 50px;
-  
+  min-height: 82px;
+  background: #3D1414;
+  background-size: cover;
 }
 
 .responsiveHeaderLogo {
@@ -14,7 +15,11 @@
   height: 50px;
 }
 
-.responsiveMap, .responsiveGame, .responsiveHome, .responsiveMessages, .responsiveSearch {
+.responsiveMap,
+.responsiveGame,
+.responsiveHome,
+.responsiveMessages,
+.responsiveSearch {
   display: flex;
   width: 50px;
   height: 50px;
@@ -25,9 +30,13 @@
   cursor: pointer;
 }
 
-.responsiveMap:hover, .responsiveGame:hover, .responsiveHome:hover, .responsiveMessages:hover, .responsiveSearch:hover {
-      background: #C26F4D;
-  }
+.responsiveMap:hover,
+.responsiveGame:hover,
+.responsiveHome:hover,
+.responsiveMessages:hover,
+.responsiveSearch:hover {
+  background: #C26F4D;
+}
 
 .responsiveDm {
   display: flex;
@@ -75,7 +84,7 @@
   position: fixed;
   top: 0;
   background: #3D1414;
-    background-size: auto;
+  background-size: auto;
   left: 0;
   padding: .75rem 1rem;
   background-size: cover;
@@ -129,7 +138,4 @@
 .responsiveCoinWrapper:hover {
   background-color: #ffffff;
   color: #000000;
-}
-@media only screen and (max-width: 480px) {
-  
 }

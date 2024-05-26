@@ -54,16 +54,16 @@ const AdminFillInTheBlankPreview = () => {
             <tbody>
               {statements && statements.map((statement, index) =>
                 <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{statement.StatementFirst}</td>
-                  <td>{statement.CorrectAnswer}</td>
-                  <td>{statement.StatementSecond}</td>
-                  <td>{statement.Options.map(option => (
+                  <td data-label="No.">{index + 1}</td>
+                  <td data-label="Statement 1">{statement.StatementFirst}</td>
+                  <td data-label="Correct answer">{statement.CorrectAnswer}</td>
+                  <td data-label="Statement 2">{statement.StatementSecond}</td>
+                  <td data-label="Options">{statement.Options.map(option => (
                     <p>{option}</p>
                   ))}</td>
 
 
-                  <td className='settingsData'>
+                  <td data-label="Edit/Delete" className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEdit(index)}>Edit</button>
 
                     <button className="delete-btn" onClick={() => handleDelete(index)}>Delete</button>

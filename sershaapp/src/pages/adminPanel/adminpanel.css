@@ -162,7 +162,8 @@ body {
   z-index: 12 !important;
 }
 
-.adminQuizzesSubMenu {
+.adminQuizzesSubMenu,
+.adminMiniGamesSubMenu {
   margin-left: 1.5rem;
 }
 
@@ -236,6 +237,10 @@ body {
   background-size: cover;
 }
 
+#sidebar {
+  overflow-y: unset;
+}
+
 /* End Main  */
 
 
@@ -250,6 +255,10 @@ body {
       'main';
   }
 
+  .grid-fillInTheBlank {
+    display: unset;
+  }
+
   #sidebar {
     display: none;
   }
@@ -261,11 +270,19 @@ body {
   .sidebar-title>span {
     display: inline;
   }
+
+  #sidebar {
+    overflow-y: unset;
+  }
 }
 
 /* Small <= 768px */
 
 @media screen and (max-width: 768px) {
+  .adminBackground {
+    background-position: center;
+  }
+
   .main-cards {
     grid-template-columns: 1fr;
     gap: 10px;
@@ -276,12 +293,32 @@ body {
     grid-template-columns: 1fr;
     margin-top: 30px;
   }
+
+  #sidebar {
+    overflow-y: unset;
+  }
 }
 
 /* Extra Small <= 576px */
 
 @media screen and (max-width: 576px) {
+  .adminBackground {
+    background-position: center;
+  }
+
+  .grid-container {
+    height: unset;
+  }
+
   .hedaer-left {
     display: none;
+  }
+
+  .header-right {
+    justify-content: start;
+  }
+
+  #sidebar {
+    overflow-y: unset;
   }
 }

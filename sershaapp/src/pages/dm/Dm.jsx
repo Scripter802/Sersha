@@ -51,11 +51,11 @@ const Dm = () => {
     <div className='dmsWrapper'>
 
       <div className='dmsContainer'>
-        <div className={`${window.innerWidth < 1000 && selectedMessagePreview === true ? 'responsiveNewMsgWrapper' : 'newMsgWrapper'}`}>
+        <div className={`${window.innerWidth < 780 && selectedMessagePreview === true ? 'responsiveNewMsgWrapper' : 'newMsgWrapper'}`}>
           <NewMessage messages={messages} onSelectMessage={setSelectedMessage} setSelectedMessagePreview={setSelectedMessagePreview} setAnswer={setAnswer} />
         </div>
 
-        {window.innerWidth < 1000 && selectedMessagePreview === true && (
+        {window.innerWidth < 780 && selectedMessagePreview === true && (
           <div className='responsiveSingleMessageHeader'>
             <div><img src={userpic} alt="avatar" /></div>
             <div><p>{selectedMessage.name}</p></div>
@@ -63,7 +63,7 @@ const Dm = () => {
           </div>
         )}
 
-        <div className={`${window.innerWidth < 1000 && selectedMessagePreview === true ? 'responsiveMsgPreview' : 'msgPreview'}`}>
+        <div className={`${window.innerWidth < 780 && selectedMessagePreview === true ? 'responsiveMsgPreview' : 'msgPreview'}`}>
           <div className='receivedMsg'>
             <img src={selectedMessage?.avatar} alt="" />
             {selectedMessage?.message}
@@ -80,7 +80,7 @@ const Dm = () => {
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
-      <Popup />
+      {/* <Popup /> */}
     </div>
   )
 }

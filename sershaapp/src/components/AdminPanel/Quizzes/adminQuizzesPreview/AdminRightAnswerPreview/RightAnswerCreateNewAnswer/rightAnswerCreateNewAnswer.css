@@ -35,7 +35,11 @@
   padding-bottom: .5rem;
 }
 
-.newRightAnswerOptions {}
+.newRightAnswerOptions {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
 
 .optionBox {
   width: 100%;
@@ -92,4 +96,10 @@
 .incrementCharacter {
   font-size: 20px;
   line-height: 15px;
+}
+
+@media only screen and (max-width: 768px) {
+  .newRightAnswerQuestionContainer {
+    width: 100%;
+  }
 }

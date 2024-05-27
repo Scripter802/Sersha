@@ -14,6 +14,9 @@ namespace Domain
     }*/
     public class AppUser : IdentityUser
     {
+        public string Password;
+
+
         public string FullName {get;set;}
         public string ParentsFullName {get;set;}
         [NotMapped]

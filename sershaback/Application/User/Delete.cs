@@ -4,40 +4,45 @@ using System.Threading;
 using System.Threading.Tasks;
 using Application.Errors;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 
-namespace Application.Posts
+namespace Application.User
 {
     public class Delete
     {
         public class Command: IRequest
         {
-           public Guid Id { get; set; } 
+            public string Email {get; set;}
         }
 
         public class Handler : IRequestHandler<Command>
         {
             private readonly DataContext _context;
 
-
             public Handler(DataContext context)
             {
                 _context = context;
             }
 
-
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                //handler logic 
-                var post = await _context.Posts.FindAsync(request.Id);
-                if(post==null){
-                    throw new RestException(HttpStatusCode.NotFound, new {post = "Not found"});
+                
+                var user = await _context.Users
+                    .FirstOrDefaultAsync(u => u.Email == request.Email, cancellationToken);
+
+                if (user == null)
+                {
+                    throw new RestException(HttpStatusCode.NotFound, new { user = "Not found" });
                 }
-                _context.Remove(post);
 
-                var success = await _context.SaveChangesAsync() > 0 ;
+                _context.Users.Remove(user);
 
-                if(success) return Unit.Value;
+                
+                var success = await _context.SaveChangesAsync(cancellationToken) > 0;
+
+                if (success) return Unit.Value;
+
                 throw new Exception("Problem saving changes!");
             }
         }

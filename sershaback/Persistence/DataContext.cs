@@ -16,6 +16,7 @@ namespace Persistence
 
         public DbSet<Post> Posts{get; set;}
         public DbSet<Author> Authors { get; set; }
+        public DbSet<AppUser> User { get; set; }
 
         public override Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry<TEntity> Remove<TEntity>(TEntity entity) where TEntity : class
         {

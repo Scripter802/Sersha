@@ -24,9 +24,9 @@ namespace Persistence
                 {
                     new AppUser
                     {
-                        UserEmail = "UserEmail@email.com",
-                        Pass = "",
-                        FullName = "Pera Peric",
+                        Email = "jelena@gmail.com",
+                        NormalizedEmail = "jelena@gmail.com".ToUpperInvariant(),
+                        FullName = "Jelena Lukic",
                         ParentsFullName = "",
                         UserImage = null,
                         UserImagePath  = null,
@@ -39,8 +39,8 @@ namespace Persistence
                     },
                     new AppUser
                     {
-                        UserEmail = "email2@email.com",
-                        Pass = "",
+                        Email = "email2@email.com",
+                        NormalizedEmail = "email2@email.com".ToUpperInvariant(),
                         FullName = "Pera Peric",
                         ParentsFullName = "",
                         UserImage = null,
@@ -62,41 +62,7 @@ namespace Persistence
                 context.SaveChanges();
             }
 
-            /*if(!context.Posts.Any()){
-                var posts = new List<Post>
-                {
-                    new Post
-                    {
-                        Title = "Blog post 1",
-                        Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin laoreet odio sed sapien pretium, vitae elementum nisl imperdiet. Cras sit amet viverra justo, vitae cursus lorem. Etiam vulputate, turpis bibendum molestie porttitor, tortor orci vulputate odio, in porttitor sapien nibh id sem. In id neque enim. ",
-                        //Author = "Jelena",
-                        PublishedDate = DateTime.Now,
-                        //Image = "./"
-
-                    },
-                    new Post
-                    {
-                        Title = "Blog post 2",
-                        Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin laoreet odio sed sapien pretium, vitae elementum nisl imperdiet. Cras sit amet viverra justo, vitae cursus lorem. Etiam vulputate, turpis bibendum molestie porttitor, tortor orci vulputate odio, in porttitor sapien nibh id sem. In id neque enim. ",
-                        //Author = "Milos",
-                        PublishedDate = DateTime.Now,
-                        //Image = "./"
-
-                    },
-                     new Post
-                    {
-                        Title = "Blog post 4",
-                        Content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin laoreet odio sed sapien pretium, vitae elementum nisl imperdiet. Cras sit amet viverra justo, vitae cursus lorem. Etiam vulputate, turpis bibendum molestie porttitor, tortor orci vulputate odio, in porttitor sapien nibh id sem. In id neque enim. ",
-                        //Author = "Ana",
-                        PublishedDate = DateTime.Now,
-                        //Image = "./"
-
-                    }
-                    
-                };
-                context.Posts.AddRange(posts);
-                context.SaveChanges();
-            }*/
+            
             
         }
     }

@@ -8,9 +8,9 @@ namespace Application.Posts
     {
         public MappingProfile()
         {
-           
             CreateMap<Post, PostDto>();
-            CreateMap<Author, AuthorDto>();       
+            CreateMap<Author, AuthorDto>();
+            CreateMap<AppUser, Application.User.User>();
         }
     }
 }

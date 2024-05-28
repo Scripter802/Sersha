@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
+
 namespace Domain
 {
     /*public enum UserType
@@ -13,8 +14,9 @@ namespace Domain
     }*/
     public class AppUser : IdentityUser
     {
-        public string UserEmail {get;set;}
-        public string Pass {get;set;}
+        public string Password;
+
+
         public string FullName {get;set;}
         public string ParentsFullName {get;set;}
         [NotMapped]
@@ -25,5 +27,7 @@ namespace Domain
         public string ParentPhoneNumber{get;set;}
         public DateTime UserBirthDate{get;set;}
         public string Type { get; set; }
+
+
     }
 }

@@ -9,8 +9,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240521215021_addedIdentity")]
-    partial class addedIdentity
+    [Migration("20240526202223_users")]
+    partial class users
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,9 +66,6 @@ namespace Persistence.Migrations
                     b.Property<string>("ParentsFullName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Pass")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
 
@@ -88,9 +85,6 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("UserBirthDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserEmail")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserImagePath")

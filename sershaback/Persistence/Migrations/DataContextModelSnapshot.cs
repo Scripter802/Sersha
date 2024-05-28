@@ -64,9 +64,6 @@ namespace Persistence.Migrations
                     b.Property<string>("ParentsFullName")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Pass")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("TEXT");
 
@@ -86,9 +83,6 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("UserBirthDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserEmail")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UserImagePath")

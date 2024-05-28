@@ -68,7 +68,8 @@ namespace Application.Posts
                 
                 String path = Directory.GetCurrentDirectory() + "\\Images\\postImages\\" + request.Stage;
                 if(request.Image != null){
-                    string fileName = request.Title + request.Image.FileName;
+                    FileInfo fi = new FileInfo(request.Image.FileName);
+                    string fileName = request.Title + fi.Extension;
                     Directory.CreateDirectory(path);
                     path = Path.Combine(path, fileName);
 

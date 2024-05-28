@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class addedIdentity : Migration
+    public partial class users : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,8 +40,6 @@ namespace Persistence.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    UserEmail = table.Column<string>(nullable: true),
-                    Pass = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(nullable: true),
                     ParentsFullName = table.Column<string>(nullable: true),
                     UserImagePath = table.Column<string>(nullable: true),

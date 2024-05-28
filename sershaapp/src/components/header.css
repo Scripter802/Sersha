@@ -25,7 +25,11 @@
     height: 50px;
 }
 
-.map, .game, .home, .messages, .search {
+.map,
+.game,
+.home,
+.messages,
+.search {
     display: flex;
     width: 40px;
     height: 40px;
@@ -36,11 +40,26 @@
     cursor: pointer;
 }
 
-.map:hover, .game:hover, .home:hover, .messages:hover, .search:hover {
-        background: #C26F4D;
-    }
+.map:hover,
+.game:hover,
+.home:hover,
+.messages:hover,
+.search:hover {
+    background: #C26F4D;
+}
 
 .dm {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    background-color: #C26F4D;
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.minigames {
     display: flex;
     width: 40px;
     height: 40px;

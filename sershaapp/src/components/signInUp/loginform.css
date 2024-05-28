@@ -46,7 +46,8 @@
     margin-block: 1.875rem;
 }
 
-.form-check, .forgot-password {
+.form-check,
+.forgot-password {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,4 +80,8 @@
     border: 0px;
     background: #FFFFFF;
     height: 50px;
+}
+
+.rightSideWrapper {
+    z-index: 1000;
 }

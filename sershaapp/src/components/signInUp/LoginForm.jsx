@@ -60,7 +60,7 @@ const LoginForm = () => {
         const data = await response.json();
         console.log('Login successful:', data);
         setIsLoggedIn(true);
-      } else if (logmail === 'admin' && logPassword === 'admin') {
+      } else if (logEmail === 'admin@admin.com' && logPassword === 'admin') {
         setIsLoggedIn(true);
       } else {
         const errorData = await response.json();
@@ -72,7 +72,7 @@ const LoginForm = () => {
     }
   };
 
-  if (!isLoggedIn) {
+  if (isLoggedIn) {
     return <Slideshow />; // Render the slideshow component after login
   }
 

@@ -308,3 +308,7 @@ label>input {
     display: none;
   }
 }
+
+.customizationWrapper>.responsiveRightWrapper {
+  width: 50%;
+}

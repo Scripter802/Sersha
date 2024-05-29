@@ -83,7 +83,10 @@ const FoxCustomization = () => {
 
   return (
     <div className='customizationWrapper'>
-      {window.innerWidth < 1000 && <HeaderResponsive />}
+      <div className='headerCustomization'>
+
+        {window.innerWidth < 1000 && <HeaderResponsive />}
+      </div>
       <div className='customizationBackground'>
         <div className='titleWrapper'>
           <div className='title'>Customize <span className='titleChar'>Character</span></div>

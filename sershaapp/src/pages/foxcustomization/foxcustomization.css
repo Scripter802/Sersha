@@ -120,12 +120,16 @@
         height: 50px;
     }
 
+    .foxWrapper {
+        position: relative;
+    }
+
     .foxTopPart {
         width: 90px;
         height: 90px;
-        position: relative;
-        left: 4rem;
-        top: 3rem;
+        position: absolute;
+        left: 1.5rem;
+        bottom: 3rem;
     }
 
     .foxMiddle {
@@ -136,9 +140,9 @@
     .foxBottomPart {
         width: 90px;
         height: 90px;
-        position: relative;
-        right: 3.5rem;
-        top: 3rem;
+        position: absolute;
+        right: 1.5rem;
+        bottom: 3rem;
     }
 
     .itemSlider {
@@ -163,5 +167,10 @@
     .sliderControls {
         display: none;
     }
+
+    .headerCustomization {
+        width: 90%;
+    }
+
 
 }

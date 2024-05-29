@@ -7,12 +7,16 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
   const { isTopPart, isBottomPart } = useGlobalContext();
   const [sliderIndex, setSliderIndex] = useState(0);
   const sliderRef = useRef(null);
+  const sliderDownRef = useRef(null);
 
   useEffect(() => {
     if (sliderRef.current) {
+      console.log(sliderRef)
+
       sliderRef.current.slider.refresh();
     }
   }, [isTopPart, isBottomPart]);
+
 
   const moveSliderToLeft = () => {
     if (sliderRef.current) {
@@ -50,7 +54,7 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
   };
 
   const renderItems = () => {
-    if (isTopPart) {
+    if (isTopPart === true) {
       return itemsTopPart.map((el, index) => (
         <div key={index} className="toppart">
           <img
@@ -61,7 +65,7 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
           />
         </div>
       ));
-    } else if (isBottomPart) {
+    } else if (isBottomPart === true) {
       return itemsBottomPart.map((el, index) => (
         <div key={index} className="bottompart">
           <img
@@ -87,7 +91,7 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
         </div>
       </div>
       <div className="tinySlidWrapper">
-        {isTopPart || isBottomPart ? (
+        {isTopPart === true || isBottomPart === true ? (
           <TinySlider settings={settings} className="singleImg" ref={sliderRef}>
             {renderItems()}
           </TinySlider>

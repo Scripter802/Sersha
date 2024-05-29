@@ -43,13 +43,20 @@
     width: 80%;
 }
 
-.namesFieldWrapper, .agePhoneWrapper, .passwordWrapper {
+.namesFieldWrapper,
+.agePhoneWrapper,
+.passwordWrapper {
     display: flex;
     justify-content: space-between;
     gap: 1.25rem;
 }
 
-.parentName input, .childName input, .childAge input, .phone input, .regPassword input, .regRePassword input {
+.parentName input,
+.childName input,
+.childAge input,
+.phone input,
+.regPassword input,
+.regRePassword input {
     width: 100%;
     background: transparent;
     border: 1px solid #FFB496;
@@ -69,5 +76,76 @@
     border: 0px;
     background: #FFFFFF;
     height: 50px;
+    cursor: pointer;
 }
 
+/* Media Queries for screens smaller than 1000px */
+@media (max-width: 999px) {
+    .registerFormWrapper {
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    .regFormWrapper {
+        width: 100%;
+    }
+
+    .namesFieldWrapper,
+    .agePhoneWrapper,
+    .passwordWrapper {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .parentName input,
+    .childName input,
+    .childAge input,
+    .phone input,
+    .regPassword input,
+    .regRePassword input {
+        width: 100%;
+        font-size: 0.875rem;
+        height: 40px;
+    }
+
+    .registerHeaderRightSide {
+        gap: 0.5rem;
+        margin: 0 auto;
+        align-items: flex-start;
+    }
+
+    .registerHeaderWrapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .registerButton {
+        font-size: 0.875rem;
+    }
+
+    .registerHeaderRightSide img {
+        width: 20px;
+        height: 20px;
+    }
+
+    .registerFormWrapper h1 {
+        margin-block: 1.5rem;
+        font-size: 1.5rem;
+    }
+
+    .regBtn {
+        height: 40px;
+    }
+
+    .footer {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .footerWrapper {
+        justify-content: flex-start;
+        padding: 1rem;
+    }
+}

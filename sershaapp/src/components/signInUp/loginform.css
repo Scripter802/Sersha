@@ -85,3 +85,18 @@
 .rightSideWrapper {
     z-index: 1000;
 }
+
+@media (max-width: 1000px) {
+    .logInFormWrapper {
+        width: 100%;
+    }
+
+    .logInHeaderRightSide {
+        font-size: 14px;
+        gap: 0;
+    }
+
+    .logInHeaderRightSide img {
+        margin-left: 1rem;
+    }
+}

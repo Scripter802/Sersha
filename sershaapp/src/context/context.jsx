@@ -12,6 +12,8 @@ const baseUrlImage = "http://172.28.176.1:8080/api";
 
 const AppProvider = ({ children }) => {
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
   /*   ADMIN PANEL  *//*   ADMIN PANEL  *//*   ADMIN PANEL  *//*   ADMIN PANEL  *//*   ADMIN PANEL  */
   const [activeTab, setActiveTab] = useState("Dashboard")
 
@@ -72,7 +74,7 @@ const AppProvider = ({ children }) => {
 
   const [registerNameOfParent, setRegisterNameOfParent] = useState("");
   const [registerNameOfChild, setRegisterNameOfChild] = useState("");
-  const [registerAgeOfChild, setRegisterAgeOfChild] = useState("");
+  const [registerDateOfBirth, setRegisterDateOfBirth,] = useState(new Date());
   const [registerPhoneNumber, setRegisterPhoneNumber] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -204,6 +206,8 @@ const AppProvider = ({ children }) => {
       value={{
         baseUrl,
         baseUrlImage,
+        windowWidth,
+        setWindowWidth,
         activeTab,
         setActiveTab,
         allPosts,
@@ -271,8 +275,8 @@ const AppProvider = ({ children }) => {
         setRegisterNameOfParent,
         registerNameOfChild,
         setRegisterNameOfChild,
-        registerAgeOfChild,
-        setRegisterAgeOfChild,
+        registerDateOfBirth,
+        setRegisterDateOfBirth,
         registerPhoneNumber,
         setRegisterPhoneNumber,
         registerEmail,

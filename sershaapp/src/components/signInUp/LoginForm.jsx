@@ -1,18 +1,19 @@
-import { heart } from '../../assets/images/customization/items/index.js'
-import logo from '../../assets/images/login/logo.png'
-import signup from '../../assets/images/login/signup.png'
-import passwordforgot from '../../assets/images/login/passwordforgot.png'
-import circleLogin from '../../assets/images/login/circleLogin.png'
-import { Link, redirect } from 'react-router-dom'
-import { useGlobalContext } from '../../context/context.jsx'
-
-import './loginform.css'
-import { useState } from 'react'
-import Slideshow from '../SlideShow/SlideShow.jsx'
-
+import { useState, useEffect } from 'react';
+import { heart } from '../../assets/images/customization/items/index.js';
+import logo from '../../assets/images/login/logo.png';
+import skip from '../../assets/images/login/skip.png';
+import signup from '../../assets/images/login/signup.png';
+import passwordforgot from '../../assets/images/login/passwordforgot.png';
+import circleLogin from '../../assets/images/login/circleLogin.png';
+import { Link } from 'react-router-dom';
+import { useGlobalContext } from '../../context/context.jsx';
+import './loginform.css';
+import Slideshow from '../SlideShow/SlideShow.jsx';
 
 const LoginForm = () => {
-  const { logEmail,
+  const {
+    baseUrl,
+    logEmail,
     setLogEmail,
     logPassword,
     setLogPassword,
@@ -24,26 +25,54 @@ const LoginForm = () => {
     setLogShowPassword,
     logIn,
     setLogIn,
-  } = useGlobalContext()
+    windowWidth,
+    setWindowWidth,
+  } = useGlobalContext();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  let adminUsername = 'admin@admin.com';
-  let adminPass = 'admin';
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+    const userData = {
+      email: logEmail,
+      password: logPassword,
+    };
 
-    if (logEmail === adminUsername && logPassword === adminPass) {
-      setIsLoggedIn(true);
-    } else {
-      alert('Invalid login credentials');
+    try {
+      const response = await fetch(`${baseUrl}/api/User/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (response.ok) {
+        // Handle successful login
+        const data = await response.json();
+        console.log('Login successful:', data);
+        setIsLoggedIn(true);
+      } else if (logmail === 'admin' && logPassword === 'admin') {
+        setIsLoggedIn(true);
+      } else {
+        const errorData = await response.json();
+        setErrorMessage(errorData.message || 'Login failed');
+
+      }
+    } catch (error) {
+      setErrorMessage(error.message || 'An error occurred');
     }
   };
-  console.log(logEmail, isLoggedIn)
 
-  if (isLoggedIn) {
+  if (!isLoggedIn) {
     return <Slideshow />; // Render the slideshow component after login
   }
 
@@ -53,24 +82,25 @@ const LoginForm = () => {
         <div>
           <img src={logo} alt="sershalogo" />
         </div>
-        <div className='logInHeaderRightSide'>
-          <p>Don’t have an account?</p>
-          <img src={signup} alt="signup" />
-          <p className='signUpButton' onClick={() => setLogIn(false)}>Sign Up</p>
-        </div>
+        {windowWidth > 1000 && (
+          <div className='logInHeaderRightSide'>
+            <p>Don’t have an account?</p>
+            <img src={skip} alt="signup" />
+            <p className='signUpButton' onClick={() => setLogIn(false)}>Sign Up</p>
+          </div>
+        )}
       </div>
 
       <div className='logInFormWrapper'>
         <h1>Log In</h1>
         <div className='formWrapper'>
-          <form
-          >
+          <form onSubmit={handleSubmit}>
             <div className="email mb-3">
               <label>
                 Email
                 <input
                   type="email"
-                  className={`form-control `}
+                  className={`form-control`}
                   id="email"
                   name="email"
                   value={logEmail}
@@ -78,10 +108,7 @@ const LoginForm = () => {
                   onChange={(e) => setLogEmail(e.target.value)}
                 />
               </label>
-              <div
-                className={`invalid-feedback text-start`}
-              >
-              </div>
+              <div className={`invalid-feedback text-start`}></div>
             </div>
 
             <div className="password mb-3">
@@ -98,11 +125,7 @@ const LoginForm = () => {
                     onChange={(e) => setLogPassword(e.target.value)}
                   />
                 </label>
-
-                <div
-                  className={`invalid-feedback text-start`}
-                >
-                </div>
+                <div className={`invalid-feedback text-start`}></div>
               </div>
 
               <div className="extra mt-3 row justify-content-between">
@@ -128,11 +151,21 @@ const LoginForm = () => {
                 </div>
               </div>
             </div>
+
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+            {windowWidth < 1000 && (
+              <div className='logInHeaderRightSide'>
+                <p>Don’t have an account?</p>
+                <img src={skip} alt="signup" />
+                <p className='signUpButton' onClick={() => setLogIn(false)}>Sign Up</p>
+              </div>
+            )}
+
             <div className="text-center">
               <button
                 type="submit"
                 className="btn btn-primary w-100 theme-btn mx-auto"
-                onClick={handleSubmit}
               >
                 <img src={circleLogin} alt="loginCircle" /> Log In
               </button>
@@ -148,7 +181,7 @@ const LoginForm = () => {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default LoginForm
+export default LoginForm;

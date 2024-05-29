@@ -190,3 +190,6 @@ D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\System.Text.Encodings.
 D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
 D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+D:\projekti\Sersha\sershaback\api\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll

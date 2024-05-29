@@ -16,6 +16,28 @@ namespace Persistence.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.15");
 
+            modelBuilder.Entity("Domain.Answer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Answer");
+                });
+
             modelBuilder.Entity("Domain.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -121,6 +143,25 @@ namespace Persistence.Migrations
                     b.ToTable("Authors");
                 });
 
+            modelBuilder.Entity("Domain.GroupingItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("GroupingQuestionId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Item")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupingQuestionId");
+
+                    b.ToTable("GroupingItems");
+                });
+
             modelBuilder.Entity("Domain.Post", b =>
                 {
                     b.Property<Guid>("Id")
@@ -153,6 +194,53 @@ namespace Persistence.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("Domain.Question", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("QuestionType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("QuizId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("QuizId");
+
+                    b.ToTable("Questions");
+
+                    b.HasDiscriminator<string>("QuestionType").HasValue("Question");
+                });
+
+            modelBuilder.Entity("Domain.Quiz", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Difficulty")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("BLOB");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Quizzes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -283,11 +371,78 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Domain.CorrectIncorrectQuestion", b =>
+                {
+                    b.HasBaseType("Domain.Question");
+
+                    b.Property<bool>("IsCorrect")
+                        .HasColumnType("INTEGER");
+
+                    b.HasDiscriminator().HasValue("CorrectIncorrect");
+                });
+
+            modelBuilder.Entity("Domain.FillInTheBlankQuestion", b =>
+                {
+                    b.HasBaseType("Domain.Question");
+
+                    b.Property<string>("Statement1")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Statement2")
+                        .HasColumnType("TEXT");
+
+                    b.HasDiscriminator().HasValue("FillInTheBlank");
+                });
+
+            modelBuilder.Entity("Domain.GroupingQuestion", b =>
+                {
+                    b.HasBaseType("Domain.Question");
+
+                    b.Property<string>("GroupName")
+                        .HasColumnType("TEXT");
+
+                    b.HasDiscriminator().HasValue("Grouping");
+                });
+
+            modelBuilder.Entity("Domain.RightAnswerQuestion", b =>
+                {
+                    b.HasBaseType("Domain.Question");
+
+                    b.HasDiscriminator().HasValue("RightAnswer");
+                });
+
+            modelBuilder.Entity("Domain.Answer", b =>
+                {
+                    b.HasOne("Domain.Question", "Question")
+                        .WithMany("Answers")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.GroupingItem", b =>
+                {
+                    b.HasOne("Domain.GroupingQuestion", "GroupingQuestion")
+                        .WithMany("GroupingItems")
+                        .HasForeignKey("GroupingQuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.Post", b =>
                 {
                     b.HasOne("Domain.Author", "Author")
                         .WithMany("Posts")
                         .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.Question", b =>
+                {
+                    b.HasOne("Domain.Quiz", "Quiz")
+                        .WithMany("Questions")
+                        .HasForeignKey("QuizId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -61,48 +61,48 @@
 }
 
 
-article{
-    position:absolute;
-    left:0;
-    right:0;
-    width:100%;
-    height:100%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-  /*   border:4px solid rgb(83, 110, 143); */
-    opacity:0;
-  }
+article {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*   border:4px solid rgb(83, 110, 143); */
+    opacity: 0;
+}
 
 
-.sliderBtn{
-    position:absolute;
+.sliderBtn {
+    position: absolute;
     transform: translateY(-50%);
-    width:45px;
-    height:45px;
-    border:none;
+    width: 45px;
+    height: 45px;
+    border: none;
     border-radius: 50%;
-    color:white;
-    background:#C26F4D;
+    color: white;
+    background: #C26F4D;
     transition: all 0.3s linear;
     font-size: 24px;
 }
-  
-.sliderBtn:hover{
-    cursor:pointer;
-    background:rgb(98, 122, 92);
+
+.sliderBtn:hover {
+    cursor: pointer;
+    background: rgb(98, 122, 92);
 }
-  
-.prev{
-   left: 20%;
-   top: 90vh;
+
+.prev {
+    left: 20%;
+    top: 90vh;
 }
-  
-.next{
+
+.next {
     right: 20%;
     top: 90vh;
 }
-  
+
 article.activeSlide {
     opacity: 1;
     transform: translateX(0);
@@ -115,7 +115,7 @@ article.lastSlide {
 article.nextSlide {
     transform: translateX(100%);
 }
-    
+
 .sliderDots {
     position: absolute;
     display: flex;
@@ -123,7 +123,7 @@ article.nextSlide {
     align-items: center;
     top: 90vh;
 }
-  
+
 .dot {
     width: 6px;
     height: 6px;
@@ -133,15 +133,85 @@ article.nextSlide {
     cursor: pointer;
     background: transparent;
 }
-  
+
 .dot.active {
-    background-color: #FFFFFF; /* Change to your desired active dot color */
+    background-color: #FFFFFF;
+    /* Change to your desired active dot color */
 }
-        
+
 .rightSideWrapper {
     flex: 1;
     padding: 2.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+
+@media (max-width: 1000px) {
+    .logInWrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow: hidden;
+    }
+
+    .leftSideBackground {
+        background: url('../../assets/images/login/logInBackgroundRes.png');
+        background-size: cover;
+
+    }
+
+    .leftSideWrapper,
+    .rightSideWrapper {
+        min-height: 100vh;
+    }
+
+    .leftSideWrapper {
+        position: unset;
+
+    }
+
+    .skipWrapper {
+        position: absolute;
+        right: 2rem;
+        top: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: .25rem;
+        color: #FFB496;
+        font-size: 14px;
+        z-index: 1000;
+        cursor: pointer;
+    }
+
+    .slideImage {
+        background: url('../../assets/images/login/cardsResBackGround.png');
+        background-size: cover;
+        background-position: center;
+        border-radius: 20px 20px;
+        margin-top: 60%;
+    }
+
+    #leftSizeWrapper {
+        margin-top: 50vh;
+    }
+
+    .leftSideText h1 {
+        margin-top: 8rem;
+        width: 80%;
+    }
+
+    .prev {
+        left: 10%;
+    }
+
+    .next {
+        right: 10%;
+    }
+
+    .dot {
+        margin: 0 15px;
+    }
 }

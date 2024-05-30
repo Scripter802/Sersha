@@ -6,6 +6,7 @@
   overflow-x: hidden;
   background-image: url('../../assets/images/miniGames/miniGamesBackground.png');
   background-size: cover;
+  background-position: center;
 }
 
 .miniGamesWrapper {

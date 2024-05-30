@@ -1,4 +1,4 @@
-import React, { useContext, createContext, useState } from "react";
+import React, { useContext, createContext, useState, useEffect } from "react";
 import postimg from '../assets/images/posts/postimg.png'
 import postimg2 from '../assets/images/posts/postImg2.png'
 import authorImg from '../assets/images/posts/authorimg.png'
@@ -7,10 +7,12 @@ import axios from 'axios'
 import avatar from '../assets/images/navbar/userpick.png'
 
 const AppContext = createContext();
-const baseUrl = "http://localhost:5000";
-const baseUrlImage = "http://172.28.176.1:8080/api";
+const baseUrl = "http://localhost:5000/api";
+const baseUrlImage = "http://192.168.1.10:8080/api";
 
 const AppProvider = ({ children }) => {
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   /*   ADMIN PANEL  *//*   ADMIN PANEL  *//*   ADMIN PANEL  *//*   ADMIN PANEL  *//*   ADMIN PANEL  */
   const [activeTab, setActiveTab] = useState("Dashboard")
@@ -66,13 +68,34 @@ const AppProvider = ({ children }) => {
   const [logRemember, setLogRemember] = useState(false);
   const [logValidate, setLogValidate] = useState({});
   const [logShowPassword, setLogShowPassword] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    console.log('Token from localStorage:', token); // Check if the token is retrieved correctly
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      setIsAuthenticated(true);
+      console.log('IsAuthenticated:', isAuthenticated);
+    }
+  }, [isAuthenticated]);
+
+  const loginUser = (token) => {
+    localStorage.setItem('token', token);
+    setIsAuthenticated(true);
+  };
+
+  const logoutUser = () => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+  };
 
 
   /* REGISTER FORM COMPONENT */
 
   const [registerNameOfParent, setRegisterNameOfParent] = useState("");
   const [registerNameOfChild, setRegisterNameOfChild] = useState("");
-  const [registerAgeOfChild, setRegisterAgeOfChild] = useState("");
+  const [registerDateOfBirth, setRegisterDateOfBirth,] = useState(new Date());
   const [registerPhoneNumber, setRegisterPhoneNumber] = useState("");
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -204,6 +227,8 @@ const AppProvider = ({ children }) => {
       value={{
         baseUrl,
         baseUrlImage,
+        windowWidth,
+        setWindowWidth,
         activeTab,
         setActiveTab,
         allPosts,
@@ -267,12 +292,15 @@ const AppProvider = ({ children }) => {
         setLogShowPassword,
         logIn,
         setLogIn,
+        isAuthenticated,
+        loginUser,
+        logoutUser,
         registerNameOfParent,
         setRegisterNameOfParent,
         registerNameOfChild,
         setRegisterNameOfChild,
-        registerAgeOfChild,
-        setRegisterAgeOfChild,
+        registerDateOfBirth,
+        setRegisterDateOfBirth,
         registerPhoneNumber,
         setRegisterPhoneNumber,
         registerEmail,

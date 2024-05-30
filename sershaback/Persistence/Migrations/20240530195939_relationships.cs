@@ -73,8 +73,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Difficulty = table.Column<int>(nullable: false),
-                    Type = table.Column<int>(nullable: false),
-                    RowVersion = table.Column<byte[]>(rowVersion: true, nullable: true)
+                    Type = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -218,11 +217,10 @@ namespace Persistence.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Text = table.Column<string>(nullable: true),
                     QuizId = table.Column<Guid>(nullable: false),
-                    QuestionType = table.Column<string>(nullable: false),
+                    QuestionType = table.Column<int>(nullable: false),
                     IsCorrect = table.Column<bool>(nullable: true),
                     Statement1 = table.Column<string>(nullable: true),
-                    Statement2 = table.Column<string>(nullable: true),
-                    GroupName = table.Column<string>(nullable: true)
+                    Statement2 = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -242,7 +240,8 @@ namespace Persistence.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Text = table.Column<string>(nullable: true),
                     IsCorrect = table.Column<bool>(nullable: false),
-                    QuestionId = table.Column<Guid>(nullable: false)
+                    QuestionId = table.Column<Guid>(nullable: false),
+                    RightAnswerQuestionId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -250,6 +249,31 @@ namespace Persistence.Migrations
                     table.ForeignKey(
                         name: "FK_Answer_Questions_QuestionId",
                         column: x => x.QuestionId,
+                        principalTable: "Questions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Answer_Questions_RightAnswerQuestionId",
+                        column: x => x.RightAnswerQuestionId,
+                        principalTable: "Questions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Group",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    GroupingQuestionId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Group", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Group_Questions_GroupingQuestionId",
+                        column: x => x.GroupingQuestionId,
                         principalTable: "Questions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -261,15 +285,15 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Item = table.Column<string>(nullable: true),
-                    GroupingQuestionId = table.Column<Guid>(nullable: false)
+                    GroupId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_GroupingItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GroupingItems_Questions_GroupingQuestionId",
-                        column: x => x.GroupingQuestionId,
-                        principalTable: "Questions",
+                        name: "FK_GroupingItems_Group_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "Group",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -278,6 +302,11 @@ namespace Persistence.Migrations
                 name: "IX_Answer_QuestionId",
                 table: "Answer",
                 column: "QuestionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Answer_RightAnswerQuestionId",
+                table: "Answer",
+                column: "RightAnswerQuestionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -317,9 +346,14 @@ namespace Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_GroupingItems_GroupingQuestionId",
-                table: "GroupingItems",
+                name: "IX_Group_GroupingQuestionId",
+                table: "Group",
                 column: "GroupingQuestionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GroupingItems_GroupId",
+                table: "GroupingItems",
+                column: "GroupId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_AuthorId",
@@ -365,10 +399,13 @@ namespace Persistence.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Questions");
+                name: "Group");
 
             migrationBuilder.DropTable(
                 name: "Authors");
+
+            migrationBuilder.DropTable(
+                name: "Questions");
 
             migrationBuilder.DropTable(
                 name: "Quizzes");

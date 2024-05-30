@@ -2,125 +2,71 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Persistence;
 using Domain;
-using System.Collections.Generic;
-using static Domain.Enums;
+using Persistence;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using Application.Errors;
+using System.Net;
 
 namespace Application.Quizzes
 {
-    public class Edit
+
+    public class Edit : IRequest
     {
-        public class Command : IRequest
+        public Guid Id { get; set; }
+        public Question UpdatedQuestion { get; set; }
+    }
+
+    public class EditQuestionHandler : IRequestHandler<Edit>
+    {
+        private readonly DataContext _context;
+
+        public EditQuestionHandler(DataContext context)
         {
-            public Guid Id { get; set; }
-            public QuizType Type { get; set; }
-            public Difficulty Difficulty { get; set; }
-            public string QuestionText { get; set; }
-            public List<AnswerDto> Answers { get; set; } = new List<AnswerDto>();
-            public string Statement1 { get; set; } 
-            public string Statement2 { get; set; } 
-            public bool IsCorrect { get; set; } 
-            public string GroupName { get; set; } 
-            public List<string> Items { get; set; } = new List<string>(); 
+            _context = context;
         }
 
-        public class Handler : IRequestHandler<Command>
+        public async Task<Unit> Handle(Edit request, CancellationToken cancellationToken)
         {
-            private readonly DataContext _context;
+            var question = await _context.Questions
+                .Include(q => ((RightAnswerQuestion)q).Answers)
+                .Include(q => ((FillInTheBlankQuestion)q).Answers)
+                .Include(q => ((GroupingQuestion)q).Groups)
+                .FirstOrDefaultAsync(q => q.Id == request.Id, cancellationToken);
 
-            public Handler(DataContext context)
+
+            if (question == null)
             {
-                _context = context;
+                throw new RestException(HttpStatusCode.NotFound, new { Question = "Not found" });
             }
 
-           public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            switch (question)
             {
-                var quiz = await _context.Quizzes
-                    .Include(q => q.Questions)
-                        .ThenInclude(q => (q as RightAnswerQuestion).Answers)
-                    .Include(q => q.Questions)
-                        .ThenInclude(q => (q as FillInTheBlankQuestion).Answers)
-                    .Include(q => q.Questions)
-                        .ThenInclude(q => (q as GroupingQuestion).GroupingItems)
-                    .FirstOrDefaultAsync(q => q.Id == request.Id, cancellationToken);
-
-                if (quiz == null)
-                {
-                    throw new Exception("Quiz not found");
-                }
-
-                quiz.Difficulty = request.Difficulty;
-                quiz.Type = request.Type;
-
-                
-                foreach (var question in quiz.Questions)
-                {
-                    switch (question)
-                    {
-                        case RightAnswerQuestion rightAnswerQuestion:
-                            rightAnswerQuestion.Text = request.QuestionText;
-                            UpdateAnswers(rightAnswerQuestion.Answers, request.Answers);
-                            break;
-                        case CorrectIncorrectQuestion correctIncorrectQuestion:
-                            correctIncorrectQuestion.Text = request.QuestionText;
-                            correctIncorrectQuestion.IsCorrect = request.IsCorrect;
-                            break;
-                        case FillInTheBlankQuestion fillInTheBlankQuestion:
-                            fillInTheBlankQuestion.Text = request.QuestionText;
-                            fillInTheBlankQuestion.Statement1 = request.Statement1;
-                            fillInTheBlankQuestion.Statement2 = request.Statement2;
-                            UpdateAnswers(fillInTheBlankQuestion.Answers, request.Answers);
-                            break;
-                        case GroupingQuestion groupingQuestion:
-                            groupingQuestion.Text = request.QuestionText;
-                            groupingQuestion.GroupName = request.GroupName;
-                            UpdateGroupingItems(groupingQuestion.GroupingItems, request.Items);
-                            break;
-                    }
-                }
-
-                var success = await _context.SaveChangesAsync() > 0;
-
-                if (!success)
-                {
-                    throw new Exception("Problem saving changes");
-                }
-
-                return Unit.Value;
+                case RightAnswerQuestion raq when request.UpdatedQuestion is RightAnswerQuestion updatedRaq:
+                    raq.Text = updatedRaq.Text;
+                   
+                    break;
+                case CorrectIncorrectQuestion ciq when request.UpdatedQuestion is CorrectIncorrectQuestion updatedCiq:
+                    ciq.Text = updatedCiq.Text;
+                    ciq.IsCorrect = updatedCiq.IsCorrect;
+                    break;
+                case FillInTheBlankQuestion fitbq when request.UpdatedQuestion is FillInTheBlankQuestion updatedFitbq:
+                    fitbq.Text = updatedFitbq.Text;
+                    fitbq.Statement1 = updatedFitbq.Statement1;
+                    fitbq.Statement2 = updatedFitbq.Statement2;
+                    break;
+                case GroupingQuestion gq when request.UpdatedQuestion is GroupingQuestion updatedGq:
+                    gq.Text = updatedGq.Text;
+                   
+                    break;
+                default:
+                    throw new RestException(HttpStatusCode.BadRequest, new { Error = "Invalid question type for editing" });
             }
 
-            private void UpdateAnswers(ICollection<Answer> existingAnswers, List<AnswerDto> newAnswers)
-            {
-                existingAnswers.Clear();
-                foreach (var answerDto in newAnswers)
-                {
-                    existingAnswers.Add(new Answer
-                    {
-                        Id = Guid.NewGuid(),
-                        Text = answerDto.Text,
-                        IsCorrect = answerDto.IsCorrect
-                    });
-                }
-            }
+            _context.Update(question);
+            await _context.SaveChangesAsync(cancellationToken);
 
-            private void UpdateGroupingItems(ICollection<GroupingItem> existingItems, List<string> newItems)
-            {
-                existingItems.Clear();
-                foreach (var item in newItems)
-                {
-                    existingItems.Add(new GroupingItem
-                    {
-                        Id = Guid.NewGuid(),
-                        Item = item
-                    });
-                }
-            }
-
-
-
+            return Unit.Value;
         }
     }
 }

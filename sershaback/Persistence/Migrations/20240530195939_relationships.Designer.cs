@@ -9,7 +9,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240529185029_relationships")]
+    [Migration("20240530195939_relationships")]
     partial class relationships
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,12 +30,17 @@ namespace Persistence.Migrations
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("RightAnswerQuestionId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Text")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("QuestionId");
+
+                    b.HasIndex("RightAnswerQuestionId");
 
                     b.ToTable("Answer");
                 });
@@ -145,7 +150,7 @@ namespace Persistence.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("Domain.GroupingItem", b =>
+            modelBuilder.Entity("Domain.Group", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -154,12 +159,31 @@ namespace Persistence.Migrations
                     b.Property<Guid>("GroupingQuestionId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Item")
+                    b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GroupingQuestionId");
+
+                    b.ToTable("Group");
+                });
+
+            modelBuilder.Entity("Domain.GroupingItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("GroupId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Item")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
 
                     b.ToTable("GroupingItems");
                 });
@@ -204,9 +228,8 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("QuestionType")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("QuestionType")
+                        .HasColumnType("INTEGER");
 
                     b.Property<Guid>("QuizId")
                         .HasColumnType("TEXT");
@@ -220,7 +243,7 @@ namespace Persistence.Migrations
 
                     b.ToTable("Questions");
 
-                    b.HasDiscriminator<string>("QuestionType").HasValue("Question");
+                    b.HasDiscriminator<int>("QuestionType");
                 });
 
             modelBuilder.Entity("Domain.Quiz", b =>
@@ -231,11 +254,6 @@ namespace Persistence.Migrations
 
                     b.Property<int>("Difficulty")
                         .HasColumnType("INTEGER");
-
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("BLOB");
 
                     b.Property<int>("Type")
                         .HasColumnType("INTEGER");
@@ -380,7 +398,7 @@ namespace Persistence.Migrations
                     b.Property<bool>("IsCorrect")
                         .HasColumnType("INTEGER");
 
-                    b.HasDiscriminator().HasValue("CorrectIncorrect");
+                    b.HasDiscriminator().HasValue(1);
                 });
 
             modelBuilder.Entity("Domain.FillInTheBlankQuestion", b =>
@@ -393,40 +411,50 @@ namespace Persistence.Migrations
                     b.Property<string>("Statement2")
                         .HasColumnType("TEXT");
 
-                    b.HasDiscriminator().HasValue("FillInTheBlank");
+                    b.HasDiscriminator().HasValue(2);
                 });
 
             modelBuilder.Entity("Domain.GroupingQuestion", b =>
                 {
                     b.HasBaseType("Domain.Question");
 
-                    b.Property<string>("GroupName")
-                        .HasColumnType("TEXT");
-
-                    b.HasDiscriminator().HasValue("Grouping");
+                    b.HasDiscriminator().HasValue(3);
                 });
 
             modelBuilder.Entity("Domain.RightAnswerQuestion", b =>
                 {
                     b.HasBaseType("Domain.Question");
 
-                    b.HasDiscriminator().HasValue("RightAnswer");
+                    b.HasDiscriminator().HasValue(0);
                 });
 
             modelBuilder.Entity("Domain.Answer", b =>
                 {
-                    b.HasOne("Domain.Question", "Question")
+                    b.HasOne("Domain.FillInTheBlankQuestion", "Question")
                         .WithMany("Answers")
                         .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.RightAnswerQuestion", null)
+                        .WithMany("Answers")
+                        .HasForeignKey("RightAnswerQuestionId");
+                });
+
+            modelBuilder.Entity("Domain.Group", b =>
+                {
+                    b.HasOne("Domain.GroupingQuestion", "GroupingQuestion")
+                        .WithMany("Groups")
+                        .HasForeignKey("GroupingQuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.GroupingItem", b =>
                 {
-                    b.HasOne("Domain.GroupingQuestion", "GroupingQuestion")
+                    b.HasOne("Domain.Group", "Group")
                         .WithMany("GroupingItems")
-                        .HasForeignKey("GroupingQuestionId")
+                        .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

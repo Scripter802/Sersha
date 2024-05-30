@@ -9,17 +9,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using static Domain.Enums;
 
+
 namespace API.Controllers
 {
     public class QuizzesController : BaseController
     {
         
-        [AllowAnonymous]
         [HttpPost("create")]
-        public async Task<IActionResult> Create(Create.Command command)
+        public async Task<IActionResult> Create([FromBody] Create.Command command)
         {
-            await Mediator.Send(command);
-            return Ok();
+            var result = await Mediator.Send(command);
+            return Ok(result);
         }
 
         [AllowAnonymous]
@@ -52,10 +52,14 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit(Guid id, Edit.Command command)
+        public async Task<IActionResult> Edit(Guid id, [FromBody] Edit command)
         {
             command.Id = id;
-            return await Mediator.Send(command);
+            var result = await Mediator.Send(command);
+            if (result != null)
+                return Ok(result);  
+            else
+                return NotFound(); 
         }
 
         [AllowAnonymous]
@@ -88,7 +92,7 @@ namespace API.Controllers
             }
             return Ok();
         }
-        
+
         [AllowAnonymous]
         [HttpGet("RandomByAll")]
         public async Task<ActionResult<Question>> RandomByAll([FromQuery] Difficulty difficulty, [FromQuery] int numberOfQuestions)

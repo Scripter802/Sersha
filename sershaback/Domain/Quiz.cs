@@ -12,7 +12,7 @@ namespace Domain
         public Difficulty Difficulty { get; set; }
         public QuizType Type { get; set; }
 
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
+        /*[Timestamp]
+        public byte[] RowVersion { get; set; }*/
     }
 }

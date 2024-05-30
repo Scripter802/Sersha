@@ -20,8 +20,20 @@ import LevelHalfAPhotograph from '../../assets/images/slideshow/easyBundle//Clue
 import LevelSecretAgentBade from '../../assets/images/slideshow/easyBundle//Clues/GIFS/LevelSecretAgentBade.gif'
 import { getGifDurationInSeconds } from "@remotion/gif";
 import './slideshow.css';
+import { useNavigate } from 'react-router-dom';
 
 const Slideshow = () => {
+  const navigate = useNavigate();
+  const duration = 128.33 * 1000;
+  // 128.33 * 1000; 1000;// 1 minute and 26 seconds in milliseconds
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate('/');
+    }, duration);
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
   // const gifs = [digitalCompassClue, gifOne, gifTwo, gifThree, gifFour, gifFive, gifSix, gifSeven, gifEight, gifNine, gifTen, gifEleven, gifTwelve, gifTrheeteen, gifFourteen];
   const [currentGif, setCurrentGif] = useState(0);
   const [currentGifDuration, setCurrentGifDuration] = useState(0);

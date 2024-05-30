@@ -6,7 +6,7 @@ import './editPostAuthor.css';
 import axios from 'axios';
 
 const EditPostAuthor = () => {
-  const { baseUrl, baseUrlImage, editingPost, setIsPostEdit, setAllPosts, allAuthors, isPostAuthorEdit, setIsPostAuthorEdit, editingPostAuthor, setEditingPostAuthor } = useGlobalContext();
+  const { baseUrl, baseUrlImage, editingPost, setIsPostEdit, setAllAuthors, allAuthors, isPostAuthorEdit, setIsPostAuthorEdit, editingPostAuthor, setEditingPostAuthor } = useGlobalContext();
   const [postAuthorName, setPostAuthorName] = useState('');
   const [postAuthorImage, setPostAuthorImage] = useState(null);
 
@@ -32,7 +32,7 @@ const EditPostAuthor = () => {
 
     await axios.put(`${baseUrl}/Author/${editingPostAuthor.id}`, newPostAuthorFormData);
     setAllAuthors(prevAuthors => prevAuthors.map(author => author.id === editingPostAuthor.id ? updatedPost : post));
-    setIsPostEdit(false);
+    setIsPostAuthorEdit(false);
   };
 
   return (

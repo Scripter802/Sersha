@@ -1,5 +1,5 @@
 import React from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, useLocation, Outlet } from 'react-router-dom'
 
 import HomePage from './pages/homepage/HomePage.jsx'
 import Header from './components/Header.jsx'
@@ -21,77 +21,140 @@ import EmojiEmotions from './pages/miniGames/emojiEmotions/EmojiEmotions.jsx'
 import FriendOrFoe from './pages/miniGames/friendOrFoe/FriendOrFoe.jsx'
 import PostingChallenge from './pages/miniGames/postingChallenge/PostingChallenge.jsx'
 import SnapJudgment from './pages/miniGames/snapJudgment/SnapJudgment.jsx'
+import ProtectedRoute from './components/signInUp/ProtectedRoute.jsx'
 
-
-
-const App = () => {
-
-  const router = createBrowserRouter([
-    {
-      path: '/signin-up',
-      element: <SignInUpPage />,
-    },
-    {
-      path: '/',
-      element: <HomePage />,
-    },
-    {
-      path: '/foxcustomization',
-      element: <FoxCustomization />
-    },
-    {
-      path: '/dm',
-      element: <Dm />
-    },
-    {
-      path: '/quizzes/rightanswer',
-      element: <RightAnswerQuiz />
-    },
-    {
-      path: '/quizzes/correctanswer',
-      element: <CorrectAnswerQuiz />
-    },
-    {
-      path: '/quizzes/fillintheblank',
-      element: <FillInTheBlank />
-    },
-    {
-      path: '/quizzes/grouping',
-      element: <Grouping />
-    },
-    {
-      path: '/minigames',
-      element: <MiniGames />,
-    },
-    {
-      path: "/minigames/emojiemotions",
-      element: <EmojiEmotions />,
-    },
-    {
-      path: "/minigames/friendorfoe",
-      element: <FriendOrFoe />,
-    },
-    {
-      path: "/minigames/postingchallenge",
-      element: <PostingChallenge />,
-    },
-    {
-      path: "/minigames/snapjudgment",
-      element: <SnapJudgment />,
-    },
-    {
-      path: '/admin',
-      element: <AdminPanel />
-    }
-  ]);
-
+// Layout Component
+const Layout = () => {
+  const location = useLocation();
 
   return (
-    <DndProvider backend={HTML5Backend}>
-      {window.location.pathname !== "/admin/" && window.location.pathname !== "/admin" && window.location.pathname !== "/signin-up" && window.innerWidth > 1000 && <Header />}
-      <RouterProvider router={router} />
-    </DndProvider>
-  )
-}
+    <>
+      {location.pathname !== "/admin" && location.pathname !== "/signin-up" && window.innerWidth > 1000 && <Header />}
+      <Outlet />
+    </>
+  );
+};
 
-export default App
+const router = createBrowserRouter([
+  {
+    element: <Layout />,  // Wrap protected routes with Layout
+    children: [
+      {
+        path: '/',
+        element: (
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/foxcustomization',
+        element: (
+          <ProtectedRoute>
+            <FoxCustomization />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/dm',
+        element: (
+          <ProtectedRoute>
+            <Dm />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/quizzes/rightanswer',
+        element: (
+          <ProtectedRoute>
+            <RightAnswerQuiz />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/quizzes/correctanswer',
+        element: (
+          <ProtectedRoute>
+            <CorrectAnswerQuiz />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/quizzes/fillintheblank',
+        element: (
+          <ProtectedRoute>
+            <FillInTheBlank />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/quizzes/grouping',
+        element: (
+          <ProtectedRoute>
+            <Grouping />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/minigames',
+        element: (
+          <ProtectedRoute>
+            <MiniGames />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/minigames/emojiemotions",
+        element: (
+          <ProtectedRoute>
+            <EmojiEmotions />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/minigames/friendorfoe",
+        element: (
+          <ProtectedRoute>
+            <FriendOrFoe />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/minigames/postingchallenge",
+        element: (
+          <ProtectedRoute>
+            <PostingChallenge />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/minigames/snapjudgment",
+        element: (
+          <ProtectedRoute>
+            <SnapJudgment />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/admin',
+        element: (
+          <ProtectedRoute>
+            <AdminPanel />
+          </ProtectedRoute>
+        ),
+      }
+    ],
+  },
+  {
+    path: '/signin-up',
+    element: <SignInUpPage />,
+  },
+]);
+
+const App = () => (
+  <DndProvider backend={HTML5Backend}>
+    <RouterProvider router={router} />
+  </DndProvider>
+);
+
+export default App;

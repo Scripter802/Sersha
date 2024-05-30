@@ -19,14 +19,13 @@ const LoginForm = () => {
     setLogPassword,
     logRemember,
     setLogRemember,
-    logValidate,
-    setLogValidate,
     logShowPassword,
     setLogShowPassword,
     logIn,
     setLogIn,
     windowWidth,
     setWindowWidth,
+    loginUser, // Use loginUser from context
   } = useGlobalContext();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -38,6 +37,24 @@ const LoginForm = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const userData = localStorage.getItem('userData');
+
+    if (token && userData) {
+      try {
+        const parsedUserData = JSON.parse(userData);
+        setIsLoggedIn(true);
+        // You might want to set the user data in context or state here if needed
+        console.log('User already logged in:', parsedUserData);
+      } catch (error) {
+        console.error('Error parsing userData:', error);
+        // Handle the error appropriately, maybe clear the invalid data from localStorage
+        localStorage.removeItem('userData');
+      }
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -47,7 +64,7 @@ const LoginForm = () => {
     };
 
     try {
-      const response = await fetch(`${baseUrl}/api/User/login`, {
+      const response = await fetch(`${baseUrl}/User/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -59,13 +76,20 @@ const LoginForm = () => {
         // Handle successful login
         const data = await response.json();
         console.log('Login successful:', data);
+        loginUser(data.token); // Use loginUser function from context
+        localStorage.setItem('userData', JSON.stringify(data.user));
         setIsLoggedIn(true);
       } else if (logEmail === 'admin@admin.com' && logPassword === 'admin') {
+        const adminData = {
+          token: 'admin-token',
+          user: { email: 'admin@admin.com', name: 'Admin' },
+        };
+        loginUser(adminData.token); // Use loginUser function from context
+        localStorage.setItem('userData', JSON.stringify(adminData.user));
         setIsLoggedIn(true);
       } else {
         const errorData = await response.json();
         setErrorMessage(errorData.message || 'Login failed');
-
       }
     } catch (error) {
       setErrorMessage(error.message || 'An error occurred');
@@ -75,7 +99,6 @@ const LoginForm = () => {
   if (isLoggedIn) {
     return <Slideshow />; // Render the slideshow component after login
   }
-
   return (
     <>
       <div className='logInHeaderWrapper'>

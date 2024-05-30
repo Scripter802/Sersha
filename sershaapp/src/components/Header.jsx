@@ -11,7 +11,7 @@ const Header = () => {
       <a className='logo' href='/' ><img src={logo} className='logoImg' alt="logo" /></a>
       <div className='navigationWrapper'>
         <div className='map'><img src={map} alt="map" /></div>
-        <div className={`${path === '/minigames' || path.includes('/minigames/') ? 'minigames' : 'home'}`}><img src={game} alt="game" /></div>
+        <a href='/minigames' className={`${path === '/minigames' || path.includes('/minigames/') ? 'minigames' : 'home'}`}><img src={game} alt="game" /></a>
         <a href='/' className={`${path === '/' ? 'currentHome' : 'home'}`}><img src={home} alt="home" /></a>
         <a href='/dm' className={`${path === '/dm' || path.includes('/quizzes/') ? 'dm' : 'messages'}`} ><img src={messages} alt="messages" /></a>
         <a href='/foxcustomization' className={`${path === '/foxcustomization' ? 'dm' : 'search'}`}><img src={search} alt="search" /></a>

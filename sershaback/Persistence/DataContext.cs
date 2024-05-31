@@ -41,7 +41,10 @@ namespace Persistence
 
             builder.Entity<Question>()
                 .HasDiscriminator<string>("QuestionType")
-                .HasValue<RightAnswerQuestion>("RightAnswer");
+                .HasValue<RightAnswerQuestion>("RightAnswer")
+                .HasValue<CorrectIncorrectQuestion>("CorrectIncorrect")
+                .HasValue<FillInTheBlankQuestion>("FillInTheBlank")
+                .HasValue<GroupingQuestion>("Grouping");
 
             builder.Entity<Question>()
                 .HasMany(q => q.Answers)

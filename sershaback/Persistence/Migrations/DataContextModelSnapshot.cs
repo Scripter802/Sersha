@@ -392,7 +392,7 @@ namespace Persistence.Migrations
                     b.Property<bool>("IsCorrect")
                         .HasColumnType("INTEGER");
 
-                    b.HasDiscriminator().HasValue("CorrectIncorrectQuestion");
+                    b.HasDiscriminator().HasValue("CorrectIncorrect");
                 });
 
             modelBuilder.Entity("Domain.FillInTheBlankQuestion", b =>
@@ -405,14 +405,14 @@ namespace Persistence.Migrations
                     b.Property<string>("Statement2")
                         .HasColumnType("TEXT");
 
-                    b.HasDiscriminator().HasValue("FillInTheBlankQuestion");
+                    b.HasDiscriminator().HasValue("FillInTheBlank");
                 });
 
             modelBuilder.Entity("Domain.GroupingQuestion", b =>
                 {
                     b.HasBaseType("Domain.Question");
 
-                    b.HasDiscriminator().HasValue("GroupingQuestion");
+                    b.HasDiscriminator().HasValue("Grouping");
                 });
 
             modelBuilder.Entity("Domain.RightAnswerQuestion", b =>

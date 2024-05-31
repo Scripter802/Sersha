@@ -70,7 +70,7 @@ namespace Application.Quizzes
                                 Id = Guid.NewGuid(),
                                 Text = a.Text,
                                 IsCorrect = a.IsCorrect,
-                                QuestionId = Guid.NewGuid() // Postavljanje ID-a pitanja
+                                QuestionId = Guid.NewGuid() 
                             }).ToList()
                         };
                         _context.RightAnswerQuestions.Add(rightAnswerQuestion);
@@ -98,7 +98,7 @@ namespace Application.Quizzes
                                 Id = Guid.NewGuid(),
                                 Text = a.Text,
                                 IsCorrect = a.IsCorrect,
-                                QuestionId = Guid.NewGuid() // Postavljanje ID-a pitanja
+                                QuestionId = Guid.NewGuid() 
                             }).ToList()
                         };
                         _context.FillInTheBlankQuestions.Add(fillInTheBlankQuestion);

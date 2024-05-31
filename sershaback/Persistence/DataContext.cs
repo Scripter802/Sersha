@@ -52,6 +52,18 @@ namespace Persistence
                 .HasForeignKey(a => a.QuestionId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.Entity<GroupingQuestion>()
+                .HasMany(g => g.Groups)
+                .WithOne(g => g.GroupingQuestion)
+                .HasForeignKey(g => g.GroupingQuestionId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Group>()
+                .HasMany(g => g.GroupingItems)
+                .WithOne(gi => gi.Group)
+                .HasForeignKey(gi => gi.GroupId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Application.Quizzes
         {
             public CommandValidator()
             {
-                RuleFor(x => x.QuestionText).NotEmpty();
+                //RuleFor(x => x.QuestionText).NotEmpty();
                 RuleFor(x => x.Type).IsInEnum();
                 RuleFor(x => x.Difficulty).IsInEnum();
             }

@@ -215,9 +215,9 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Text = table.Column<string>(nullable: true),
                     QuizId = table.Column<Guid>(nullable: false),
-                    QuestionType = table.Column<int>(nullable: false),
+                    Text = table.Column<string>(nullable: true),
+                    QuestionType = table.Column<string>(nullable: false),
                     IsCorrect = table.Column<bool>(nullable: true),
                     Statement1 = table.Column<string>(nullable: true),
                     Statement2 = table.Column<string>(nullable: true)
@@ -234,30 +234,23 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Answer",
+                name: "Answers",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Text = table.Column<string>(nullable: true),
                     IsCorrect = table.Column<bool>(nullable: false),
-                    QuestionId = table.Column<Guid>(nullable: false),
-                    RightAnswerQuestionId = table.Column<Guid>(nullable: true)
+                    QuestionId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Answer", x => x.Id);
+                    table.PrimaryKey("PK_Answers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Answer_Questions_QuestionId",
+                        name: "FK_Answers_Questions_QuestionId",
                         column: x => x.QuestionId,
                         principalTable: "Questions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Answer_Questions_RightAnswerQuestionId",
-                        column: x => x.RightAnswerQuestionId,
-                        principalTable: "Questions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -299,14 +292,9 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Answer_QuestionId",
-                table: "Answer",
+                name: "IX_Answers_QuestionId",
+                table: "Answers",
                 column: "QuestionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Answer_RightAnswerQuestionId",
-                table: "Answer",
-                column: "RightAnswerQuestionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -369,7 +357,7 @@ namespace Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Answer");
+                name: "Answers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");

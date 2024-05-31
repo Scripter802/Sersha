@@ -14,7 +14,7 @@ namespace API.Controllers
 {
     public class QuizzesController : BaseController
     {
-        
+        [AllowAnonymous]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] Create.Command command)
         {

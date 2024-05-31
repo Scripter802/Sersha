@@ -9,7 +9,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240530195939_relationships")]
+    [Migration("20240531143613_relationships")]
     partial class relationships
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,9 +30,6 @@ namespace Persistence.Migrations
                     b.Property<Guid>("QuestionId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("RightAnswerQuestionId")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Text")
                         .HasColumnType("TEXT");
 
@@ -40,9 +37,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.HasIndex("RightAnswerQuestionId");
-
-                    b.ToTable("Answer");
+                    b.ToTable("Answers");
                 });
 
             modelBuilder.Entity("Domain.AppUser", b =>
@@ -228,8 +223,9 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("QuestionType")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("QuestionType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("QuizId")
                         .HasColumnType("TEXT");
@@ -243,7 +239,7 @@ namespace Persistence.Migrations
 
                     b.ToTable("Questions");
 
-                    b.HasDiscriminator<int>("QuestionType");
+                    b.HasDiscriminator<string>("QuestionType").HasValue("Question");
                 });
 
             modelBuilder.Entity("Domain.Quiz", b =>
@@ -398,7 +394,7 @@ namespace Persistence.Migrations
                     b.Property<bool>("IsCorrect")
                         .HasColumnType("INTEGER");
 
-                    b.HasDiscriminator().HasValue(1);
+                    b.HasDiscriminator().HasValue("CorrectIncorrectQuestion");
                 });
 
             modelBuilder.Entity("Domain.FillInTheBlankQuestion", b =>
@@ -411,34 +407,30 @@ namespace Persistence.Migrations
                     b.Property<string>("Statement2")
                         .HasColumnType("TEXT");
 
-                    b.HasDiscriminator().HasValue(2);
+                    b.HasDiscriminator().HasValue("FillInTheBlankQuestion");
                 });
 
             modelBuilder.Entity("Domain.GroupingQuestion", b =>
                 {
                     b.HasBaseType("Domain.Question");
 
-                    b.HasDiscriminator().HasValue(3);
+                    b.HasDiscriminator().HasValue("GroupingQuestion");
                 });
 
             modelBuilder.Entity("Domain.RightAnswerQuestion", b =>
                 {
                     b.HasBaseType("Domain.Question");
 
-                    b.HasDiscriminator().HasValue(0);
+                    b.HasDiscriminator().HasValue("RightAnswer");
                 });
 
             modelBuilder.Entity("Domain.Answer", b =>
                 {
-                    b.HasOne("Domain.FillInTheBlankQuestion", "Question")
+                    b.HasOne("Domain.Question", "Question")
                         .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Domain.RightAnswerQuestion", null)
-                        .WithMany("Answers")
-                        .HasForeignKey("RightAnswerQuestionId");
                 });
 
             modelBuilder.Entity("Domain.Group", b =>

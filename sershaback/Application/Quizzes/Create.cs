@@ -32,7 +32,8 @@ namespace Application.Quizzes
             public CommandValidator()
             {
                 RuleFor(x => x.QuestionText).NotEmpty();
-                //RuleFor(x => x.Type).IsInEnum();
+                RuleFor(x => x.Type).IsInEnum();
+                RuleFor(x => x.Difficulty).IsInEnum();
             }
         }
 
@@ -68,7 +69,8 @@ namespace Application.Quizzes
                             {
                                 Id = Guid.NewGuid(),
                                 Text = a.Text,
-                                IsCorrect = a.IsCorrect
+                                IsCorrect = a.IsCorrect,
+                                QuestionId = Guid.NewGuid() // Postavljanje ID-a pitanja
                             }).ToList()
                         };
                         _context.RightAnswerQuestions.Add(rightAnswerQuestion);
@@ -95,7 +97,8 @@ namespace Application.Quizzes
                             {
                                 Id = Guid.NewGuid(),
                                 Text = a.Text,
-                                IsCorrect = a.IsCorrect
+                                IsCorrect = a.IsCorrect,
+                                QuestionId = Guid.NewGuid() // Postavljanje ID-a pitanja
                             }).ToList()
                         };
                         _context.FillInTheBlankQuestions.Add(fillInTheBlankQuestion);

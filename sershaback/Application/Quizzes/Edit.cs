@@ -1,72 +1,141 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using MediatR;
 using Domain;
-using Persistence;
+using FluentValidation;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Application.Errors;
-using System.Net;
+using Persistence;
+using static Domain.Enums;
 
 namespace Application.Quizzes
 {
-
-    public class Edit : IRequest
+    public class Edit
     {
-        public Guid Id { get; set; }
-        public Question UpdatedQuestion { get; set; }
-    }
-
-    public class EditQuestionHandler : IRequestHandler<Edit>
-    {
-        private readonly DataContext _context;
-
-        public EditQuestionHandler(DataContext context)
+        public Edit()
         {
-            _context = context;
         }
 
-        public async Task<Unit> Handle(Edit request, CancellationToken cancellationToken)
+        public class Command : IRequest
         {
-            var question = await _context.Questions
-                .Include(q => ((RightAnswerQuestion)q).Answers)
-                .Include(q => ((FillInTheBlankQuestion)q).Answers)
-                .Include(q => ((GroupingQuestion)q).Groups)
-                .FirstOrDefaultAsync(q => q.Id == request.Id, cancellationToken);
+            public Guid Id { get; set; }
+            public QuizType Type { get; set; }
+            public Difficulty Difficulty { get; set; }
+            public List<QuestionDto> Questions { get; set; } = new List<QuestionDto>();
+        }
 
-
-            if (question == null)
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
             {
-                throw new RestException(HttpStatusCode.NotFound, new { Question = "Not found" });
+                RuleForEach(x => x.Questions).ChildRules(question =>
+                {
+                    question.RuleFor(q => q.QuestionText).NotEmpty();
+                    question.RuleFor(q => q.Type).IsInEnum();
+                });
+                RuleFor(x => x.Difficulty).IsInEnum();
+            }
+        }
+
+        public class Handler : IRequestHandler<Command>
+        {
+            private readonly DataContext _context;
+
+            public Handler(DataContext context)
+            {
+                _context = context;
             }
 
-            switch (question)
+            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                case RightAnswerQuestion raq when request.UpdatedQuestion is RightAnswerQuestion updatedRaq:
-                    raq.Text = updatedRaq.Text;
-                   
-                    break;
-                case CorrectIncorrectQuestion ciq when request.UpdatedQuestion is CorrectIncorrectQuestion updatedCiq:
-                    ciq.Text = updatedCiq.Text;
-                    ciq.IsCorrect = updatedCiq.IsCorrect;
-                    break;
-                case FillInTheBlankQuestion fitbq when request.UpdatedQuestion is FillInTheBlankQuestion updatedFitbq:
-                    fitbq.Text = updatedFitbq.Text;
-                    fitbq.Statement1 = updatedFitbq.Statement1;
-                    fitbq.Statement2 = updatedFitbq.Statement2;
-                    break;
-                case GroupingQuestion gq when request.UpdatedQuestion is GroupingQuestion updatedGq:
-                    gq.Text = updatedGq.Text;
-                   
-                    break;
-                default:
-                    throw new RestException(HttpStatusCode.BadRequest, new { Error = "Invalid question type for editing" });
+                var quiz = await _context.Quizzes
+                    .Include(q => q.Questions)
+                    .ThenInclude(q => (q as RightAnswerQuestion).Answers)
+                    .Include(q => q.Questions)
+                    .ThenInclude(q => (q as GroupingQuestion).Groups)
+                    .ThenInclude(g => g.GroupingItems)
+                    .FirstOrDefaultAsync(q => q.Id == request.Id, cancellationToken);
+
+                if (quiz == null)
+                {
+                    throw new Exception("Quiz not found");
+                }
+
+                quiz.Type = request.Type;
+                quiz.Difficulty = request.Difficulty;
+
+               
+                _context.Questions.RemoveRange(quiz.Questions);
+                await _context.SaveChangesAsync(cancellationToken);
+
+
+                quiz.Questions.Clear();
+
+                foreach (var questionDto in request.Questions)
+                {
+                    Question question = null;
+
+                    switch (questionDto.Type)
+                    {
+                        case QuizType.RightAnswer:
+                            question = new RightAnswerQuestion
+                            {
+                                Text = questionDto.QuestionText,
+                                Answers = questionDto.Answers.Select(a => new Answer
+                                {
+                                    Text = a.Text,
+                                    IsCorrect = a.IsCorrect
+                                }).ToList()
+                            };
+                            break;
+                        case QuizType.CorrectIncorrect:
+                            question = new CorrectIncorrectQuestion
+                            {
+                                Text = questionDto.QuestionText,
+                                IsCorrect = questionDto.IsCorrect
+                            };
+                            break;
+                        case QuizType.FillInTheBlank:
+                            question = new FillInTheBlankQuestion
+                            {
+                                Text = questionDto.QuestionText,
+                                Answers = questionDto.Answers.Select(a => new Answer
+                                {
+                                    Text = a.Text,
+                                    IsCorrect = a.IsCorrect
+                                }).ToList()
+                            };
+                            break;
+                        case QuizType.Grouping:
+                            question = new GroupingQuestion
+                            {
+                                Text = questionDto.QuestionText,
+                                Groups = questionDto.Groups.Select(g => new Group
+                                {
+                                    Name = g.GroupName,
+                                    GroupingItems = g.Items.Select(i => new GroupingItem
+                                    {
+                                        Item = i.Item
+                                    }).ToList()
+                                }).ToList()
+                            };
+                            break;
+                        default:
+                            throw new Exception("Invalid question type");
+                    }
+
+                    if (question != null)
+                    {
+                        question.QuizId = quiz.Id;
+                        quiz.Questions.Add(question);
+                    }
+                }
+
+                await _context.SaveChangesAsync(cancellationToken);
+                return Unit.Value;
             }
-
-            _context.Update(question);
-            await _context.SaveChangesAsync(cancellationToken);
-
-            return Unit.Value;
         }
     }
 }

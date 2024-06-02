@@ -216,7 +216,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     QuizId = table.Column<Guid>(nullable: false),
-                    Text = table.Column<string>(nullable: true),
+                    Text = table.Column<string>(nullable: false),
                     QuestionType = table.Column<string>(nullable: false),
                     IsCorrect = table.Column<bool>(nullable: true),
                     Statement1 = table.Column<string>(nullable: true),

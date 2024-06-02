@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Domain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
-using Domain;
 
 namespace Application.Quizzes
 {
@@ -23,10 +24,13 @@ namespace Application.Quizzes
 
             public async Task<List<Quiz>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var quizzes = await _context.Quizzes
+                 var quizzes = await _context.Quizzes
                     .Include(q => q.Questions)
-                    .ThenInclude(q => (q as RightAnswerQuestion).Answers)
-                    .ToListAsync(cancellationToken);
+                        .ThenInclude(q => q.Answers)
+                    .Include(q => q.Questions)
+                        .ThenInclude(q => (q as GroupingQuestion).Groups)
+                            .ThenInclude(g => g.GroupingItems)
+                    .ToListAsync();
 
                 return quizzes;
             }

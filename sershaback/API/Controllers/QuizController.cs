@@ -52,14 +52,15 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(Guid id, [FromBody] Edit command)
+        public async Task<IActionResult> Edit(Guid id, [FromBody] Edit.Command command)
         {
-            command.Id = id;
-            var result = await Mediator.Send(command);
-            if (result != null)
-                return Ok(result);  
-            else
-                return NotFound(); 
+            if (id != command.Id)
+            {
+                return BadRequest("Id in URL does not match Id in command");
+            }
+
+            await Mediator.Send(command);
+            return NoContent();
         }
 
         [AllowAnonymous]

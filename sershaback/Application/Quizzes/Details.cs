@@ -12,6 +12,10 @@ namespace Application.Quizzes
 {
     public class Details
     {
+        public Details()
+        {
+        }
+
         public class Query : IRequest<Quiz>
         {
             public Guid Id { get; set; }

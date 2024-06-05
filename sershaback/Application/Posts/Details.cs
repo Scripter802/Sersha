@@ -34,24 +34,18 @@ namespace Application.Posts
 
             public async Task<PostDto> Handle(Query request, CancellationToken cancellationToken)
             {
-                
-                //throw new NotImplementedException();
                 var post = await _context.Posts
-                    //.FindAsync(request.Id);
-                    .Include(x =>x.AuthorId)
-                    .SingleOrDefaultAsync(x=>x.Id == request.Id);
+                    .Include(x => x.Author)  // Uključivanje autora ako je potrebno
+                    .SingleOrDefaultAsync(x => x.Id == request.Id);
 
-                if(post==null){
-                    throw new RestException(HttpStatusCode.NotFound, new {post = "Not found"});
+                if (post == null)
+                {
+                    throw new RestException(HttpStatusCode.NotFound, new { post = "Not found" });
                 }
 
                 var postToReturn = _mapper.Map<Post, PostDto>(post);
 
                 return postToReturn;
-
-                /*var post = await _context.Posts
-                    .Include(x=>x.Author)
-                    .SingleOrDefaultAsync(x=>x.Id == request.Id);*/
             }
 
         }

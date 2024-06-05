@@ -8,6 +8,10 @@ namespace Application.Quizzes
 {
     public class Delete
     {
+        public Delete()
+        {
+        }
+
         public class Command : IRequest<bool>
         {
             public Guid Id { get; set; }

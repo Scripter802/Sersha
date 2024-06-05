@@ -17,16 +17,16 @@ namespace Application.Authors
          public class Command: IRequest
          {
             public Guid Id {get; set;}
-            public string authorName{get;set;}
+            public string AuthorName{get;set;}
             public IFormFile AuthorImage{get;set;}
-            public string authorImagePath {get;set;}
+            public string AuthorImagePath {get;set;}
          }
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
-                RuleFor(x=>x.authorName).NotEmpty();
+                RuleFor(x=>x.AuthorName).NotEmpty();
             }
         }
 
@@ -46,20 +46,19 @@ namespace Application.Authors
                 var author = new Author
                 {
                     Id = request.Id,
-                    AuthorName = request.authorName,
-                    AuthorImagePath = request.authorImagePath
+                    AuthorName = request.AuthorName,
                 };
                 
-                String path = Directory.GetCurrentDirectory() + "\\Images\\authorImages\\" + request.Id;
+                String path = Directory.GetCurrentDirectory() + "\\Images\\authorImages\\" + request.AuthorName;
                 if(request.AuthorImage != null){
-                    string fileName = request.authorName + request.AuthorImage.FileName;
+                    string fileName = request.AuthorImage.FileName;
                     Directory.CreateDirectory(path);
                     path = Path.Combine(path, fileName);
 
                     using (var fs = new FileStream(path, FileMode.Create)){
                         await request.AuthorImage.CopyToAsync(fs);
                     }
-                    author.AuthorImagePath = "/Images/authorImages/" + request.Id + "/" + fileName;
+                    author.AuthorImagePath = "/Images/authorImages/" + request.AuthorName + "/" + fileName;
                 }
 
                 _context.Authors.Add(author);

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Domain;
+using FluentValidation;
 using MediatR;
 using Persistence;
-using Domain;
 using static Domain.Enums;
 
 namespace Application.Quizzes
@@ -16,18 +17,27 @@ namespace Application.Quizzes
         {
             public QuizType Type { get; set; }
             public Difficulty Difficulty { get; set; }
-            public string QuestionText { get; set; }
-            public List<AnswerDto> Answers { get; set; } = new List<AnswerDto>();
-            public string Statement1 { get; set; }
-            public string Statement2 { get; set; }
-            public bool IsCorrect { get; set; } 
-            public string GroupName { get; set; } 
-            public List<string> Items { get; set; } = new List<string>(); 
+            public List<QuestionDto> Questions { get; set; } = new List<QuestionDto>();
+        }
+
+        
+        public class CommandValidator : AbstractValidator<Command>
+        {
+            public CommandValidator()
+            {
+                RuleForEach(x => x.Questions).ChildRules(question =>
+                {
+                    question.RuleFor(q => q.QuestionText).NotEmpty();
+                    question.RuleFor(q => q.Type).IsInEnum();
+                });
+                RuleFor(x => x.Difficulty).IsInEnum();
+            }
         }
 
         public class Handler : IRequestHandler<Command>
         {
             private readonly DataContext _context;
+
             public Handler(DataContext context)
             {
                 _context = context;
@@ -39,76 +49,81 @@ namespace Application.Quizzes
                 {
                     Id = Guid.NewGuid(),
                     Difficulty = request.Difficulty,
-                    Type = request.Type
+                    Type = request.Type,
+                    Questions = new List<Question>()
                 };
 
-                switch (request.Type)
+                _context.Quizzes.Add(quiz);
+
+                foreach (var questionDto in request.Questions)
                 {
-                    case QuizType.RightAnswer:
-                        var rightAnswerQuestion = new RightAnswerQuestion
-                        {
-                            Id = Guid.NewGuid(),
-                            QuizId = quiz.Id,
-                            Text = request.QuestionText,
-                            Answers = request.Answers.Select(a => new Answer
+                    Question question = null;
+
+                    switch (questionDto.Type)
+                    {
+                        case QuizType.RightAnswer:
+                            var rightAnswerQuestion = new RightAnswerQuestion
                             {
-                                Id = Guid.NewGuid(),
-                                Text = a.Text,
-                                IsCorrect = a.IsCorrect
-                            }).ToList()
-                        };
-                        quiz.Questions.Add(rightAnswerQuestion);
-                        break;
-                    case QuizType.CorrectIncorrect:
-                        var correctIncorrectQuestion = new CorrectIncorrectQuestion
-                        {
-                            Id = Guid.NewGuid(),
-                            QuizId = quiz.Id,
-                            Text = request.QuestionText,
-                            IsCorrect = request.IsCorrect
-                        };
-                        quiz.Questions.Add(correctIncorrectQuestion);
-                        break;
-                    case QuizType.FillInTheBlank:
-                        var fillInTheBlankQuestion = new FillInTheBlankQuestion
-                        {
-                            Id = Guid.NewGuid(),
-                            QuizId = quiz.Id,
-                            Text = request.QuestionText,
-                            Statement1 = request.Statement1,
-                            Statement2 = request.Statement2,
-                            Answers = request.Answers.Select(a => new Answer
+                                Text = questionDto.QuestionText,
+                                Answers = questionDto.Answers.Select(a => new Answer
+                                {
+                                    Text = a.Text,
+                                    IsCorrect = a.IsCorrect
+                                }).ToList()
+                            };
+                            quiz.Questions.Add(rightAnswerQuestion);
+                            break;
+                        case QuizType.CorrectIncorrect:
+                            question = new CorrectIncorrectQuestion
                             {
-                                Id = Guid.NewGuid(),
-                                Text = a.Text,
-                                IsCorrect = a.IsCorrect
-                            }).ToList()
-                        };
-                        quiz.Questions.Add(fillInTheBlankQuestion);
-                        break;
-                    case QuizType.Grouping:
-                        var groupingQuestion = new GroupingQuestion
-                        {
-                            Id = Guid.NewGuid(),
-                            QuizId = quiz.Id,
-                            Text = request.QuestionText,
-                            GroupName = request.GroupName,
-                            GroupingItems = request.Items.Select(i => new GroupingItem
+                                Text = questionDto.QuestionText,
+                                IsCorrect = questionDto.IsCorrect
+                            };
+                            break;
+                        case QuizType.FillInTheBlank:
+                            var fillInTheBlankQuestion = new FillInTheBlankQuestion
                             {
-                                Id = Guid.NewGuid(),
-                                Item = i
-                            }).ToList()
-                        };
-                        quiz.Questions.Add(groupingQuestion);
-                        break;
+                                Text = questionDto.QuestionText,
+                                Answers = questionDto.Answers.Select(a => new Answer
+                                {
+                                    Text = a.Text,
+                                    IsCorrect = a.IsCorrect
+                                }).ToList()
+                            };
+                            quiz.Questions.Add(fillInTheBlankQuestion);
+                            break;
+
+                        case QuizType.Grouping:
+                            var groupingQuestion = new GroupingQuestion
+                            {
+                                Text = questionDto.QuestionText,
+                                Groups = questionDto.Groups.Select(g => new Group
+                                {
+                                    Name = g.GroupName,
+                                    GroupingItems = g.Items.Select(i => new GroupingItem
+                                    {
+                                        Item = i.Item
+                                    }).ToList()
+                                }).ToList()
+                            };
+                            quiz.Questions.Add(groupingQuestion);
+                            break;
+
+
+
+                        default:
+                            throw new Exception("Invalid question type");
+                    }
+
+                    if (question != null)
+                    {
+                        question.QuizId = quiz.Id;
+                        _context.Questions.Add(question);
+                    }
                 }
 
-                _context.Quizzes.Add(quiz);
-                var success = await _context.SaveChangesAsync() > 0;
-
-                if (success) return Unit.Value;
-
-                throw new Exception("Problem saving changes");
+                await _context.SaveChangesAsync(cancellationToken);
+                return Unit.Value;
             }
 
         }

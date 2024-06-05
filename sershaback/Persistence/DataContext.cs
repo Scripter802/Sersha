@@ -16,13 +16,12 @@ namespace Persistence
         public DbSet<AppUser> User { get; set; }
         public DbSet<Quiz> Quizzes { get; set; }
         public DbSet<Question> Questions { get; set; }
-        public DbSet<Answer> Answer { get; set; }
         public DbSet<RightAnswerQuestion> RightAnswerQuestions { get; set; }
         public DbSet<CorrectIncorrectQuestion> CorrectIncorrectQuestions { get; set; }
         public DbSet<FillInTheBlankQuestion> FillInTheBlankQuestions { get; set; }
         public DbSet<GroupingQuestion> GroupingQuestions { get; set; }
         public DbSet<Answer> Answers { get; set; }
-        public DbSet<GroupingItem> GroupingItems { get; set; } // Dodajte ovu liniju
+        public DbSet<GroupingItem> GroupingItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -31,7 +30,14 @@ namespace Persistence
             builder.Entity<Post>()
                 .HasOne(p => p.Author)
                 .WithMany(a => a.Posts)
-                .HasForeignKey(p => p.AuthorId);
+                .HasForeignKey(p => p.AuthorId)
+                .OnDelete(DeleteBehavior.Cascade);   
+
+            
+            builder.Entity<Quiz>()
+                .HasMany(q => q.Questions)
+                .WithOne(q => q.Quiz)
+                .HasForeignKey(q => q.QuizId);
 
             builder.Entity<Question>()
                 .HasDiscriminator<string>("QuestionType")
@@ -40,20 +46,24 @@ namespace Persistence
                 .HasValue<FillInTheBlankQuestion>("FillInTheBlank")
                 .HasValue<GroupingQuestion>("Grouping");
 
-            builder.Entity<GroupingQuestion>()
-                .HasMany(g => g.GroupingItems)
-                .WithOne(i => i.GroupingQuestion)
-                .HasForeignKey(i => i.GroupingQuestionId)
-                .OnDelete(DeleteBehavior.Cascade);
-
             builder.Entity<Question>()
                 .HasMany(q => q.Answers)
                 .WithOne(a => a.Question)
                 .HasForeignKey(a => a.QuestionId)
-                .OnDelete(DeleteBehavior.Cascade);      
-                 
-            builder.Entity<Quiz>()
-                .Property(p => p.RowVersion).IsConcurrencyToken();
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<GroupingQuestion>()
+                .HasMany(g => g.Groups)
+                .WithOne(g => g.GroupingQuestion)
+                .HasForeignKey(g => g.GroupingQuestionId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Group>()
+                .HasMany(g => g.GroupingItems)
+                .WithOne(gi => gi.Group)
+                .HasForeignKey(gi => gi.GroupId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

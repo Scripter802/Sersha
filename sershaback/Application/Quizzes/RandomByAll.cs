@@ -16,7 +16,7 @@ namespace Application.Quizzes
         public class Query : IRequest<Question>
         {
             public Difficulty Difficulty { get; set; }
-            public int NumberOfQuestions { get; set; }
+            public int NumberOfQuestions { get; set; }  
         }
 
         public class Handler : IRequestHandler<Query, Question>
@@ -30,12 +30,13 @@ namespace Application.Quizzes
 
             public async Task<Question> Handle(Query request, CancellationToken cancellationToken)
             {
+               
                 var questions = await _context.Questions
-                    .Include(q => (q as RightAnswerQuestion).Answers)
-                    .Include(q => (q as FillInTheBlankQuestion).Answers)
-                    .Include(q => (q as GroupingQuestion).GroupingItems)
-                    .Where(q => q.Quiz.Difficulty == request.Difficulty)
+                    .Include(q => q.Quiz) 
                     .ToListAsync(cancellationToken);
+
+              
+                questions = questions.Where(q => q.Quiz.Difficulty == request.Difficulty).ToList();
 
                 if (questions == null || questions.Count == 0)
                 {

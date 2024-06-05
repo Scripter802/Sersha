@@ -50,7 +50,7 @@ namespace Application.Posts
                     _logger.LogInformation("Task was cancelled");
                 }
 
-                var posts = await _context.Posts.Where(x=>x.Stage == request.Stage).ToListAsync(cancellationToken);
+                var posts = await _context.Posts.Where(x=>x.Stage == request.Stage).Include(x => x.Author).ToListAsync(cancellationToken);
                 return _mapper.Map<List<Post>, List<PostDto>>(posts);
                 
             }

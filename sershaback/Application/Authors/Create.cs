@@ -47,19 +47,18 @@ namespace Application.Authors
                 {
                     Id = request.Id,
                     AuthorName = request.AuthorName,
-                    AuthorImagePath = request.AuthorImagePath
                 };
                 
-                String path = Directory.GetCurrentDirectory() + "\\Images\\authorImages\\" + request.Id;
+                String path = Directory.GetCurrentDirectory() + "\\Images\\authorImages\\" + request.AuthorName;
                 if(request.AuthorImage != null){
-                    string fileName = request.AuthorName + request.AuthorImage.FileName;
+                    string fileName = request.AuthorImage.FileName;
                     Directory.CreateDirectory(path);
                     path = Path.Combine(path, fileName);
 
                     using (var fs = new FileStream(path, FileMode.Create)){
                         await request.AuthorImage.CopyToAsync(fs);
                     }
-                    author.AuthorImagePath = "/Images/authorImages/" + request.Id + "/" + fileName;
+                    author.AuthorImagePath = "/Images/authorImages/" + request.AuthorName + "/" + fileName;
                 }
 
                 _context.Authors.Add(author);

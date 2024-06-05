@@ -1,0 +1,145 @@
+.editFillInTheBlankContainer {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 20px auto;
+  width: 50%;
+  background-color: transparent;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #FFB496;
+  background: linear-gradient(180deg, #2F202F 0%, #460C23CC 100%);
+}
+
+.editFillInTheBlankContainer h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #FFF;
+}
+
+.editFillInTheBlankInput {
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: transparent;
+  color: #FFFFFF;
+}
+
+.fillInTheBlankStatementOneFieldLabel,
+.fillInTheBlankCorrectFieldLabel,
+.fillInTheBlankStatementTwoFieldLabel,
+.fillInTheBlankOptionsFieldLabel {
+  font-size: .85rem;
+  padding-bottom: .5rem;
+}
+
+.fillInTheBlankOptionBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 1rem;
+}
+
+.fillInTheBlankOptionBox label {
+  width: 100%;
+}
+
+.fillInTheBlankOptionBox input {
+  height: 40px;
+}
+
+.fillInTheBlankOptionBoxSubmitBtn {
+  margin-block: 20px;
+  padding: 10px 20px;
+  background-color: #C26F4D;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.fillInTheBlankOptionBoxSubmitBtn:hover {
+  background-color: #0056b3;
+}
+
+.editFillInTheBlankNewOptionFieldAdd {
+  display: flex;
+  justify-content: center;
+}
+
+.editFillInTheBlankAddNewOptionFieldBtn {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  padding: 5px 15px;
+  background-color: #C26F4D;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.fillInTheBlankIncrementCharacter {
+  font-size: 20px;
+  line-height: 15px;
+}
+
+@media (max-width: 768px) {
+  .editFillInTheBlankContainer {
+    width: 70%;
+  }
+}
+
+@media (max-width: 480px) {
+  .editFillInTheBlankContainer {
+    width: 90%;
+    padding: 10px;
+  }
+
+  .editFillInTheBlankInput {
+    height: 35px;
+    padding: 8px;
+  }
+
+  .fillInTheBlankOptionBox input {
+    height: 35px;
+  }
+
+  .fillInTheBlankOptionBoxSubmitBtn {
+    padding: 8px 16px;
+  }
+
+  .editFillInTheBlankAddNewOptionFieldBtn {
+    padding: 4px 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .editFillInTheBlankContainer {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .editFillInTheBlankInput {
+    height: 35px;
+    padding: 8px;
+  }
+
+  .fillInTheBlankOptionBox input {
+    height: 35px;
+  }
+
+  .fillInTheBlankOptionBoxSubmitBtn {
+    padding: 8px 16px;
+  }
+
+  .editFillInTheBlankAddNewOptionFieldBtn {
+    padding: 4px 10px;
+  }
+}

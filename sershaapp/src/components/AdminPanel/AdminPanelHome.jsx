@@ -7,6 +7,8 @@ import AdminPanelUsers from './Users/AdminPanelUsers'
 import AdminPanelClothingPage from './Clothing/AdminPanelClothingPage'
 import AdminPanelQuizzes from './Quizzes/AdminPanelQuizzes'
 import PostAuthorList from './Author/CreateNewPostAuthor/PostAuthorList'
+import AdminPanelDm from './DM/AdminPanelDm'
+import AdminPanelMiniGames from './MiniGames/AdminPanelMiniGames'
 
 function AdminPanelHome() {
   const { activeTab } = useGlobalContext()
@@ -17,8 +19,10 @@ function AdminPanelHome() {
       {activeTab === 'Users' && <AdminPanelUsers />}
       {activeTab === 'Author' && <PostAuthorList />}
       {activeTab === 'Posts' && <AdminPanelListOfPosts />}
+      {activeTab === 'Dm' && <AdminPanelDm />}
       {activeTab === 'Clothing' && <AdminPanelClothingPage />}
       {activeTab === 'Quizzes' && <AdminPanelQuizzes />}
+      {activeTab === 'Mini Games' && <AdminPanelMiniGames />}
     </main>
 
   )

@@ -1,4 +1,4 @@
-.newGroupingContainer {
+.editGroupingContainer {
   position: relative;
   margin: 20px auto;
   width: 90%;
@@ -11,13 +11,13 @@
   background: linear-gradient(180deg, #2F202F 0%, #460C23F2 100%);
 }
 
-.newGroupingContainer h3 {
+.editGroupingContainer h3 {
   text-align: center;
   margin-bottom: 20px;
   color: #FFF;
 }
 
-.groupsWrapper {
+.editGroupsWrapper {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -133,7 +133,7 @@
 }
 
 @media (max-width: 480px) {
-  .newGroupingContainer {
+  .editGroupingContainer {
     padding: 15px;
   }
 

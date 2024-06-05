@@ -1,12 +1,18 @@
 import { useGlobalContext } from '../../../../../context/context'
 import FillInTheBlankCreateNewStatement from './FillInTheBlankCreateNewStatement/FillInTheBlankCreateNewStatement'
+import FillInTheBlankEditStatement from './FillInTheBlankEditStatement/FillInTheBlankEditStatement';
 import './adminFillInTheBlankPreview.css'
 
 const AdminFillInTheBlankPreview = () => {
   const { fillInTheBlankCreateNew,
     setFillInTheBlankCreateNew,
     allFillInTheBlankStatements,
-    setAllFillInTheBlankStatements } = useGlobalContext();
+    setAllFillInTheBlankStatements,
+    editingFillInTheBlank,
+    setEditingFillInTheBlank,
+    isFillInTheBlankEdit,
+    setIsFillInTheBlankEdit,
+  } = useGlobalContext();
 
   const statements = [
     {
@@ -27,14 +33,25 @@ const AdminFillInTheBlankPreview = () => {
       Options: ['25', '0', '-15', '-35'],
       CorrectAnswer: '0',
     },
+  ];
 
-  ]
+  const handleEditFillInTheBlank = (index) => {
+    setEditingFillInTheBlank(statements[index]);
+    setIsFillInTheBlankEdit(true);
+  };
+
+  const handleDeleteFillInTheBlank = (index) => {
+    // Add your delete logic here
+  };
 
 
   return (
     <>
-      {fillInTheBlankCreateNew === true ? (
-        <FillInTheBlankCreateNewStatement />) : (
+      {fillInTheBlankCreateNew ? (
+        <FillInTheBlankCreateNewStatement />
+      ) : isFillInTheBlankEdit ? (
+        <FillInTheBlankEditStatement />
+      ) : (
         <div className='fillInTheBlankWrapperList'>
           <div className='createNewStatementBtnWrapper'>
             <h3 className="quizTitle">Fill In The Blank</h3>
@@ -59,14 +76,14 @@ const AdminFillInTheBlankPreview = () => {
                   <td data-label="Correct answer">{statement.CorrectAnswer}</td>
                   <td data-label="Statement 2">{statement.StatementSecond}</td>
                   <td data-label="Options">{statement.Options.map(option => (
-                    <p>{option}</p>
+                    <p key={option}>{option}</p>
                   ))}</td>
 
 
                   <td data-label="Edit/Delete" className='settingsData'>
-                    <button className="edit-btn" onClick={() => handleEdit(index)}>Edit</button>
+                    <button className="edit-btn" onClick={() => handleEditFillInTheBlank(index)}>Edit</button>
 
-                    <button className="delete-btn" onClick={() => handleDelete(index)}>Delete</button>
+                    <button className="delete-btn" onClick={() => handleDeleteFillInTheBlank(index)}>Delete</button>
                   </td>
                 </tr>
               )}

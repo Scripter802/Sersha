@@ -12,6 +12,7 @@ const AdminCorrectIncorrectCreateNew = () => {
   const [correctIncorrectNewStatement, setCorrectIncorrectNewStatement] = useState({
     Statement: '',
     isTrue: null,
+    Stage: '',
   });
 
   const handleSubmit = () => {

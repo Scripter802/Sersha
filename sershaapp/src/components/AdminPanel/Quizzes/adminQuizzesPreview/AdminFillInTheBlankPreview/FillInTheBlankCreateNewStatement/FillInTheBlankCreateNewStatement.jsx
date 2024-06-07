@@ -79,7 +79,7 @@ const FillInTheBlankCreateNewStatement = () => {
       <div className='newFillInTheBlankOptions'>
         <label className='fillInTheBlankOptionsFieldLabel'>Options</label>
         {fillInTheBlankNewStatement.options.map((option, index) => (
-          <>
+          <React.Fragment key={index}>
             {console.log(option)}
             <div className='fillInTheBlankOptionBox' key={index}>
               <label>
@@ -101,7 +101,7 @@ const FillInTheBlankCreateNewStatement = () => {
                 </button>
               )}
             </div>
-          </>
+          </React.Fragment>
         ))}
 
       </div>

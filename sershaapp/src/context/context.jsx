@@ -12,6 +12,20 @@ const baseUrlImage = "http://192.168.1.10:8080/api";
 
 const AppProvider = ({ children }) => {
 
+  // Function to handle selecting an item for the top part
+  const handleSelectTopItem = (item) => {
+    setSelectedTopItem(item);
+    setIsTopPart(true);
+    setIsBottomPart(false);
+  };
+
+  // Function to handle selecting an item for the bottom part
+  const handleSelectBottomItem = (item) => {
+    setSelectedBottomItem(item);
+    setIsBottomPart(true);
+    setIsTopPart(false);
+  };
+
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   /*   ADMIN PANEL  *//*   ADMIN PANEL  *//*   ADMIN PANEL  *//*   ADMIN PANEL  *//*   ADMIN PANEL  */
@@ -43,19 +57,45 @@ const AppProvider = ({ children }) => {
   /* ADMIN QUIZZES */
   const [quizzesActiveTab, setQuizzesActiveTab] = useState('Right Answer');
 
+
+
   /* ADMIN RIGHT ANSWER QUIZ */
   const [rightAnswerCreateNew, setRightAnswerCreateNew] = useState(false);
+  const [editingQuestion, setEditingQuestion] = useState(null);
+  const [isQuestionEdit, setIsQuestionEdit] = useState(false);
   const [allRightAnswerQuestions, setAllRightAnswerQuestions] = useState([]);
   /* ADMIN FILL IN THE BLANK */
   const [fillInTheBlankCreateNew, setFillInTheBlankCreateNew] = useState(false);
   const [allFillInTheBlankStatements, setAllFillInTheBlankStatements] = useState([]);
+  const [editingFillInTheBlank, setEditingFillInTheBlank] = useState(null);
+  const [isFillInTheBlankEdit, setIsFillInTheBlankEdit] = useState(false);
   /* ADMIN CORRECT/INCORRECT */
   const [correctIncorrectCreateNew, setCorrectIncorrectCreateNew] = useState(false);
-  const [allCorrectIncorrect, setAllCorrectIncorrectCreateNew] = useState([]);
+  const [allCorrectIncorrect, setAllCorrectIncorrect] = useState([]);
+  const [editingCorrectIncorrect, setEditingCorrectIncorrect] = useState(null);
+  const [isCorrectIncorrectEdit, setIsCorrectIncorrectEdit] = useState(false);
   /* ADMIN GROUPING */
   const [groupingCreateNew, setGroupingCreateNew] = useState(false);
   const [allGrouping, setAllGrouping] = useState([]);
+  const [editingGrouping, setEditingGrouping] = useState(null);
+  const [isGroupingEdit, setIsGroupingEdit] = useState(false);
   /* _______________________________________________________________________________ */
+
+
+  /* ADMIN MINI-GAMES */
+  const [miniGamesActiveTab, setMiniGamesActiveTab] = useState();
+
+  /* SNAP JUDGMENT */
+  const [isSnapJudgmentEdit, setIsSnapJudgmentEdit] = useState(false);
+  const [editingSnapJudgment, setEditingSnapJudgment] = useState(null);
+
+
+
+
+
+
+  //____________________________________________________________________________
+
 
   /* SIGN IN_SIGN UP PAGE *//* SIGN IN_SIGN UP PAGE *//* SIGN IN_SIGN UP PAGE *//* SIGN IN_SIGN UP PAGE *//* SIGN IN_SIGN UP PAGE */
 
@@ -225,12 +265,23 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+
+        //FOX CUSTOMIZATION
+
+        handleSelectTopItem,
+        handleSelectBottomItem,
+        isTopPart,
+        setIsTopPart,
+        isBottomPart,
+        setIsBottomPart,
+
+        // BASE STATES // 
         baseUrl,
         baseUrlImage,
         windowWidth,
         setWindowWidth,
-        activeTab,
-        setActiveTab,
+
+        // POSTS 
         allPosts,
         setAllPosts,
         postsPerStage,
@@ -240,18 +291,21 @@ const AppProvider = ({ children }) => {
         setRandomPosts,
         isPostsLoading,
         setIsPostsLoading,
-        allUsers,
-        setAllUsers,
         createNewPost,
         setCreateNewPost,
         isPostEdit,
         setIsPostEdit,
         editingPost,
         setEditingPost,
-        isTopPart,
-        setIsTopPart,
-        isBottomPart,
-        setIsBottomPart,
+        getAllPosts,
+        handleDeletePost,
+
+
+        // USERS
+        allUsers,
+        setAllUsers,
+
+        // AUTHORS
         allAuthors,
         setAllAuthors,
         createNewPostAuthor,
@@ -262,24 +316,62 @@ const AppProvider = ({ children }) => {
         setEditingPostAuthor,
         getAllAuthors,
         handleDeleteAuthor,
+
+        // MAIN MENU
+        activeTab,
+        setActiveTab,
+
+        //QUIZZES ADMIN PANEL
         quizzesActiveTab,
         setQuizzesActiveTab,
+        // ADMIN PANEL QUIZZES RIGHT ANSWER
         rightAnswerCreateNew,
         setRightAnswerCreateNew,
         allRightAnswerQuestions,
         setAllRightAnswerQuestions,
+        editingQuestion,
+        setEditingQuestion,
+        isQuestionEdit,
+        setIsQuestionEdit,
+        // ADMIN PANEL QUIZZES FILL IN THE BLANK
         fillInTheBlankCreateNew,
         setFillInTheBlankCreateNew,
         allFillInTheBlankStatements,
         setAllFillInTheBlankStatements,
+        editingFillInTheBlank,
+        setEditingFillInTheBlank,
+        isFillInTheBlankEdit,
+        setIsFillInTheBlankEdit,
+        // ADMIN PANEL QUIZZES CORRECT/INCORRECT
         correctIncorrectCreateNew,
         setCorrectIncorrectCreateNew,
         allCorrectIncorrect,
-        setAllCorrectIncorrectCreateNew,
+        setAllCorrectIncorrect,
+        editingCorrectIncorrect,
+        setEditingCorrectIncorrect,
+        isCorrectIncorrectEdit,
+        setIsCorrectIncorrectEdit,
+        // ADMIN PANEL QUIZZES GROUPING
         groupingCreateNew,
         setGroupingCreateNew,
         allGrouping,
         setAllGrouping,
+        editingGrouping,
+        setEditingGrouping,
+        isGroupingEdit,
+        setIsGroupingEdit,
+
+        // MINI GAMES 
+        miniGamesActiveTab,
+        setMiniGamesActiveTab,
+
+        // SNAP JUDGMENT ADMIN PANEL MINIGAMES SNAPJUDGMENT
+        isSnapJudgmentEdit,
+        setIsSnapJudgmentEdit,
+        editingSnapJudgment,
+        setEditingSnapJudgment,
+
+        //LOGIN/REGISTER
         logEmail,
         setLogEmail,
         logPassword,
@@ -313,10 +405,11 @@ const AppProvider = ({ children }) => {
         setRegisterValidate,
         registerShowPassword,
         setRegisterShowPassword,
+
+        // DMS
         selectedMessagePreview,
         setSelectedMessagePreview,
-        getAllPosts,
-        handleDeletePost,
+
       }}
     >
       {children}

@@ -1,4 +1,5 @@
 import { useGlobalContext } from '../../../../../context/context'
+import AdminCorrectIncorrectEdit from './AdminCorrectIncorrectEdit/AdminCorrectIncorrectEdit';
 import AdminCorrectIncorrectCreateNew from './CorrectIncorrectCreateNew/AdminCorrectIncorrectCreateNew'
 import './adminCorrectIncorrectPreview.css'
 
@@ -6,7 +7,11 @@ const AdminCorrectIncorrectPreview = () => {
   const { correctIncorrectCreateNew,
     setCorrectIncorrectCreateNew,
     allCorrectIncorrect,
-    setAllCorrectIncorrectCreateNew, } = useGlobalContext();
+    setAllCorrectIncorrectCreateNew,
+    isCorrectIncorrectEdit,
+    setIsCorrectIncorrectEdit,
+    setEditingCorrectIncorrect,
+  } = useGlobalContext();
 
   const statement = [
     {
@@ -30,10 +35,24 @@ const AdminCorrectIncorrectPreview = () => {
       Stage: 'Easy',
     },
   ]
+
+  const handleEditStatement = (index) => {
+    setEditingCorrectIncorrect(statement[index]);
+    setIsCorrectIncorrectEdit(true);
+  };
+
+  const handleDeleteStatement = (index) => {
+    // Add your delete logic here
+  };
+
+
   return (
     <>
-      {correctIncorrectCreateNew === true ? (
-        <AdminCorrectIncorrectCreateNew />) : (
+      {correctIncorrectCreateNew ? (
+        <AdminCorrectIncorrectCreateNew />
+      ) : isCorrectIncorrectEdit ? (
+        <AdminCorrectIncorrectEdit />
+      ) : (
         <div className='correctIncorrectWrapperList'>
           <div className='createNewCorrectIncorrectBtnWrapper'>
             <h3 className="quizTitle">Correct/Incorrect</h3>
@@ -58,9 +77,9 @@ const AdminCorrectIncorrectPreview = () => {
                   <td data-label="Bundle">{state.Stage}</td>
 
                   <td data-label="Edit/Delete" className='settingsData'>
-                    <button className="edit-btn" onClick={() => handleEdit(index)}>Edit</button>
+                    <button className="edit-btn" onClick={() => handleEditStatement(index)}>Edit</button>
 
-                    <button className="delete-btn" onClick={() => handleDelete(index)}>Delete</button>
+                    <button className="delete-btn" onClick={() => handleDeleteStatement(index)}>Delete</button>
                   </td>
                 </tr>
               )}

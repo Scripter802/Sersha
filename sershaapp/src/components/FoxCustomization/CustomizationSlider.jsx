@@ -11,12 +11,10 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
 
   useEffect(() => {
     if (sliderRef.current) {
-      console.log(sliderRef)
-
+      console.log(sliderRef);
       sliderRef.current.slider.refresh();
     }
   }, [isTopPart, isBottomPart]);
-
 
   const moveSliderToLeft = () => {
     if (sliderRef.current) {
@@ -55,27 +53,41 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
 
   const renderItems = () => {
     if (isTopPart === true) {
-      return itemsTopPart.map((el, index) => (
-        <div key={index} className="toppart">
-          <img
-            className="tns-lazy-img"
-            src={el}
-            data-src={el}
-            alt=""
-          />
+      document.querySelector('.topPartsMainWrapper')?.classList.remove('displaynone');
+      document.querySelector('.bottomPartsMainWrapper')?.classList.add('displaynone');
+      return (
+        <div className="topPartsMainWrapper toppart">
+          {itemsTopPart.map((el, index) => (
+            <div key={index} className="toppart">
+              <img
+                className="tns-lazy-img"
+                src={el}
+                data-src={el}
+                alt=""
+              />
+            </div>
+          ))}
         </div>
-      ));
-    } else if (isBottomPart === true) {
-      return itemsBottomPart.map((el, index) => (
-        <div key={index} className="bottompart">
-          <img
-            className="tns-lazy-img"
-            src={el}
-            data-src={el}
-            alt=""
-          />
+      );
+    }
+
+    if (isBottomPart === true) {
+      document.querySelector('.topPartsMainWrapper')?.classList.add('displaynone');
+      document.querySelector('.bottomPartsMainWrapper')?.classList.remove('displaynone');
+      return (
+        <div className="bottomPartsMainWrapper bottompart">
+          {itemsBottomPart.map((el, index) => (
+            <div key={index} className="bottompart">
+              <img
+                className="tns-lazy-img"
+                src={el}
+                data-src={el}
+                alt=""
+              />
+            </div>
+          ))}
         </div>
-      ));
+      );
     }
     return null; // If no items to render, return null
   };
@@ -91,11 +103,11 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
         </div>
       </div>
       <div className="tinySlidWrapper">
-        {isTopPart === true || isBottomPart === true ? (
+        {(isTopPart || isBottomPart) && (
           <TinySlider settings={settings} className="singleImg" ref={sliderRef}>
             {renderItems()}
           </TinySlider>
-        ) : null}
+        )}
       </div>
     </>
   );

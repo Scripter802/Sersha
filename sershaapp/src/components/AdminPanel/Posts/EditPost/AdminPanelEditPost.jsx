@@ -12,11 +12,13 @@ const AdminPanelEditPost = () => {
     const [postAuthor, setPostAuthor] = useState(editingPost.postAuthor);
     const [postBundle, setPostBundle] = useState(editingPost.stage);
     const [postType, setPostType] = useState(editingPost.type);
+    const [postId, setPostId] = useState(editingPost.id);
 
     console.log(postHeadline, postAuthor, postBundle, postType)
 
     useEffect(() => {
         if (editingPost) {
+            setPostId(editingPost.id)
             setPostHeadline(editingPost.title);
             setPostContentImage(editingPost.imagePath);
             setPostAuthor(editingPost.author);
@@ -39,14 +41,18 @@ const AdminPanelEditPost = () => {
             // Handle image upload if necessary
         };
 
-        if (postContentImage && typeof postContentImage !== 'string') {
-            const formData = new FormData();
-            formData.append('file', postContentImage);
-            const imageUploadResponse = await axios.post(`${baseUrl}/upload`, formData);
-            updatedPost.imagePath = imageUploadResponse.data.path;
-        }
+        const updatedPostFormData = new FormData();
+        updatedPostFormData.append("Id", postId);
+        updatedPostFormData.append("Title", postHeadline);
+        updatedPostFormData.append("Content", "/");
+        updatedPostFormData.append("Image", postContentImage);
+        updatedPostFormData.append("Stage", postBundle);
+        updatedPostFormData.append("Type", postType);
+        updatedPostFormData.append("AuthorId", postAuthor);
+        console.log(postAuthor.id)
 
-        await axios.put(`${baseUrl}/post/${editingPost.id}`, updatedPost);
+
+        await axios.put(`${baseUrl}/post/${editingPost.id}`, updatedPostFormData3);
         setAllPosts(prevPosts => prevPosts.map(post => post.id === editingPost.id ? updatedPost : post));
         setIsPostEdit(false);
     };

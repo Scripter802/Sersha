@@ -1,9 +1,11 @@
-import { useGlobalContext } from '../../../../../context/context'
-import RightAnswerCreateNewAnswer from './RightAnswerCreateNewAnswer/RightAnswerCreateNewAnswer'
-import './adminRightAnswerPreview.css'
+import React from 'react';
+import { useGlobalContext } from '../../../../../context/context';
+import RightAnswerCreateNewAnswer from './RightAnswerCreateNewAnswer/RightAnswerCreateNewAnswer';
+import RightAnswerEditAnswer from './RightAnswerEditAnswer/RightAnswerEditAnswer';
+import './adminRightAnswerPreview.css';
 
 const AdminRightAnswerPreview = () => {
-  const { rightAnswerCreateNew, setRightAnswerCreateNew } = useGlobalContext();
+  const { rightAnswerCreateNew, setRightAnswerCreateNew, editingQuestion, setEditingQuestion, setIsQuestionEdit, isQuestionEdit } = useGlobalContext();
 
   const questions = [
     {
@@ -24,52 +26,29 @@ const AdminRightAnswerPreview = () => {
       ],
       Stage: "Hard"
     },
-    {
-      Question: "How Are You?",
-      Options: [
-        {
-          option: 'Good',
-          isCorrect: true,
-        },
-        {
-          option: 'Not bad',
-          isCorrect: false,
-        },
-        {
-          option: 'Very good',
-          isCorrect: false,
-        },
-      ],
-      Stage: "Hard"
-    },
-    {
-      Question: "How Are You?",
-      Options: [
-        {
-          option: 'Good',
-          isCorrect: true,
-        },
-        {
-          option: 'Not bad',
-          isCorrect: false,
-        },
-        {
-          option: 'Very good',
-          isCorrect: false,
-        },
-      ],
-      Stage: "Hard"
-    },
-  ]
+    // Other questions
+  ];
+
+  const handleEditQuestion = (index) => {
+    setEditingQuestion(questions[index]);
+    setIsQuestionEdit(true);
+  };
+
+  const handleDeleteQuestion = (index) => {
+    // Add your delete logic here
+  };
 
   return (
     <>
-      {rightAnswerCreateNew === true ? (
-        <RightAnswerCreateNewAnswer />) : (
+      {rightAnswerCreateNew ? (
+        <RightAnswerCreateNewAnswer />
+      ) : isQuestionEdit ? (
+        <RightAnswerEditAnswer />
+      ) : (
         <div className='rightAnswerWrapperList'>
           <div className='createNewQuestionBtnWrapper'>
             <h3 className="quizTitle">Right Answer</h3>
-            <button className="createNewQuestionBtn" onClick={() => (setRightAnswerCreateNew(true))}>Create New Question</button>
+            <button className="createNewQuestionBtn" onClick={() => setRightAnswerCreateNew(true)}>Create New Question</button>
           </div>
           <table className="table table-striped table-bordered">
             <thead>
@@ -83,29 +62,27 @@ const AdminRightAnswerPreview = () => {
               </tr>
             </thead>
             <tbody>
-              {questions && questions.map((quest, index) =>
+              {questions && questions.map((quest, index) => (
                 <tr key={index}>
                   <td data-label="No.">{index + 1}</td>
                   <td data-label="Question">{quest.Question}</td>
-                  <td data-label="Options">{quest.Options.map(q => (
-                    <p>{q.option}</p>
+                  <td data-label="Options">{quest.Options.map((q, idx) => (
+                    <p key={idx}>{q.option}</p>
                   ))}</td>
-                  <td data-label="Correct answer">{quest.Options.map(q => q.isCorrect === true && <p>{q.option}</p>)}</td>
+                  <td data-label="Correct answer">{quest.Options.find(q => q.isCorrect)?.option}</td>
                   <td data-label="Bundle">{quest.Stage}</td>
                   <td data-label="Edit/Delete" className='settingsData'>
-                    <button className="edit-btn" onClick={() => handleEdit(index)}>Edit</button>
-
-                    <button className="delete-btn" onClick={() => handleDelete(index)}>Delete</button>
+                    <button className="edit-btn" onClick={() => handleEditQuestion(index)}>Edit</button>
+                    <button className="delete-btn" onClick={() => handleDeleteQuestion(index)}>Delete</button>
                   </td>
                 </tr>
-              )}
+              ))}
             </tbody>
           </table>
         </div>
-      )
-      }
+      )}
     </>
-  )
+  );
 }
 
-export default AdminRightAnswerPreview
+export default AdminRightAnswerPreview;

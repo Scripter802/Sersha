@@ -71,8 +71,8 @@ namespace API.Controllers
         }
         
         [AllowAnonymous]
-        [HttpGet("randomByType")]
-        public async Task<ActionResult<Quiz>> RandomByType([FromQuery] QuizType type)
+        [HttpGet("randomByType/{type}")]
+        public async Task<ActionResult<Quiz>> RandomByType(QuizType type)
         {
             var quiz = await Mediator.Send(new Application.Quizzes.RandomByType.Query { Type = type });
             if (quiz == null)
@@ -95,10 +95,10 @@ namespace API.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("RandomByAll")]
-        public async Task<ActionResult<Question>> RandomByAll([FromQuery] Difficulty difficulty, [FromQuery] int numberOfQuestions)
+        [HttpGet("RandomByAll/{difficulty}/{type}")]
+        public async Task<ActionResult<Quiz>> RandomByAll(Difficulty difficulty, QuizType type)
         {
-            return await Mediator.Send(new RandomByAll.Query { Difficulty = difficulty, NumberOfQuestions = numberOfQuestions });
+            return await Mediator.Send(new RandomByAll.Query { Difficulty = difficulty, Type = type });
         }
 
     }

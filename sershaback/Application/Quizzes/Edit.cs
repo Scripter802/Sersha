@@ -33,7 +33,6 @@ namespace Application.Quizzes
                 RuleForEach(x => x.Questions).ChildRules(question =>
                 {
                     question.RuleFor(q => q.QuestionText).NotEmpty();
-                    question.RuleFor(q => q.Type).IsInEnum();
                 });
                 RuleFor(x => x.Difficulty).IsInEnum();
             }
@@ -77,7 +76,7 @@ namespace Application.Quizzes
                 {
                     Question question = null;
 
-                    switch (questionDto.Type)
+                    switch (quiz.Type)
                     {
                         case QuizType.RightAnswer:
                             question = new RightAnswerQuestion

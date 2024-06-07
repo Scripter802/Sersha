@@ -13,13 +13,13 @@ namespace Application.Quizzes
 {
     public class RandomByAll
     {
-        public class Query : IRequest<Question>
+        public class Query : IRequest<Quiz>
         {
             public Difficulty Difficulty { get; set; }
-            public int NumberOfQuestions { get; set; }  
+            public QuizType Type { get; set; }  
         }
 
-        public class Handler : IRequestHandler<Query, Question>
+        public class Handler : IRequestHandler<Query, Quiz>
         {
             private readonly DataContext _context;
 
@@ -28,24 +28,28 @@ namespace Application.Quizzes
                 _context = context;
             }
 
-            public async Task<Question> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Quiz> Handle(Query request, CancellationToken cancellationToken)
             {
                
-                var questions = await _context.Questions
-                    .Include(q => q.Quiz) 
+                var quizzes = await _context.Quizzes
+                    .Include(q => q.Questions)
+                        .ThenInclude(q => q.Answers)
+                    .Include(q => q.Questions)
+                        .ThenInclude(q => (q as GroupingQuestion).Groups)
+                            .ThenInclude(g => g.GroupingItems) 
                     .ToListAsync(cancellationToken);
 
               
-                questions = questions.Where(q => q.Quiz.Difficulty == request.Difficulty).ToList();
+                quizzes = quizzes.Where(q => q.Difficulty == request.Difficulty && q.Type == request.Type).ToList();
 
-                if (questions == null || questions.Count == 0)
+                if (quizzes == null || quizzes.Count == 0)
                 {
                     throw new Exception("No questions found for the specified difficulty");
                 }
 
                 Random rnd = new Random();
-                int index = rnd.Next(questions.Count);
-                return questions[index];
+                int index = rnd.Next(quizzes.Count);
+                return quizzes[index];
             }
         }
     }

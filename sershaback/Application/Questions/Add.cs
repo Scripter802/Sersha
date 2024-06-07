@@ -26,7 +26,6 @@ namespace Application.Questions
             public CommandValidator()
             {
                 RuleFor(x => x.Question.QuestionText).NotEmpty();
-                RuleFor(x => x.Question.Type).IsInEnum();
             }
         }
 
@@ -52,7 +51,7 @@ namespace Application.Questions
 
                 Question question = null;
 
-                switch (request.Question.Type)
+                switch (quiz.Type)
                 {
                     case QuizType.RightAnswer:
                         question = new RightAnswerQuestion

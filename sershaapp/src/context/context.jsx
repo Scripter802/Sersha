@@ -57,42 +57,62 @@ const AppProvider = ({ children }) => {
   /* ADMIN QUIZZES */
   const [quizzesActiveTab, setQuizzesActiveTab] = useState('Right Answer');
 
-
-
   /* ADMIN RIGHT ANSWER QUIZ */
   const [rightAnswerCreateNew, setRightAnswerCreateNew] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState(null);
   const [isQuestionEdit, setIsQuestionEdit] = useState(false);
   const [allRightAnswerQuestions, setAllRightAnswerQuestions] = useState([]);
+  const rightAnswerAPI = 'http://localhost:5000/api/Quizzes/randomByType?type=0'
+
+
   /* ADMIN FILL IN THE BLANK */
   const [fillInTheBlankCreateNew, setFillInTheBlankCreateNew] = useState(false);
-  const [allFillInTheBlankStatements, setAllFillInTheBlankStatements] = useState([]);
   const [editingFillInTheBlank, setEditingFillInTheBlank] = useState(null);
   const [isFillInTheBlankEdit, setIsFillInTheBlankEdit] = useState(false);
+  const [allFillInTheBlankStatements, setAllFillInTheBlankStatements] = useState([]);
+  const fillInTheBlankAPI = 'http://localhost:5000/api/Quizzes/randombytype?type=2'
   /* ADMIN CORRECT/INCORRECT */
   const [correctIncorrectCreateNew, setCorrectIncorrectCreateNew] = useState(false);
-  const [allCorrectIncorrect, setAllCorrectIncorrect] = useState([]);
   const [editingCorrectIncorrect, setEditingCorrectIncorrect] = useState(null);
   const [isCorrectIncorrectEdit, setIsCorrectIncorrectEdit] = useState(false);
+  const [allCorrectIncorrect, setAllCorrectIncorrect] = useState([]);
+  const correctIncorrectAPI = 'http://localhost:5000/api/Quizzes/randombytype?type=1'
   /* ADMIN GROUPING */
   const [groupingCreateNew, setGroupingCreateNew] = useState(false);
-  const [allGrouping, setAllGrouping] = useState([]);
   const [editingGrouping, setEditingGrouping] = useState(null);
   const [isGroupingEdit, setIsGroupingEdit] = useState(false);
+  const [allGrouping, setAllGrouping] = useState([]);
+  const groupingAPI = 'http://localhost:5000/api/Quizzes/randombytype?type=3'
   /* _______________________________________________________________________________ */
 
 
   /* ADMIN MINI-GAMES */
-  const [miniGamesActiveTab, setMiniGamesActiveTab] = useState();
+  const [miniGamesActiveTab, setMiniGamesActiveTab] = useState('Snap Judgment');
 
   /* SNAP JUDGMENT */
-  const [isSnapJudgmentEdit, setIsSnapJudgmentEdit] = useState(false);
+  const [snapJudgmentCreateNew, setSnapJudgmentCreateNew] = useState(false);
   const [editingSnapJudgment, setEditingSnapJudgment] = useState(null);
+  const [isSnapJudgmentEdit, setIsSnapJudgmentEdit] = useState(false);
+  const [allSnapJudgmentAssignments, setAllSnapJudgmentAssignments] = useState(false);
 
 
+  /* EMOJI EMOTIONS */
+  const [emojiEmotionsCreateNew, setEmojiEmotionsCreateNew] = useState(false);
+  const [editingEmojiEmotions, setEditingEmojiEmotions] = useState(null);
+  const [isEmojiEmotionsEdit, setIsEmojiEmotionsEdit] = useState(false);
+  const [allEmojiEmotionsAssignments, setAllEmojiEmotionsAssignments] = useState([]);
 
+  /* FRIEND OR FOE */
+  const [friendOrFoeCreateNew, setFriendOrFoeCreateNew] = useState(false);
+  const [editingFriendOrFoe, setEditingFriendOrFoe] = useState(null);
+  const [isFriendOrFoeEdit, setIsFriendOrFoeEdit] = useState(false);
+  const [allFriendOrFoeAssignments, setAllFriendOrFoeAssignments] = useState([]);
 
-
+  /* POSTING CHALLENGE */
+  const [postingChallengeCreateNew, setPostingChallengeCreateNew] = useState(false);
+  const [editingPostingChallenge, setEditingPostingChallenge] = useState(null);
+  const [isPostingChallengeEdit, setIsPostingChallengeEdit] = useState(false);
+  const [allPostingChallengeAssignments, setAllPostingChallengeAssignments] = useState([]);
 
   //____________________________________________________________________________
 
@@ -266,6 +286,16 @@ const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
 
+        // BASE STATES - APIs// 
+        baseUrl,
+        baseUrlImage,
+        windowWidth,
+        setWindowWidth,
+        rightAnswerAPI,
+        correctIncorrectAPI,
+        fillInTheBlankAPI,
+        groupingAPI,
+
         //FOX CUSTOMIZATION
 
         handleSelectTopItem,
@@ -275,11 +305,7 @@ const AppProvider = ({ children }) => {
         isBottomPart,
         setIsBottomPart,
 
-        // BASE STATES // 
-        baseUrl,
-        baseUrlImage,
-        windowWidth,
-        setWindowWidth,
+
 
         // POSTS 
         allPosts,
@@ -366,10 +392,44 @@ const AppProvider = ({ children }) => {
         setMiniGamesActiveTab,
 
         // SNAP JUDGMENT ADMIN PANEL MINIGAMES SNAPJUDGMENT
+        snapJudgmentCreateNew,
+        setSnapJudgmentCreateNew,
         isSnapJudgmentEdit,
         setIsSnapJudgmentEdit,
         editingSnapJudgment,
         setEditingSnapJudgment,
+        allSnapJudgmentAssignments,
+        setAllSnapJudgmentAssignments,
+
+        /* EMOJI EMOTIONS ADMIN PANEL MINIGAMES */
+        emojiEmotionsCreateNew,
+        setEmojiEmotionsCreateNew,
+        isEmojiEmotionsEdit,
+        setIsEmojiEmotionsEdit,
+        editingEmojiEmotions,
+        setEditingEmojiEmotions,
+        allEmojiEmotionsAssignments,
+        setAllEmojiEmotionsAssignments,
+
+        /* FRIEND OR FOE ADMIN PANEL MINIGAMES */
+        friendOrFoeCreateNew,
+        setFriendOrFoeCreateNew,
+        isFriendOrFoeEdit,
+        setIsFriendOrFoeEdit,
+        editingFriendOrFoe,
+        setEditingFriendOrFoe,
+        allFriendOrFoeAssignments,
+        setAllFriendOrFoeAssignments,
+
+        /* POSTING CHALLENGE ADMIN PANEL MINIGAMES */
+        postingChallengeCreateNew,
+        setPostingChallengeCreateNew,
+        isPostingChallengeEdit,
+        setIsPostingChallengeEdit,
+        editingPostingChallenge,
+        setEditingPostingChallenge,
+        allPostingChallengeAssignments,
+        setAllPostingChallengeAssignments,
 
         //LOGIN/REGISTER
         logEmail,

@@ -1,13 +1,16 @@
+import { useEffect } from 'react';
 import { useGlobalContext } from '../../../../../context/context'
 import AdminCorrectIncorrectEdit from './AdminCorrectIncorrectEdit/AdminCorrectIncorrectEdit';
 import AdminCorrectIncorrectCreateNew from './CorrectIncorrectCreateNew/AdminCorrectIncorrectCreateNew'
 import './adminCorrectIncorrectPreview.css'
+import axios from 'axios';
 
 const AdminCorrectIncorrectPreview = () => {
-  const { correctIncorrectCreateNew,
+  const { correctIncorrectAPI,
+    correctIncorrectCreateNew,
     setCorrectIncorrectCreateNew,
     allCorrectIncorrect,
-    setAllCorrectIncorrectCreateNew,
+    setAllCorrectIncorrect,
     isCorrectIncorrectEdit,
     setIsCorrectIncorrectEdit,
     setEditingCorrectIncorrect,
@@ -34,7 +37,22 @@ const AdminCorrectIncorrectPreview = () => {
       isTrue: false,
       Stage: 'Easy',
     },
-  ]
+  ];
+
+  useEffect(() => {
+    const fetchRightAnswerQuestions = async () => {
+      try {
+        const response = await axios.get(correctIncorrectAPI);
+        setAllCorrectIncorrect(response.data);
+
+        console.log(allCorrectIncorrect)
+      } catch (error) {
+        console.error('Error fetching right answer questions:', error);
+      }
+    };
+
+    fetchRightAnswerQuestions();
+  }, [setAllCorrectIncorrect]);
 
   const handleEditStatement = (index) => {
     setEditingCorrectIncorrect(statement[index]);

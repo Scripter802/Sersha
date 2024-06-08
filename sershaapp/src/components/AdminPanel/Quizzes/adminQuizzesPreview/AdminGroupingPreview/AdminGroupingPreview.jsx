@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import closeButton from '../../../../../assets/images/adminPanel/closeButton.png';
 import { useGlobalContext } from '../../../../../context/context';
 import GroupingCreateNewGroup from './GroupingCreateNewGroup/GroupingCreateNewGroup';
@@ -5,9 +6,10 @@ import GroupingEditGroup from './GroupingEditGroup/GroupingEditGroup';
 
 
 import './adminGroupingPreview.css';
+import axios from 'axios';
 
 const AdminGroupingPreview = () => {
-  const { groupingCreateNew,
+  const { groupingAPI, groupingCreateNew,
     setGroupingCreateNew,
     allGrouping,
     setAllGrouping,
@@ -49,13 +51,27 @@ const AdminGroupingPreview = () => {
     },
   ]
 
+  useEffect(() => {
+    const fetchRightAnswerQuestions = async () => {
+      try {
+        const response = await axios.get(groupingAPI);
+        setAllGrouping(response.data);
+
+        console.log(allGrouping)
+      } catch (error) {
+        console.error('Error fetching right answer questions:', error);
+      }
+    };
+
+    fetchRightAnswerQuestions();
+  }, [setAllGrouping]);
 
   const handleEditGroup = (index) => {
     setEditingGrouping(groups[index]);
     setIsGroupingEdit(true);
   };
 
-  const handleDeleteStatement = (index) => {
+  const handleDeleteGroup = (index) => {
     // Add your delete logic here
   };
 
@@ -88,12 +104,12 @@ const AdminGroupingPreview = () => {
                 <tr key={index}>
                   <td data-label="No.">{index + 1}</td>
                   <td data-label="Group 1">{group.GroupOne.Title}</td>
-                  <td data-label="Words">{group.GroupOne.Words.map(word => (
-                    <p>{word}</p>
+                  <td data-label="Words">{group.GroupOne.Words.map((word, index) => (
+                    <p key={index}>{word}</p>
                   ))}</td>
                   <td data-label="Group 2">{group.GroupTwo.Title}</td>
-                  <td data-label="Words">{group.GroupTwo.Words.map(word => (
-                    <p>{word}</p>
+                  <td data-label="Words">{group.GroupTwo.Words.map((word, index) => (
+                    <p key={index}>{word}</p>
                   ))}</td>
 
                   <td data-label="Edit/Delete" className='settingsData'>

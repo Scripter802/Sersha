@@ -1,0 +1,55 @@
+.createNewSnapJudgmentContainer {
+  padding: 20px;
+  background: linear-gradient(180deg, #2F202F 0%, #460C23F2 100%);
+  background-color: transparent;
+  border-radius: 10px;
+  width: 400px;
+  margin: 20px auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1.15rem;
+  right: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.close-btn>img {
+  width: 35px;
+  height: 35px;
+}
+
+.fieldLabel {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.inputField,
+.dropdown {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submitBtn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submitBtn:hover {
+  background-color: #218838;
+}

@@ -21,7 +21,7 @@ const EmojiEmotions = () => {
   const [emojis, setEmojis] = useState([emojiOne, emojiTwo, emojiThree, emojiOne, emojiTwo, emojiThree])
   const [passedEmojis, setPassedEmojis] = useState([]);
   const [emojisAnswers, setEmojisAnswers] = useState(['Sad', '“You look cute!”', 'Happy'])
-  const [rightAnswer, setRightAnswer] = useState(['Happy', 'Sad', '“You look cute!”', 'Sad', 'Happy'])
+  const [rightAnswer, setRightAnswer] = useState(['Happy', 'Sad', '“You look cute!”', 'Sad', 'Happy', 'Sad', 'Sad', 'Sad'])
   const [activeEmojiIndex, setActiveEmojiIndex] = useState()
   const [totalAnswered, setTotalAnswered] = useState(0)
 

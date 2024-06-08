@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useGlobalContext } from '../../../../../context/context';
 import RightAnswerCreateNewAnswer from './RightAnswerCreateNewAnswer/RightAnswerCreateNewAnswer';
 import RightAnswerEditAnswer from './RightAnswerEditAnswer/RightAnswerEditAnswer';
 import './adminRightAnswerPreview.css';
+import axios from 'axios';
 
 const AdminRightAnswerPreview = () => {
-  const { rightAnswerCreateNew, setRightAnswerCreateNew, editingQuestion, setEditingQuestion, setIsQuestionEdit, isQuestionEdit } = useGlobalContext();
+  const { rightAnswerAPI, allRightAnswerQuestions, setAllRightAnswerQuestions, rightAnswerCreateNew, setRightAnswerCreateNew, editingQuestion, setEditingQuestion, setIsQuestionEdit, isQuestionEdit } = useGlobalContext();
 
   const questions = [
     {
@@ -28,6 +29,21 @@ const AdminRightAnswerPreview = () => {
     },
     // Other questions
   ];
+
+  useEffect(() => {
+    const fetchRightAnswerQuestions = async () => {
+      try {
+        const response = await axios.get(rightAnswerAPI);
+        setAllRightAnswerQuestions(response.data);
+        console.log(response.data, allRightAnswerQuestions)
+      } catch (error) {
+        console.error('Error fetching right answer questions:', error);
+      }
+    };
+
+    fetchRightAnswerQuestions();
+  }, []);
+
 
   const handleEditQuestion = (index) => {
     setEditingQuestion(questions[index]);
@@ -62,16 +78,31 @@ const AdminRightAnswerPreview = () => {
               </tr>
             </thead>
             <tbody>
-              {questions && questions.map((quest, index) => (
+              {allRightAnswerQuestions?.questions && allRightAnswerQuestions.questions.map((quest, index) => (
                 <tr key={index}>
                   <td data-label="No.">{index + 1}</td>
-                  <td data-label="Question">{quest.Question}</td>
-                  <td data-label="Options">{quest.Options.map((q, idx) => (
-                    <p key={idx}>{q.option}</p>
+                  <td data-label="Question">{quest.text}</td>
+                  <td data-label="Options">{quest.answers.map((q, idx) => (
+                    <p key={idx}>{q.text}</p>
                   ))}</td>
-                  <td data-label="Correct answer">{quest.Options.find(q => q.isCorrect)?.option}</td>
-                  <td data-label="Bundle">{quest.Stage}</td>
-                  <td data-label="Edit/Delete" className='settingsData'>
+                  <td data-label="Correct answer">
+                    {quest.answers.filter(q => q.isCorrect).map((correctAnswer, idx) => (
+                      <p key={idx}>{correctAnswer.text}</p>
+                    ))}
+                  </td>                  <td data-label="Bundle">
+                    {(() => {
+                      switch (allRightAnswerQuestions.difficulty) {
+                        case 0:
+                          return 'Easy';
+                        case 1:
+                          return 'Medium';
+                        case 2:
+                          return 'Hard';
+                        default:
+                          return 'Unknown';
+                      }
+                    })()}
+                  </td>                  <td data-label="Edit/Delete" className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEditQuestion(index)}>Edit</button>
                     <button className="delete-btn" onClick={() => handleDeleteQuestion(index)}>Delete</button>
                   </td>

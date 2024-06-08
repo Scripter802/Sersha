@@ -22,7 +22,7 @@ function AdminPanelHome() {
       {activeTab === 'Dm' && <AdminPanelDm />}
       {activeTab === 'Clothing' && <AdminPanelClothingPage />}
       {activeTab === 'Quizzes' && <AdminPanelQuizzes />}
-      {activeTab === 'Mini Games' && <AdminPanelMiniGames />}
+      {activeTab === 'Mini-Games' && <AdminPanelMiniGames />}
     </main>
 
   )

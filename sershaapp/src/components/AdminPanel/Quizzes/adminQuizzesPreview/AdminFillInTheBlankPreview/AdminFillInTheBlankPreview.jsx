@@ -1,10 +1,13 @@
+import { useEffect } from 'react';
 import { useGlobalContext } from '../../../../../context/context'
 import FillInTheBlankCreateNewStatement from './FillInTheBlankCreateNewStatement/FillInTheBlankCreateNewStatement'
 import FillInTheBlankEditStatement from './FillInTheBlankEditStatement/FillInTheBlankEditStatement';
 import './adminFillInTheBlankPreview.css'
+import axios from 'axios';
 
 const AdminFillInTheBlankPreview = () => {
-  const { fillInTheBlankCreateNew,
+  const { fillInTheBlankAPI,
+    fillInTheBlankCreateNew,
     setFillInTheBlankCreateNew,
     allFillInTheBlankStatements,
     setAllFillInTheBlankStatements,
@@ -34,6 +37,21 @@ const AdminFillInTheBlankPreview = () => {
       CorrectAnswer: '0',
     },
   ];
+
+  useEffect(() => {
+    const fetchRightAnswerQuestions = async () => {
+      try {
+        const response = await axios.get(fillInTheBlankAPI);
+        setAllFillInTheBlankStatements(response.data);
+
+        console.log(allFillInTheBlankStatements)
+      } catch (error) {
+        console.error('Error fetching right answer questions:', error);
+      }
+    };
+
+    fetchRightAnswerQuestions();
+  }, [setAllFillInTheBlankStatements]);
 
   const handleEditFillInTheBlank = (index) => {
     setEditingFillInTheBlank(statements[index]);

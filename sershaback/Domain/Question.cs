@@ -10,7 +10,7 @@ namespace Domain
         public Guid QuizId { get; set; }
         public Quiz Quiz { get; set; }
         
-        [Required(ErrorMessage = "'Question text must not be empty.")]
+        /*[Required(ErrorMessage = "'Question text must not be empty.")]*/
         public string Text { get; set; }
         public ICollection<Answer> Answers { get; set; }
     }

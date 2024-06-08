@@ -14,7 +14,11 @@ namespace Domain
             RightAnswer = 0,
             CorrectIncorrect = 1,
             FillInTheBlank = 2,
-            Grouping = 3
+            Grouping = 3,
+            SnapJudgement = 4, 
+            EmojiEmotions = 5,
+            FriendOrFoe = 6,
+            PostingChallenge = 7
         }
     }
 }

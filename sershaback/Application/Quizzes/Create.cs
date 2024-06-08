@@ -25,12 +25,8 @@ namespace Application.Quizzes
         {
             public CommandValidator()
             {
-                RuleForEach(x => x.Questions).ChildRules(question =>
-                {
-                    question.RuleFor(q => q.QuestionText).NotEmpty();
-                    question.RuleFor(q => q.Type).IsInEnum();
-                });
                 RuleFor(x => x.Difficulty).IsInEnum();
+                RuleFor(x => x.Type).IsInEnum();
             }
         }
 
@@ -59,7 +55,7 @@ namespace Application.Quizzes
                 {
                     Question question = null;
 
-                    switch (questionDto.Type)
+                    switch (request.Type)
                     {
                         case QuizType.RightAnswer:
                             var rightAnswerQuestion = new RightAnswerQuestion
@@ -83,7 +79,8 @@ namespace Application.Quizzes
                         case QuizType.FillInTheBlank:
                             var fillInTheBlankQuestion = new FillInTheBlankQuestion
                             {
-                                Text = questionDto.QuestionText,
+                                Statement1 = questionDto.Statement1,
+                                Statement2 = questionDto.Statement2,
                                 Answers = questionDto.Answers.Select(a => new Answer
                                 {
                                     Text = a.Text,

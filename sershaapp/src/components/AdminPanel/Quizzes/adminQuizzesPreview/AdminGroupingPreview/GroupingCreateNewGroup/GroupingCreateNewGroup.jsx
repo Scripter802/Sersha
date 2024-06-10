@@ -25,28 +25,74 @@ const GroupingCreateNewGroup = () => {
 
   const handleSubmit = () => {
     const newGrouping = {
-      GroupOne: {
-        Title: groupingNewGroup.GroupOne.Title,
-        Words: [...groupingNewGroup.GroupOne.Words],
-      },
-      GroupTwo: {
-        Title: groupingNewGroup.GroupTwo.Title,
-        Words: [...groupingNewGroup.GroupTwo.Words],
-      },
+      type: 3,
+      difficulty: 0,
+      questions: [
+        {
+          questionText: "",
+          groups: [
+            {
+              groupName: "",
+              items: [
+                {
+                  item: ""
+                },
+                {
+                  item: ""
+                },
+                {
+                  item: ""
+                }
+              ]
+            },
+            {
+              groupName: "",
+              items: [
+                {
+                  item: ""
+                },
+                {
+                  item: ""
+                },
+                {
+                  item: ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
     };
 
     setAllGrouping([...allGrouping, newGrouping]);
 
     setGroupingNewGroup({
-      GroupOne: {
-        Title: "",
-        Words: ['', '', ''],
-      },
-      GroupTwo: {
-        Title: "",
-        Words: ['', '', ''],
-      },
-    });
+      "type": 3,
+      "difficulty": 0,
+      "questions": [
+        {
+          "questionText": "string",
+          "groups": [
+            {
+              "groupName": "Banane",
+              "items": [
+                {
+                  "item": "string"
+                }
+              ]
+            },
+            {
+              "groupName": "Jagode",
+              "items": [
+                {
+                  "item": "string"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    })
 
     setGroupingCreateNew(false);
   };

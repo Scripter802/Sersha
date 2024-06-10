@@ -23,18 +23,21 @@ const AdminFillInTheBlankPreview = () => {
       StatementSecond: "degrees Celsius.",
       Options: ['25', '0', '-15', '-35'],
       CorrectAnswer: '0',
+      stage: 'Easy',
     },
     {
       StatementFirst: "Water freezes at",
       StatementSecond: "degrees Celsius.",
       Options: ['25', '0', '-15', '-35'],
       CorrectAnswer: '0',
+      stage: 'Easy',
     },
     {
       StatementFirst: "Water freezes at",
       StatementSecond: "degrees Celsius.",
       Options: ['25', '0', '-15', '-35'],
       CorrectAnswer: '0',
+      stage: 'Easy',
     },
   ];
 
@@ -83,6 +86,7 @@ const AdminFillInTheBlankPreview = () => {
                 <th>Correct answer</th>
                 <th>Statement 2</th>
                 <th>Options</th>
+                <th>Stage</th>
                 <th>Edit/Delete</th>
               </tr>
             </thead>
@@ -96,6 +100,8 @@ const AdminFillInTheBlankPreview = () => {
                   <td data-label="Options">{statement.Options.map(option => (
                     <p key={option}>{option}</p>
                   ))}</td>
+
+                  <td data-label="Statement 2">{statement.stage}</td>
 
 
                   <td data-label="Edit/Delete" className='settingsData'>

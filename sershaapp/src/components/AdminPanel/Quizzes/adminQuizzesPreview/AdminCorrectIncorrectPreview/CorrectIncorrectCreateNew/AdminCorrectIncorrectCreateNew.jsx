@@ -3,28 +3,46 @@ import { useGlobalContext } from '../../../../../../context/context';
 import closeButton from '../../../../../../assets/images/adminPanel/closeButton.png'
 
 import './adminCorrectIncorrectCreateNew.css'
+import axios from 'axios';
 
 const AdminCorrectIncorrectCreateNew = () => {
-  const { correctIncorrectCreateNew,
+  const { baseUrl, correctIncorrectCreateNew,
     setCorrectIncorrectCreateNew,
     allCorrectIncorrect,
     setAllCorrectIncorrect } = useGlobalContext();
   const [correctIncorrectNewStatement, setCorrectIncorrectNewStatement] = useState({
-    Statement: '',
-    isTrue: null,
-    Stage: '',
+    questionText: '',
+    isCorrect: false,
+    stage: '',
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    let dif = correctIncorrectNewStatement.stage === 'Easy' ? 0 : correctIncorrectNewStatement.stage === 'Medium' ? 1 : 2;
+
     // Construct the new question object
     const newStatement = {
-      Statement: correctIncorrectNewStatement.Statement,
-      isTrue: correctIncorrectNewStatement.isTrue,
-      Stage: correctIncorrectNewStatement.Stage
+      type: 1,
+      difficulty: dif,
+      questions: [
+        {
+          questionText: correctIncorrectNewStatement.questionText,
+          isCorrect: correctIncorrectNewStatement.isCorrect,
+        }
+      ]
     }
 
-    // Update the list of questions
-    setAllCorrectIncorrect([...allCorrectIncorrect, newStatement]);
+
+    try {
+      const response = await axios.post(`${baseUrl}/Quizzes/create`, newStatement);
+      console.log(`newQUESTION: ${newQuestion}`)
+      // Close the create new question form
+      setRightAnswerCreateNew(false);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
 
     // Reset form fields
     setCorrectIncorrectNewStatement({
@@ -38,13 +56,9 @@ const AdminCorrectIncorrectCreateNew = () => {
     setCorrectIncorrectCreateNew(false);
   };
 
-  const handleCheckboxChange = (index, isChecked) => {
-    const updatedOptions = [...correctIncorrectNewStatement.isTrue];
-    updatedOptions[index].isTrue = isChecked;
-    setCorrectIncorrectNewStatement({ ...correctIncorrectNewStatement, isTrue: updatedOptions });
-    console.log(rightAnswerNewQuestion)
+  const handleCheckboxChange = (e) => {
+    setCorrectIncorrectNewStatement({ ...correctIncorrectNewStatement, isCorrect: e.target.checked });
   };
-
 
   return (
     <div className="newCorrectIncorrectContainer">
@@ -52,28 +66,25 @@ const AdminCorrectIncorrectCreateNew = () => {
       <h3 className="p-3 text-center">Create New Statement</h3>
       <div>
         <label className='correctIncorrectStatementFieldLabel'>Statement</label>
-        <input className='newCorrectIncorrectStatementInput' style={{ marginBottom: '1rem' }} type="text" value={correctIncorrectNewStatement.Statement} placeholder='Statement' onChange={(e) => setCorrectIncorrectNewStatement({ ...correctIncorrectNewStatement, Statement: e.target.value })} />
+        <input className='newCorrectIncorrectStatementInput' style={{ marginBottom: '1rem' }} type="text" value={correctIncorrectNewStatement.questionText} placeholder='Statement' onChange={(e) => setCorrectIncorrectNewStatement({ ...correctIncorrectNewStatement, questionText: e.target.value })} />
       </div>
 
       <div className='newCorrectIncorrectOptions'>
-
         <div className='checkBoxOptions'>
-
           <label className='correctIncorrectOptionsFieldLabel'>If the statement is true - check the box</label>
           <input
             className='correctIncorrectTrueCheckbox'
             type="checkbox"
-            checked={correctIncorrectNewStatement.isTrue}
-            onChange={(e) => handleCheckboxChange(index, e.target.checked)}
+            checked={correctIncorrectNewStatement.isCorrect}
+            onChange={handleCheckboxChange}
           />
         </div>
-
-
       </div>
 
       <div style={{ marginTop: '1rem' }}>
         <label>Bundle</label>
-        <select className='postBundles' type="dropdown" value={correctIncorrectNewStatement.Stage} placeholder='Choose a bundle' onChange={(e) => setCorrectIncorrectNewStatement({ ...correctIncorrectNewStatement, Stage: e.target.value })} >
+        <select className='postBundles' type="dropdown" value={correctIncorrectNewStatement.stage} placeholder='Choose a bundle' onChange={(e) => setCorrectIncorrectNewStatement({ ...correctIncorrectNewStatement, stage: e.target.value })} >
+          <option value="" disabled>Select Bundle</option>
           <option value="Easy">Easy Bundle</option>
           <option value="Medium">Medium Bundle</option>
           <option value="Hard">Hard Bundle</option>

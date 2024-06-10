@@ -11,7 +11,9 @@ namespace Domain
         public Quiz Quiz { get; set; }
         
         /*[Required(ErrorMessage = "'Question text must not be empty.")]*/
-        public string Text { get; set; }
+        #nullable enable
+        public string? Text { get; set; }
+        #nullable restore
         public ICollection<Answer> Answers { get; set; }
     }
 

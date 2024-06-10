@@ -18,6 +18,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>46f22eae-c8ea-42b2-9709-7182207b4d51</UserSecretsId>
-    <LangVersion>10.0</LangVersion>
+    <!--<LangVersion>10.0</LangVersion>
+    <Nullable>enable</Nullable>-->
   </PropertyGroup>
 </Project>

@@ -8,7 +8,7 @@ import avatar from '../assets/images/navbar/userpick.png'
 
 const AppContext = createContext();
 const baseUrl = "http://localhost:5000/api";
-const baseUrlImage = "http://192.168.1.10:8080/api";
+const baseUrlImage = "http://172.28.112.1:8080/API";
 
 const AppProvider = ({ children }) => {
 
@@ -62,7 +62,7 @@ const AppProvider = ({ children }) => {
   const [editingQuestion, setEditingQuestion] = useState(null);
   const [isQuestionEdit, setIsQuestionEdit] = useState(false);
   const [allRightAnswerQuestions, setAllRightAnswerQuestions] = useState([]);
-  const rightAnswerAPI = 'http://localhost:5000/api/Quizzes/randomByType?type=0'
+  const rightAnswerAPI = 'http://localhost:5000/api/Quizzes/randomByType/0'
 
 
   /* ADMIN FILL IN THE BLANK */
@@ -70,19 +70,19 @@ const AppProvider = ({ children }) => {
   const [editingFillInTheBlank, setEditingFillInTheBlank] = useState(null);
   const [isFillInTheBlankEdit, setIsFillInTheBlankEdit] = useState(false);
   const [allFillInTheBlankStatements, setAllFillInTheBlankStatements] = useState([]);
-  const fillInTheBlankAPI = 'http://localhost:5000/api/Quizzes/randombytype?type=2'
+  const fillInTheBlankAPI = 'http://localhost:5000/api/Quizzes/randombytype/2'
   /* ADMIN CORRECT/INCORRECT */
   const [correctIncorrectCreateNew, setCorrectIncorrectCreateNew] = useState(false);
   const [editingCorrectIncorrect, setEditingCorrectIncorrect] = useState(null);
   const [isCorrectIncorrectEdit, setIsCorrectIncorrectEdit] = useState(false);
   const [allCorrectIncorrect, setAllCorrectIncorrect] = useState([]);
-  const correctIncorrectAPI = 'http://localhost:5000/api/Quizzes/randombytype?type=1'
+  const correctIncorrectAPI = 'http://localhost:5000/api/Quizzes/randombytype/1'
   /* ADMIN GROUPING */
   const [groupingCreateNew, setGroupingCreateNew] = useState(false);
   const [editingGrouping, setEditingGrouping] = useState(null);
   const [isGroupingEdit, setIsGroupingEdit] = useState(false);
   const [allGrouping, setAllGrouping] = useState([]);
-  const groupingAPI = 'http://localhost:5000/api/Quizzes/randombytype?type=3'
+  const groupingAPI = 'http://localhost:5000/api/Quizzes/randombytype/3'
   /* _______________________________________________________________________________ */
 
 

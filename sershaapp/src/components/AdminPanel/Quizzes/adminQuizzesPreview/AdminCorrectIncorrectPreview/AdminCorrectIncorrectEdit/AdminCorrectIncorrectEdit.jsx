@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '../../../../../../context/context';
 import closeButton from '../../../../../../assets/images/adminPanel/closeButton.png';
 import './adminCorrectIncorrectEdit.css';
+import axios from 'axios';
 
 const AdminCorrectIncorrectEdit = () => {
   const {
+    baseUrl,
     editingCorrectIncorrect,
     setEditingCorrectIncorrect,
     isCorrectIncorrectEdit,
@@ -14,9 +16,8 @@ const AdminCorrectIncorrectEdit = () => {
   } = useGlobalContext();
 
   const [correctIncorrectEditStatement, setCorrectIncorrectEditStatement] = useState({
-    Statement: '',
-    isTrue: null,
-    Stage: '',
+    text: '',
+    isCorrect: null,
   });
 
   useEffect(() => {
@@ -24,18 +25,24 @@ const AdminCorrectIncorrectEdit = () => {
       setCorrectIncorrectEditStatement(editingCorrectIncorrect);
     }
   }, [editingCorrectIncorrect]);
+  console.log(`CORRECT ${correctIncorrectEditStatement}`)
 
-  const handleSubmit = () => {
-    // Update the edited statement
-    const updatedStatements = allCorrectIncorrect.map((statement, index) => {
-      if (index === editingCorrectIncorrect.index) {
-        return correctIncorrectEditStatement;
-      }
-      return statement;
-    });
+  const handleSubmit = async () => {
 
-    // Update the list of statements
-    setAllCorrectIncorrect(updatedStatements);
+    await axios.put(`${baseUrl}/Quizzes/${correctIncorrectEditStatement.id}`, correctIncorrectEditStatement);
+    setAllCorrectIncorrect(prevCorrectIncorrect => prevCorrectIncorrect.questions.map(quest => quest.id === correctIncorrectEditStatement.id ? correctIncorrectEditStatement : quest));
+    setIsPostEdit(false);
+
+    // // Update the edited statement
+    // const updatedStatements = allCorrectIncorrect.questions.map((statement, index) => {
+    //   if (index === editingCorrectIncorrect.index) {
+    //     return correctIncorrectEditStatement;
+    //   }
+    //   return statement;
+    // });
+
+    // // Update the list of statements
+    // setAllCorrectIncorrect(updatedStatements);
 
     // Reset form fields
     setCorrectIncorrectEditStatement({
@@ -64,9 +71,9 @@ const AdminCorrectIncorrectEdit = () => {
           className="correctIncorrectStatementInput"
           style={{ marginBottom: '1rem' }}
           type="text"
-          value={correctIncorrectEditStatement.Statement}
+          value={correctIncorrectEditStatement.text}
           placeholder="Statement"
-          onChange={(e) => setCorrectIncorrectEditStatement({ ...correctIncorrectEditStatement, Statement: e.target.value })}
+          onChange={(e) => setCorrectIncorrectEditStatement({ ...correctIncorrectEditStatement, text: e.target.value })}
         />
 
       </div>
@@ -77,7 +84,7 @@ const AdminCorrectIncorrectEdit = () => {
           <input
             className="correctIncorrectTrueCheckbox"
             type="checkbox"
-            checked={correctIncorrectEditStatement.isTrue}
+            checked={correctIncorrectEditStatement.isCorrect}
             onChange={(e) => handleCheckboxChange(e.target.checked)}
           />
         </div>

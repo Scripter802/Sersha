@@ -6,7 +6,7 @@ import './adminPanelEditPost.css';
 import axios from 'axios';
 
 const AdminPanelEditPost = () => {
-    const { baseUrl, editingPost, setIsPostEdit, setAllPosts, allAuthors } = useGlobalContext();
+    const { baseUrl, baseUrlImage, editingPost, setIsPostEdit, setAllPosts, allAuthors } = useGlobalContext();
     const [postHeadline, setPostHeadline] = useState('');
     const [postContentImage, setPostContentImage] = useState(null);
     const [postAuthor, setPostAuthor] = useState(editingPost.postAuthor);
@@ -21,10 +21,11 @@ const AdminPanelEditPost = () => {
             setPostId(editingPost.id)
             setPostHeadline(editingPost.title);
             setPostContentImage(editingPost.imagePath);
-            setPostAuthor(editingPost.author);
+            setPostAuthor(editingPost.authorId);
             setPostBundle(editingPost.stage);
             setPostType(editingPost.type);
         }
+        console.log(`postAuthor: ${editingPost}`)
     }, [editingPost]);
 
     const handleImageDrop = (acceptedFiles) => {
@@ -38,7 +39,7 @@ const AdminPanelEditPost = () => {
             author: postAuthor,
             stage: postBundle,
             type: postType,
-            // Handle image upload if necessary
+            imagePath: postContentImage instanceof File ? postContentImage.name : postContentImage,
         };
 
         const updatedPostFormData = new FormData();
@@ -52,7 +53,7 @@ const AdminPanelEditPost = () => {
         console.log(postAuthor.id)
 
 
-        await axios.put(`${baseUrl}/post/${editingPost.id}`, updatedPostFormData3);
+        await axios.put(`${baseUrl}/post/${editingPost.id}`, updatedPostFormData);
         setAllPosts(prevPosts => prevPosts.map(post => post.id === editingPost.id ? updatedPost : post));
         setIsPostEdit(false);
     };
@@ -73,7 +74,7 @@ const AdminPanelEditPost = () => {
                         <div {...getRootProps()} className="dropzone">
                             <input {...getInputProps()} />
                             {postContentImage ? (
-                                <img src={typeof postContentImage === 'string' ? `${baseUrl}/${postContentImage}` : URL.createObjectURL(postContentImage)} alt="Post" className="uploaded-image" />
+                                <img src={typeof postContentImage === 'string' ? `${baseUrlImage}/${postContentImage}` : URL.createObjectURL(postContentImage)} alt="Post" className="uploaded-image" />
                             ) : (
                                 <p>Drag 'n' drop an image here, or click to select an image</p>
                             )}

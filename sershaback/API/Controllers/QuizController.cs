@@ -101,5 +101,19 @@ namespace API.Controllers
             return await Mediator.Send(new RandomByAll.Query { Difficulty = difficulty, Type = type });
         }
 
+        [AllowAnonymous]
+        [HttpGet("ListQuestionsByType/{type}")]
+        public async Task<ActionResult<List<Question>>> ListQuestionsByType(QuizType type)
+        {
+            return await Mediator.Send(new ListQuestionsByType.Query{ Type = type});
+        }
+
+        [AllowAnonymous]
+        [HttpGet("ListQuestionsByAll/{difficulty}/{type}")]
+        public async Task<ActionResult<List<Question>>> ListQuestionsByAll(Difficulty difficulty, QuizType type)
+        {
+            return await Mediator.Send(new ListQuestionsByAll.Query{ Difficulty = difficulty, Type = type});
+        }
+
     }
 }

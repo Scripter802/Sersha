@@ -3,70 +3,85 @@ import { useGlobalContext } from '../../../../../../context/context';
 import closeButton from '../../../../../../assets/images/adminPanel/closeButton.png'
 
 import './rightAnswerCreateNewAnswer.css'
+import axios from 'axios';
 
 const RightAnswerCreateNewAnswer = () => {
-  const { allRightAnswerQuestions, setAllRightAnswerQuestions, rightAnswerCreateNew, setRightAnswerCreateNew } = useGlobalContext();
+  const { baseUrl, allRightAnswerQuestions, setAllRightAnswerQuestions, rightAnswerCreateNew, setRightAnswerCreateNew } = useGlobalContext();
   const [rightAnswerNewQuestion, setRightAnswerNewQuestion] = useState({
-    question: '',
-    options: [
-      { option: '', isCorrect: false },
-      { option: '', isCorrect: false },
-      { option: '', isCorrect: false }
+    questionText: '',
+    answers: [
+      { text: '', isCorrect: false },
+      { text: '', isCorrect: false },
+      { text: '', isCorrect: false }
     ],
     stage: ''
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    let dif = rightAnswerNewQuestion.stage === 'Easy' ? 0 : rightAnswerNewQuestion.stage === 'Medium' ? 1 : 2;
     // Construct the new question object
     const newQuestion = {
-      question: rightAnswerNewQuestion.question,
-      options: rightAnswerNewQuestion.options.map(option => ({
-        option: option.option,
-        isCorrect: option.isCorrect
-      })),
-      stage: rightAnswerNewQuestion.stage
+      type: 0,
+      difficulty: dif,
+      questions: [
+        {
+          questionText: rightAnswerNewQuestion.questionText,
+          answers: rightAnswerNewQuestion.answers.map(ans => ({
+            text: ans.text,
+            isCorrect: ans.isCorrect
+          })),
+        }
+      ]
     };
 
-    // Update the list of questions
-    setAllRightAnswerQuestions([...allRightAnswerQuestions, newQuestion]);
 
     // Reset form fields
     setRightAnswerNewQuestion({
-      question: '',
-      options: [
-        { option: '', isCorrect: false },
-        { option: '', isCorrect: false },
-        { option: '', isCorrect: false }
+      type: 0,
+      questionText: '',
+      answers: [
+        { text: '', isCorrect: false },
+        { text: '', isCorrect: false },
+        { text: '', isCorrect: false }
       ],
       stage: ''
     });
 
+    try {
+      const response = await axios.post(`${baseUrl}/Quizzes/create`, newQuestion);
+      console.log(`newQUESTION: ${newQuestion}`)
+      // Close the create new question form
+      setRightAnswerCreateNew(false);
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
 
-    // Close the create new question form
-    setRightAnswerCreateNew(false);
   };
 
   // Function to update the option value in state
   const handleOptionChange = (index, value) => {
-    const updatedOptions = [...rightAnswerNewQuestion.options];
-    updatedOptions[index].option = value;
-    setRightAnswerNewQuestion({ ...rightAnswerNewQuestion, options: updatedOptions });
+    const updatedOptions = [...rightAnswerNewQuestion.answers];
+    updatedOptions[index].text = value;
+    setRightAnswerNewQuestion({ ...rightAnswerNewQuestion, answers: updatedOptions });
   };
 
   // Function to update the checkbox value in state
   const handleCheckboxChange = (index, isChecked) => {
-    const updatedOptions = [...rightAnswerNewQuestion.options];
+    const updatedOptions = [...rightAnswerNewQuestion.answers];
     updatedOptions[index].isCorrect = isChecked;
-    setRightAnswerNewQuestion({ ...rightAnswerNewQuestion, options: updatedOptions });
+    setRightAnswerNewQuestion({ ...rightAnswerNewQuestion, answers: updatedOptions });
     console.log(rightAnswerNewQuestion)
   };
 
   const handleAddOption = () => {
     setRightAnswerNewQuestion({
       ...rightAnswerNewQuestion,
-      options: [
-        ...rightAnswerNewQuestion.options,
-        { option: '', isCorrect: false }
+      answers: [
+        ...rightAnswerNewQuestion.answers,
+        { text: '', isCorrect: false }
       ]
     });
   };
@@ -77,19 +92,19 @@ const RightAnswerCreateNewAnswer = () => {
       <h3 className="p-3 text-center">Create New Question</h3>
       <div>
         <label className='questionFieldLabel'>Question:</label>
-        <input className='newRightAnswerQuestionInput' type="text" value={rightAnswerNewQuestion.question} placeholder='Question' onChange={(e) => setRightAnswerNewQuestion({ ...rightAnswerNewQuestion, question: e.target.value })} />
+        <input className='newRightAnswerQuestionInput' type="text" value={rightAnswerNewQuestion.questionText} placeholder='Question' onChange={(e) => setRightAnswerNewQuestion({ ...rightAnswerNewQuestion, questionText: e.target.value })} />
       </div>
 
       <div className='newRightAnswerOptions'>
         <label className='optionsFieldLabel'>Options(check correct answer)</label>
-        {rightAnswerNewQuestion.options.map((option, index) => (
+        {rightAnswerNewQuestion.answers.map((ans, index) => (
           <>
             <div className='optionBox' key={index}>
               <label>
                 <input
                   className='postProfileName'
                   type="text"
-                  value={option.option}
+                  value={ans.text}
                   placeholder={`Option ${index + 1}`}
                   onChange={(e) => handleOptionChange(index, e.target.value)}
                 />
@@ -99,13 +114,13 @@ const RightAnswerCreateNewAnswer = () => {
                 <input
                   className='postProfileName'
                   type="checkbox"
-                  checked={option.isCorrect}
+                  checked={ans.isCorrect}
                   onChange={(e) => handleCheckboxChange(index, e.target.checked)}
                 />
               </div>
             </div>
             <div className='newOptionFieldAdd'>
-              {index === rightAnswerNewQuestion.options.length - 1 && (
+              {index === rightAnswerNewQuestion.answers.length - 1 && (
                 <button className='addNewOptionFieldBtn' onClick={handleAddOption}>
                   <div className='incrementCharacter'>
                     +
@@ -120,6 +135,7 @@ const RightAnswerCreateNewAnswer = () => {
       <div>
         <label>Bundle</label>
         <select className='postBundles' type="dropdown" value={rightAnswerNewQuestion.stage} placeholder='Choose a bundle' onChange={(e) => setRightAnswerNewQuestion({ ...rightAnswerNewQuestion, stage: e.target.value })} >
+          <option value="" disabled>Select Bundle</option>
           <option value="Easy">Easy Bundle</option>
           <option value="Medium">Medium Bundle</option>
           <option value="Hard">Hard Bundle</option>

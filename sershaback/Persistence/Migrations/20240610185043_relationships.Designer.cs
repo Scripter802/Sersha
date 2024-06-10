@@ -9,7 +9,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240602210758_relationships")]
+    [Migration("20240610185043_relationships")]
     partial class relationships
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -231,7 +231,6 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Text")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

@@ -4,11 +4,14 @@ using Domain;
 using Application.Quizzes;
 
 
+
 namespace Application.Quizzes
 {
     public class QuestionDto
     {
-        public string QuestionText { get; set; }
+        #nullable enable
+        public string? QuestionText { get; set; }
+        #nullable restore
         public bool IsCorrect { get; set; }
         public List<AnswerDto> Answers { get; set; }
         public string Statement1 { get; set; }

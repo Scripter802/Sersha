@@ -58,16 +58,19 @@ namespace Application.Quizzes
                     switch (request.Type)
                     {
                         case QuizType.RightAnswer:
-                            var rightAnswerQuestion = new RightAnswerQuestion
+                            if (questionDto.QuestionText != null)
                             {
-                                Text = questionDto.QuestionText,
-                                Answers = questionDto.Answers.Select(a => new Answer
+                                var rightAnswerQuestion = new RightAnswerQuestion
                                 {
-                                    Text = a.Text,
-                                    IsCorrect = a.IsCorrect
-                                }).ToList()
-                            };
-                            quiz.Questions.Add(rightAnswerQuestion);
+                                    Text = questionDto.QuestionText,
+                                    Answers = questionDto.Answers.Select(a => new Answer
+                                    {
+                                        Text = a.Text,
+                                        IsCorrect = a.IsCorrect
+                                    }).ToList()
+                                };
+                                quiz.Questions.Add(rightAnswerQuestion);
+                            }
                             break;
                         case QuizType.CorrectIncorrect:
                             question = new CorrectIncorrectQuestion

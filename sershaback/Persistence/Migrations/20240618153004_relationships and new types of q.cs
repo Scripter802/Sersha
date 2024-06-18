@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class relationships : Migration
+    public partial class relationshipsandnewtypesofq : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -72,8 +72,7 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Difficulty = table.Column<int>(nullable: false),
-                    Type = table.Column<int>(nullable: false)
+                    Difficulty = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -215,12 +214,15 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    QuizId = table.Column<Guid>(nullable: false),
                     Text = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    QuizId = table.Column<Guid>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
                     QuestionType = table.Column<string>(nullable: false),
                     IsCorrect = table.Column<bool>(nullable: true),
                     Statement1 = table.Column<string>(nullable: true),
-                    Statement2 = table.Column<string>(nullable: true)
+                    Statement2 = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -240,7 +242,8 @@ namespace Persistence.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Text = table.Column<string>(nullable: true),
                     IsCorrect = table.Column<bool>(nullable: false),
-                    QuestionId = table.Column<Guid>(nullable: false)
+                    QuestionId = table.Column<Guid>(nullable: false),
+                    ImagePath = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -254,7 +257,7 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Group",
+                name: "Groups",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -263,9 +266,9 @@ namespace Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Group", x => x.Id);
+                    table.PrimaryKey("PK_Groups", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Group_Questions_GroupingQuestionId",
+                        name: "FK_Groups_Questions_GroupingQuestionId",
                         column: x => x.GroupingQuestionId,
                         principalTable: "Questions",
                         principalColumn: "Id",
@@ -284,9 +287,9 @@ namespace Persistence.Migrations
                 {
                     table.PrimaryKey("PK_GroupingItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GroupingItems_Group_GroupId",
+                        name: "FK_GroupingItems_Groups_GroupId",
                         column: x => x.GroupId,
-                        principalTable: "Group",
+                        principalTable: "Groups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -334,14 +337,14 @@ namespace Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Group_GroupingQuestionId",
-                table: "Group",
-                column: "GroupingQuestionId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_GroupingItems_GroupId",
                 table: "GroupingItems",
                 column: "GroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Groups_GroupingQuestionId",
+                table: "Groups",
+                column: "GroupingQuestionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_AuthorId",
@@ -387,7 +390,7 @@ namespace Persistence.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Group");
+                name: "Groups");
 
             migrationBuilder.DropTable(
                 name: "Authors");

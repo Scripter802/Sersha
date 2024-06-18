@@ -9,7 +9,7 @@ namespace Domain
             Hard = 2
         }
 
-        public enum QuizType
+        public enum QuestionType
         {
             RightAnswer = 0,
             CorrectIncorrect = 1,

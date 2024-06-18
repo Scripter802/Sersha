@@ -16,13 +16,13 @@ namespace API.Controllers
     public class QuestionsController : BaseController
     {
         
-    [HttpPost("{quizId}/questions")]
+    /*[HttpPost("{quizId}/questions")]
     public async Task<IActionResult> AddQuestion(Guid quizId, [FromBody] AddQuestion.Command command)
     {
         command.QuizId = quizId;
         await Mediator.Send(command);
         return Ok();
-    }
+    }*/
 
     [HttpGet("questions/{id}")]
     public async Task<ActionResult<Question>> GetQuestion(Guid id)

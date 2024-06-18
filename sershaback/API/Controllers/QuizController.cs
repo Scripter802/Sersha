@@ -70,7 +70,7 @@ namespace API.Controllers
             return await Mediator.Send(new Application.Quizzes.RandomQuiz.Query());
         }
         
-        [AllowAnonymous]
+        /*[AllowAnonymous]
         [HttpGet("randomByType/{type}")]
         public async Task<ActionResult<Quiz>> RandomByType(QuizType type)
         {
@@ -80,7 +80,7 @@ namespace API.Controllers
                 return NotFound();
             }
             return Ok(quiz);
-        }
+        }*/
 
         [AllowAnonymous]
         [HttpDelete("{id}")]
@@ -94,26 +94,26 @@ namespace API.Controllers
             return Ok();
         }
 
-        [AllowAnonymous]
+        /*[AllowAnonymous]
         [HttpGet("RandomByAll/{difficulty}/{type}")]
         public async Task<ActionResult<Quiz>> RandomByAll(Difficulty difficulty, QuizType type)
         {
             return await Mediator.Send(new RandomByAll.Query { Difficulty = difficulty, Type = type });
-        }
+        }*/
 
-        [AllowAnonymous]
+        /*[AllowAnonymous]
         [HttpGet("ListQuestionsByType/{type}")]
         public async Task<ActionResult<List<Question>>> ListQuestionsByType(QuizType type)
         {
             return await Mediator.Send(new ListQuestionsByType.Query{ Type = type});
-        }
+        }*/
 
-        [AllowAnonymous]
+        /*[AllowAnonymous]
         [HttpGet("ListQuestionsByAll/{difficulty}/{type}")]
         public async Task<ActionResult<List<Question>>> ListQuestionsByAll(Difficulty difficulty, QuizType type)
         {
             return await Mediator.Send(new ListQuestionsByAll.Query{ Difficulty = difficulty, Type = type});
-        }
+        }*/
 
     }
 }

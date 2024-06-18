@@ -18,7 +18,6 @@ namespace Application.Quizzes
     {
         public class Command : IRequest
         {
-            public QuizType Type { get; set; }
             public Difficulty Difficulty { get; set; }
             public List<QuestionDto> Questions { get; set; } = new List<QuestionDto>();
         }
@@ -28,7 +27,6 @@ namespace Application.Quizzes
             public CommandValidator()
             {
                 RuleFor(x => x.Difficulty).IsInEnum();
-                RuleFor(x => x.Type).IsInEnum();
                 RuleForEach(x => x.Questions).ChildRules(question =>
                 {
                     question.RuleFor(q => q.QuestionText)
@@ -56,7 +54,6 @@ namespace Application.Quizzes
                 {
                     Id = Guid.NewGuid(),
                     Difficulty = request.Difficulty,
-                    Type = request.Type,
                     Questions = new List<Question>()
                 };
 
@@ -68,7 +65,7 @@ namespace Application.Quizzes
                         questionImagePath = await SaveImage(questionDto.ImageFile, quiz.Id, "question");
                     }
 
-                    Question question = await CreateQuestionBasedOnType(request.Type, questionDto, questionImagePath);
+                    Question question = await CreateQuestionBasedOnType(questionDto.Type, questionDto, questionImagePath);
                     question.QuizId = quiz.Id;
                     quiz.Questions.Add(question);
                     _context.Questions.Add(question);
@@ -83,20 +80,20 @@ namespace Application.Quizzes
 
             private async Task<string> SaveImage(IFormFile imageFile, Guid quizId, string folder)
             {
-                string path = Directory.GetCurrentDirectory() + "\\Images\\quizImages\\" + quizId + "\\" + folder;
-                FileInfo fi = new FileInfo(imageFile.FileName);
-                string fileName = Guid.NewGuid().ToString() + fi.Extension;
-                Directory.CreateDirectory(path);
-                path = Path.Combine(path, fileName);
+                string path = Path.Combine(_env.WebRootPath, "Images", "quizImages", quizId.ToString(), folder);
+                Directory.CreateDirectory(path); 
+                string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+                string fullPath = Path.Combine(path, fileName);
 
-                using (var fs = new FileStream(path, FileMode.Create))
+                using (var fs = new FileStream(fullPath, FileMode.Create))
                 {
                     await imageFile.CopyToAsync(fs);
                 }
-                return "/Images/quizImages/" + quizId + "/" + folder + "/" + fileName;
+
+                return Path.Combine("/Images/quizImages", quizId.ToString(), folder, fileName);
             }
 
-            private async Task<Question> CreateQuestionBasedOnType(QuizType type, QuestionDto questionDto, string questionImagePath)
+            private async Task<Question> CreateQuestionBasedOnType(QuestionType type, QuestionDto questionDto, string questionImagePath)
             {
                 var answers = new List<Answer>();
 
@@ -120,21 +117,21 @@ namespace Application.Quizzes
 
                 switch (type)
                 {
-                    case QuizType.RightAnswer:
+                    case QuestionType.RightAnswer:
                         return new RightAnswerQuestion
                         {
                             Text = questionDto.QuestionText,
                             Answers = answers
                         };
 
-                    case QuizType.CorrectIncorrect:
+                    case QuestionType.CorrectIncorrect:
                         return new CorrectIncorrectQuestion
                         {
                             Text = questionDto.QuestionText,
                             IsCorrect = questionDto.IsCorrect
                         };
 
-                    case QuizType.FillInTheBlank:
+                    case QuestionType.FillInTheBlank:
                         return new FillInTheBlankQuestion
                         {
                             Text = questionDto.QuestionText,
@@ -143,7 +140,7 @@ namespace Application.Quizzes
                             Answers = answers
                         };
 
-                    case QuizType.Grouping:
+                    case QuestionType.Grouping:
                         return new GroupingQuestion
                         {
                             Text = questionDto.QuestionText,
@@ -157,7 +154,7 @@ namespace Application.Quizzes
                             }).ToList()
                         };
 
-                    case QuizType.SnapJudgement:
+                    case QuestionType.SnapJudgement:
                         return new SnapJudgementQuestion
                         {
                             Text = questionDto.QuestionText,
@@ -165,7 +162,7 @@ namespace Application.Quizzes
                             Answers = answers
                         };
 
-                    case QuizType.EmojiEmotions:
+                    case QuestionType.EmojiEmotions:
                         return new EmojiEmotionsQuestion
                         {
                             Text = questionDto.QuestionText,
@@ -173,7 +170,7 @@ namespace Application.Quizzes
                             Answers = answers
                         };
 
-                    case QuizType.FriendOrFoe:
+                    case QuestionType.FriendOrFoe:
                         return new FriendOrFoeQuestion
                         {
                             Text = questionDto.QuestionText,
@@ -181,7 +178,7 @@ namespace Application.Quizzes
                             Answers = answers
                         };
 
-                    case QuizType.PostingChallenge:
+                    case QuestionType.PostingChallenge:
                         return new PostingChallengeQuestion
                         {
                             Text = questionDto.QuestionText,
@@ -193,8 +190,6 @@ namespace Application.Quizzes
                         throw new Exception("Invalid question type");
                 }
             }
-
-
         }
     }
 }

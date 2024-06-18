@@ -3,11 +3,14 @@ using static Domain.Enums;
 using Domain;
 using Application.Quizzes;
 using Microsoft.AspNetCore.Http;
+using System;
 
 namespace Application.Quizzes
 {
     public class QuestionDto
     {
+        public Guid Id { get; set; } 
+        public QuestionType Type { get; set; }
         #nullable enable
         public string? QuestionText { get; set; }
         public IFormFile? ImageFile { get; set; } 

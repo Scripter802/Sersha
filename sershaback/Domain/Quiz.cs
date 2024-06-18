@@ -10,7 +10,7 @@ namespace Domain
         public Guid Id { get; set; }
         public Difficulty Difficulty { get; set; }
         public QuizType Type { get; set; }
-        public ICollection<Question> Questions { get; set; }
+        public List<Question> Questions { get; set; } = new List<Question>();
 
         /*[Timestamp]
         public byte[] RowVersion { get; set; }*/

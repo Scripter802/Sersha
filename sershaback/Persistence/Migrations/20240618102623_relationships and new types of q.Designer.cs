@@ -9,8 +9,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240610185043_relationships")]
-    partial class relationships
+    [Migration("20240618102623_relationships and new types of q")]
+    partial class relationshipsandnewtypesofq
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,6 +22,9 @@ namespace Persistence.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ImagePath")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsCorrect")
@@ -161,7 +164,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("GroupingQuestionId");
 
-                    b.ToTable("Group");
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("Domain.GroupingItem", b =>
@@ -221,6 +224,9 @@ namespace Persistence.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ImagePath")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("QuestionType")
@@ -397,6 +403,13 @@ namespace Persistence.Migrations
                     b.HasDiscriminator().HasValue("CorrectIncorrect");
                 });
 
+            modelBuilder.Entity("Domain.EmojiEmotionsQuestion", b =>
+                {
+                    b.HasBaseType("Domain.Question");
+
+                    b.HasDiscriminator().HasValue("EmojiEmotions");
+                });
+
             modelBuilder.Entity("Domain.FillInTheBlankQuestion", b =>
                 {
                     b.HasBaseType("Domain.Question");
@@ -410,6 +423,13 @@ namespace Persistence.Migrations
                     b.HasDiscriminator().HasValue("FillInTheBlank");
                 });
 
+            modelBuilder.Entity("Domain.FriendOrFoeQuestion", b =>
+                {
+                    b.HasBaseType("Domain.Question");
+
+                    b.HasDiscriminator().HasValue("FriendOrFoe");
+                });
+
             modelBuilder.Entity("Domain.GroupingQuestion", b =>
                 {
                     b.HasBaseType("Domain.Question");
@@ -417,11 +437,28 @@ namespace Persistence.Migrations
                     b.HasDiscriminator().HasValue("Grouping");
                 });
 
+            modelBuilder.Entity("Domain.PostingChallengeQuestion", b =>
+                {
+                    b.HasBaseType("Domain.Question");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.HasDiscriminator().HasValue("PostingChallenge");
+                });
+
             modelBuilder.Entity("Domain.RightAnswerQuestion", b =>
                 {
                     b.HasBaseType("Domain.Question");
 
                     b.HasDiscriminator().HasValue("RightAnswer");
+                });
+
+            modelBuilder.Entity("Domain.SnapJudgementQuestion", b =>
+                {
+                    b.HasBaseType("Domain.Question");
+
+                    b.HasDiscriminator().HasValue("SnapJudgement");
                 });
 
             modelBuilder.Entity("Domain.Answer", b =>

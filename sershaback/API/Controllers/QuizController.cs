@@ -16,7 +16,7 @@ namespace API.Controllers
     {
         [AllowAnonymous]
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] Create.Command command)
+        public async Task<IActionResult>  Create([FromForm] Create.Command command)
         {
             var result = await Mediator.Send(command);
             return Ok(result);

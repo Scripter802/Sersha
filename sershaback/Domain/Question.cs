@@ -7,14 +7,11 @@ namespace Domain
     public abstract class Question
     {
         public Guid Id { get; set; }
+        public string Text { get; set; } // ?
+        public string ImagePath { get; set; } // ?
         public Guid QuizId { get; set; }
         public Quiz Quiz { get; set; }
-        
-        /*[Required(ErrorMessage = "'Question text must not be empty.")]*/
-        #nullable enable
-        public string? Text { get; set; }
-        #nullable restore
-        public ICollection<Answer> Answers { get; set; }
+        public List<Answer> Answers { get; set; } = new List<Answer>();
     }
 
 }

@@ -20,7 +20,12 @@ namespace Persistence
         public DbSet<CorrectIncorrectQuestion> CorrectIncorrectQuestions { get; set; }
         public DbSet<FillInTheBlankQuestion> FillInTheBlankQuestions { get; set; }
         public DbSet<GroupingQuestion> GroupingQuestions { get; set; }
+        public DbSet<SnapJudgementQuestion> SnapJudgementQuestions { get; set; }
+        public DbSet<EmojiEmotionsQuestion> EmojiEmotionsQuestions { get; set; }
+        public DbSet<FriendOrFoeQuestion> FriendOrFoeQuestions { get; set; }
+        public DbSet<PostingChallengeQuestion> PostingChallengeQuestions { get; set; }
         public DbSet<Answer> Answers { get; set; }
+        public DbSet<Group> Groups { get; set; }
         public DbSet<GroupingItem> GroupingItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -34,17 +39,22 @@ namespace Persistence
                 .OnDelete(DeleteBehavior.Cascade);   
 
             
-            builder.Entity<Quiz>()
+             builder.Entity<Quiz>()
                 .HasMany(q => q.Questions)
                 .WithOne(q => q.Quiz)
-                .HasForeignKey(q => q.QuizId);
+                .HasForeignKey(q => q.QuizId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Question>()
                 .HasDiscriminator<string>("QuestionType")
                 .HasValue<RightAnswerQuestion>("RightAnswer")
                 .HasValue<CorrectIncorrectQuestion>("CorrectIncorrect")
                 .HasValue<FillInTheBlankQuestion>("FillInTheBlank")
-                .HasValue<GroupingQuestion>("Grouping");
+                .HasValue<GroupingQuestion>("Grouping")
+                .HasValue<SnapJudgementQuestion>("SnapJudgement")
+                .HasValue<EmojiEmotionsQuestion>("EmojiEmotions")
+                .HasValue<FriendOrFoeQuestion>("FriendOrFoe")
+                .HasValue<PostingChallengeQuestion>("PostingChallenge");
 
             builder.Entity<Question>()
                 .HasMany(q => q.Answers)

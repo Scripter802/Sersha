@@ -72,8 +72,7 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Difficulty = table.Column<int>(nullable: false),
-                    Type = table.Column<int>(nullable: false)
+                    Difficulty = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -218,6 +217,7 @@ namespace Persistence.Migrations
                     Text = table.Column<string>(nullable: true),
                     ImagePath = table.Column<string>(nullable: true),
                     QuizId = table.Column<Guid>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
                     QuestionType = table.Column<string>(nullable: false),
                     IsCorrect = table.Column<bool>(nullable: true),
                     Statement1 = table.Column<string>(nullable: true),

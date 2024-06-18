@@ -24,6 +24,7 @@ namespace API.Controllers
         return Ok();
     }*/
 
+    [AllowAnonymous]
     [HttpGet("questions/{id}")]
     public async Task<ActionResult<Question>> GetQuestion(Guid id)
     {
@@ -31,6 +32,7 @@ namespace API.Controllers
         return Ok(question);
     }
 
+    [AllowAnonymous]
     [HttpDelete("questions/{id}")]
     public async Task<IActionResult> DeleteQuestion(Guid id)
     {

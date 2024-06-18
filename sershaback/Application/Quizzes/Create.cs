@@ -80,10 +80,14 @@ namespace Application.Quizzes
 
             private async Task<string> SaveImage(IFormFile imageFile, Guid quizId, string folder)
             {
-                string path = Path.Combine(_env.WebRootPath, "Images", "quizImages", quizId.ToString(), folder);
-                Directory.CreateDirectory(path); 
+               
+                string basePath = _env.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+                string imagesPath = Path.Combine(basePath, "Images", "quizImages", quizId.ToString(), folder);
+
+                Directory.CreateDirectory(imagesPath); 
+
                 string fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
-                string fullPath = Path.Combine(path, fileName);
+                string fullPath = Path.Combine(imagesPath, fileName);
 
                 using (var fs = new FileStream(fullPath, FileMode.Create))
                 {

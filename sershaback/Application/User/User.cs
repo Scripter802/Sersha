@@ -1,4 +1,5 @@
 using System;
+using Application.Avatar;
 using Microsoft.AspNetCore.Identity;
 
 namespace Application.User
@@ -16,5 +17,7 @@ namespace Application.User
         public string Image {get; set;}
         public string Email { get; internal set; }
         public string Password { get; internal set; }
+        public int Stage { get; set; }
+        public AvatarImageDTO AvatarImage { get; set; } 
     }
 }

@@ -15,8 +15,6 @@ namespace Domain
     public class AppUser : IdentityUser
     {
         public string Password;
-
-
         public string FullName {get;set;}
         public string ParentsFullName {get;set;}
         [NotMapped]
@@ -27,7 +25,8 @@ namespace Domain
         public string ParentPhoneNumber{get;set;}
         public DateTime UserBirthDate{get;set;}
         public string Type { get; set; }
-
-
+        public AvatarImage AvatarImage { get; set; }
+        public Guid? AvatarImageId { get; set; }
+        public int Stage { get; set; }
     }
 }

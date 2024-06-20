@@ -1,16 +1,124 @@
+/* adminPanelQuizzes.css */
 .adminPanelQuizzesContainer {
+  position: relative;
   margin: 20px auto;
+  background-color: transparent;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #FFB496;
   width: 80%;
-  color: #ffffff;
-  opacity: 0.9;
-  padding: 2rem;
-  border-radius: 30px 30px;
+  background: linear-gradient(180deg, #2F202F 0%, #460C23FF 100%);
+}
+
+.createNewQuizzBtn {
+  margin-block: 20px;
+  padding: 10px 20px;
+  background-color: #444648;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.noQ,
+.noQuest {
+  text-align: center;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background: linear-gradient(180deg, #2F202F 0%, #460C23FF 100%);
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 8px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 @media only screen and (max-width: 768px) {
   .adminPanelQuizzesContainer {
     width: 100%;
-    padding: 0;
+    padding: 10px;
   }
+}
 
+/* singleQuizz.css */
+.singleQuizzContainer {
+  padding: 20px;
+}
+
+.singleQuizzWrapper {
+  margin: 20px 0;
+}
+
+.quizTitle {
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.table th {
+  text-align: left;
+}
+
+.settingsData {
+  gap: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.edit-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
 }

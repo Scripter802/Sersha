@@ -1,140 +1,138 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useGlobalContext } from '../../../../context/context';
-import closeButton from '../../../../assets/images/adminPanel/closeButton.png'
-
-import './quizzesCreateNew.css'
+import closeButton from '../../../../assets/images/adminPanel/closeButton.png';
 import axios from 'axios';
 
+import './quizzesCreateNew.css';
+
 const QuizzesCreateNew = () => {
-  const { baseUrl, allRightAnswerQuestions, setAllRightAnswerQuestions, rightAnswerCreateNew, setRightAnswerCreateNew } = useGlobalContext();
-  const [rightAnswerNewQuestion, setRightAnswerNewQuestion] = useState({
-    questionText: '',
-    answers: [
-      { text: '', isCorrect: false },
-      { text: '', isCorrect: false },
-      { text: '', isCorrect: false }
-    ],
-    stage: ''
+  const { baseUrl, setQuizzesCreateNew } = useGlobalContext();
+  const [currentQuestion, setCurrentQuestion] = useState({
+    stage: '',
+    questions: [
+      {
+        type: '',
+        text: '',
+        answers: [{ text: '', isCorrect: false }],
+        statement1: '',
+        statement2: '',
+        groups: [
+          { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] },
+          { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] }
+        ],
+      }
+    ]
   });
 
+  let dif = currentQuestion.stage === 'Easy' ? 0 : currentQuestion.stage === 'Medium' ? 1 : 2;
+
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('difficulty', dif);
 
-    let dif = rightAnswerNewQuestion.stage === 'Easy' ? 0 : rightAnswerNewQuestion.stage === 'Medium' ? 1 : 2;
-    // Construct the new question object
-    const newQuestion = {
-      type: 0,
-      difficulty: dif,
-      questions: [
-        {
-          questionText: rightAnswerNewQuestion.questionText,
-          answers: rightAnswerNewQuestion.answers.map(ans => ({
-            text: ans.text,
-            isCorrect: ans.isCorrect
-          })),
-        }
-      ]
-    };
+    currentQuestion.questions.forEach((question, qIndex) => {
+      let type = question.type === 'Right Answer' ? 0 : question.type === 'Correct/Incorrect' ? 1 : question.type === 'Fill in The Blank' ? 2 : 3;
 
+      if (question.text == "") {
+        question.text = 'asd';
 
-    // Reset form fields
-    setRightAnswerNewQuestion({
-      type: 0,
-      questionText: '',
-      answers: [
-        { text: '', isCorrect: false },
-        { text: '', isCorrect: false },
-        { text: '', isCorrect: false }
-      ],
-      stage: ''
+      }
+      formData.append(`questions[${qIndex}][type]`, type);
+      formData.append(`questions[${qIndex}][questionText]`, question.text);
+      formData.append(`questions[${qIndex}][statement1]`, question.statement1);
+      formData.append(`questions[${qIndex}][statement2]`, question.statement2);
+
+      question.answers.forEach((answer, aIndex) => {
+        formData.append(`questions[${qIndex}][answers][${aIndex}][text]`, answer.text);
+        formData.append(`questions[${qIndex}][answers][${aIndex}][isCorrect]`, answer.isCorrect);
+      });
+
+      question.groups.forEach((group, gIndex) => {
+        formData.append(`questions[${qIndex}][groups][${gIndex}][groupName]`, group.groupName);
+        group.items.forEach((item, iIndex) => {
+          formData.append(`questions[${qIndex}][groups][${gIndex}][items][${iIndex}][item]`, item.item);
+        });
+      });
     });
 
     try {
-      const response = await axios.post(`${baseUrl}/Quizzes/create`, newQuestion);
-      console.log(`newQUESTION: ${newQuestion}`)
-      // Close the create new question form
+      const response = await axios.post(`${baseUrl}/Quizzes/create`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
       setRightAnswerCreateNew(false);
       console.log(response.data);
     } catch (error) {
       console.log(error);
     }
-
   };
 
-  // Function to update the option value in state
-  const handleOptionChange = (index, value) => {
-    const updatedOptions = [...rightAnswerNewQuestion.answers];
-    updatedOptions[index].text = value;
-    setRightAnswerNewQuestion({ ...rightAnswerNewQuestion, answers: updatedOptions });
-  };
-
-  // Function to update the checkbox value in state
-  const handleCheckboxChange = (index, isChecked) => {
-    const updatedOptions = [...rightAnswerNewQuestion.answers];
-    updatedOptions[index].isCorrect = isChecked;
-    setRightAnswerNewQuestion({ ...rightAnswerNewQuestion, answers: updatedOptions });
-    console.log(rightAnswerNewQuestion)
-  };
-
-  const handleAddOption = () => {
-    setRightAnswerNewQuestion({
-      ...rightAnswerNewQuestion,
-      answers: [
-        ...rightAnswerNewQuestion.answers,
-        { text: '', isCorrect: false }
+  const handleAddQuestion = () => {
+    setCurrentQuestion({
+      ...currentQuestion,
+      questions: [
+        ...currentQuestion.questions,
+        {
+          type: '',
+          text: '',
+          answers: [{ text: '', isCorrect: false }],
+          statement1: '',
+          statement2: '',
+          groups: [
+            { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] },
+            { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] }
+          ],
+        }
       ]
     });
   };
 
+  const handleQuestionChange = (index, field, value) => {
+    const updatedQuestions = [...currentQuestion.questions];
+    updatedQuestions[index][field] = value;
+    setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
+  };
+
+  const handleAnswerChange = (qIndex, aIndex, field, value) => {
+    const updatedQuestions = [...currentQuestion.questions];
+    updatedQuestions[qIndex].answers[aIndex][field] = value;
+    setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
+  };
+
+  const handleAddAnswer = (qIndex) => {
+    const updatedQuestions = [...currentQuestion.questions];
+    updatedQuestions[qIndex].answers.push({ text: '', isCorrect: false });
+    setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
+  };
+
+  const handleGroupChange = (qIndex, gIndex, field, value) => {
+    const updatedQuestions = [...currentQuestion.questions];
+    updatedQuestions[qIndex].groups[gIndex][field] = value;
+    setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
+  };
+
+  const handleGroupItemChange = (qIndex, gIndex, iIndex, value) => {
+    const updatedQuestions = [...currentQuestion.questions];
+    updatedQuestions[qIndex].groups[gIndex].items[iIndex].item = value;
+    setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
+  };
+
   return (
     <div className="newRightAnswerQuestionContainer">
-      <div className="close-btn" onClick={() => setRightAnswerCreateNew(false)}><img src={closeButton} alt='close' /></div>
-      <h3 className="p-3 text-center">Create New Question</h3>
-      <div>
-        <label className='questionFieldLabel'>Question:</label>
-        <input className='newRightAnswerQuestionInput' type="text" value={rightAnswerNewQuestion.questionText} placeholder='Question' onChange={(e) => setRightAnswerNewQuestion({ ...rightAnswerNewQuestion, questionText: e.target.value })} />
+      <div className="close-btn" onClick={() => setQuizzesCreateNew(false)}>
+        <img src={closeButton} alt='close' />
       </div>
+      <h3 className="p-3 text-center">Create New Quiz</h3>
 
-      <div className='newRightAnswerOptions'>
-        <label className='optionsFieldLabel'>Options(check correct answer)</label>
-        {rightAnswerNewQuestion.answers.map((ans, index) => (
-          <>
-            <div className='optionBox' key={index}>
-              <label>
-                <input
-                  className='postProfileName'
-                  type="text"
-                  value={ans.text}
-                  placeholder={`Option ${index + 1}`}
-                  onChange={(e) => handleOptionChange(index, e.target.value)}
-                />
-              </label>
-              <div className='checkBoxOptions'>
-
-                <input
-                  className='postProfileName'
-                  type="checkbox"
-                  checked={ans.isCorrect}
-                  onChange={(e) => handleCheckboxChange(index, e.target.checked)}
-                />
-              </div>
-            </div>
-            <div className='newOptionFieldAdd'>
-              {index === rightAnswerNewQuestion.answers.length - 1 && (
-                <button className='addNewOptionFieldBtn' onClick={handleAddOption}>
-                  <div className='incrementCharacter'>
-                    +
-                  </div>
-                </button>
-              )}
-            </div>
-          </>
-        ))}
-
-      </div>
       <div>
         <label>Bundle</label>
-        <select className='postBundles' type="dropdown" value={rightAnswerNewQuestion.stage} placeholder='Choose a bundle' onChange={(e) => setRightAnswerNewQuestion({ ...rightAnswerNewQuestion, stage: e.target.value })} >
+        <select
+          className='postBundles'
+          value={currentQuestion.stage}
+          onChange={(e) => setCurrentQuestion({ ...currentQuestion, stage: e.target.value })}
+        >
           <option value="" disabled>Select Bundle</option>
           <option value="Easy">Easy Bundle</option>
           <option value="Medium">Medium Bundle</option>
@@ -142,10 +140,200 @@ const QuizzesCreateNew = () => {
         </select>
       </div>
 
+      {currentQuestion.questions.map((question, qIndex) => (
+        <div key={qIndex} className="newQuestionContainer">
+          <div>
+            <label>Question type</label>
+            <select
+              className='postBundles'
+              value={question.type}
+              onChange={(e) => handleQuestionChange(qIndex, 'type', e.target.value)}
+            >
+              <option value="" disabled>Select Type</option>
+              <option value="Right Answer">Right Answer</option>
+              <option value="Correct/Incorrect">Correct/Incorrect</option>
+              <option value="Fill in The Blank">Fill in The Blank</option>
+              <option value="Grouping">Grouping</option>
+            </select>
+          </div>
 
-      <button className='newPostBtn' onClick={handleSubmit}>Submit</button>
+          {question.type === 'Right Answer' && (
+            <>
+              <div>
+                <label className='questionFieldLabel'>Question:</label>
+                <input
+                  className='newRightAnswerQuestionInput'
+                  type="text"
+                  value={question.text}
+                  placeholder='Question'
+                  onChange={(e) => handleQuestionChange(qIndex, 'text', e.target.value)}
+                />
+              </div>
+              <div className='newRightAnswerOptions'>
+                <label className='optionsFieldLabel'>Options (check correct answer)</label>
+                {question.answers.map((ans, aIndex) => (
+                  <div className='optionBox' key={aIndex}>
+                    <input
+                      className='postProfileName'
+                      type="text"
+                      value={ans.text}
+                      placeholder={`Option ${aIndex + 1}`}
+                      onChange={(e) => handleAnswerChange(qIndex, aIndex, 'text', e.target.value)}
+                    />
+                    <input
+                      className='postProfileName'
+                      type="checkbox"
+                      checked={ans.isCorrect}
+                      onChange={(e) => handleAnswerChange(qIndex, aIndex, 'isCorrect', e.target.checked)}
+                    />
+                  </div>
+                ))}
+                <button className='addNewOptionFieldBtn' onClick={() => handleAddAnswer(qIndex)}>
+                  <div className='incrementCharacter'>+</div>
+                </button>
+              </div>
+            </>
+          )}
+
+          {question.type === 'Correct/Incorrect' && (
+            <>
+              <div>
+                <label className='questionFieldLabel'>Statement:</label>
+                <input
+                  className='newRightAnswerQuestionInput'
+                  type="text"
+                  value={question.text}
+                  placeholder='Statement'
+                  onChange={(e) => handleQuestionChange(qIndex, 'text', e.target.value)}
+                />
+              </div>
+              <div className='newRightAnswerOptions'>
+                <label className='optionsFieldLabel'>Options</label>
+                <div className='optionBox'>
+                  <label>
+                    True
+                    <input
+                      className='postProfileName'
+                      type="checkbox"
+                      checked={question.answers[0].isCorrect}
+                      onChange={(e) => handleAnswerChange(qIndex, 0, 'isCorrect', e.target.checked)}
+                    />
+                  </label>
+                  <label>
+                    False
+                    <input
+                      className='postProfileName'
+                      type="checkbox"
+                      checked={question?.answers[1]?.isCorrect}
+                      onChange={(e) => handleAnswerChange(qIndex, 1, 'isCorrect', e.target.checked)}
+                    />
+                  </label>
+                </div>
+              </div>
+            </>
+          )}
+
+          {question.type === 'Fill in The Blank' && (
+            <>
+              <div>
+                <label className='questionFieldLabel'>Statement 1:</label>
+                <input
+                  className='newRightAnswerQuestionInput'
+                  type="text"
+                  value={question.statement1}
+                  placeholder='Statement 1'
+                  onChange={(e) => handleQuestionChange(qIndex, 'statement1', e.target.value)}
+                />
+              </div>
+              <div>
+                <label className='questionFieldLabel'>Statement 2:</label>
+                <input
+                  className='newRightAnswerQuestionInput'
+                  type="text"
+                  value={question.statement2}
+                  placeholder='Statement 2'
+                  onChange={(e) => handleQuestionChange(qIndex, 'statement2', e.target.value)}
+                />
+              </div>
+              <div className='newRightAnswerOptions'>
+                <label className='optionsFieldLabel'>Options</label>
+                {question.answers.map((ans, aIndex) => (
+                  <div className='optionBox' key={aIndex}>
+                    <input
+                      className='postProfileName'
+                      type="text"
+                      value={ans.text}
+                      placeholder={`Option ${aIndex + 1}`}
+                      onChange={(e) => handleAnswerChange(qIndex, aIndex, 'text', e.target.value)}
+                    />
+                  </div>
+                ))}
+                <button className='addNewOptionFieldBtn' onClick={() => handleAddAnswer(qIndex)}>
+                  <div className='incrementCharacter'>+</div>
+                </button>
+              </div>
+            </>
+          )}
+
+          {question.type === 'Grouping' && (
+            <>
+              <div>
+                <label className='questionFieldLabel'>Group 1 Name:</label>
+                <input
+                  className='newRightAnswerQuestionInput'
+                  type="text"
+                  value={question.groups[0].groupName}
+                  placeholder='Group 1 Name'
+                  onChange={(e) => handleGroupChange(qIndex, 0, 'groupName', e.target.value)}
+                />
+              </div>
+              <div className='newRightAnswerOptions'>
+                <label className='optionsFieldLabel'>Options</label>
+                {question.groups[0].items.map((item, iIndex) => (
+                  <div className='optionBox' key={iIndex}>
+                    <input
+                      className='postProfileName'
+                      type="text"
+                      value={item.item}
+                      placeholder={`Option ${iIndex + 1}`}
+                      onChange={(e) => handleGroupItemChange(qIndex, 0, iIndex, e.target.value)}
+                    />
+                  </div>
+                ))}
+              </div>
+              <div>
+                <label className='questionFieldLabel'>Group 2 Name:</label>
+                <input
+                  className='newRightAnswerQuestionInput'
+                  type="text"
+                  value={question.groups[1].groupName}
+                  placeholder='Group 2 Name'
+                  onChange={(e) => handleGroupChange(qIndex, 1, 'groupName', e.target.value)}
+                />
+              </div>
+              <div className='newRightAnswerOptions'>
+                <label className='optionsFieldLabel'>Options</label>
+                {question.groups[1].items.map((item, iIndex) => (
+                  <div className='optionBox' key={iIndex}>
+                    <input
+                      className='postProfileName'
+                      type="text"
+                      value={item.item}
+                      placeholder={`Option ${iIndex + 1}`}
+                      onChange={(e) => handleGroupItemChange(qIndex, 1, iIndex, e.target.value)}
+                    />
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      ))}
+
+      <button className='newPostBtn' onClick={handleAddQuestion}>Add New Question</button>
+      <button className='newPostBtn' onClick={handleSubmit}>Submit Quiz</button>
     </div>
   );
-}
+};
 
-export default QuizzesCreateNew
+export default QuizzesCreateNew;

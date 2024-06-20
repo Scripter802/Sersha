@@ -7,9 +7,26 @@ import SingleQuizz from './SingleQuizzes/SingleQuizz.jsx';
 import axios from 'axios';
 
 const AdminPanelQuizzes = () => {
-  const { baseUrl, quizzesCreateNew, setQuizzesCreateNew, quizzesEdit, allQuizzes, setAllQuizzes, setSelectedQuestion, setQuestionEdit } = useGlobalContext();
+  const { baseUrl, quizzesCreateNew, setQuizzesCreateNew, correctIncorrectIsTrue, setCorrectIncorrectIsTrue, quizzesEdit, allQuizzes, setAllQuizzes, setSelectedQuestion, setQuestionEdit } = useGlobalContext();
   const [isSingleQuizz, setIsSingleQuizz] = useState(false);
   const [selectedQuizz, setSelectedQuizz] = useState(null);
+
+  const handleDeleteQuizz = async (quizz) => {
+    try {
+      const response = await axios.delete(`${baseUrl}/Quizzes/${quizz.id}`);
+      if (response.status === 200) {
+        const updatedQuestions = quizz.questions.filter((_, idx) => idx !== quizz.index);
+        quizz.questions = updatedQuestions;
+        setSelectedQuestion({ ...quizz }); // Force re-render
+
+        // Update the allQuizzes state by filtering out the deleted quiz
+        const updatedQuizzes = allQuizzes.filter(q => q.id !== quizz.id);
+        setAllQuizzes(updatedQuizzes);
+      }
+    } catch (error) {
+      console.error('Error deleting the question:', error);
+    }
+  };
 
   useEffect(() => {
     const fetchAllQuizzes = async () => {
@@ -22,25 +39,13 @@ const AdminPanelQuizzes = () => {
     };
 
     fetchAllQuizzes();
-  }, []);
+  }, [quizzesEdit, quizzesCreateNew]);
 
   const handleEditQuestion = (index) => {
     setEditingQuestion(questions[index]);
     setIsQuestionEdit(true);
   };
 
-  const handleDeleteQuizz = async (quizz) => {
-    try {
-      const response = await axios.delete(`${baseUrl}/Quizzes/${quizz.id}`);
-      if (response.status === 200) {
-        const updatedQuestions = quizz.questions.filter((_, idx) => idx !== index);
-        quizz.questions = updatedQuestions;
-        setSelectedQuestion({ ...quizz }); // Force re-render
-      }
-    } catch (error) {
-      console.error('Error deleting the question:', error);
-    }
-  };
 
   const handleOpenSingleQuizz = (quizz) => {
     setSelectedQuizz(quizz);

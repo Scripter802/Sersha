@@ -11,10 +11,12 @@ import tictac from '../../assets/images/quiz/saybubble.png'
 
 import './rightanswerquiz.css'
 import HealthBar from '../../components/HealthBar'
+import { useGlobalContext } from '../../context/context'
 
-const RightAnswerQuiz = () => {
+const RightAnswerQuiz = ({ currentQ }) => {
   const [heartsNum, setHeartsNum] = useState(2)
-
+  const { currentQuestion, setCurrentQuestion } = useGlobalContext();
+  console.log(`cur: ${currentQ.text}`)
   const messages = [
     {
       avatar: avatar,
@@ -101,17 +103,16 @@ const RightAnswerQuiz = () => {
         <div className='rightAnswerWrapper'>
           <h5>Question</h5>
           <div className='rightAnswerAssignment'>
-            {messages[0].message}
+            {currentQ.text}
           </div>
           {answer ? '' : <h5>Answer options</h5>}
 
           <div>
-            {messages.map(msg => (
-              message === msg.name && !answer ? msg.answer?.map(ans => (
-                <div className='rightAnswerOfferedWrapper' onClick={() => setAnswer(`${ans}`)}>
-                  <p className='rightAnswerOfferedAnswers'>{ans}</p>
-                </div>
-              )) : ``
+            {currentQ.answers.map(msg => (
+              !answer &&
+              <div className='rightAnswerOfferedWrapper' onClick={() => setAnswer(`${msg.text}`)}>
+                <p className='rightAnswerOfferedAnswers'>{msg.text}</p>
+              </div>
             ))}
             {answer ?
               <div className='rightAnswerSelectedWrapper'>

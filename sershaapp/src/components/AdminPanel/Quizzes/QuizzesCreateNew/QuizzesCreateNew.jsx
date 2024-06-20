@@ -34,6 +34,7 @@ const QuizzesCreateNew = () => {
     currentQuestion.questions.forEach((question, qIndex) => {
       let type = question.type === 'Right Answer' ? 0 : question.type === 'Correct/Incorrect' ? 1 : question.type === 'Fill in The Blank' ? 2 : 3;
 
+
       if (type == 3) {
         question.text = 'Place the words into the appropriate groups';
 
@@ -62,7 +63,7 @@ const QuizzesCreateNew = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
-      setRightAnswerCreateNew(false);
+      setQuizzesCreateNew(false);
       console.log(response.data);
     } catch (error) {
       console.log(error);
@@ -265,6 +266,12 @@ const QuizzesCreateNew = () => {
                       value={ans.text}
                       placeholder={`Option ${aIndex + 1}`}
                       onChange={(e) => handleAnswerChange(qIndex, aIndex, 'text', e.target.value)}
+                    />
+                    <input
+                      className='postProfileName'
+                      type="checkbox"
+                      checked={ans.isCorrect}
+                      onChange={(e) => handleAnswerChange(qIndex, aIndex, 'isCorrect', e.target.checked)}
                     />
                   </div>
                 ))}

@@ -25,7 +25,7 @@ const QuizPage = () => {
 
   let currentQ = currentQuizz?.questions[currentQuestion]
 
-  console.log(`CC:  ${currentQ.text}`)
+  console.log(`CC:  ${currentQ}`)
   return (
     <>
 

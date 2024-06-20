@@ -58,18 +58,22 @@ const SingleQuizz = ({ quizz }) => {
                 <div className='questionText'>
                   {quest.type === 0 && quest.text} {/* Display text for type 0 */}
                   {quest.type === 1 && quest.text} {/* Display text for type 1 */}
-                  {quest.type === 2 && (
-                    `statement1: ${quest.statement1}`
-                      `statement2: ${quest.statement2}`
-
-                  )} {/* Display statement1 for type 2 */}
+                  {quest.type === 2 && `${quest?.statement1} _______  ${quest?.statement2}`} {/*Display statement1 for type 2*/}
                   {quest.type === 3 && quest.groups.map((group, i) => (
                     <>
-                      <p>{group.name}</p>
-                      {group.groupinItems.map((groupItem, i) => (
-                        <>
-                          <p>{groupItem}</p>
-                        </>
+                      <p style={{ color: 'white', fontWeight: '700' }}>{`${group.name}:`}</p>
+                      {group.groupingItems.map((groupItem, i) => (
+                        groupItem.isCorrect === true ? (
+                          <>
+                            <p style={{ backgroundColor: 'green' }}>{groupItem.item}</p>
+                          </>
+
+                        ) : (
+                          <>
+                            <p>{groupItem.item}</p>
+                          </>
+                        )
+
                       ))}
                     </>
                   ))} {/* Display text for type 3 */}
@@ -82,7 +86,7 @@ const SingleQuizz = ({ quizz }) => {
                   <div className='options'>
                     <strong>Options:</strong>
                     {quest.answers.map((q, idx) => (
-                      <p key={idx} style={{ backgroundColor: q.isCorrect ? 'green' : 'transparent', borderRadius: '10px', padding: '.25rem' }}>{q.text}</p>
+                      <p key={idx} style={{ backgroundColor: q.isCorrect ? 'green' : 'transparent', borderRadius: '10px', padding: '.25rem', width: 'fit-content' }}>{q.text}</p>
                     ))}
                   </div>
                 </div>
@@ -93,7 +97,7 @@ const SingleQuizz = ({ quizz }) => {
                   <div className='options'>
                     <strong>Options:</strong>
                     {quest.answers.map((q, idx) => (
-                      <p key={idx} style={{ backgroundColor: q.isCorrect ? 'green' : 'transparent', borderRadius: '10px', padding: '.25rem' }}>{q.text}</p>
+                      <p key={idx} style={{ backgroundColor: q.isCorrect ? 'green' : 'transparent', borderRadius: '10px', padding: '.25rem', width: 'fit-content' }}>{q.text}</p>
                     ))}
                   </div>
                 </div>
@@ -104,7 +108,7 @@ const SingleQuizz = ({ quizz }) => {
                   <div className='options'>
                     <strong>Options:</strong>
                     {quest.answers.map((q, idx) => (
-                      <p key={idx} style={{ backgroundColor: q.isCorrect ? 'green' : 'transparent', borderRadius: '10px', padding: '.25rem' }}>{q.text}</p>
+                      <p key={idx} style={{ backgroundColor: q.isCorrect ? 'green' : 'transparent', borderRadius: '10px', padding: '.25rem', width: 'fit-content' }}>{q.text}</p>
                     ))}
                   </div>
                 </div>
@@ -112,18 +116,8 @@ const SingleQuizz = ({ quizz }) => {
 
               {quest.type === 3 && (
                 <div className='questionDetails'>
-                  <div className='options'>
-                    <strong>Options:</strong>
-                    {quest.answers.map((q, idx) => (
-                      <p key={idx} style={{ backgroundColor: q.isCorrect ? 'green' : 'transparent', borderRadius: '10px', padding: '.25rem' }}>{q.text}</p>
-                    ))}
-                  </div>
-                  <div className='correctAnswer'>
-                    <strong>Correct Answer:</strong>
-                    {quest.answers.filter(q => q.isCorrect).map((correctAnswer, idx) => (
-                      <p key={idx}>{correctAnswer.text}</p>
-                    ))}
-                  </div>
+
+
                 </div>
               )}
 

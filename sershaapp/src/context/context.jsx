@@ -290,6 +290,7 @@ const AppProvider = ({ children }) => {
   const [currentQuizz, setCurrentQuizz] = useState();
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
+  const [correctIncorrectIsTrue, setCorrectIncorrectIsTrue] = useState(false);
 
   return (
     <AppContext.Provider
@@ -369,6 +370,9 @@ const AppProvider = ({ children }) => {
         quizzCreateNew, setQuizzCreateNew, questionEdit, setQuestionEdit,
         currentQuizz, setCurrentQuizz,
         currentQuestion, setCurrentQuestion,
+
+        // CORRECT INCORRECT
+        correctIncorrectIsTrue, setCorrectIncorrectIsTrue,
 
         // ADMIN PANEL QUIZZES RIGHT ANSWER
         rightAnswerCreateNew,

@@ -59,6 +59,10 @@ const AppProvider = ({ children }) => {
   const [quizzesCreateNew, setQuizzesCreateNew] = useState(false);
   const [quizzesEdit, setQuizzesEdit] = useState(false);
   const [allQuizzes, setAllQuizzes] = useState([]);
+  const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [quizzCreateNew, setQuizzCreateNew] = useState(false);
+  const [questionEdit, setQuestionEdit] = useState(false);
+
 
 
   /* ADMIN RIGHT ANSWER QUIZ */
@@ -360,6 +364,8 @@ const AppProvider = ({ children }) => {
         setQuizzesEdit,
         allQuizzes,
         setAllQuizzes,
+        selectedQuestion, setSelectedQuestion,
+        quizzCreateNew, setQuizzCreateNew, questionEdit, setQuestionEdit,
 
         // ADMIN PANEL QUIZZES RIGHT ANSWER
         rightAnswerCreateNew,

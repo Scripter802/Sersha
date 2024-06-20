@@ -4,7 +4,7 @@ import closeButton from '../../../../assets/images/adminPanel/closeButton.png';
 import './quizzesEdit.css';
 
 const QuizzesEdit = () => {
-  const { editingQuestion, setEditingQuestion, setIsQuestionEdit, allRightAnswerQuestions, setAllRightAnswerQuestions } = useGlobalContext();
+  const { editingQuestion, setEditingQuestion, setIsQuizzEdit, allRightAnswerQuestions, setAllRightAnswerQuestions } = useGlobalContext();
   const [rightAnswerEditQuestion, setRightAnswerEditQuestion] = useState({
     Question: '',
     Options: [
@@ -53,7 +53,7 @@ const QuizzesEdit = () => {
 
   return (
     <div className="editRightAnswerQuestionContainer">
-      <div className="close-btn" onClick={() => setIsQuestionEdit(false)}>
+      <div className="close-btn" onClick={() => setIsQuizzEdit(false)}>
         <img src={closeButton} alt='close' />
       </div>
       <h3 className="p-3 text-center">Edit Question</h3>

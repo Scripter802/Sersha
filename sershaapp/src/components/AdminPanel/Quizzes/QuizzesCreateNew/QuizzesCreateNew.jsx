@@ -39,6 +39,13 @@ const QuizzesCreateNew = () => {
         question.text = 'Place the words into the appropriate groups';
 
       }
+
+      if (type == 1) {
+        if (question.isCorrect === undefined) {
+          question.isCorrect = false;
+        }
+        formData.append(`questions[${qIndex}][isCorrect]`, question.isCorrect);
+      }
       formData.append(`questions[${qIndex}][type]`, type);
       formData.append(`questions[${qIndex}][questionText]`, question.text);
       formData.append(`questions[${qIndex}][statement1]`, question.statement1);
@@ -85,6 +92,7 @@ const QuizzesCreateNew = () => {
             { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] },
             { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] }
           ],
+          isCorrect: false,
         }
       ]
     });
@@ -99,6 +107,13 @@ const QuizzesCreateNew = () => {
   const handleAnswerChange = (qIndex, aIndex, field, value) => {
     const updatedQuestions = [...currentQuestion.questions];
     updatedQuestions[qIndex].answers[aIndex][field] = value;
+    setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
+  };
+
+  const handleIsCorrectChange = (qIndex, value) => {
+    console.log(`value: ${value}`)
+    const updatedQuestions = [...currentQuestion.questions];
+    updatedQuestions[qIndex].isCorrect = value;
     setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
   };
 
@@ -214,19 +229,11 @@ const QuizzesCreateNew = () => {
                   <label>
                     True
                     <input
+                      id='correctIncorrectTrue'
                       className='postProfileName'
                       type="checkbox"
-                      checked={question.answers[0].isCorrect}
-                      onChange={(e) => handleAnswerChange(qIndex, 0, 'isCorrect', e.target.checked)}
-                    />
-                  </label>
-                  <label>
-                    False
-                    <input
-                      className='postProfileName'
-                      type="checkbox"
-                      checked={question?.answers[1]?.isCorrect}
-                      onChange={(e) => handleAnswerChange(qIndex, 1, 'isCorrect', e.target.checked)}
+                      checked={question.isCorrect}
+                      onChange={(e) => handleIsCorrectChange(qIndex, e.target.checked)}
                     />
                   </label>
                 </div>

@@ -13,8 +13,9 @@ import incorrect from '../../assets/images/quiz/incorrect.png'
 
 import './correctanswerquiz.css'
 import HealthBar from '../../components/HealthBar'
+import { useGlobalContext } from '../../context/context'
 
-const CorrectAnswerQuiz = () => {
+const CorrectAnswerQuiz = ({ currentQ }) => {
   const { currentQuestion, setCurrentQuestion } = useGlobalContext();
   const [heartsNum, setHeartsNum] = useState(2)
 
@@ -104,7 +105,7 @@ const CorrectAnswerQuiz = () => {
         <div className='correctAnswerWrapper'>
           <h5>Statement</h5>
           <div className='correctAnswerAssignment'>
-            {messages[0].message}
+            {currentQ.text}
           </div>
           {answer ? '' : <h5>Answer options</h5>}
 

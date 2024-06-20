@@ -15,6 +15,7 @@ import './correctanswerquiz.css'
 import HealthBar from '../../components/HealthBar'
 
 const CorrectAnswerQuiz = () => {
+  const { currentQuestion, setCurrentQuestion } = useGlobalContext();
   const [heartsNum, setHeartsNum] = useState(2)
 
   const messages = [

@@ -12,8 +12,10 @@ import { useDrag, useDrop } from 'react-dnd'
 
 import './fillintheblank.css'
 import HealthBar from '../../components/HealthBar'
+import { useGlobalContext } from '../../context/context'
 
 const FillInTheBlank = () => {
+  const { currentQuestion, setCurrentQuestion } = useGlobalContext();
   const messages = [
     {
       avatar: avatar,

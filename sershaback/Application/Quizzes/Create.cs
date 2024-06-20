@@ -79,6 +79,7 @@ namespace Application.Quizzes
 
                     Question question = await CreateQuestionBasedOnType(questionDto.Type, questionDto, questionImagePath);
                     question.QuizId = quiz.Id;
+                    question.Type = questionDto.Type;
                     quiz.Questions.Add(question);
                     _context.Questions.Add(question);
                 }

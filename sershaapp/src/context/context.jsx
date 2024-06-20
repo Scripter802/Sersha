@@ -286,8 +286,9 @@ const AppProvider = ({ children }) => {
   //POST METHOD               //POST METHOD
 
 
-
-
+  // QUIZZ CURRENT
+  const [currentQuizz, setCurrentQuizz] = useState();
+  const [currentQuestion, setCurrentQuestion] = useState(0);
 
 
   return (
@@ -366,6 +367,8 @@ const AppProvider = ({ children }) => {
         setAllQuizzes,
         selectedQuestion, setSelectedQuestion,
         quizzCreateNew, setQuizzCreateNew, questionEdit, setQuestionEdit,
+        currentQuizz, setCurrentQuizz,
+        currentQuestion, setCurrentQuestion,
 
         // ADMIN PANEL QUIZZES RIGHT ANSWER
         rightAnswerCreateNew,

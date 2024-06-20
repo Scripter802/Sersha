@@ -22,6 +22,7 @@ import FriendOrFoe from './pages/miniGames/friendOrFoe/FriendOrFoe.jsx'
 import PostingChallenge from './pages/miniGames/postingChallenge/PostingChallenge.jsx'
 import SnapJudgment from './pages/miniGames/snapJudgment/SnapJudgment.jsx'
 import ProtectedRoute from './components/signInUp/ProtectedRoute.jsx'
+import QuizPage from './pages/quizzes/QuizzPage/QuizPage.jsx'
 
 // Layout Component
 const Layout = () => {
@@ -60,6 +61,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Dm />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/quizz',
+        element: (
+          <ProtectedRoute>
+            <QuizPage />
           </ProtectedRoute>
         ),
       },

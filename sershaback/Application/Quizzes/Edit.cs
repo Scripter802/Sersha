@@ -64,7 +64,6 @@ namespace Application.Quizzes
 
                 quiz.Difficulty = request.Difficulty;
 
-                // Delete questions that are not in the new list
                 var updatedQuestionIds = request.Questions.Select(q => q.Id).ToList();
                 _context.Questions.RemoveRange(quiz.Questions.Where(q => !updatedQuestionIds.Contains(q.Id)));
 
@@ -142,7 +141,7 @@ namespace Application.Quizzes
                     answers.Add(answer);
                 }
 
-                return new RightAnswerQuestion // Should dynamically instantiate based on type
+                return new RightAnswerQuestion
                 {
                     Text = questionDto.QuestionText,
                     Answers = answers,

@@ -31,9 +31,21 @@ namespace Application.Quizzes
                 {
                     question.RuleFor(q => q.QuestionText)
                         .NotEmpty()
-                        .When(q => q.ImageFile == null)
-                        .WithMessage("Either QuestionText or ImageFile must be provided.");
+                        .When(q => q.ImageFile == null && (string.IsNullOrEmpty(q.Statement1) || string.IsNullOrEmpty(q.Statement2)))
+                        .WithMessage("QuestionText or ImageFile or Statement1 and Statement2 must be filled.");
+
+                    question.RuleFor(q => q.ImageFile)
+                        .NotNull()
+                        .When(q => string.IsNullOrEmpty(q.QuestionText) && (string.IsNullOrEmpty(q.Statement1) || string.IsNullOrEmpty(q.Statement2)))
+                        .WithMessage("QuestionText or ImageFile or Statement1 and Statement2 must be filled.");
+
+                    question.RuleFor(q => new { q.Statement1, q.Statement2 })
+                        .Must(statements => !string.IsNullOrEmpty(statements.Statement1) && !string.IsNullOrEmpty(statements.Statement2))
+                        .When(q => string.IsNullOrEmpty(q.QuestionText) && q.ImageFile == null)
+                        .WithMessage("QuestionText or ImageFile or Statement1 and Statement2 must be filled.");
                 });
+
+
             }
         }
 

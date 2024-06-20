@@ -20,5 +20,19 @@ namespace Domain
             FriendOrFoe = 6,
             PostingChallenge = 7
         }
+
+        public enum SershaItemType
+        {
+            Hat,
+            Glasses,
+            Torso,
+            Legs
+        }
+
+        public enum SershaItemBodyPart
+        {
+            Head,
+            Body
+        }
     }
 }

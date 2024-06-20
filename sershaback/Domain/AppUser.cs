@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Http;
@@ -28,5 +29,8 @@ namespace Domain
         public AvatarImage AvatarImage { get; set; }
         public Guid? AvatarImageId { get; set; }
         public int Stage { get; set; }
+
+        public ICollection<SershaItemsUserOwns> OwnedSershaItems { get; set; }
+        public ICollection<SershaItemsUserSelected> SelectedSershaItems { get; set; }
     }
 }

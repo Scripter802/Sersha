@@ -60,6 +60,21 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SershaItems",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    ImagePath = table.Column<string>(nullable: true),
+                    Type = table.Column<int>(nullable: false),
+                    BodyPart = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SershaItems", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -257,6 +272,56 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SershaItemsUserOwns",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
+                    SershaItemId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SershaItemsUserOwns", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SershaItemsUserOwns_SershaItems_SershaItemId",
+                        column: x => x.SershaItemId,
+                        principalTable: "SershaItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SershaItemsUserOwns_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SershaItemsUserSelected",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    UserId = table.Column<string>(nullable: true),
+                    SershaItemId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SershaItemsUserSelected", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SershaItemsUserSelected_SershaItems_SershaItemId",
+                        column: x => x.SershaItemId,
+                        principalTable: "SershaItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SershaItemsUserSelected_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Answers",
                 columns: table => new
                 {
@@ -381,6 +446,26 @@ namespace Persistence.Migrations
                 name: "IX_Questions_QuizId",
                 table: "Questions",
                 column: "QuizId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SershaItemsUserOwns_SershaItemId",
+                table: "SershaItemsUserOwns",
+                column: "SershaItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SershaItemsUserOwns_UserId",
+                table: "SershaItemsUserOwns",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SershaItemsUserSelected_SershaItemId",
+                table: "SershaItemsUserSelected",
+                column: "SershaItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SershaItemsUserSelected_UserId",
+                table: "SershaItemsUserSelected",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -410,10 +495,13 @@ namespace Persistence.Migrations
                 name: "Posts");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "SershaItemsUserOwns");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "SershaItemsUserSelected");
+
+            migrationBuilder.DropTable(
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "Groups");
@@ -422,10 +510,16 @@ namespace Persistence.Migrations
                 name: "Authors");
 
             migrationBuilder.DropTable(
-                name: "AvatarImages");
+                name: "SershaItems");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "Questions");
+
+            migrationBuilder.DropTable(
+                name: "AvatarImages");
 
             migrationBuilder.DropTable(
                 name: "Quizzes");

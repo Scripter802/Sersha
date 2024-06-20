@@ -29,6 +29,10 @@ namespace Persistence
         public DbSet<GroupingItem> GroupingItems { get; set; }
         public DbSet<AvatarImage> AvatarImages { get; set; }
 
+        public DbSet<SershaItem> SershaItems { get; set; }
+        public DbSet<SershaItemsUserOwns> SershaItemsUserOwns { get; set; }
+        public DbSet<SershaItemsUserSelected> SershaItemsUserSelected { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -80,6 +84,30 @@ namespace Persistence
                 .WithMany(a => a.Users)
                 .HasForeignKey(u => u.AvatarImageId)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            builder.Entity<SershaItemsUserOwns>()
+                .HasOne(u => u.User)
+                .WithMany(o => o.OwnedSershaItems)
+                .HasForeignKey(u => u.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<SershaItemsUserOwns>()
+                .HasOne(si => si.SershaItem)
+                .WithMany()
+                .HasForeignKey(si => si.SershaItemId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<SershaItemsUserSelected>()
+                .HasOne(u => u.User)
+                .WithMany(s => s.SelectedSershaItems)
+                .HasForeignKey(u => u.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<SershaItemsUserSelected>()
+                .HasOne(si => si.SershaItem)
+                .WithMany()
+                .HasForeignKey(si => si.SershaItemId)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

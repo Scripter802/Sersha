@@ -34,8 +34,8 @@ const QuizzesCreateNew = () => {
     currentQuestion.questions.forEach((question, qIndex) => {
       let type = question.type === 'Right Answer' ? 0 : question.type === 'Correct/Incorrect' ? 1 : question.type === 'Fill in The Blank' ? 2 : 3;
 
-      if (question.text == "") {
-        question.text = 'asd';
+      if (type == 3) {
+        question.text = 'Place the words into the appropriate groups';
 
       }
       formData.append(`questions[${qIndex}][type]`, type);

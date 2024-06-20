@@ -79,7 +79,8 @@ const AdminPanelQuizzes = () => {
             </thead>
             <tbody>
               {allQuizzes && allQuizzes.map((quest, indexQ) => (
-                <tr key={indexQ} onClick={() => handleOpenSingleQuizz(quest)}>
+                <tr key={indexQ}>
+                  {console.log(quest)}
                   <td data-label="No.">{indexQ + 1}</td>
                   <td data-label="Question">{`Quizz Name ${indexQ + 1}`}</td>
                   <td data-label="Bundle">
@@ -99,7 +100,7 @@ const AdminPanelQuizzes = () => {
                   <td data-label="ConversationStarter">{`Conversation Starter Text ${indexQ + 1}`}</td>
                   <td data-label="NumberOfQuestions" className='noQ'>{quest.questions.length}</td>
                   <td data-label="Edit/Delete" className='settingsData'>
-                    <button className="edit-btn" onClick={() => handleEditQuestion(index)}>Edit</button>
+                    <button className="edit-btn" onClick={() => handleOpenSingleQuizz(quest)}>Edit</button>
                     <button className="delete-btn" onClick={() => handleDeleteQuizz(quest)}>Delete</button>
                   </td>
                 </tr>

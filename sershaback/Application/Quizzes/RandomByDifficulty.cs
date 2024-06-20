@@ -34,6 +34,26 @@ namespace Application.Quizzes
                     .Where(q => q.Difficulty == request.Difficulty)
                     .ToListAsync(cancellationToken);
 
+                foreach (var quiz in quizzes)
+                {
+                    foreach (var question in quiz.Questions)
+                    {
+                        if (question is GroupingQuestion groupingQuestion)
+                        {
+                            await _context.Entry(groupingQuestion)
+                                .Collection(q => q.Groups)
+                                .LoadAsync();
+
+                            foreach (var group in groupingQuestion.Groups)
+                            {
+                                await _context.Entry(group)
+                                    .Collection(g => g.GroupingItems)
+                                    .LoadAsync();
+                            }
+                        }
+                    }
+                }
+
                 if (!quizzes.Any())
                 {
                     return null;

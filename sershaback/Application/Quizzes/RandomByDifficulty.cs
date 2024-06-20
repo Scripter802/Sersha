@@ -30,7 +30,7 @@ namespace Application.Quizzes
             {
                 var quizzes = await _context.Quizzes
                     .Include(q => q.Questions)
-                    .ThenInclude(q => ((RightAnswerQuestion)q).Answers)
+                    .ThenInclude(q => q.Answers)
                     .Where(q => q.Difficulty == request.Difficulty)
                     .ToListAsync(cancellationToken);
 

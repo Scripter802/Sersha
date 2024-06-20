@@ -58,8 +58,21 @@ const SingleQuizz = ({ quizz }) => {
                 <div className='questionText'>
                   {quest.type === 0 && quest.text} {/* Display text for type 0 */}
                   {quest.type === 1 && quest.text} {/* Display text for type 1 */}
-                  {quest.type === 2 && quest.statement1} {/* Display statement1 for type 2 */}
-                  {quest.type === 3 && quest.text} {/* Display text for type 3 */}
+                  {quest.type === 2 && (
+                    `statement1: ${quest.statement1}`
+                      `statement2: ${quest.statement2}`
+
+                  )} {/* Display statement1 for type 2 */}
+                  {quest.type === 3 && quest.groups.map((group, i) => (
+                    <>
+                      <p>{group.name}</p>
+                      {group.groupinItems.map((groupItem, i) => (
+                        <>
+                          <p>{groupItem}</p>
+                        </>
+                      ))}
+                    </>
+                  ))} {/* Display text for type 3 */}
                 </div>
               </div>
 

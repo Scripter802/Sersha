@@ -40,6 +40,16 @@ namespace API
         [System.Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddIdentity<AppUser, IdentityRole>(options =>
+            {
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
+            })
+            .AddEntityFrameworkStores<DataContext>()
+            .AddDefaultTokenProviders();
+
+
             services.AddControllersWithViews();
             services.Configure<FormOptions>(options =>
             {

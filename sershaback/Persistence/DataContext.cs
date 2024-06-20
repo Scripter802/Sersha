@@ -27,6 +27,7 @@ namespace Persistence
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<GroupingItem> GroupingItems { get; set; }
+        public DbSet<AvatarImage> AvatarImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -73,6 +74,12 @@ namespace Persistence
                 .WithOne(gi => gi.Group)
                 .HasForeignKey(gi => gi.GroupId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<AppUser>()
+                .HasOne(u => u.AvatarImage)
+                .WithMany(a => a.Users)
+                .HasForeignKey(u => u.AvatarImageId)
+                .OnDelete(DeleteBehavior.SetNull);
 
         }
     }

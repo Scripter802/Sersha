@@ -73,7 +73,8 @@ namespace Application.User
                     ParentsFullName = request.ParentsFullName,
                     ParentPhoneNumber = request.ParentPhoneNumber,
                     UserBirthDate = request.UserBirthDate,
-                    Type = "User"
+                    Type = "User",
+                    Stage = 1
                 };
 
                 var results = await _userMenager.CreateAsync(user, request.Password);
@@ -84,7 +85,8 @@ namespace Application.User
                     {
                         FullName = user.FullName,
                         Email = user.Email,
-                        Type = user.Type
+                        Type = user.Type,
+                        Stage = user.Stage
                     };
                 }
 

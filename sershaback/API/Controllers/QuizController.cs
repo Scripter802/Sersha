@@ -108,12 +108,12 @@ namespace API.Controllers
             return await Mediator.Send(new ListQuestionsByType.Query{ Type = type});
         }*/
 
-        /*[AllowAnonymous]
-        [HttpGet("ListQuestionsByAll/{difficulty}/{type}")]
-        public async Task<ActionResult<List<Question>>> ListQuestionsByAll(Difficulty difficulty, QuizType type)
+        [AllowAnonymous]
+        [HttpGet("ListMinigameQuestionsByTypeAndDifficulty/{difficulty}/{type}")]
+        public async Task<ActionResult<List<Question>>> ListMinigameQuestionsByTypeAndDifficulty(Difficulty difficulty, QuestionType type)
         {
-            return await Mediator.Send(new ListQuestionsByAll.Query{ Difficulty = difficulty, Type = type});
-        }*/
+            return await Mediator.Send(new ListMinigameQuestionsByTypeAndDifficulty.Query{ Difficulty = difficulty, Type = type});
+        }
 
     }
 }

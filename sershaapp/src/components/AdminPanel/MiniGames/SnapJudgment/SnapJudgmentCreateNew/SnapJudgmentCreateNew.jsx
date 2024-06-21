@@ -6,11 +6,20 @@ import './snapJudgmentCreateNew.css';
 const SnapJudgmentCreateNew = () => {
   const { setSnapJudgmentCreateNew, allSnapJudgmentAssignments, setAllSnapJudgmentAssignments } = useGlobalContext();
   const [newSnapJudgment, setNewSnapJudgment] = useState({
-    Image: null,
-    AuthorName: '',
-    PostContent: '',
-    CorrectAnswer: '',
-    Stage: '',
+    stage: '',
+    questions: [
+      {
+        type: '',
+        text: '',
+        answers: [{ text: '', isCorrect: false }],
+        statement1: '',
+        statement2: '',
+        groups: [
+          { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] },
+          { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] }
+        ],
+      }
+    ]
   });
 
   const handleSubmit = () => {

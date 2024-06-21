@@ -78,6 +78,11 @@ namespace Application.Quizzes
                     }
 
                     Question question = await CreateQuestionBasedOnType(questionDto.Type, questionDto, questionImagePath);
+                    Console.WriteLine("\n\n\n\n----------------------------------------------");
+
+                    Console.WriteLine(questionDto.Content);
+
+                    Console.WriteLine("\n\n\n\n----------------------------------------------");
                     question.QuizId = quiz.Id;
                     question.Type = questionDto.Type;
                     quiz.Questions.Add(question);
@@ -174,8 +179,8 @@ namespace Application.Quizzes
                     case QuestionType.SnapJudgement:
                         return new SnapJudgementQuestion
                         {
-                            Content = questionDto.Content,
                             Text = questionDto.QuestionText,
+                            Content = questionDto.Content,
                             ImagePath = questionImagePath,
                             Answers = answers
                         };
@@ -191,8 +196,8 @@ namespace Application.Quizzes
                     case QuestionType.FriendOrFoe:
                         return new FriendOrFoeQuestion
                         {
-                            Content = questionDto.Content,
                             Text = questionDto.QuestionText,
+                            Content = questionDto.Content,
                             ImagePath = questionImagePath,
                             Answers = answers
                         };

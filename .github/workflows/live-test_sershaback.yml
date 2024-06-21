@@ -14,7 +14,8 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
@@ -23,10 +24,12 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
+        working-directory: sershaback/
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        working-directory: sershaback/
+        run: dotnet publish --configuration Release --output ./publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -62,5 +65,5 @@ jobs:
         with:
           app-name: 'sershaback'
           slot-name: 'Production'
-          package: .
+          package: ./sershaback/publish
           

@@ -174,6 +174,7 @@ namespace Application.Quizzes
                     case QuestionType.SnapJudgement:
                         return new SnapJudgementQuestion
                         {
+                            Content = questionDto.Content,
                             Text = questionDto.QuestionText,
                             ImagePath = questionImagePath,
                             Answers = answers
@@ -190,6 +191,7 @@ namespace Application.Quizzes
                     case QuestionType.FriendOrFoe:
                         return new FriendOrFoeQuestion
                         {
+                            Content = questionDto.Content,
                             Text = questionDto.QuestionText,
                             ImagePath = questionImagePath,
                             Answers = answers

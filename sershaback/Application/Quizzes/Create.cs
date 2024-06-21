@@ -78,11 +78,6 @@ namespace Application.Quizzes
                     }
 
                     Question question = await CreateQuestionBasedOnType(questionDto.Type, questionDto, questionImagePath);
-                    Console.WriteLine("\n\n\n\n----------------------------------------------");
-
-                    Console.WriteLine(questionDto.Content);
-
-                    Console.WriteLine("\n\n\n\n----------------------------------------------");
                     question.QuizId = quiz.Id;
                     question.Type = questionDto.Type;
                     quiz.Questions.Add(question);

@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../../../context/context';
 import './adminPanelSnapJudgment.css';
 import SnapJudgmentCreateNew from './SnapJudgmentCreateNew/SnapJudgmentCreateNew';
 import SnapJudgmentEdit from './SnapJudgmentEdit/SnapJudgmentEdit';
+import axios from 'axios';
 
 const AdminPanelSnapJudgment = () => {
-  const { snapJudgmentCreateNew,
+  const { baseUrl, snapJudgmentCreateNew,
     setSnapJudgmentCreateNew,
     editingSnapJudgment,
     setEditingSnapJudgment,
@@ -52,6 +53,19 @@ const AdminPanelSnapJudgment = () => {
 
   // };
 
+  useEffect(() => {
+    const fetchAllQuizzes = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/0/4`);
+        setAllSnapJudgmentAssignments(response.data);
+      } catch (error) {
+        console.error('Error fetching right answer questions:', error);
+      }
+    };
+
+    fetchAllQuizzes();
+  }, [snapJudgmentCreateNew, editingSnapJudgment]);
+  console.log(allSnapJudgmentAssignments)
 
   return (
     <>

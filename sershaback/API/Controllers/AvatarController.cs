@@ -40,14 +40,14 @@ namespace API.Controllers
             }
 
             await Mediator.Send(command);
-            return NoContent(); // HTTP 204 ako je uspešno, bez sadržaja
+            return NoContent(); 
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             await Mediator.Send(new Delete.Command { Id = id });
-            return NoContent(); // HTTP 204 ako je uspešno, bez sadržaja
+            return NoContent(); 
         }
     }
 }

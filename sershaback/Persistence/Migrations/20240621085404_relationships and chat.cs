@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class relationshipsandnewtypesofq : Migration
+    public partial class relationshipsandchat : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,6 +45,19 @@ namespace Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AvatarImages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ChatMessages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Sender = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChatMessages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -158,6 +171,32 @@ namespace Persistence.Migrations
                         principalTable: "AvatarImages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.SetNull);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserResponses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Content = table.Column<string>(nullable: true),
+                    ChatMessageId = table.Column<Guid>(nullable: false),
+                    NextMessageId = table.Column<Guid>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserResponses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserResponses_ChatMessages_ChatMessageId",
+                        column: x => x.ChatMessageId,
+                        principalTable: "ChatMessages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserResponses_ChatMessages_NextMessageId",
+                        column: x => x.NextMessageId,
+                        principalTable: "ChatMessages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -466,6 +505,16 @@ namespace Persistence.Migrations
                 name: "IX_SershaItemsUserSelected_UserId",
                 table: "SershaItemsUserSelected",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserResponses_ChatMessageId",
+                table: "UserResponses",
+                column: "ChatMessageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserResponses_NextMessageId",
+                table: "UserResponses",
+                column: "NextMessageId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -501,6 +550,9 @@ namespace Persistence.Migrations
                 name: "SershaItemsUserSelected");
 
             migrationBuilder.DropTable(
+                name: "UserResponses");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -514,6 +566,9 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "ChatMessages");
 
             migrationBuilder.DropTable(
                 name: "Questions");

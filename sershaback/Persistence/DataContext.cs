@@ -32,6 +32,8 @@ namespace Persistence
         public DbSet<SershaItem> SershaItems { get; set; }
         public DbSet<SershaItemsUserOwns> SershaItemsUserOwns { get; set; }
         public DbSet<SershaItemsUserSelected> SershaItemsUserSelected { get; set; }
+        public DbSet<ChatMessage> ChatMessages { get; set; }
+        public DbSet<UserResponse> UserResponses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -108,6 +110,18 @@ namespace Persistence
                 .WithMany()
                 .HasForeignKey(si => si.SershaItemId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<ChatMessage>()
+                .HasMany(cm => cm.Responses)
+                .WithOne(r => r.ChatMessage)
+                .HasForeignKey(r => r.ChatMessageId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<UserResponse>()
+                .HasOne(r => r.NextMessage)
+                .WithMany()
+                .HasForeignKey(r => r.NextMessageId)
+                .OnDelete(DeleteBehavior.Restrict);
 
         }
     }

@@ -9,8 +9,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240619184215_relationships and new types of q")]
-    partial class relationshipsandnewtypesofq
+    [Migration("20240621085404_relationships and chat")]
+    partial class relationshipsandchat
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -171,6 +171,23 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AvatarImages");
+                });
+
+            modelBuilder.Entity("Domain.ChatMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Sender")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ChatMessages");
                 });
 
             modelBuilder.Entity("Domain.Group", b =>
@@ -353,6 +370,30 @@ namespace Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("SershaItemsUserSelected");
+                });
+
+            modelBuilder.Entity("Domain.UserResponse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ChatMessageId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("NextMessageId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChatMessageId");
+
+                    b.HasIndex("NextMessageId");
+
+                    b.ToTable("UserResponses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -630,6 +671,20 @@ namespace Persistence.Migrations
                         .WithMany("SelectedSershaItems")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Domain.UserResponse", b =>
+                {
+                    b.HasOne("Domain.ChatMessage", "ChatMessage")
+                        .WithMany("Responses")
+                        .HasForeignKey("ChatMessageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.ChatMessage", "NextMessage")
+                        .WithMany()
+                        .HasForeignKey("NextMessageId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -171,6 +171,23 @@ namespace Persistence.Migrations
                     b.ToTable("AvatarImages");
                 });
 
+            modelBuilder.Entity("Domain.ChatMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Sender")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ChatMessages");
+                });
+
             modelBuilder.Entity("Domain.Group", b =>
                 {
                     b.Property<Guid>("Id")
@@ -351,6 +368,30 @@ namespace Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("SershaItemsUserSelected");
+                });
+
+            modelBuilder.Entity("Domain.UserResponse", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("ChatMessageId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("NextMessageId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChatMessageId");
+
+                    b.HasIndex("NextMessageId");
+
+                    b.ToTable("UserResponses");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -628,6 +669,20 @@ namespace Persistence.Migrations
                         .WithMany("SelectedSershaItems")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Domain.UserResponse", b =>
+                {
+                    b.HasOne("Domain.ChatMessage", "ChatMessage")
+                        .WithMany("Responses")
+                        .HasForeignKey("ChatMessageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.ChatMessage", "NextMessage")
+                        .WithMany()
+                        .HasForeignKey("NextMessageId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

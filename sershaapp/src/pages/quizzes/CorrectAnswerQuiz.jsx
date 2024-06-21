@@ -16,8 +16,7 @@ import HealthBar from '../../components/HealthBar'
 import { useGlobalContext } from '../../context/context'
 
 const CorrectAnswerQuiz = ({ currentQ }) => {
-  const { currentQuestion, setCurrentQuestion } = useGlobalContext();
-  const [heartsNum, setHeartsNum] = useState(2)
+  const { currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers } = useGlobalContext();
 
   const messages = [
     {
@@ -47,6 +46,13 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
   const [message, setMessage] = useState(`${messages[0].name}`);
   const [answer, setAnswer] = useState()
   console.log(answer)
+  console.log(currentQuizz.questions.length, currentQuestion)
+  if (answer && currentQuizz.questions.length - 1 != currentQuestion) {
+    if (currentQ.isCorrect == answer) {
+      setCorrectAnswers(correctAnswers + 1)
+    }
+    setCurrentQuestion(currentQuestion + 1)
+  }
 
   return (
     <div className='correctAnswerQuizWrapper'>

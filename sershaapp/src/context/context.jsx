@@ -8,7 +8,7 @@ import avatar from '../assets/images/navbar/userpick.png'
 
 const AppContext = createContext();
 const baseUrl = "http://localhost:5000/api";
-const baseUrlImage = "http://172.28.112.1:8080/API";
+const baseUrlImage = "http://192.168.1.10:8080/api";
 
 const AppProvider = ({ children }) => {
 
@@ -291,6 +291,9 @@ const AppProvider = ({ children }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
   const [correctIncorrectIsTrue, setCorrectIncorrectIsTrue] = useState(false);
+  const [heartsNum, setHeartsNum] = useState(3)
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [wrongAnswers, setWrongAnswers] = useState(0);
 
   return (
     <AppContext.Provider
@@ -370,6 +373,9 @@ const AppProvider = ({ children }) => {
         quizzCreateNew, setQuizzCreateNew, questionEdit, setQuestionEdit,
         currentQuizz, setCurrentQuizz,
         currentQuestion, setCurrentQuestion,
+        heartsNum, setHeartsNum,
+        correctAnswers, setCorrectAnswers,
+        wrongAnswers, setWrongAnswers,
 
         // CORRECT INCORRECT
         correctIncorrectIsTrue, setCorrectIncorrectIsTrue,

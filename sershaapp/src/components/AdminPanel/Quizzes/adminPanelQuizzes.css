@@ -41,6 +41,11 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+.optionsCorrIncorr {
+  display: flex;
+  align-items: center;
+}
+
 .modal-content {
   background: linear-gradient(180deg, #2F202F 0%, #460C23FF 100%);
   margin: auto;

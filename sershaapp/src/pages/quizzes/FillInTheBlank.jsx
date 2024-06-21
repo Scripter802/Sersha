@@ -1,6 +1,6 @@
 import { heart } from '../../assets/images/customization/items/index'
 import avatar from '../../assets/images/navbar/userpick.png'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import close from '../../assets/images/quiz/close.png'
 import inventory from '../../assets/images/quiz/inventory.png'
 import { CiHeart } from 'react-icons/ci'
@@ -14,8 +14,8 @@ import './fillintheblank.css'
 import HealthBar from '../../components/HealthBar'
 import { useGlobalContext } from '../../context/context'
 
-const FillInTheBlank = () => {
-  const { currentQuestion, setCurrentQuestion } = useGlobalContext();
+const FillInTheBlank = ({ currentQ }) => {
+  const { currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers } = useGlobalContext();
   const messages = [
     {
       avatar: avatar,
@@ -41,10 +41,20 @@ const FillInTheBlank = () => {
     },
   ]
 
-  const [heartsNum, setHeartsNum] = useState(2)
   const [message, setMessage] = useState(`${messages[0].name}`);
+  const [corAns, setCorAns] = useState('');
   const [dropped, setDropped] = useState();
   const fillInTheBlank = messages[0].message.split('#');
+
+  useEffect(() => {
+    currentQ.answers.map(q => {
+      if (q.isCorrect == true) (
+        setCorAns(q.text)
+      );
+    })
+
+  }, [])
+
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: "answer",
@@ -55,8 +65,21 @@ const FillInTheBlank = () => {
     })
   }), []);
 
-  let optionAnswer = messages[0].answer.map(item => item);
+  console.log(currentQuizz.questions.length, currentQuestion, corAns, correctAnswers)
 
+
+  if (dropped && currentQuizz.questions.length - 1 != currentQuestion) {
+    if (dropped == corAns) {
+      setCorrectAnswers(correctAnswers + 1);
+    }
+    if (dropped !== corAns) {
+      setWrongAnswers(wrongAnswers + 1);
+    }
+    setCurrentQuestion(currentQuestion + 1)
+  }
+
+  let optionAnswer = currentQ.answers.map(item => item.text);
+  console.log(currentQ)
 
   return (
     <div className='fillBlankQuizWrapper'>
@@ -114,7 +137,7 @@ const FillInTheBlank = () => {
         <div className='fillInBlankWrapper'>
           <h5>Fill in the Blank</h5>
           <div className='fillInAssignment'>
-            {fillInTheBlank[0]}{<div className={`${dropped ? 'droppedAnswer' : 'dropHereBox'}`} ref={drop}> {dropped ? `${dropped}` : <img src={dropPlace} alt='dropplace' />}</div>}{fillInTheBlank[1]}
+            {currentQ.statement1}{<div className={`${dropped ? 'droppedAnswer' : 'dropHereBox'}`} ref={drop}> {dropped ? `${dropped}` : <img src={dropPlace} alt='dropplace' />}</div>}{currentQ.statement2}
           </div>
           <h5>Answer options</h5>
 

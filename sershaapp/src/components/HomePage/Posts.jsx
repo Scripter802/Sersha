@@ -32,12 +32,12 @@ const Posts = ({ posts }) => {
     <>
       {randomPosts.map((post, index) => (
         <div className='postWrapper' key={index}>
-          {console.log(post)}
+          {console.log(`post${post}`)}
           <div><p className='postTitle'>{post.title}</p></div>
           <img src={`${baseUrlImage}${post?.imagePath}` || ''} alt={post.img ? 'post' : ''} className='postImg' />
           <div className='postLikeWrapper'>
             <div className='postBy'>
-              <img src={`http://192.168.1.7:8080/api/${post.authorImg}`} alt="postbyimg" />
+              <img src={`${baseUrlImage}${post.author.authorImagePath}`} alt="postbyimg" />
               <p>{post.authorName}</p>
             </div>
             <div>

@@ -94,11 +94,9 @@ const SingleQuizz = ({ quizz }) => {
 
               {quest.type === 1 && (
                 <div className='questionDetails'>
-                  <div className='options'>
-                    <strong>Options:</strong>
-                    {quest.answers.map((q, idx) => (
-                      <p key={idx} style={{ backgroundColor: q.isCorrect ? 'green' : 'transparent', borderRadius: '10px', padding: '.25rem', width: 'fit-content' }}>{q.text}</p>
-                    ))}
+                  <div className='optionsCorrIncorr'>
+                    <strong>Is correct:</strong>
+                    <p key={'0'} style={{ backgroundColor: quest.isCorrect ? 'green' : '', borderRadius: '10px', padding: '.25rem', width: 'fit-content' }}>{quest.isCorrect ? 'True' : 'False'}</p>
                   </div>
                 </div>
               )}
@@ -122,8 +120,8 @@ const SingleQuizz = ({ quizz }) => {
               )}
 
               <div className='settingsData'>
-                <button className="edit-btn" onClick={() => handleEditQuestion(index)}>Edit</button>
-                <button className="delete-btn" onClick={() => handleDeleteQuestion(index)}>Delete</button>
+                <button className="edit-btn" onClick={() => handleEditQuestion(index)} disabled>Edit</button>
+                <button className="delete-btn" onClick={() => handleDeleteQuestion(index)} disabled>Delete</button>
               </div>
             </div>
           ))}

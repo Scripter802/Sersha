@@ -16,7 +16,7 @@ import HealthBar from '../../components/HealthBar';
 import { useGlobalContext } from '../../context/context';
 
 const Grouping = ({ currentQ }) => {
-  const { currentQuestion, setCurrentQuestion } = useGlobalContext();
+  const { currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers } = useGlobalContext();
   const dropRefs = Array.from({ length: 6 }, () => useRef(null));
   console.log(currentQ)
 
@@ -31,7 +31,6 @@ const Grouping = ({ currentQ }) => {
     },
   ];
 
-  const [heartsNum, setHeartsNum] = useState(2);
   const [dropped, setDropped] = useState(["Drop here", "Drop here", "Drop here", "Drop here", "Drop here", "Drop here"]);
   const [optionAnswer, setOptionAnswer] = useState([]);
 
@@ -46,7 +45,6 @@ const Grouping = ({ currentQ }) => {
     const newDropped = [...dropped];
     newDropped[index] = item.name;
     setDropped(newDropped);
-
   };
 
   const updateDropped = (currentIndex, draggedIndex) => {
@@ -56,7 +54,41 @@ const Grouping = ({ currentQ }) => {
     console.log(newDropped)
     newDropped[currentIndex] = draggedItem;
     setDropped(newDropped);
+
   };
+
+  let items = []
+
+  function areArraysEqual(arr1, arr2) {
+    let res = true;
+    arr1.forEach(el => {
+      if (!arr2.includes(el)) {
+        res = false;
+      }
+    })
+    return res;
+  }
+
+  console.log(currentQuizz.questions.length - 1, currentQuestion)
+  if (currentQ?.groups && currentQuizz.questions.length != currentQuestion) {
+    currentQ.groups[0].groupingItems.map(it => items.push(it.item))
+    currentQ.groups[1].groupingItems.map(it => items.push(it.item))
+  }
+
+
+  const handleDone = (arr1, arr2) => {
+
+    const dropped1 = [dropped[0], dropped[1], dropped[2]];
+    const dropped2 = [dropped[3], dropped[4], dropped[5]];
+
+    let res = areArraysEqual(dropped1, currentQ.groups[0].groupingItems) && areArraysEqual(dropped2, currentQ.groups[1].groupingItems);
+    if (res == true) {
+      setCorrectAnswers(correctAnswers + 1);
+    }
+    console.log(res)
+    setCurrentQuestion(currentQuestion + 1)
+  }
+
 
   return (
     <div className='GroupingQuizWrapper'>
@@ -107,8 +139,8 @@ const Grouping = ({ currentQ }) => {
           <h5 className='groupingAsignmentTitle'>Place the words into the appropriate groups</h5>
           <div className='groupingDropBoxesWrapper'>
             <div className='groupingDropBoxesTitles'>
-              <h5>{ }</h5>
-              <h5>{messages[1].group}</h5>
+              <h5>{currentQ.groups[0].name}</h5>
+              <h5>{currentQ.groups[1].name}</h5>
             </div>
             <div className='groupingDropBoxes'>
               <div className='fruitDropBoxes'>
@@ -149,12 +181,12 @@ const Grouping = ({ currentQ }) => {
           <h5 className='words'>Words</h5>
 
           <div className='groupingOfferedAnswerWrapper'>
-            {optionAnswer.map((item, index) => (
+            {items.map((item, index) => (
               <DraggableItem key={index} item={item} index={index} dropped={dropped} />
             ))}
           </div>
 
-          {dropped.includes("Drop here") ? '' : <div className='groupingFinished'><img src={done} alt="done" />I'm Done</div>}
+          {dropped.includes("Drop here") ? '' : <div className='groupingFinished' onClick={() => handleDone()}><img src={done} alt="done" />I'm Done</div>}
         </div>
       </div>
 

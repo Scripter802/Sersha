@@ -8,7 +8,7 @@ import Grouping from '../Grouping';
 
 
 const QuizPage = () => {
-  const { baseUrl, currentQuizz, setCurrentQuizz, currentQuestion, setCurrentQuestion } = useGlobalContext();
+  const { baseUrl, currentQuizz, setCurrentQuizz, currentQuestion, setCurrentQuestion, correctAnswers, setCorrectAnswers, heartsNum, setHeartsNum } = useGlobalContext();
 
   useEffect(() => {
     const fetchCurrentQuizz = async () => {

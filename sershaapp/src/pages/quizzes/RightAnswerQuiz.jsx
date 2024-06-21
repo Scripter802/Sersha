@@ -1,6 +1,6 @@
 import { heart } from '../../assets/images/customization/items/index'
 import avatar from '../../assets/images/navbar/userpick.png'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import close from '../../assets/images/quiz/close.png'
 import inventory from '../../assets/images/quiz/inventory.png'
 import { CiHeart } from 'react-icons/ci'
@@ -14,8 +14,7 @@ import HealthBar from '../../components/HealthBar'
 import { useGlobalContext } from '../../context/context'
 
 const RightAnswerQuiz = ({ currentQ }) => {
-  const [heartsNum, setHeartsNum] = useState(2)
-  const { currentQuestion, setCurrentQuestion } = useGlobalContext();
+  const { currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers } = useGlobalContext();
   console.log(`cur: ${currentQ.text}`)
   const messages = [
     {
@@ -44,7 +43,26 @@ const RightAnswerQuiz = ({ currentQ }) => {
 
   const [message, setMessage] = useState(`${messages[0].name}`);
   const [answer, setAnswer] = useState()
-  console.log(answer)
+  const [corAns, setCorAns] = useState('');
+
+  useEffect(() => {
+    currentQ.answers.map(q => {
+      if (q.isCorrect == true) (
+        setCorAns(q.text)
+      );
+    })
+
+    if (answer == corAns) {
+      setCorrectAnswers(correctAnswers + 1);
+    }
+  }, [answer])
+
+  console.log(`CORRECT ANSWERS ${correctAnswers}`)
+  console.log(currentQuizz.questions.length, currentQuestion)
+  if (answer && currentQuizz.questions.length - 1 != currentQuestion) {
+
+    setCurrentQuestion(currentQuestion + 1)
+  }
 
   return (
     <div className='rightAnswerQuizWrapper'>

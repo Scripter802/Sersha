@@ -34,9 +34,17 @@ const QuizzesCreateNew = () => {
     currentQuestion.questions.forEach((question, qIndex) => {
       let type = question.type === 'Right Answer' ? 0 : question.type === 'Correct/Incorrect' ? 1 : question.type === 'Fill in The Blank' ? 2 : 3;
 
-      if (question.text == "") {
-        question.text = 'asd';
 
+      if (type == 3) {
+        question.text = 'Place the words into the appropriate groups';
+
+      }
+
+      if (type == 1) {
+        if (question.isCorrect === undefined) {
+          question.isCorrect = false;
+        }
+        formData.append(`questions[${qIndex}][isCorrect]`, question.isCorrect);
       }
       formData.append(`questions[${qIndex}][type]`, type);
       formData.append(`questions[${qIndex}][questionText]`, question.text);
@@ -62,7 +70,7 @@ const QuizzesCreateNew = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
-      setRightAnswerCreateNew(false);
+      setQuizzesCreateNew(false);
       console.log(response.data);
     } catch (error) {
       console.log(error);
@@ -84,6 +92,7 @@ const QuizzesCreateNew = () => {
             { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] },
             { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] }
           ],
+          isCorrect: false,
         }
       ]
     });
@@ -98,6 +107,13 @@ const QuizzesCreateNew = () => {
   const handleAnswerChange = (qIndex, aIndex, field, value) => {
     const updatedQuestions = [...currentQuestion.questions];
     updatedQuestions[qIndex].answers[aIndex][field] = value;
+    setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
+  };
+
+  const handleIsCorrectChange = (qIndex, value) => {
+    console.log(`value: ${value}`)
+    const updatedQuestions = [...currentQuestion.questions];
+    updatedQuestions[qIndex].isCorrect = value;
     setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
   };
 
@@ -213,19 +229,11 @@ const QuizzesCreateNew = () => {
                   <label>
                     True
                     <input
+                      id='correctIncorrectTrue'
                       className='postProfileName'
                       type="checkbox"
-                      checked={question.answers[0].isCorrect}
-                      onChange={(e) => handleAnswerChange(qIndex, 0, 'isCorrect', e.target.checked)}
-                    />
-                  </label>
-                  <label>
-                    False
-                    <input
-                      className='postProfileName'
-                      type="checkbox"
-                      checked={question?.answers[1]?.isCorrect}
-                      onChange={(e) => handleAnswerChange(qIndex, 1, 'isCorrect', e.target.checked)}
+                      checked={question.isCorrect}
+                      onChange={(e) => handleIsCorrectChange(qIndex, e.target.checked)}
                     />
                   </label>
                 </div>
@@ -265,6 +273,12 @@ const QuizzesCreateNew = () => {
                       value={ans.text}
                       placeholder={`Option ${aIndex + 1}`}
                       onChange={(e) => handleAnswerChange(qIndex, aIndex, 'text', e.target.value)}
+                    />
+                    <input
+                      className='postProfileName'
+                      type="checkbox"
+                      checked={ans.isCorrect}
+                      onChange={(e) => handleAnswerChange(qIndex, aIndex, 'isCorrect', e.target.checked)}
                     />
                   </div>
                 ))}

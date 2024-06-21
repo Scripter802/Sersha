@@ -79,6 +79,7 @@ namespace Application.Quizzes
 
                     Question question = await CreateQuestionBasedOnType(questionDto.Type, questionDto, questionImagePath);
                     question.QuizId = quiz.Id;
+                    question.Type = questionDto.Type;
                     quiz.Questions.Add(question);
                     _context.Questions.Add(question);
                 }
@@ -105,8 +106,8 @@ namespace Application.Quizzes
                 {
                     await imageFile.CopyToAsync(fs);
                 }
-
-                return Path.Combine("/Images/quizImages", quizId.ToString(), folder, fileName);
+                
+                return "/Images/quizImages" + "/" + quizId.ToString() + "/" + folder + "/" + fileName;
             }
 
             private async Task<Question> CreateQuestionBasedOnType(QuestionType type, QuestionDto questionDto, string questionImagePath)

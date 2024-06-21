@@ -13,9 +13,12 @@ import { useDrag, useDrop } from 'react-dnd';
 
 import './grouping.css';
 import HealthBar from '../../components/HealthBar';
+import { useGlobalContext } from '../../context/context';
 
-const Grouping = () => {
+const Grouping = ({ currentQ }) => {
+  const { currentQuestion, setCurrentQuestion } = useGlobalContext();
   const dropRefs = Array.from({ length: 6 }, () => useRef(null));
+  console.log(currentQ)
 
   const messages = [
     {
@@ -104,7 +107,7 @@ const Grouping = () => {
           <h5 className='groupingAsignmentTitle'>Place the words into the appropriate groups</h5>
           <div className='groupingDropBoxesWrapper'>
             <div className='groupingDropBoxesTitles'>
-              <h5>{messages[0].group}</h5>
+              <h5>{ }</h5>
               <h5>{messages[1].group}</h5>
             </div>
             <div className='groupingDropBoxes'>

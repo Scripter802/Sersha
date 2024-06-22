@@ -116,7 +116,7 @@ namespace Application.Quizzes
                     await imageFile.CopyToAsync(fs);
                 }
 
-                return Path.Combine("/Images/quizImages", quizId.ToString(), folder, fileName);
+                return "/Images/quizImages/" + quizId.ToString() + "/" + folder + "/" + fileName;
             }
 
             private async Task<Question> CreateQuestionBasedOnType(QuestionType type, QuestionDto questionDto, string questionImagePath)

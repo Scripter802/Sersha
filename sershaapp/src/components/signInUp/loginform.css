@@ -11,6 +11,27 @@
     align-items: center;
 }
 
+.passwordLogin {
+    position: relative;
+}
+
+.btnShowHide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+    background-color: transparent;
+    border: none;
+
+}
+
+.btnShowHide img {
+    width: 30px;
+    height: 30px;
+}
+
 .signUpButton {
     color: #FFB496;
     cursor: pointer;

@@ -31,6 +31,7 @@ sershaback/API/[Bb]in/
 sershaback/API/[Oo]bj/
 sershaback/API/[Ll]og/
 sershaback/API/[Ll]ogs/
+sershaback/API/appsettings.json
 
 sershaback/Application/[Dd]ebug/
 sershaback/Application/[Dd]ebugPublic/

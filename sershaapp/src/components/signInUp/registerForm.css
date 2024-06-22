@@ -16,6 +16,35 @@
     cursor: pointer;
 }
 
+.passReg1,
+.passReg2 {
+    position: relative;
+}
+
+.btnShowHideRegister1,
+.btnShowHideRegister2 {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    right: 1.5rem;
+    background-color: transparent;
+    border: none;
+}
+
+.btnShowHideRegister1 img,
+.btnShowHideRegister2 img {
+    width: 30px;
+    height: 30px;
+}
+
+.error-message {
+    color: white;
+    font-weight: 700;
+
+}
+
 .registerHeaderRightSide img {
     width: 24px;
     height: 24px;
@@ -31,7 +60,6 @@
 
 .registerFormWrapper h1 {
     color: #FFFFFF;
-    margin-block: 2.5rem;
 }
 
 .registerFormWrapper label {

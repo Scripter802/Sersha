@@ -3,6 +3,7 @@ import { heart } from '../../assets/images/customization/items/index.js';
 import logo from '../../assets/images/login/logo.png';
 import signUp from '../../assets/images/login/signup.png';
 import circleLoginOrange from '../../assets/images/login/circleLoginOrange.png';
+import visible from '../../assets/images/login/visible.png';
 import { useGlobalContext } from '../../context/context.jsx';
 import './registerForm.css';
 
@@ -23,8 +24,6 @@ const RegisterForm = () => {
     setRegisterPassword,
     registerRePassword,
     setRegisterRePassword,
-    registerValidate,
-    setRegisterValidate,
     registerShowPassword,
     setRegisterShowPassword,
     logIn,
@@ -33,16 +32,31 @@ const RegisterForm = () => {
 
   const [errorMessage, setErrorMessage] = useState('');
 
+  const resetFormFields = () => {
+    setRegisterNameOfParent('');
+    setRegisterNameOfChild('');
+    setRegisterDateOfBirth('');
+    setRegisterPhoneNumber('');
+    setRegisterEmail('');
+    setRegisterPassword('');
+    setRegisterRePassword('');
+    setErrorMessage('');
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (!passwordRegex.test(registerPassword)) {
+      setErrorMessage('Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.');
+      return;
+    }
 
     if (registerPassword !== registerRePassword) {
       setErrorMessage('Passwords do not match');
       return;
     }
-
-    // const userBirthDate = new Date();
-    // userBirthDate.setFullYear(userBirthDate.getFullYear() - registerAgeOfChild);
 
     const formattedDateOfBirth = new Date(registerDateOfBirth).toISOString();
 
@@ -69,6 +83,7 @@ const RegisterForm = () => {
       if (response.ok) {
         // Handle successful registration (e.g., redirect to login or show success message)
         console.log('Registration successful');
+        resetFormFields(); // Reset form fields
         setLogIn(true);
       } else {
         const errorData = await response.json();
@@ -184,7 +199,7 @@ const RegisterForm = () => {
 
             <div className='passwordWrapper'>
               <div className="regPassword mb-3">
-                <div className="input-group">
+                <div className="input-group passReg1">
                   <label>
                     Password
                     <input
@@ -197,12 +212,19 @@ const RegisterForm = () => {
                       onChange={(e) => setRegisterPassword(e.target.value)}
                     />
                   </label>
+                  <button
+                    type="button"
+                    className=" btnShowHideRegister1"
+                    onClick={() => setRegisterShowPassword(!registerShowPassword)}
+                  >
+                    {registerShowPassword ? <img src={visible} /> : <img src={visible} />}
+                  </button>
                   <div className={`invalid-feedback text-start`}></div>
                 </div>
               </div>
 
               <div className="regRePassword mb-3">
-                <div className="input-group">
+                <div className="input-group passReg2">
                   <label>
                     Re-password
                     <input
@@ -215,6 +237,13 @@ const RegisterForm = () => {
                       onChange={(e) => setRegisterRePassword(e.target.value)}
                     />
                   </label>
+                  <button
+                    type="button"
+                    className=" btnShowHideRegister2"
+                    onClick={() => setRegisterShowPassword(!registerShowPassword)}
+                  >
+                    {registerShowPassword ? <img src={visible} /> : <img src={visible} />}
+                  </button>
                   <div className={`invalid-feedback text-start`}></div>
                 </div>
               </div>

@@ -92,14 +92,16 @@ const AdminPanelSnapJudgment = () => {
               </tr>
             </thead>
             <tbody>
-              {allSnapJudgment && allSnapJudgment.map((post, index) =>
+              {allSnapJudgmentAssignments && allSnapJudgmentAssignments.map((post, index) =>
                 <tr key={index}>
                   <td data-label="No.">{index + 1}</td>
                   <td data-label="Image"><img src={post.Image} alt="Post Image" /></td>
-                  <td data-label="AuthorName">{post.AuthorName}</td>
-                  <td data-label="AuthorName">{post.PostContent}</td>
-                  <td data-label="AuthorName">{post.CorrectAnswer}</td>
-                  <td data-label="Bundle">{post.Stage}</td>
+                  <td data-label="AuthorName">{post.text}</td>
+                  <td data-label="Content">{post.content}</td>
+                  <td data-label="AuthorName">{post.answers.map((ans, i) => (
+                    ans.isCorrect ? ans.text : ''
+                  ))}</td>
+                  <td data-label="Bundle">Easy</td>
 
                   <td data-label="Edit/Delete" className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEditSnapJudgment(index)}>Edit</button>

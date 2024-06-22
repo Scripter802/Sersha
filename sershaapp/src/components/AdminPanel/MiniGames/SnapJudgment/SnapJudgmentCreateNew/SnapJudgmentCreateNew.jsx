@@ -64,7 +64,7 @@ const SnapJudgmentCreateNew = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      setCreateNewPost(false);
+      setSnapJudgmentCreateNew(false);
       console.log(response.data);
     } catch (error) {
       console.log(error);
@@ -101,6 +101,14 @@ const SnapJudgmentCreateNew = () => {
         />
       </div>
       <div>
+        <label className='fieldLabel'>Upload Image:</label>
+        <input
+          className='inputField'
+          type="file"
+          onChange={(e) => handleImageChange(0, e.target.files[0])}
+        />
+      </div>
+      <div>
         <label className='fieldLabel'>Correct Answer:</label>
         <div>
           {newSnapJudgment.questions[0].answers.map((answer, index) => (
@@ -122,19 +130,13 @@ const SnapJudgmentCreateNew = () => {
           value={newSnapJudgment.stage}
           onChange={(e) => setNewSnapJudgment({ ...newSnapJudgment, stage: e.target.value })}
         >
+          <option value="" disabled>Select Bundle</option>
           <option value="Easy">Easy</option>
           <option value="Medium">Medium</option>
           <option value="Hard">Hard</option>
         </select>
       </div>
-      <div>
-        <label className='fieldLabel'>Upload Image:</label>
-        <input
-          className='inputField'
-          type="file"
-          onChange={(e) => handleImageChange(0, e.target.files[0])}
-        />
-      </div>
+
       <button className='submitBtn' onClick={handleSubmit}>Submit</button>
     </div>
   );

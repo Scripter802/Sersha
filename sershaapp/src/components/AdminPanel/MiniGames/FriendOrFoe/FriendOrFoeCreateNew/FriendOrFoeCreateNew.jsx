@@ -6,12 +6,19 @@ import './friendOrFoeCreateNew.css';
 const FriendOrFoeCreateNew = () => {
   const { setFriendOrFoeCreateNew, allFriendOrFoeAssignments, setAllFriendOrFoeAssignments } = useGlobalContext();
   const [newFriendOrFoe, setNewFriendOrFoe] = useState({
-    Image: null,
-    AuthorName: '',
-    PostContent: '',
-    CorrectAnswer: '',
-    Status: '',
-    Stage: '',
+    stage: '',
+    questions: [
+      {
+        type: '',
+        text: '',
+        content: '',
+        imageFile: null,
+        answers: [
+          { text: 'Decline', isCorrect: false },
+          { text: "Accept", isCorrect: false }
+        ],
+      }
+    ]
   });
 
   const handleSubmit = () => {

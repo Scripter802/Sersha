@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../../../context/context';
 import './adminPanelSnapJudgment.css';
 import SnapJudgmentCreateNew from './SnapJudgmentCreateNew/SnapJudgmentCreateNew';
 import SnapJudgmentEdit from './SnapJudgmentEdit/SnapJudgmentEdit';
+import axios from 'axios';
 
 const AdminPanelSnapJudgment = () => {
-  const { snapJudgmentCreateNew,
+  const { baseUrl, snapJudgmentCreateNew,
     setSnapJudgmentCreateNew,
     editingSnapJudgment,
     setEditingSnapJudgment,
@@ -52,6 +53,19 @@ const AdminPanelSnapJudgment = () => {
 
   // };
 
+  useEffect(() => {
+    const fetchAllQuizzes = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/0/4`);
+        setAllSnapJudgmentAssignments(response.data);
+      } catch (error) {
+        console.error('Error fetching right answer questions:', error);
+      }
+    };
+
+    fetchAllQuizzes();
+  }, [snapJudgmentCreateNew, editingSnapJudgment]);
+  console.log(allSnapJudgmentAssignments)
 
   return (
     <>
@@ -78,14 +92,16 @@ const AdminPanelSnapJudgment = () => {
               </tr>
             </thead>
             <tbody>
-              {allSnapJudgment && allSnapJudgment.map((post, index) =>
+              {allSnapJudgmentAssignments && allSnapJudgmentAssignments.map((post, index) =>
                 <tr key={index}>
                   <td data-label="No.">{index + 1}</td>
                   <td data-label="Image"><img src={post.Image} alt="Post Image" /></td>
-                  <td data-label="AuthorName">{post.AuthorName}</td>
-                  <td data-label="AuthorName">{post.PostContent}</td>
-                  <td data-label="AuthorName">{post.CorrectAnswer}</td>
-                  <td data-label="Bundle">{post.Stage}</td>
+                  <td data-label="AuthorName">{post.text}</td>
+                  <td data-label="Content">{post.content}</td>
+                  <td data-label="AuthorName">{post.answers.map((ans, i) => (
+                    ans.isCorrect ? ans.text : ''
+                  ))}</td>
+                  <td data-label="Bundle">Easy</td>
 
                   <td data-label="Edit/Delete" className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEditSnapJudgment(index)}>Edit</button>

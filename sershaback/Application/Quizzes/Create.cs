@@ -175,6 +175,7 @@ namespace Application.Quizzes
                         return new SnapJudgementQuestion
                         {
                             Text = questionDto.QuestionText,
+                            Content = questionDto.Content,
                             ImagePath = questionImagePath,
                             Answers = answers
                         };
@@ -191,6 +192,7 @@ namespace Application.Quizzes
                         return new FriendOrFoeQuestion
                         {
                             Text = questionDto.QuestionText,
+                            Content = questionDto.Content,
                             ImagePath = questionImagePath,
                             Answers = answers
                         };

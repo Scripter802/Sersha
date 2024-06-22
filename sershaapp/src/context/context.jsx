@@ -171,6 +171,7 @@ const AppProvider = ({ children }) => {
   const [registerValidate, setRegisterValidate] = useState({});
   const [registerShowPassword, setRegisterShowPassword] = useState(false);
 
+
   /* _______________________________________________________________________________ */
 
   /* HOMEPAGE *//* HOMEPAGE *//* HOMEPAGE *//* HOMEPAGE *//* HOMEPAGE *//* HOMEPAGE *//* HOMEPAGE */
@@ -343,6 +344,7 @@ const AppProvider = ({ children }) => {
         // USERS
         allUsers,
         setAllUsers,
+        logShowPassword, setLogShowPassword,
 
         // AUTHORS
         allAuthors,

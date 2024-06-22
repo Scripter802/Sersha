@@ -7,6 +7,7 @@ import passwordforgot from '../../assets/images/login/passwordforgot.png';
 import circleLogin from '../../assets/images/login/circleLogin.png';
 import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../../context/context.jsx';
+import visible from '../../assets/images/login/visible.png'
 import './loginform.css';
 import Slideshow from '../SlideShow/SlideShow.jsx';
 
@@ -68,6 +69,8 @@ const LoginForm = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
         },
         body: JSON.stringify(userData),
       });
@@ -99,6 +102,7 @@ const LoginForm = () => {
   if (isLoggedIn) {
     return <Slideshow />; // Render the slideshow component after login
   }
+
   return (
     <>
       <div className='logInHeaderWrapper'>
@@ -135,7 +139,7 @@ const LoginForm = () => {
             </div>
 
             <div className="password mb-3">
-              <div className="input-group">
+              <div className="input-group passwordLogin">
                 <label>
                   Password
                   <input
@@ -148,6 +152,13 @@ const LoginForm = () => {
                     onChange={(e) => setLogPassword(e.target.value)}
                   />
                 </label>
+                <button
+                  type="button"
+                  className=" btnShowHide"
+                  onClick={() => setLogShowPassword(!logShowPassword)}
+                >
+                  {logShowPassword ? <img src={visible} /> : <img src={visible} />}
+                </button>
                 <div className={`invalid-feedback text-start`}></div>
               </div>
 

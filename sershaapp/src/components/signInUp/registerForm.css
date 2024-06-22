@@ -39,6 +39,12 @@
     height: 30px;
 }
 
+.error-message {
+    color: white;
+    font-weight: 700;
+
+}
+
 .registerHeaderRightSide img {
     width: 24px;
     height: 24px;
@@ -54,7 +60,6 @@
 
 .registerFormWrapper h1 {
     color: #FFFFFF;
-    margin-block: 2.5rem;
 }
 
 .registerFormWrapper label {

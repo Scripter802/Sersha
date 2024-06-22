@@ -344,7 +344,6 @@ const AppProvider = ({ children }) => {
         // USERS
         allUsers,
         setAllUsers,
-        logShowPassword, setLogShowPassword,
 
         // AUTHORS
         allAuthors,

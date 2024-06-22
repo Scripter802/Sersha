@@ -7,7 +7,7 @@ import passwordforgot from '../../assets/images/login/passwordforgot.png';
 import circleLogin from '../../assets/images/login/circleLogin.png';
 import { Link } from 'react-router-dom';
 import { useGlobalContext } from '../../context/context.jsx';
-import visible from '../../assets/images/login/visible.png'
+import visible from '../../assets/images/login/visible.png';
 import './loginform.css';
 import Slideshow from '../SlideShow/SlideShow.jsx';
 

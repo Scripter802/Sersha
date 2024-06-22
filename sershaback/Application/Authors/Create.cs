@@ -8,6 +8,7 @@ using MediatR;
 using Persistence;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 
 namespace Application.Authors
@@ -33,11 +34,13 @@ namespace Application.Authors
         public class Handler : IRequestHandler<Command>
         {
             private readonly DataContext _context;
+            private readonly IWebHostEnvironment _env;
 
 
-            public Handler(DataContext context)
+            public Handler(DataContext context, IWebHostEnvironment env)
             {
                 _context = context;
+                _env = env;
             }
 
 
@@ -48,8 +51,8 @@ namespace Application.Authors
                     Id = request.Id,
                     AuthorName = request.AuthorName,
                 };
-                
-                String path = Directory.GetCurrentDirectory() + "\\wwwroot\\wwwroot\\Images\\authorImages\\" + request.AuthorName;
+
+                String path = Directory.GetCurrentDirectory() + "\\wwwroot\\Images\\authorImages\\" + request.AuthorName;
                 if(request.AuthorImage != null){
                     string fileName = request.AuthorImage.FileName;
                     Directory.CreateDirectory(path);

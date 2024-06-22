@@ -73,7 +73,7 @@ namespace Application.SershaItems
                     await file.CopyToAsync(stream);
                 }
 
-                return Path.Combine("Images", "SershaItems", fileName);
+                return "Images/SershaItems/" + fileName;
             }
         }
     }

@@ -64,7 +64,7 @@ namespace Application.Avatar
                     await file.CopyToAsync(stream);
                 }
 
-                return Path.Combine("Images", "userAvatarImages", fileName);
+                return "Images/userAvatarImages/" + fileName;
             }
         }
     }

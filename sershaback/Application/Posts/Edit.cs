@@ -67,18 +67,19 @@ namespace Application.Posts
                 post.Stage = request.Stage ?? post.Stage;
                 //post.AuthorImage = request.AuthorImage ?? post.AuthorImage;
                 post.Type= request.Type ?? post.Type;
-                if(post.AuthorId != request.AuthorId)
+                if(post.AuthorId != request.AuthorId && request.AuthorId != new Guid())
                 {
                     var author =await _context.Authors.FirstOrDefaultAsync(x=>x.Id == request.AuthorId);
                     post.Author = author;
                     post.AuthorId = author.Id;
                 }else
                 {
-                    post.Author =post.Author;
-                    post.AuthorId = post.AuthorId;
+                    var author =await _context.Authors.FirstOrDefaultAsync(x=>x.Id == post.AuthorId);
+                    post.Author = author;
+                    post.AuthorId = author.Id;
                 }
                 
-                String path = Directory.GetCurrentDirectory() + "\\Images\\postImages\\" + request.Stage;
+                String path = Directory.GetCurrentDirectory() + "\\wwwroot\\Images\\postImages\\" + request.Stage;
                 if(request.Image != null){
                     FileInfo fi = new FileInfo(request.Image.FileName);
                     string fileName = request.Title + fi.Extension;
@@ -90,9 +91,9 @@ namespace Application.Posts
                     }
                     post.ImagePath = "/Images/postImages/" + request.Stage + "/" + fileName;
                 }
-                
-                var success = await _context.SaveChangesAsync() > 0 ;
+                _context.Posts.Update(post);
 
+                var success = await _context.SaveChangesAsync() > 0 ;
                 if(success) return Unit.Value;
                 throw new Exception("Problem saving changes!");
             }

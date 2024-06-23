@@ -6,13 +6,11 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-context.jsx
 
 node_modules
 dist
 dist-ssr
 *.local
-src/context
 
 # Editor directories and files
 .vscode/*

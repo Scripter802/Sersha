@@ -53,7 +53,14 @@ const AdminPanelEditPost = () => {
         console.log(postAuthor.id)
 
 
-        await axios.put(`${baseUrl}/post/${editingPost.id}`, updatedPostFormData);
+        await axios.put(`${baseUrl}/post/${editingPost.id}`, updatedPostFormData, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            },
+        });
+
         setAllPosts(prevPosts => prevPosts.map(post => post.id === editingPost.id ? updatedPost : post));
         setIsPostEdit(false);
     };

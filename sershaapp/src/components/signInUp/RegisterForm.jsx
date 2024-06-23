@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { heart } from '../../assets/images/customization/items/index.js';
 import logo from '../../assets/images/login/logo.png';
 import signUp from '../../assets/images/login/signup.png';
@@ -31,6 +32,27 @@ const RegisterForm = () => {
   } = useGlobalContext();
 
   const [errorMessage, setErrorMessage] = useState('');
+  const [avatars, setAvatars] = useState([]);
+  const [selectedAvatar, setSelectedAvatar] = useState(null);
+  const [showAvatarModal, setShowAvatarModal] = useState(false);
+
+  useEffect(() => {
+    const fetchAvatars = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/avatar`);
+        setAvatars(response.data);
+      } catch (error) {
+        console.log('Error fetching avatars:', error);
+      }
+    };
+
+    fetchAvatars();
+  }, [baseUrl]);
+
+  const handleAvatarSelect = (avatar) => {
+    setSelectedAvatar(avatar);
+    setShowAvatarModal(false);
+  };
 
   const resetFormFields = () => {
     setRegisterNameOfParent('');
@@ -40,6 +62,7 @@ const RegisterForm = () => {
     setRegisterEmail('');
     setRegisterPassword('');
     setRegisterRePassword('');
+    setSelectedAvatar(null);
     setErrorMessage('');
   };
 
@@ -67,6 +90,7 @@ const RegisterForm = () => {
       parentsFullName: registerNameOfParent,
       parentPhoneNumber: registerPhoneNumber,
       userBirthDate: formattedDateOfBirth,
+      avatarImage: selectedAvatar,
     };
 
     try {
@@ -81,9 +105,8 @@ const RegisterForm = () => {
       });
 
       if (response.ok) {
-        // Handle successful registration (e.g., redirect to login or show success message)
         console.log('Registration successful');
-        resetFormFields(); // Reset form fields
+        resetFormFields();
         setLogIn(true);
       } else {
         const errorData = await response.json();
@@ -217,7 +240,7 @@ const RegisterForm = () => {
                     className=" btnShowHideRegister1"
                     onClick={() => setRegisterShowPassword(!registerShowPassword)}
                   >
-                    {registerShowPassword ? <img src={visible} /> : <img src={visible} />}
+                    <img src={visible} alt="toggle visibility" />
                   </button>
                   <div className={`invalid-feedback text-start`}></div>
                 </div>
@@ -242,11 +265,24 @@ const RegisterForm = () => {
                     className=" btnShowHideRegister2"
                     onClick={() => setRegisterShowPassword(!registerShowPassword)}
                   >
-                    {registerShowPassword ? <img src={visible} /> : <img src={visible} />}
+                    <img src={visible} alt="toggle visibility" />
                   </button>
                   <div className={`invalid-feedback text-start`}></div>
                 </div>
               </div>
+            </div>
+
+            <div className="avatarWrapper mb-3">
+              <label>
+                Avatar
+                <div className="avatar-selection" onClick={() => setShowAvatarModal(true)}>
+                  {selectedAvatar ? (
+                    <img src={selectedAvatar.imagePath} alt="Selected Avatar" />
+                  ) : (
+                    <p>Choose Avatar</p>
+                  )}
+                </div>
+              </label>
             </div>
 
             {errorMessage && <p className="error-message">{errorMessage}</p>}
@@ -270,6 +306,27 @@ const RegisterForm = () => {
           </form>
         </div>
       </div>
+
+      {showAvatarModal && (
+        <div className="avatar-modal">
+          <div className="avatar-modal-content">
+            <h2>Select Avatar</h2>
+            <div className="avatar-list">
+              {avatars.map(avatar => (
+                <div
+                  key={avatar.id}
+                  className="avatar-item"
+                  onClick={() => handleAvatarSelect(avatar)}
+                >
+                  <img src={`${baseUrlImage}${avatar.imagePath}`} alt={avatar.name} />
+                  <p>{avatar.name}</p>
+                </div>
+              ))}
+            </div>
+            <button onClick={() => setShowAvatarModal(false)}>Close</button>
+          </div>
+        </div>
+      )}
 
       <div className='footerWrapper'>
         <div className='footer'>

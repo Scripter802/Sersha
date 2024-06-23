@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../../../context/context';
 import './adminPanelFriendOrFoe.css';
 import FriendOrFoeCreateNew from './FriendOrFoeCreateNew/FriendOrFoeCreateNew';
 import FriendOrFoeEdit from './FriendOrFoeEdit/FriendOrFoeEdit';
+import axios from 'axios';
 
 const AdminPanelFriendOrFoe = () => {
   const {
+    baseUrl,
     friendOrFoeCreateNew,
     setFriendOrFoeCreateNew,
     isFriendOrFoeEdit,
@@ -46,6 +48,20 @@ const AdminPanelFriendOrFoe = () => {
     },
   ]
 
+  useEffect(() => {
+    const fetchAllQuizzes = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/0/6`);
+        setAllFriendOrFoeAssignments(response.data);
+      } catch (error) {
+        console.error('Error fetching right answer questions:', error);
+      }
+    };
+
+    fetchAllQuizzes();
+  }, [friendOrFoeCreateNew, editingFriendOrFoe]);
+  console.log(allFriendOrFoeAssignments)
+
   const handleEditFriendOrFoe = (index) => {
     setEditingFriendOrFoe(index);
     setIsFriendOrFoeEdit(true)
@@ -76,21 +92,19 @@ const AdminPanelFriendOrFoe = () => {
                 <th>Gender</th>
                 <th>Image</th>
                 <th>Profile Description</th>
-                <th>Status</th>
                 <th>Stage</th>
                 <th>Edit/Delete</th>
               </tr>
             </thead>
             <tbody>
-              {AllEmojis && AllEmojis.map((post, index) =>
+              {allFriendOrFoeAssignments && allFriendOrFoeAssignments.map((post, index) =>
                 <tr key={index}>
                   <td data-label="No.">{index + 1}</td>
-                  <td data-label="Image"><img src={post.Image} alt="Post Image" /></td>
-                  <td data-label="AuthorName">{post.AuthorName}</td>
-                  <td data-label="AuthorName">{post.CorrectAnswer}</td>
-                  <td data-label="AuthorName">{post.CorrectAnswer}</td>
-                  <td data-label="AuthorName">{post.Status}</td>
-                  <td data-label="Bundle">{post.Stage}</td>
+                  <td data-label="AuthorName">{post.text}</td>
+                  <td data-label="AuthorName">Male</td>
+                  <td data-label="Image"><img src={post.imagePath} alt="Post Image" /></td>
+                  <td data-label="AuthorName">{post.content}</td>
+                  <td data-label="Bundle">Easy</td>
 
                   <td data-label="Edit/Delete" className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEditFriendOrFoe(index)}>Edit</button>

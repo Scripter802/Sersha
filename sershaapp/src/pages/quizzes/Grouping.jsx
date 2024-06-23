@@ -16,7 +16,7 @@ import HealthBar from '../../components/HealthBar';
 import { useGlobalContext } from '../../context/context';
 
 const Grouping = ({ currentQ }) => {
-  const { currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers } = useGlobalContext();
+  const { setShowPopup, currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers } = useGlobalContext();
   const dropRefs = Array.from({ length: 6 }, () => useRef(null));
   console.log(currentQ)
 
@@ -69,7 +69,8 @@ const Grouping = ({ currentQ }) => {
     return res;
   }
 
-  console.log(currentQuizz.questions.length - 1, currentQuestion)
+
+  console.log(`CORRECT ANSWERS ${correctAnswers}`)
   if (currentQ?.groups && currentQuizz.questions.length != currentQuestion) {
     currentQ.groups[0].groupingItems.map(it => items.push(it.item))
     currentQ.groups[1].groupingItems.map(it => items.push(it.item))
@@ -77,6 +78,9 @@ const Grouping = ({ currentQ }) => {
 
 
   const handleDone = (arr1, arr2) => {
+    if (currentQ?.groups && currentQuizz.questions.length - 1 == currentQuestion) {
+      setShowPopup(true)
+    }
 
     const dropped1 = [dropped[0], dropped[1], dropped[2]];
     const dropped2 = [dropped[3], dropped[4], dropped[5]];

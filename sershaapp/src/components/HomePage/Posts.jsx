@@ -47,6 +47,9 @@ const Posts = ({ posts }) => {
         </div>
 
       ))}
+      <audio loop autoPlay>
+        <source src="public/music/Misc/BackgroundMusicFour.mp3" type="audio/mpeg" />
+      </audio>
     </>
   );
 };

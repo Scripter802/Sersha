@@ -7,10 +7,12 @@ import axios from 'axios'
 import avatar from '../assets/images/navbar/userpick.png'
 
 const AppContext = createContext();
-const baseUrl = "https://sershaback.azurewebsites.net/api";
+const baseUrl = "http://localhost:5000/api";
 const baseUrlImage = "https://sershaback.azurewebsites.net/";
 
 const AppProvider = ({ children }) => {
+
+
 
   // Function to handle selecting an item for the top part
   const handleSelectTopItem = (item) => {
@@ -62,7 +64,7 @@ const AppProvider = ({ children }) => {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [quizzCreateNew, setQuizzCreateNew] = useState(false);
   const [questionEdit, setQuestionEdit] = useState(false);
-
+  const [showPopup, setShowPopup] = useState(false);
 
 
   /* ADMIN RIGHT ANSWER QUIZ */
@@ -344,7 +346,6 @@ const AppProvider = ({ children }) => {
         // USERS
         allUsers,
         setAllUsers,
-        logShowPassword, setLogShowPassword,
 
         // AUTHORS
         allAuthors,
@@ -378,6 +379,7 @@ const AppProvider = ({ children }) => {
         heartsNum, setHeartsNum,
         correctAnswers, setCorrectAnswers,
         wrongAnswers, setWrongAnswers,
+        showPopup, setShowPopup,
 
         // CORRECT INCORRECT
         correctIncorrectIsTrue, setCorrectIncorrectIsTrue,

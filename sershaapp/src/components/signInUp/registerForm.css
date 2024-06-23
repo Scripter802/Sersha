@@ -50,6 +50,64 @@
     height: 24px;
 }
 
+.avatarWrapper {
+    margin-bottom: 1rem;
+}
+
+.avatar-selection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.avatar-selection img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.avatar-selection p {
+    margin: 0;
+}
+
+.avatar-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.avatar-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.avatar-item {
+    cursor: pointer;
+    text-align: center;
+}
+
+.avatar-item img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
 .registerFormWrapper {
     display: flex;
     flex-direction: column;

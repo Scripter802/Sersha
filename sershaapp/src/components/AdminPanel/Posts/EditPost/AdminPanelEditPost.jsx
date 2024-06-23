@@ -39,7 +39,7 @@ const AdminPanelEditPost = () => {
             author: postAuthor,
             stage: postBundle,
             type: postType,
-            imagePath: postContentImage instanceof File ? postContentImage.name : postContentImage,
+            imagePath: postContentImage,
         };
 
         const updatedPostFormData = new FormData();

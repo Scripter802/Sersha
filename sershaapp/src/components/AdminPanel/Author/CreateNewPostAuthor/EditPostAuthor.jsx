@@ -31,7 +31,6 @@ const EditPostAuthor = () => {
 
 
     await axios.put(`${baseUrl}/Author/${editingPostAuthor.id}`, newPostAuthorFormData);
-    setAllAuthors(prevAuthors => prevAuthors.map(author => author.id === editingPostAuthor.id ? updatedPost : post));
     setIsPostAuthorEdit(false);
   };
 

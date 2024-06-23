@@ -7,7 +7,7 @@ import axios from 'axios'
 import avatar from '../assets/images/navbar/userpick.png'
 
 const AppContext = createContext();
-const baseUrl = "https://sershaback.azurewebsites.net/api";
+const baseUrl = "http://localhost:5000/api";
 const baseUrlImage = "https://sershaback.azurewebsites.net/";
 
 const AppProvider = ({ children }) => {

@@ -60,7 +60,7 @@ namespace Application.Authors
                 author.AuthorImage = request.AuthorImage ?? author.AuthorImage;
                 
                 
-                String path = Directory.GetCurrentDirectory() + "\\Images\\authorImages\\" + request.Id;
+                String path = Directory.GetCurrentDirectory() + "\\wwwroot\\Images\\authorImages\\" + request.Id;
                 if(request.AuthorImage != null){
                     string fileName = request.authorName + request.AuthorImage.FileName;
                     Directory.CreateDirectory(path);

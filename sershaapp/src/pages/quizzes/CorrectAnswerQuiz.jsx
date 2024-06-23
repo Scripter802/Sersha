@@ -16,7 +16,7 @@ import HealthBar from '../../components/HealthBar'
 import { useGlobalContext } from '../../context/context'
 
 const CorrectAnswerQuiz = ({ currentQ }) => {
-  const { currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers } = useGlobalContext();
+  const { setShowPopup, currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers } = useGlobalContext();
 
   const messages = [
     {
@@ -45,12 +45,17 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
 
   const [message, setMessage] = useState(`${messages[0].name}`);
   const [answer, setAnswer] = useState()
-  console.log(answer)
-  console.log(currentQuizz.questions.length, currentQuestion)
+  console.log(currentQ.isCorrect, answer)
+  console.log(`CORRECT ANSWERS ${correctAnswers}`)
+
+  if (answer && currentQuizz.questions.length - 1 == currentQuestion) {
+    setShowPopup(true)
+  }
+
+  if (currentQ.isCorrect == answer) {
+    setCorrectAnswers(correctAnswers + 1)
+  }
   if (answer && currentQuizz.questions.length - 1 != currentQuestion) {
-    if (currentQ.isCorrect == answer) {
-      setCorrectAnswers(correctAnswers + 1)
-    }
     setCurrentQuestion(currentQuestion + 1)
   }
 
@@ -118,7 +123,7 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
           <div className='correctAnswerAnsWrapper'>
             {messages.map(msg => (
               message === msg.name && !answer ? msg.answer?.map(ans => (
-                <div className='correctOfferedAnswersWrapper' onClick={() => setAnswer(`${ans}`)}>
+                <div className='correctOfferedAnswersWrapper' onClick={() => setAnswer(`${ans == 'True' ? true : false}`)}>
                   <p className='correctOfferedAnswers' style={{ backgroundColor: `${ans === "True" ? "#B2F0B6" : "#FFB6B6"}` }}>{ans === "True" ? <><img src={done} alt='done' />{ans}</> : <><img src={incorrect} alt='done' />{ans}</>}</p>
                 </div>
               )) : ``

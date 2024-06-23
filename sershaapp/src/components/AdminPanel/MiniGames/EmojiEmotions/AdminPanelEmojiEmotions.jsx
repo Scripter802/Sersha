@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../../../context/context';
 import './adminPanelEmojiEmotions.css';
 import EmojiEmotionsCreateNew from './EmojiEmotionsCreateNew/EmojiEmotionsCreateNew';
 import EmojiEmotionsEdit from './EmojiEmotionsEdit/EmojiEmotionsEdit';
+import axios from 'axios';
 
 const AdminPanelEmojiEmotions = () => {
   const {
+    baseUrl,
     emojiEmotionsCreateNew,
     setEmojiEmotionsCreateNew,
     isEmojiEmotionsEdit,
@@ -52,6 +54,20 @@ const AdminPanelEmojiEmotions = () => {
 
   // };
 
+  useEffect(() => {
+    const fetchAllQuizzes = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/0/5`);
+        setAllEmojiEmotionsAssignments(response.data);
+      } catch (error) {
+        console.error('Error fetching right answer questions:', error);
+      }
+    };
+
+    fetchAllQuizzes();
+  }, [emojiEmotionsCreateNew, editingEmojiEmotions]);
+  console.log(allEmojiEmotionsAssignments)
+
 
   return (
     <>
@@ -77,13 +93,17 @@ const AdminPanelEmojiEmotions = () => {
               </tr>
             </thead>
             <tbody>
-              {AllEmojis && AllEmojis.map((post, index) =>
+              {allEmojiEmotionsAssignments && allEmojiEmotionsAssignments.map((post, index) =>
                 <tr key={index}>
                   <td data-label="No.">{index + 1}</td>
-                  <td data-label="Image"><img src={post.Image} alt="Post Image" /></td>
-                  <td data-label="AuthorName">{post.AuthorName}</td>
-                  <td data-label="AuthorName">{post.CorrectAnswer}</td>
-                  <td data-label="Bundle">{post.Stage}</td>
+                  <td data-label="Image"><img src={post.imagePath} alt="Post Image" /></td>
+                  <td data-label="AuthorName">{post.answers.map((ans, i) => (
+                    <p>{ans.text}</p>
+                  ))}</td>
+                  <td data-label="AuthorName">{post.answers.map((ans, i) => (
+                    ans.isCorrect == true && <p>{ans.text}</p>
+                  ))}</td>
+                  <td data-label="Bundle">Easy</td>
 
                   <td data-label="Edit/Delete" className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEditEmojiEmotions(index)}>Edit</button>

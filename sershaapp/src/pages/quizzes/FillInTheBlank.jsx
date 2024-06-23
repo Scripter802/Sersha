@@ -15,7 +15,7 @@ import HealthBar from '../../components/HealthBar'
 import { useGlobalContext } from '../../context/context'
 
 const FillInTheBlank = ({ currentQ }) => {
-  const { currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers } = useGlobalContext();
+  const { setShowPopup, currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers } = useGlobalContext();
   const messages = [
     {
       avatar: avatar,
@@ -65,8 +65,11 @@ const FillInTheBlank = ({ currentQ }) => {
     })
   }), []);
 
-  console.log(currentQuizz.questions.length, currentQuestion, corAns, correctAnswers)
+  console.log(`CORRECT ANSWERS ${correctAnswers}`)
 
+  if (dropped && currentQuizz.questions.length - 1 == currentQuestion) {
+    setShowPopup(true)
+  }
 
   if (dropped && currentQuizz.questions.length - 1 != currentQuestion) {
     if (dropped == corAns) {

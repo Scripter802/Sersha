@@ -12,6 +12,8 @@ const baseUrlImage = "https://sershaback.azurewebsites.net/";
 
 const AppProvider = ({ children }) => {
 
+
+
   // Function to handle selecting an item for the top part
   const handleSelectTopItem = (item) => {
     setSelectedTopItem(item);
@@ -62,7 +64,7 @@ const AppProvider = ({ children }) => {
   const [selectedQuestion, setSelectedQuestion] = useState(null);
   const [quizzCreateNew, setQuizzCreateNew] = useState(false);
   const [questionEdit, setQuestionEdit] = useState(false);
-
+  const [showPopup, setShowPopup] = useState(false);
 
 
   /* ADMIN RIGHT ANSWER QUIZ */
@@ -377,6 +379,7 @@ const AppProvider = ({ children }) => {
         heartsNum, setHeartsNum,
         correctAnswers, setCorrectAnswers,
         wrongAnswers, setWrongAnswers,
+        showPopup, setShowPopup,
 
         // CORRECT INCORRECT
         correctIncorrectIsTrue, setCorrectIncorrectIsTrue,

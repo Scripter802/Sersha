@@ -65,7 +65,7 @@ namespace API
                 opt.AddPolicy("CorsPolicy", policy =>
                 {
                     
-                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://sersha.netlify.app");
+                    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
                 });
             });
 

@@ -1,4 +1,5 @@
 import HeaderResponsive from "../HeaderResponsive/HeaderResponsive";
+import avatar from '../../assets/images/dms/userpick.png'
 
 
 const NewMessage = ({ messages, onSelectMessage, selectedMessagePreview, setSelectedMessagePreview }) => {
@@ -20,10 +21,10 @@ const NewMessage = ({ messages, onSelectMessage, selectedMessagePreview, setSele
         <div className='msgWrapper' key={msg.name} onClick={() => messageSelect(msg)}>
 
           <div>
-            <img src={msg.avatar} alt="avatar" />
+            <img src={avatar} alt="avatar" />
           </div>
           <div className="msgShortPreview">
-            <h5>{msg.sender}</h5>
+            <h5>Jess</h5>
             <p>{msg.content}</p>
           </div>
         </div>

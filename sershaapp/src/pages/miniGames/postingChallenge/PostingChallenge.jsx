@@ -27,7 +27,7 @@ const getRandomItems = (array, numItems) => {
 
 const PostingChallenge = () => {
   const {
-    baseUrl, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
+    baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
     incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames,
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
@@ -166,7 +166,7 @@ const PostingChallenge = () => {
 
           <div className='postingChallengeMiddleContent'>
             <div className='postingGameCard'>
-              <img className='postingProfilePhoto' src={currentSnap[snapNumber]?.imagePath} alt="snapProfilePhoto" />
+              <img className='postingProfilePhoto' src={`${baseUrlImage}${currentSnap[snapNumber]?.imagePath}`} alt="snapProfilePhoto" />
               <div className='postingProfileInfo'>
                 <p className='postingProfileName'></p>
                 <p className='postingPostText'>{currentPosting[postingNumber]?.content}</p>

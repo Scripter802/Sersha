@@ -29,7 +29,6 @@ namespace Application.Chats
             {
                 var message = await _context.ChatMessages
                     .Include(m => m.Responses)
-                    .ThenInclude(r => r.NextMessage)
                     .FirstOrDefaultAsync(m => m.Id == request.MessageId, cancellationToken);
 
                 if (message == null)
@@ -37,12 +36,12 @@ namespace Application.Chats
                     throw new Exception("Message not found");
                 }
 
-                await LoadNextMessages(message.Responses, cancellationToken);
+                //await LoadNextMessages(message.Responses, cancellationToken);
 
                 return message;
             }
 
-            private async Task LoadNextMessages(List<UserResponse> responses, CancellationToken cancellationToken)
+            /*private async Task LoadNextMessages(List<UserResponse> responses, CancellationToken cancellationToken)
             {
                 foreach (var response in responses)
                 {
@@ -58,7 +57,7 @@ namespace Application.Chats
                         }
                     }
                 }
-            }
+            }*/
         }
     }
 }

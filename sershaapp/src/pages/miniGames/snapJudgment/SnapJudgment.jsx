@@ -165,7 +165,7 @@ const SnapJudgment = () => {
 
           <div className='snapMiddleContent'>
             <div className='snapGameCard'>
-              <img className='snapProfilePhoto' src={snapjudgmentpostphoto} alt="snapProfilePhoto" />
+              <img className='snapProfilePhoto' src={currentSnap[snapNumber]?.imagePath} alt="snapProfilePhoto" />
               <p className='snapProfileName'></p>
               <p className='snapPostText'>{currentSnap[snapNumber]?.content}</p>
             </div>

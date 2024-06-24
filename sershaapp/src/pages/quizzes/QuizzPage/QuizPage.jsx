@@ -60,7 +60,7 @@ const QuizPage = () => {
   };
 
   let currentQ = currentQuizz?.questions[currentQuestion];
-  console.log(currentQ)
+  console.log(`currentQ: ${currentQuizz}`)
 
   return (
     <>

@@ -14,7 +14,7 @@ const Dm = () => {
 
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
-  const [answer1, setAnswer1] = useState([]);
+  const [answer, setAnswer] = useState('');
   const [answer2, setAnswer2] = useState([]);
   const [answer3, setAnswer3] = useState([]);
   const [answer4, setAnswer4] = useState([]);

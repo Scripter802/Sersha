@@ -7,10 +7,23 @@ import axios from 'axios'
 import avatar from '../assets/images/navbar/userpick.png'
 
 const AppContext = createContext();
-const baseUrl = "https://sershaback.azurewebsites.net/api";
-const baseUrlImage = "https://sershaback.azurewebsites.net/";
+const baseUrl = "http://localhost:5000/api";
+const baseUrlImage = "http://localhost:5000/";
 
 const AppProvider = ({ children }) => {
+
+
+  // CLOTHING
+
+  const [clothingCreateNew, setClothingCreateNew] = useState(false);
+  const [clothingNewItem, setClothingNewItem] = useState({
+    type: '',
+    image: null,
+    bodyPart: '',
+    name: ''
+  });
+
+  const [allClothing, setAllClothing] = useState([]);
 
 
 
@@ -98,6 +111,9 @@ const AppProvider = ({ children }) => {
 
   /* ADMIN MINI-GAMES */
   const [miniGamesActiveTab, setMiniGamesActiveTab] = useState('Snap Judgment');
+
+  const [correctAnsweredMiniGames, setCorrectAnsweredMiniGames] = useState(0);
+  const [incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames] = useState(0);
 
   /* SNAP JUDGMENT */
   const [snapJudgmentCreateNew, setSnapJudgmentCreateNew] = useState(false);
@@ -321,7 +337,13 @@ const AppProvider = ({ children }) => {
         isBottomPart,
         setIsBottomPart,
 
-
+        // CLOTHING
+        clothingCreateNew,
+        setClothingCreateNew,
+        clothingNewItem,
+        setClothingNewItem,
+        allClothing,
+        setAllClothing,
 
         // POSTS 
         allPosts,
@@ -424,6 +446,8 @@ const AppProvider = ({ children }) => {
         // MINI GAMES 
         miniGamesActiveTab,
         setMiniGamesActiveTab,
+        correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
+        incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames,
 
         // SNAP JUDGMENT ADMIN PANEL MINIGAMES SNAPJUDGMENT
         snapJudgmentCreateNew,

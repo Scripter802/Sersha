@@ -13,9 +13,10 @@ import gamePhoto from '../../../assets/images/miniGames/postingChallenge/photo.p
 import './postingChallenge.css'
 
 const PostingChallenge = () => {
+  const {
+    correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
-  const [correctAnswered, setCorrectAnswered] = useState(0);
-  const [incorrectAnswered, setIncorrectAnswered] = useState(0);
   const [totalAnswered, setTotalAnswered] = useState(0)
 
   const intervalIdRef = useRef(null);

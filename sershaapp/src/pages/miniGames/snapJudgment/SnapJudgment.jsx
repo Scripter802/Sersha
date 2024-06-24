@@ -11,12 +11,14 @@ import foxuserpick from '../../../assets/images/miniGames/foxuserpick.png'
 import foxTought from '../../../assets/images/miniGames/foxTought.png'
 
 import './snapJudgment.css'
+import { useGlobalContext } from '../../../context/context';
 
 const SnapJudgment = () => {
+  const {
+    correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
-  const [correctAnswered, setCorrectAnswered] = useState(0);
-  const [incorrectAnswered, setIncorrectAnswered] = useState(0);
-  let totalAnswered = correctAnswered + incorrectAnswered;
+  let totalAnswered = correctAnsweredMiniGames + incorrectAnsweredMiniGames;
 
   const intervalIdRef = useRef(null);
 
@@ -52,8 +54,8 @@ const SnapJudgment = () => {
             </div>
 
             <div className='gameResultRes'>
-              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered}`} <span>correct</span> </div>
-              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered}`} <span>mistake</span></div>
+              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnsweredMiniGames}`} <span>correct</span> </div>
+              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnsweredMiniGames}`} <span>mistake</span></div>
             </div>
           </div>
         ) : (
@@ -79,8 +81,8 @@ const SnapJudgment = () => {
 
           <div className='snapLeftSideContent'>
             <div className='gameResult'>
-              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered}`} <span>correct</span> </div>
-              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered}`} <span>mistake</span></div>
+              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnsweredMiniGames}`} <span>correct</span> </div>
+              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnsweredMiniGames}`} <span>mistake</span></div>
             </div>
             <div className='gameDescription'>Decide whether this post is positive, negative, or neutral</div>
           </div>

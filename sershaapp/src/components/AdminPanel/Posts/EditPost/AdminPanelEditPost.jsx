@@ -14,7 +14,7 @@ const AdminPanelEditPost = () => {
     const [postType, setPostType] = useState(editingPost.type);
     const [postId, setPostId] = useState(editingPost.id);
 
-    console.log(postHeadline, postAuthor, postBundle, postType)
+    console.log(editingPost)
 
     useEffect(() => {
         if (editingPost) {
@@ -39,7 +39,7 @@ const AdminPanelEditPost = () => {
             author: postAuthor,
             stage: postBundle,
             type: postType,
-            imagePath: postContentImage instanceof File ? postContentImage.name : postContentImage,
+            image: postContentImage,
         };
 
         const updatedPostFormData = new FormData();

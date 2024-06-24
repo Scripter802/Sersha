@@ -51,7 +51,6 @@ namespace Application.Authors
                     Id = request.Id,
                     AuthorName = request.AuthorName,
                 };
-
                 String path = Directory.GetCurrentDirectory() + "\\wwwroot\\Images\\authorImages\\" + request.AuthorName;
                 if(request.AuthorImage != null){
                     string fileName = request.AuthorImage.FileName;

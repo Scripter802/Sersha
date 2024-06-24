@@ -15,9 +15,10 @@ import './emojiEmotions.css'
 
 
 const EmojiEmotions = () => {
+  const {
+    correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
-  const [correctAnswered, setCorrectAnswered] = useState(0);
-  const [incorrectAnswered, setIncorrectAnswered] = useState(0);
   const [emojis, setEmojis] = useState([emojiOne, emojiTwo, emojiThree, emojiOne, emojiTwo, emojiThree])
   const [passedEmojis, setPassedEmojis] = useState([]);
   const [emojisAnswers, setEmojisAnswers] = useState(['Sad', '“You look cute!”', 'Happy'])

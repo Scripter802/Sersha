@@ -87,7 +87,10 @@
 .snapProfilePhoto {
   border-radius: 20px 20px;
 }
-
+.snapProfilePhoto img{
+  height: 291px;
+  width: 206px;
+}
 .snapProfileName {
   font-size: 12px;
   padding-inline: 25px;

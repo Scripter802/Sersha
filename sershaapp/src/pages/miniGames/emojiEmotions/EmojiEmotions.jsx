@@ -29,7 +29,7 @@ const getRandomItems = (array, numItems) => {
 
 const EmojiEmotions = () => {
   const {
-    baseUrl, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
+    baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
     incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames,
   } = useGlobalContext();
 
@@ -175,16 +175,16 @@ const EmojiEmotions = () => {
             <div className='emojiGameCard'>
               {/* Display emojis in positions 3, 4, and 5 */}
               <div className='emojiWrap'>
-                {emojiNumber < 2 ? <img src={questionMark} alt='hidden emoji' /> : <img src={currentEmoji && currentEmoji[emojiNumber - 2]} alt='emojis' />}
+                {emojiNumber < 2 ? <img src={questionMark} alt='hidden emoji' /> : <img src={`${baseUrlImage}${currentEmoji && currentEmoji[emojiNumber - 2]}`} alt='emojis' />}
               </div>
               <div className='emojiWrap'>
-                {emojiNumber === 0 ? <img src={questionMark} alt='hidden emoji' /> : emojiNumber === 1 ? <img src={currentEmoji[emojiNumber]} alt='emojis' /> : <img src={currentEmoji[emojiNumber - 1]} alt='emojis' />}
+                {emojiNumber === 0 ? <img src={questionMark} alt='hidden emoji' /> : emojiNumber === 1 ? <img src={`${baseUrlImage}${currentEmoji[emojiNumber]}`} alt='emojis' /> : <img src={currentEmoji[emojiNumber - 1]} alt='emojis' />}
               </div>
               <div className='emojiWrap'>
                 {/* {<img src={currentEmoji[emojiNumber]?.imagePath} />} */}
-                {emojiNumber === 2 && <img src={currentEmoji[emojiNumber - 1]?.imagePath} alt='emojis' />}
-                {emojiNumber === 1 && <img src={currentEmoji[emojiNumber]?.imagePath} alt='emojis' />}
-                {emojiNumber > 2 && totalAnswered === 0 ? <img src={currentEmoji[emojiNumber]?.imagePath} alt='emojis' /> : emojiNumber > 2 && totalAnswered === 1 ? <img src={currentEmoji[emojiNumber - 1]?.imagePath} alt='emojis' /> : emojiNumber.length > 2 && <img src={currentEmoji[emojiNumber - 2]?.imagePath} alt='emojis' />}
+                {emojiNumber === 2 && <img src={`${baseUrlImage}${currentEmoji[emojiNumber - 1]?.imagePath}`} alt='emojis' />}
+                {emojiNumber === 1 && <img src={`${baseUrlImage}${currentEmoji[emojiNumber]?.imagePath}`} alt='emojis' />}
+                {emojiNumber > 2 && totalAnswered === 0 ? <img src={`${baseUrlImage}${currentEmoji[emojiNumber]?.imagePath}`} alt='emojis' /> : emojiNumber > 2 && totalAnswered === 1 ? <img src={`${baseUrlImage}${currentEmoji[emojiNumber - 1]?.imagePath}`} alt='emojis' /> : emojiNumber.length > 2 && <img src={`${baseUrlImage}${currentEmoji[emojiNumber - 2]?.imagePath}`} alt='emojis' />}
               </div>
 
               {/* Show a question mark for positions 1 and 2 */}

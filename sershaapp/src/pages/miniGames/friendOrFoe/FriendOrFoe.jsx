@@ -27,7 +27,7 @@ const getRandomItems = (array, numItems) => {
 
 const FriendOrFoe = () => {
   const {
-    baseUrl, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
+    baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
     incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames,
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
@@ -175,7 +175,7 @@ const FriendOrFoe = () => {
                   <p className='messageText'>{currentFriendOrFoe[friendOrFoeNumber]?.content}</p>
                 </div>
               </div>
-              <img className='middleGamePhoto' src={currentSnap[snapNumber]?.imagePath} alt='gamephoto' />
+              <img className='middleGamePhoto' src={`${baseUrlImage}${currentSnap[snapNumber]?.imagePath}`} alt='gamephoto' />
             </div>
 
             <div className='friendOrFoeOptionAnswers'>

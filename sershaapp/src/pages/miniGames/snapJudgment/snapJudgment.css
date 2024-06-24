@@ -83,13 +83,12 @@
   box-shadow: 25px 30px 45px 0px #00000031;
 
 }
+.snapGameCard img{
+  width: 100%;
+}
 
 .snapProfilePhoto {
   border-radius: 20px 20px;
-}
-.snapProfilePhoto img{
-  height: 291px;
-  width: 206px;
 }
 .snapProfileName {
   font-size: 12px;

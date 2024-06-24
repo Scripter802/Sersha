@@ -46,6 +46,7 @@ const Dm = () => {
   console.log(answer)
 
   const [selectedMessage, setSelectedMessage] = useState(messages[0]);
+  const [nextMessage, setNextMessage] = useState(messages[0]);
 
   return (
     <div className='dmsWrapper'>

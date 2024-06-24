@@ -12,19 +12,54 @@ import emojiThree from '../../../assets/images/miniGames/emojiEmotions/smajliThr
 import questionMark from '../../../assets/images/miniGames/emojiEmotions/questionmark.png'
 
 import './emojiEmotions.css'
+import { useNavigate } from 'react-router-dom';
+import { useGlobalContext } from '../../../context/context';
+import axios from 'axios';
+import GameCompletedPopup from '../../quizzes/GameCompletedPopup';
+
+const getRandomItems = (array, numItems) => {
+  const shuffled = array.slice();
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled.slice(0, numItems);
+};
 
 
 const EmojiEmotions = () => {
   const {
-    correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames } = useGlobalContext();
+    baseUrl, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames,
+  } = useGlobalContext();
+
   const [seconds, setSeconds] = useState(25);
-  const [emojis, setEmojis] = useState([emojiOne, emojiTwo, emojiThree, emojiOne, emojiTwo, emojiThree])
-  const [passedEmojis, setPassedEmojis] = useState([]);
-  const [emojisAnswers, setEmojisAnswers] = useState(['Sad', '“You look cute!”', 'Happy'])
-  const [rightAnswer, setRightAnswer] = useState(['Happy', 'Sad', '“You look cute!”', 'Sad', 'Happy', 'Sad', 'Sad', 'Sad'])
-  const [activeEmojiIndex, setActiveEmojiIndex] = useState()
-  const [totalAnswered, setTotalAnswered] = useState(0)
+  const totalAnswered = correctAnsweredMiniGames + incorrectAnsweredMiniGames;
+  const [allEmoji, setAllEmoji] = useState([]);
+  const [currentEmoji, setCurrentEmoji] = useState([]);
+  const [emojiNumber, setEmojiNumber] = useState(0);
+  const [isGameCompleted, setIsGameCompleted] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchEmoji = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/0/5`);
+        setAllEmoji(response.data);
+      } catch (error) {
+        console.error('Error fetching Emoji games:', error);
+      }
+    };
+
+    fetchEmoji();
+  }, [baseUrl]);
+
+  useEffect(() => {
+    if (allEmoji.length > 0) {
+      const randomSnaps = getRandomItems(allEmoji, 10);
+      setCurrentEmoji(randomSnaps);
+    }
+  }, [allEmoji]);
 
   const intervalIdRef = useRef(null);
 
@@ -42,50 +77,51 @@ const EmojiEmotions = () => {
     }
   }, [seconds]);
 
-  const handleAnswerSubmission = (index) => {
-    if (emojis.length > 1) {
-      setTotalAnswered((prev) => prev + 1);
-      setTotalAnswered((prev) => prev);
-      // Get the chosen answer
-      const chosenAnswer = emojisAnswers[index];
+  const handleAnswerClick = (selectedAnswer) => {
+    const correctAnswer = currentEmoji[emojiNumber]?.answers.find(ans => ans.isCorrect).text;
 
-      const correctAnswer = rightAnswer[totalAnswered]
-
-      // Compare the chosen answer with the correct answer
-      if (chosenAnswer === correctAnswer) {
-        // If the chosen answer is correct, increment the correctAnswered state
-        setCorrectAnswered(prevCorrect => prevCorrect + 1);
-      } else {
-        // If the chosen answer is incorrect, increment the incorrectAnswered state
-        setIncorrectAnswered(prevIncorrect => prevIncorrect + 1);
-      }
-
-
-
-      if (passedEmojis.length === 0) {
-        setPassedEmojis([emojis[0]])
-      }
-
-      if (passedEmojis.length === 1) {
-        setPassedEmojis(prev => [...prev, emojis[1]])
-      }
-
-      if (passedEmojis.length > 1 && emojis.length > 2) {
-        setPassedEmojis(prev => [...prev, emojis[1]])
-      }
-
-      setPassedEmojis(prev => prev)
-      console.log(passedEmojis)
-      console.log(totalAnswered)
-      // Move emojis to the left
-      setEmojis(prevEmojis => prevEmojis.slice(1));
-      console.log(emojis)
+    if (selectedAnswer === correctAnswer) {
+      setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
+    } else {
+      setIncorrectAnsweredMiniGames(incorrectAnsweredMiniGames + 1);
     }
-  }
+
+    if (emojiNumber < currentEmoji.length - 1) {
+      setEmojiNumber(emojiNumber + 1);
+      setSeconds(25); // Reset the timer for the next question
+    } else {
+      setIsGameCompleted(true); // Show the popup when the game is completed
+    }
+  };
+
+  const handleRestart = () => {
+    setCorrectAnsweredMiniGames(0);
+    setIncorrectAnsweredMiniGames(0);
+    setEmojiNumber(0);
+    setIsGameCompleted(false);
+    setSeconds(25);
+    const randomSnaps = getRandomItems(allEmoji, 10);
+    setCurrentEmoji(randomSnaps);
+  };
+
+  const handleClaimPrize = () => {
+    console.log('Prize claimed');
+    setIsGameCompleted(false);
+    navigate('/');
+  };
+
+  console.log(currentEmoji)
 
   return (
     <div className='emojiEmotionsWrapper'>
-
+      {isGameCompleted && (
+        <GameCompletedPopup
+          correctAnswers={correctAnsweredMiniGames}
+          mistakes={incorrectAnsweredMiniGames}
+          onRestart={handleRestart}
+          onClaimPrize={handleClaimPrize}
+        />
+      )}
       <div className='emojiEmotionsTitleWrapper'>
 
         <div className='emojiEmotionsTitle'>
@@ -102,8 +138,8 @@ const EmojiEmotions = () => {
             </div>
 
             <div className='gameResultRes'>
-              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered}`} <span>correct</span> </div>
-              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered}`} <span>mistake</span></div>
+              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnsweredMiniGames}`} <span>correct</span> </div>
+              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnsweredMiniGames}`} <span>mistake</span></div>
             </div>
           </div>
         ) : (
@@ -129,8 +165,8 @@ const EmojiEmotions = () => {
 
           <div className='emojiEmotionsLeftSideContent'>
             <div className='gameResult'>
-              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered} correct`} </div>
-              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered} mistake`}</div>
+              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnsweredMiniGames} correct`} </div>
+              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnsweredMiniGames} mistake`}</div>
             </div>
             <div className='gameDescription'>Which emojis match the correct emotions or situations.</div>
           </div>
@@ -139,15 +175,16 @@ const EmojiEmotions = () => {
             <div className='emojiGameCard'>
               {/* Display emojis in positions 3, 4, and 5 */}
               <div className='emojiWrap'>
-                {totalAnswered < 2 ? <img src={questionMark} alt='hidden emoji' /> : <img src={passedEmojis && passedEmojis[passedEmojis.length - 2]} alt='emojis' />}
+                {emojiNumber < 2 ? <img src={questionMark} alt='hidden emoji' /> : <img src={currentEmoji && currentEmoji[emojiNumber - 2]} alt='emojis' />}
               </div>
               <div className='emojiWrap'>
-                {totalAnswered === 0 ? <img src={questionMark} alt='hidden emoji' /> : totalAnswered === 1 ? <img src={passedEmojis[0]} alt='emojis' /> : <img src={passedEmojis[passedEmojis.length - 1]} alt='emojis' />}
+                {emojiNumber === 0 ? <img src={questionMark} alt='hidden emoji' /> : emojiNumber === 1 ? <img src={currentEmoji[emojiNumber]} alt='emojis' /> : <img src={currentEmoji[emojiNumber - 1]} alt='emojis' />}
               </div>
               <div className='emojiWrap'>
-                {emojis.length === 2 && <img src={emojis[1]} alt='emojis' />}
-                {emojis.length === 1 && <img src={emojis[0]} alt='emojis' />}
-                {emojis.length > 2 && totalAnswered === 0 ? <img src={emojis[0]} alt='emojis' /> : emojis.length > 2 && totalAnswered === 1 ? <img src={emojis[1]} alt='emojis' /> : emojis.length > 2 && <img src={emojis[2]} alt='emojis' />}
+                {/* {<img src={currentEmoji[emojiNumber]?.imagePath} />} */}
+                {emojiNumber === 2 && <img src={currentEmoji[emojiNumber - 1]?.imagePath} alt='emojis' />}
+                {emojiNumber === 1 && <img src={currentEmoji[emojiNumber]?.imagePath} alt='emojis' />}
+                {emojiNumber > 2 && totalAnswered === 0 ? <img src={currentEmoji[emojiNumber]?.imagePath} alt='emojis' /> : emojiNumber > 2 && totalAnswered === 1 ? <img src={currentEmoji[emojiNumber - 1]?.imagePath} alt='emojis' /> : emojiNumber.length > 2 && <img src={currentEmoji[emojiNumber - 2]?.imagePath} alt='emojis' />}
               </div>
 
               {/* Show a question mark for positions 1 and 2 */}
@@ -160,8 +197,8 @@ const EmojiEmotions = () => {
             </div>
 
             <div className='emojiEmotionsOptionAnswers'>
-              {emojisAnswers.map((ans, index) => (
-                <div onClick={() => handleAnswerSubmission(index)}>{ans}</div>
+              {currentEmoji[emojiNumber]?.answers.map((ans, index) => (
+                <div onClick={() => handleAnswerClick(ans.text)} style={{ cursor: 'pointer' }}>{ans.text}</div>
               ))}
             </div>
           </div>

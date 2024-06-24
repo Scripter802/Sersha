@@ -22,6 +22,8 @@ const QuizPage = () => {
     showPopup, setShowPopup,
   } = useGlobalContext();
 
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchCurrentQuizz = async () => {
@@ -54,10 +56,11 @@ const QuizPage = () => {
     // Handle prize claiming logic
     console.log('Prize claimed');
     setShowPopup(false);
-    useNavigate('/')
+    navigate('/')
   };
 
   let currentQ = currentQuizz?.questions[currentQuestion];
+  console.log(currentQ)
 
   return (
     <>

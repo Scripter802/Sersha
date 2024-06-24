@@ -166,7 +166,7 @@ const PostingChallenge = () => {
 
           <div className='postingChallengeMiddleContent'>
             <div className='postingGameCard'>
-              <img className='postingProfilePhoto' src={gamePhoto} alt="snapProfilePhoto" />
+              <img className='postingProfilePhoto' src={currentSnap[snapNumber]?.imagePath} alt="snapProfilePhoto" />
               <div className='postingProfileInfo'>
                 <p className='postingProfileName'></p>
                 <p className='postingPostText'>{currentPosting[postingNumber]?.content}</p>

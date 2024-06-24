@@ -175,7 +175,7 @@ const FriendOrFoe = () => {
                   <p className='messageText'>{currentFriendOrFoe[friendOrFoeNumber]?.content}</p>
                 </div>
               </div>
-              <img className='middleGamePhoto' src={gamePhoto} alt='gamephoto' />
+              <img className='middleGamePhoto' src={currentSnap[snapNumber]?.imagePath} alt='gamephoto' />
             </div>
 
             <div className='friendOrFoeOptionAnswers'>

@@ -27,6 +27,13 @@ namespace API.Controllers
             return await Mediator.Send(new GetChatMessage.Query { MessageId = messageId });
         }
 
+        [HttpGet("randomChatMessage")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ChatMessage>> GetRandomChatMessage()
+        {
+            return await Mediator.Send(new GetRandomChatMessage.Query());
+        }
+
         [HttpPost("createResponse")]
         [AllowAnonymous]
         public async Task<ActionResult<Unit>> CreateUserResponse(CreateUserResponse.Command command)

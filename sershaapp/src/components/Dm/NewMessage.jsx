@@ -23,8 +23,8 @@ const NewMessage = ({ messages, onSelectMessage, selectedMessagePreview, setSele
             <img src={msg.avatar} alt="avatar" />
           </div>
           <div className="msgShortPreview">
-            <h5>{msg.name}</h5>
-            <p>{msg.message}</p>
+            <h5>{msg.sender}</h5>
+            <p>{msg.content}</p>
           </div>
         </div>
       ))}

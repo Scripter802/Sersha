@@ -29,7 +29,7 @@ const EmojiEmotionsCreateNew = () => {
     formData.append('difficulty', dif);
     formData.append(`questions[0][type]`, 5);
     formData.append(`questions[0][questionText]`, 'asd');
-    formData.append(`questions[0][imageFile]`, newEmojiEmotion?.questions[0]?.imageFile);
+    formData.append(`questions[0].imageFile`, newEmojiEmotion?.questions[0]?.imageFile);
     newEmojiEmotion?.questions[0]?.answers.forEach((answer, aIndex) => {
       formData.append(`questions[0][answers][${aIndex}][text]`, answer.text);
       formData.append(`questions[0][answers][${aIndex}][isCorrect]`, answer.isCorrect);

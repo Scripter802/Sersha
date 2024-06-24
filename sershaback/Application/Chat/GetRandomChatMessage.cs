@@ -29,13 +29,14 @@ namespace Application.Chats
             {
                 var messages = await _context.ChatMessages
                     .Include(m => m.Responses)
+                    .Where(x => x.Responses.Any(x => x.NextMessageId != null))
                     .ToListAsync(cancellationToken);
                 
                 Random random = new Random();
                 var message = messages
                                 .AsEnumerable()
                                 .OrderBy(q => random.Next())
-                                .FirstOrDefault(x=> x.Responses[0].NextMessageId != null);
+                                .FirstOrDefault();
 
                 if (message == null)
                 {

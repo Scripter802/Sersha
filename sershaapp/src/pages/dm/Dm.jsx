@@ -8,6 +8,7 @@ import AnswersMsg from '../../components/Dm/AnswersMsg.jsx';
 import { useGlobalContext } from '../../context/context.jsx';
 import backButton from '../../assets/images/dms/backbuttonResponsive.png';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Dm = () => {
   const { baseUrl, selectedMessagePreview, setSelectedMessagePreview } = useGlobalContext();
@@ -20,6 +21,7 @@ const Dm = () => {
   const [answer4, setAnswer4] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [nextMessage, setNextMessage] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRandomChat = async () => {
@@ -44,20 +46,7 @@ const Dm = () => {
     fetchMessages();
   }, [baseUrl]);
 
-  useEffect(() => {
-    if (answer && selectedMessage?.responses[0].nextMessageId) {
-      const fetchNextMessageChat = async () => {
-        try {
-          const response = await axios.get(`${baseUrl}/Chat/${selectedMessage?.responses[0].nextMessageId}`);
-          setNextMessage(response.data);
-        } catch (error) {
-          console.error('Error fetching chat message:', error);
-        }
-      };
 
-      fetchNextMessageChat();
-    }
-  }, [answer, selectedMessage, baseUrl]);
 
   return (
     <div className='dmsWrapper'>
@@ -90,7 +79,7 @@ const Dm = () => {
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
-      {/* <Popup /> */}
+      {answer && <Popup />}
     </div>
   );
 };

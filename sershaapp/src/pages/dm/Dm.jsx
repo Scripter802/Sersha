@@ -1,75 +1,74 @@
-import './dm.css'
-import avatar from '../../assets/images/navbar/userpick.png'
-import { heart } from '../../assets/images/customization/items/index.js'
-import { useState } from 'react'
-import Popup from '../../components/Popup.jsx'
-import NewMessage from '../../components/Dm/NewMessage.jsx'
-import AnswersMsg from '../../components/Dm/AnswersMsg.jsx'
-import { useGlobalContext } from '../../context/context.jsx'
-import userpic from '../../assets/images/dms/userpick.png'
-import backButton from '../../assets/images/dms/backbuttonResponsive.png'
+import './dm.css';
+import avatar from '../../assets/images/dms/userpick.png';
+import { heart } from '../../assets/images/customization/items/index.js';
+import { useEffect, useState } from 'react';
+import Popup from '../../components/Popup.jsx';
+import NewMessage from '../../components/Dm/NewMessage.jsx';
+import AnswersMsg from '../../components/Dm/AnswersMsg.jsx';
+import { useGlobalContext } from '../../context/context.jsx';
+import backButton from '../../assets/images/dms/backbuttonResponsive.png';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Dm = () => {
-  const { selectedMessagePreview, setSelectedMessagePreview } = useGlobalContext()
+  const { baseUrl, selectedMessagePreview, setSelectedMessagePreview } = useGlobalContext();
 
-  const messages = [
-    {
-      avatar: avatar,
-      name: 'Jess',
-      message: 'How was your day?',
-      answer: ["Not too bad, thanks for asking", "Pretty good, can't complain", "It was alright, nothing too exiciting", "Decent, just another day"],
-    },
-    {
-      avatar: avatar,
-      name: 'John',
-      message: 'What iconic bridge connects the boroughs …',
-      answer: ["Not too bad", "Pretty good, can't complain", "It was alright, nothing too exiciting", "Decent, just another day"],
-    },
-    {
-      avatar: avatar,
-      name: 'Nicky',
-      message: 'What iconic bridge connects the boroughs …',
-      answer: ["It was alright, nothing too exiciting", "Decent, just another day"],
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState('');
+  const [answer, setAnswer] = useState('');
+  const [answer2, setAnswer2] = useState([]);
+  const [answer3, setAnswer3] = useState([]);
+  const [answer4, setAnswer4] = useState([]);
+  const [selectedMessage, setSelectedMessage] = useState(null);
+  const [nextMessage, setNextMessage] = useState(null);
+  const navigate = useNavigate();
 
-    },
-    {
-      avatar: avatar,
-      name: 'Sam',
-      message: 'What iconic bridge connects the boroughs …',
-      answer: ["Pretty good, can't complain", "It was alright", "Decent, just another day"],
+  useEffect(() => {
+    const fetchRandomChat = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/Chat/randomChatMessage`);
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching chat message:', error);
+        return null;
+      }
+    };
 
-    },
-  ]
+    const fetchMessages = async () => {
+      const newMessages = [];
+      for (let i = 0; i < 4; i++) {
+        const message = await fetchRandomChat();
+        if (message) newMessages.push(message);
+      }
+      setMessages(newMessages);
+    };
 
-  const [message, setMessage] = useState(`${messages[0].name}`);
-  const [answer, setAnswer] = useState()
-  console.log(answer)
+    fetchMessages();
+  }, [baseUrl]);
 
-  const [selectedMessage, setSelectedMessage] = useState(messages[0]);
+
 
   return (
     <div className='dmsWrapper'>
-
       <div className='dmsContainer'>
-        <div className={`${window.innerWidth < 780 && selectedMessagePreview === true ? 'responsiveNewMsgWrapper' : 'newMsgWrapper'}`}>
+        <div className={`${window.innerWidth < 780 && selectedMessagePreview ? 'responsiveNewMsgWrapper' : 'newMsgWrapper'}`}>
           <NewMessage messages={messages} onSelectMessage={setSelectedMessage} setSelectedMessagePreview={setSelectedMessagePreview} setAnswer={setAnswer} />
         </div>
 
-        {window.innerWidth < 780 && selectedMessagePreview === true && (
+        {window.innerWidth < 780 && selectedMessagePreview && (
           <div className='responsiveSingleMessageHeader'>
-            <div><img src={userpic} alt="avatar" /></div>
-            <div><p>{selectedMessage.name}</p></div>
+            <div><img src={avatar} alt="avatar" /></div>
+            <div><p>{selectedMessage?.name}</p></div>
             <div onClick={() => setSelectedMessagePreview(false)} className='backButtonRespDm'><img src={backButton} alt="backbutton" className='resHeaderAvatarImg' /></div>
           </div>
         )}
 
-        <div className={`${window.innerWidth < 780 && selectedMessagePreview === true ? 'responsiveMsgPreview' : 'msgPreview'}`}>
+        <div className={`${window.innerWidth < 780 && selectedMessagePreview ? 'responsiveMsgPreview' : 'msgPreview'}`}>
           <div className='receivedMsg'>
-            <img src={selectedMessage?.avatar} alt="" />
-            {selectedMessage?.message}
+            <img src={avatar} alt="" />
+            {selectedMessage?.content}
           </div>
-          {!answer ? <h5>Answer options</h5> : ''}
-
+          {!answer && <h5>Answer options</h5>}
           <div>
             <AnswersMsg selectedMessage={selectedMessage} answer={answer} setAnswer={setAnswer} selectedMessagePreview={selectedMessagePreview} />
           </div>
@@ -80,9 +79,9 @@ const Dm = () => {
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
-      {/* <Popup /> */}
+      {answer && <Popup />}
     </div>
-  )
-}
+  );
+};
 
-export default Dm
+export default Dm;

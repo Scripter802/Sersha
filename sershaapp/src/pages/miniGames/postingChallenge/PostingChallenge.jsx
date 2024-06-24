@@ -1,23 +1,62 @@
 import { useEffect, useRef, useState } from 'react';
-import { heart } from '../../../assets/images/customization/items/index'
-import close from '../../../assets/images/quiz/close.png'
-import correctAnswer from '../../../assets/images/miniGames/correctAnswer.png'
-import incorrectAnswer from '../../../assets/images/miniGames/incorrectAnswer.png'
-import foxuserpick from '../../../assets/images/miniGames/foxuserpick.png'
-import foxTought from '../../../assets/images/miniGames/foxTought.png'
-import accept from '../../../assets/images/miniGames/friendOrFoe/accept.png'
-import decline from '../../../assets/images/miniGames/friendOrFoe/decline.png'
-import avatar from '../../../assets/images/miniGames/friendOrFoe/userpick.png'
-import gamePhoto from '../../../assets/images/miniGames/postingChallenge/photo.png'
+import { heart } from '../../../assets/images/customization/items/index';
+import close from '../../../assets/images/quiz/close.png';
+import correctAnswer from '../../../assets/images/miniGames/correctAnswer.png';
+import incorrectAnswer from '../../../assets/images/miniGames/incorrectAnswer.png';
+import foxuserpick from '../../../assets/images/miniGames/foxuserpick.png';
+import foxTought from '../../../assets/images/miniGames/foxTought.png';
+import accept from '../../../assets/images/miniGames/friendOrFoe/accept.png';
+import decline from '../../../assets/images/miniGames/friendOrFoe/decline.png';
+import avatar from '../../../assets/images/miniGames/friendOrFoe/userpick.png';
+import gamePhoto from '../../../assets/images/miniGames/postingChallenge/photo.png';
 
-import './postingChallenge.css'
+import { useNavigate } from 'react-router-dom';
+import './postingChallenge.css';
+import axios from 'axios';
+import GameCompletedPopup from '../../quizzes/GameCompletedPopup';
+import { useGlobalContext } from '../../../context/context';
+
+const getRandomItems = (array, numItems) => {
+  const shuffled = array.slice();
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled.slice(0, numItems);
+};
 
 const PostingChallenge = () => {
   const {
-    correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames } = useGlobalContext();
+    baseUrl, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames,
+  } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
-  const [totalAnswered, setTotalAnswered] = useState(0)
+  const totalAnswered = correctAnsweredMiniGames + incorrectAnsweredMiniGames;
+  const [allPosting, setAllPosting] = useState([]);
+  const [currentPosting, setCurrentPosting] = useState([]);
+  const [postingNumber, setPostingNumber] = useState(0);
+  const [isGameCompleted, setIsGameCompleted] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchPosting = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/0/7`);
+        setAllPosting(response.data);
+      } catch (error) {
+        console.error('Error fetching right answer questions:', error);
+      }
+    };
+
+    fetchPosting();
+  }, [baseUrl]);
+
+  useEffect(() => {
+    if (allPosting.length > 0) {
+      const randomSnaps = getRandomItems(allPosting, 10);
+      setCurrentPosting(randomSnaps);
+    }
+  }, [allPosting]);
 
   const intervalIdRef = useRef(null);
 
@@ -35,17 +74,53 @@ const PostingChallenge = () => {
     }
   }, [seconds]);
 
-  const handleAnswerSubmission = () => {
+  const handleAnswerClick = (selectedAnswer) => {
+    const correctAnswer = currentPosting[postingNumber]?.answers.find(ans => ans.isCorrect).text;
 
-  }
+    if (selectedAnswer === correctAnswer) {
+      setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
+    } else {
+      setIncorrectAnsweredMiniGames(incorrectAnsweredMiniGames + 1);
+    }
+
+    if (postingNumber < currentPosting.length - 1) {
+      setPostingNumber(postingNumber + 1);
+      setSeconds(25); // Reset the timer for the next question
+    } else {
+      setIsGameCompleted(true); // Show the popup when the game is completed
+    }
+  };
+
+  const handleRestart = () => {
+    setCorrectAnsweredMiniGames(0);
+    setIncorrectAnsweredMiniGames(0);
+    setPostingNumber(0);
+    setIsGameCompleted(false);
+    setSeconds(25);
+    const randomSnaps = getRandomItems(allPosting, 10);
+    setCurrentPosting(randomSnaps);
+  };
+
+  const handleClaimPrize = () => {
+    console.log('Prize claimed');
+    setIsGameCompleted(false);
+    navigate('/');
+  };
 
   return (
     <div className='postingChallengeWrapper'>
-
+      {isGameCompleted && (
+        <GameCompletedPopup
+          correctAnswers={correctAnsweredMiniGames}
+          mistakes={incorrectAnsweredMiniGames}
+          onRestart={handleRestart}
+          onClaimPrize={handleClaimPrize}
+        />
+      )}
       <div className='postingChallengeTitleWrapper'>
 
         <div className='postingChallengeTitle'>
-          <img src={close} alt="" />
+          <img src={close} alt="" onClick={() => navigate('/minigames')} />
           <h1>Posting Challenge</h1>
         </div>
       </div>
@@ -58,8 +133,8 @@ const PostingChallenge = () => {
             </div>
 
             <div className='postingGameResultRes'>
-              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered}`} <span>correct</span> </div>
-              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered}`} <span>mistake</span></div>
+              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnsweredMiniGames}`} <span>correct</span> </div>
+              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnsweredMiniGames}`} <span>mistake</span></div>
             </div>
           </div>
         ) : (
@@ -83,8 +158,8 @@ const PostingChallenge = () => {
 
           <div className='postingChallengeLeftSideContent'>
             <div className='gameResult'>
-              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered} correct`} </div>
-              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered} mistake`}</div>
+              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnsweredMiniGames} correct`} </div>
+              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnsweredMiniGames} mistake`}</div>
             </div>
             <div className='gameDescription'>Decide what kind of content you need to post.</div>
           </div>
@@ -93,14 +168,14 @@ const PostingChallenge = () => {
             <div className='postingGameCard'>
               <img className='postingProfilePhoto' src={gamePhoto} alt="snapProfilePhoto" />
               <div className='postingProfileInfo'>
-                <p className='postingProfileName'>Andrew</p>
-                <p className='postingPostText'>My best friend</p>
+                <p className='postingProfileName'></p>
+                <p className='postingPostText'>{currentPosting[postingNumber]?.content}</p>
               </div>
             </div>
 
             <div className='postingChallengeOptionAnswers'>
-              <button className='postingChallengeDeclineButton'><img src={decline} alt="declineButton" /> Don’t post</button>
-              <button className='postingChallengeAcceptButton'><img src={accept} alt="acceptButton" /> Post</button>
+              <button className='postingChallengeDeclineButton' onClick={() => handleAnswerClick(`Don't post`)}><img src={decline} alt="declineButton" /> Don’t post</button>
+              <button className='postingChallengeAcceptButton' onClick={() => handleAnswerClick('Post')}><img src={accept} alt="acceptButton" /> Post</button>
             </div>
           </div>
 
@@ -127,7 +202,7 @@ const PostingChallenge = () => {
       </div>
 
     </div>
-  )
-}
+  );
+};
 
-export default PostingChallenge
+export default PostingChallenge;

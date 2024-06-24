@@ -1,19 +1,32 @@
-import { heart } from '../../assets/images/customization/items/index.js'
-import done from '../../assets/images/miniGames/done.png'
-import game from '../../assets/images/miniGames/game.png'
-import emojiEmotions from '../../assets/images/miniGames/emojiEmotions.png'
-import friendOrFoe from '../../assets/images/miniGames/friendOrFoe.png'
-import postingChallenge from '../../assets/images/miniGames/postingChallenge.png'
-import snapJudgment from '../../assets/images/miniGames/snapJudgment.png'
-import emojiEmotionsRes from '../../assets/images/miniGames/emojiEmotionsResponsive.png'
-import friendOrFoeRes from '../../assets/images/miniGames/friendOrFoeResponsive.png'
-import postingChallengeRes from '../../assets/images/miniGames/postingChallengeResponsive.png'
-import snapJudgmentRes from '../../assets/images/miniGames/snapJudgmentResponsive.png'
-
-import './minigames.css'
-import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive.jsx'
+import React, { useState } from 'react';
+import { heart } from '../../assets/images/customization/items/index.js';
+import done from '../../assets/images/miniGames/done.png';
+import game from '../../assets/images/miniGames/game.png';
+import snapJudgment from '../../assets/images/miniGames/snapJudgment.png';
+import emojiEmotions from '../../assets/images/miniGames/emojiEmotions.png';
+import friendOrFoe from '../../assets/images/miniGames/friendOrFoe.png';
+import postingChallenge from '../../assets/images/miniGames/postingChallenge.png';
+import snapJudgmentRes from '../../assets/images/miniGames/snapJudgmentResponsive.png';
+import emojiEmotionsRes from '../../assets/images/miniGames/emojiEmotionsResponsive.png';
+import friendOrFoeRes from '../../assets/images/miniGames/friendOrFoeResponsive.png';
+import postingChallengeRes from '../../assets/images/miniGames/postingChallengeResponsive.png';
+import { useNavigate } from 'react-router-dom';
+import './minigames.css';
+import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive.jsx';
+import GameSelectionPopup from './GameSelectionPopup'; // Adjust the import path if necessary
 
 const MiniGames = () => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleStartClick = () => {
+    setIsPopupOpen(true);
+  };
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false);
+  };
+
   return (
     <div className='mainWrapper'>
       <div className='headerContainer'>
@@ -22,10 +35,12 @@ const MiniGames = () => {
       <div className='miniGamesWrapper'>
         <div className='contentWrapper'>
           <div className='gameContent'>
-            <img src={game} alt="" />
+            <img src={game} alt="game" />
             <h1>Mini Games</h1>
             <p>You must play three games of three rounds each</p>
-            <button className='startGameButton'><img src={done} alt="done" /> Start</button>
+            <button className='startGameButton' onClick={handleStartClick}>
+              <img src={done} alt="done" /> Start
+            </button>
           </div>
           {window.innerWidth >= 1000 ? (
             <div className='roundImagesWrapper'>
@@ -45,10 +60,8 @@ const MiniGames = () => {
                 <div className='bottom-right'><img src={friendOrFoeRes} alt="friendOrFoeResponsive" /></div>
               </div>
             </div>
-          )
-          }
+          )}
         </div>
-
 
         <div className='footerGames'>
           <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
@@ -62,9 +75,9 @@ const MiniGames = () => {
           <div className='rectangle-3'></div>
         </div>
       </div>
-
+      {isPopupOpen && <GameSelectionPopup onClose={handleClosePopup} navigate={navigate} />}
     </div>
-  )
-}
+  );
+};
 
-export default MiniGames
+export default MiniGames;

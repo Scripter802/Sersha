@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Domain;
 using static Domain.Enums;
+using System.Collections.Generic;
 
 namespace Application.Quizzes
 {
@@ -28,10 +29,17 @@ namespace Application.Quizzes
 
             public async Task<Quiz> Handle(Query request, CancellationToken cancellationToken)
             {
+                var quizzTypes = new List<QuestionType>
+                {
+                    QuestionType.RightAnswer,
+                    QuestionType.CorrectIncorrect,
+                    QuestionType.FillInTheBlank,
+                    QuestionType.Grouping
+                };
                 var quizzes = await _context.Quizzes
                     .Include(q => q.Questions)
                     .ThenInclude(q => q.Answers)
-                    .Where(q => q.Difficulty == request.Difficulty)
+                    .Where(q => q.Difficulty == request.Difficulty && q.Questions.Any(x => quizzTypes.Contains(x.Type)))
                     .ToListAsync(cancellationToken);
 
                 foreach (var quiz in quizzes)

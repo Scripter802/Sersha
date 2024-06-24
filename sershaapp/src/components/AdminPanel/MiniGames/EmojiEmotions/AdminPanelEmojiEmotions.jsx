@@ -50,9 +50,19 @@ const AdminPanelEmojiEmotions = () => {
     setIsEmojiEmotionsEdit(true)
   };
 
-  // const handleDeleteEmojiEmotions = (index) => {
+  const handleDeleteEmojiEmotions = async (postId) => {
+    try {
+      const response = await axios.delete(`${baseUrl}/Quizzes/${postId}`);
+      if (response.status === 200) {
 
-  // };
+        // Update the allQuizzes state by filtering out the deleted quiz
+        const updatedQuizzes = allEmojiEmotionsAssignments.filter(q => q.id !== postId);
+        setAllEmojiEmotionsAssignments(updatedQuizzes);
+      }
+    } catch (error) {
+      console.error('Error deleting the question:', error);
+    }
+  };
 
   useEffect(() => {
     const fetchAllQuizzes = async () => {
@@ -108,7 +118,7 @@ const AdminPanelEmojiEmotions = () => {
                   <td data-label="Edit/Delete" className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEditEmojiEmotions(index)}>Edit</button>
 
-                    <button className="delete-btn" onClick={() => handleDeleteEmojiEmotions(index)}>Delete</button>
+                    <button className="delete-btn" onClick={() => handleDeleteEmojiEmotions(post.id)}>Delete</button>
                   </td>
                 </tr>
               )}

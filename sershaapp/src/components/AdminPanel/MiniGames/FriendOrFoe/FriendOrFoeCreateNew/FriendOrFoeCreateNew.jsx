@@ -51,7 +51,7 @@ const FriendOrFoeCreateNew = () => {
       formData.append(`questions[${qIndex}][type]`, 6);
       formData.append(`questions[${qIndex}][questionText]`, question.text);
       formData.append(`questions[${qIndex}][content]`, question.content);
-      formData.append(`questions[${qIndex}][imageFile]`, question.imageFile);
+      formData.append(`questions[${qIndex}].imageFile`, question.imageFile);
       question.answers.forEach((answer, aIndex) => {
         formData.append(`questions[${qIndex}][answers][${aIndex}][text]`, answer.text);
         formData.append(`questions[${qIndex}][answers][${aIndex}][isCorrect]`, answer.isCorrect);

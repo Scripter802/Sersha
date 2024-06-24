@@ -36,12 +36,12 @@ namespace Application.Chats
                     throw new Exception("Message not found");
                 }
 
-                //await LoadNextMessages(message.Responses, cancellationToken);
+                await LoadNextMessages(message.Responses, cancellationToken);
 
                 return message;
             }
 
-            /*private async Task LoadNextMessages(List<UserResponse> responses, CancellationToken cancellationToken)
+            private async Task LoadNextMessages(List<UserResponse> responses, CancellationToken cancellationToken)
             {
                 foreach (var response in responses)
                 {
@@ -57,7 +57,7 @@ namespace Application.Chats
                         }
                     }
                 }
-            }*/
+            }
         }
     }
 }

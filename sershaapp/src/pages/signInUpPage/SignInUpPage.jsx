@@ -10,18 +10,18 @@ import skipImg from '../../assets/images/login/skip.png';
 const signInUpSlider = [
   {
     id: 1,
-    title: 'Build and Improve  your Community',
-    text: 'You can expand your circle by joining streams, clubs and chatting with different people.'
+    title: 'Defeat The Rogue Fox, Save Social Media, Become The Hero',
+    text: 'Learn to master social media media safety with Sersha the fox and friends!'
   },
   {
     id: 2,
-    title: 'Build and  your Community',
-    text: 'You can expand your circle by joining streams, clubs and chatting with  people.'
+    title: 'Defeat The Rogue Fox, Save Social Media, Become The Hero',
+    text: 'Learn to master social media media safety with Sersha the fox and friends!'
   },
   {
     id: 3,
-    title: 'Build and Improve  your ',
-    text: 'You can   your circle by joining streams, clubs and chatting with different people.'
+    title: 'Defeat The Rogue Fox, Save Social Media, Become The Hero',
+    text: 'Learn to master social media media safety with Sersha the fox and friends!'
   },
 ];
 

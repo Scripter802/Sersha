@@ -24,6 +24,54 @@
   height: 80%;
 }
 
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-inner {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.game-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.game-option {
+  margin: 10px;
+  cursor: pointer;
+}
+
+.game-option img {
+  max-width: 100px;
+  height: auto;
+}
+
+.close-popup-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #f00;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
 .top-left,
 .top-right,
 .bottom-left,

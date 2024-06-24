@@ -83,12 +83,13 @@
 
 .messageGameCard {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
   border-radius: 20px 20px;
   padding: 1.5rem;
   gap: 1.125rem;
+  width: 100%;
 }
 
 .messageGameCard>img {

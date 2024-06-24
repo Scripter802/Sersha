@@ -69,7 +69,7 @@ namespace Application.SershaItems
                     await file.CopyToAsync(stream);
                 }
 
-                return "Images/SershaItems/" + fileName;
+                return "/Images/SershaItems/" + fileName;
             }
         }
     }

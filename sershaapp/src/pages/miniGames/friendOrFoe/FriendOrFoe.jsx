@@ -11,13 +11,52 @@ import avatar from '../../../assets/images/miniGames/friendOrFoe/userpick.png'
 import gamePhoto from '../../../assets/images/miniGames/friendOrFoe/photo.png'
 
 import './friendOrFoe.css'
+import { useGlobalContext } from '../../../context/context';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import GameCompletedPopup from '../../quizzes/GameCompletedPopup';
+
+const getRandomItems = (array, numItems) => {
+  const shuffled = array.slice();
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled.slice(0, numItems);
+};
 
 const FriendOrFoe = () => {
   const {
-    correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames } = useGlobalContext();
+    baseUrl, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames,
+  } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
-  const [totalAnswered, setTotalAnswered] = useState(0)
+  const totalAnswered = correctAnsweredMiniGames + incorrectAnsweredMiniGames;
+  const [allFriendOrFoe, setAllFriendOrFoe] = useState([]);
+  const [currentFriendOrFoe, setCurrentFriendOrFoe] = useState([]);
+  const [friendOrFoeNumber, setFriendOrFoeNumber] = useState(0);
+  const [isGameCompleted, setIsGameCompleted] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchPosting = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/0/6`);
+        setAllFriendOrFoe(response.data);
+      } catch (error) {
+        console.error('Error fetching right answer questions:', error);
+      }
+    };
+
+    fetchPosting();
+  }, [baseUrl]);
+
+  useEffect(() => {
+    if (allFriendOrFoe.length > 0) {
+      const randomSnaps = getRandomItems(allFriendOrFoe, 10);
+      setCurrentFriendOrFoe(randomSnaps);
+    }
+  }, [allFriendOrFoe]);
 
   const intervalIdRef = useRef(null);
 
@@ -35,17 +74,53 @@ const FriendOrFoe = () => {
     }
   }, [seconds]);
 
-  const handleAnswerSubmission = () => {
+  const handleAnswerClick = (selectedAnswer) => {
+    const correctAnswer = currentFriendOrFoe[friendOrFoeNumber]?.answers.find(ans => ans.isCorrect).text;
 
-  }
+    if (selectedAnswer === correctAnswer) {
+      setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
+    } else {
+      setIncorrectAnsweredMiniGames(incorrectAnsweredMiniGames + 1);
+    }
+
+    if (friendOrFoeNumber < currentFriendOrFoe.length - 1) {
+      setFriendOrFoeNumber(friendOrFoeNumber + 1);
+      setSeconds(25); // Reset the timer for the next question
+    } else {
+      setIsGameCompleted(true); // Show the popup when the game is completed
+    }
+  };
+
+  const handleRestart = () => {
+    setCorrectAnsweredMiniGames(0);
+    setIncorrectAnsweredMiniGames(0);
+    setFriendOrFoeNumber(0);
+    setIsGameCompleted(false);
+    setSeconds(25);
+    const randomSnaps = getRandomItems(allFriendOrFoe, 10);
+    setCurrentFriendOrFoe(randomSnaps);
+  };
+
+  const handleClaimPrize = () => {
+    console.log('Prize claimed');
+    setIsGameCompleted(false);
+    navigate('/');
+  };
 
   return (
     <div className='friendOrFoeWrapper'>
-
+      {isGameCompleted && (
+        <GameCompletedPopup
+          correctAnswers={correctAnsweredMiniGames}
+          mistakes={incorrectAnsweredMiniGames}
+          onRestart={handleRestart}
+          onClaimPrize={handleClaimPrize}
+        />
+      )}
       <div className='friendOrFoeTitleWrapper'>
 
         <div className='friendOrFoeTitle'>
-          <img src={close} alt="" />
+          <img src={close} alt="" onClick={() => navigate('/minigames')} />
           <h1>Friend or Foe</h1>
         </div>
 
@@ -59,8 +134,8 @@ const FriendOrFoe = () => {
             </div>
 
             <div className='gameResultRes'>
-              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered}`} <span>correct</span> </div>
-              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered}`} <span>mistake</span></div>
+              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnsweredMiniGames}`} <span>correct</span> </div>
+              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnsweredMiniGames}`} <span>mistake</span></div>
             </div>
           </div>
         ) : (
@@ -85,8 +160,8 @@ const FriendOrFoe = () => {
 
           <div className='friendOrFoeLeftSideContent'>
             <div className='gameResult'>
-              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnswered} correct`} </div>
-              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnswered} mistake`}</div>
+              <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnsweredMiniGames} correct`} </div>
+              <div className='incorrectAnswered'><img src={incorrectAnswer} alt="incorrectAnswer" />{`${incorrectAnsweredMiniGames} mistake`}</div>
             </div>
             <div className='gameDescription'>You have to decide whether to add as friends or not.</div>
           </div>
@@ -96,16 +171,16 @@ const FriendOrFoe = () => {
               <div className='messageGameCard'>
                 <img src={avatar} alt="userpic" />
                 <div className='middleInfoUser'>
-                  <p className='messageName'>Andrew</p>
-                  <p className='messageText'>Constantly seeking inspiration and growth. Let's connect and explore together!</p>
+                  <p className='messageName'>{currentFriendOrFoe[friendOrFoeNumber]?.text}</p>
+                  <p className='messageText'>{currentFriendOrFoe[friendOrFoeNumber]?.content}</p>
                 </div>
               </div>
               <img className='middleGamePhoto' src={gamePhoto} alt='gamephoto' />
             </div>
 
             <div className='friendOrFoeOptionAnswers'>
-              <button className='friendOrFoeDeclineButton'><img src={decline} alt="declineButton" /> Decline</button>
-              <button className='friendOrFoeAcceptButton'><img src={accept} alt="acceptButton" /> Accept</button>
+              <button className='friendOrFoeDeclineButton' onClick={() => handleAnswerClick(`Decline`)} ><img src={decline} alt="declineButton" /> Decline</button>
+              <button className='friendOrFoeAcceptButton' onClick={() => handleAnswerClick(`Accept`)}><img src={accept} alt="acceptButton" /> Accept</button>
             </div>
           </div>
 

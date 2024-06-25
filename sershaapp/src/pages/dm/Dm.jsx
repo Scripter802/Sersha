@@ -10,17 +10,13 @@ import backButton from '../../assets/images/dms/backbuttonResponsive.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+
 const Dm = () => {
   const { baseUrl, selectedMessagePreview, setSelectedMessagePreview } = useGlobalContext();
-
   const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState('');
-  const [answer, setAnswer] = useState('');
-  const [answer2, setAnswer2] = useState([]);
-  const [answer3, setAnswer3] = useState([]);
-  const [answer4, setAnswer4] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState(null);
-  const [nextMessage, setNextMessage] = useState(null);
+  const [currentAnswer, setCurrentAnswer] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,7 +32,7 @@ const Dm = () => {
 
     const fetchMessages = async () => {
       const newMessages = [];
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < 1; i++) {
         const message = await fetchRandomChat();
         if (message) newMessages.push(message);
       }
@@ -46,19 +42,30 @@ const Dm = () => {
     fetchMessages();
   }, [baseUrl]);
 
+  const handleAnswer = (answer) => {
+    setCurrentAnswer(answer);
 
+    if (selectedMessage?.responses?.find(res => res.content === answer)?.nextMessage) {
+      setSelectedMessage(selectedMessage.responses.find(res => res.content === answer).nextMessage);
+      setCurrentAnswer('');
+    } else {
+      setShowPopup(true);
+    }
+  };
+
+  console.log(selectedMessagePreview)
 
   return (
     <div className='dmsWrapper'>
       <div className='dmsContainer'>
         <div className={`${window.innerWidth < 780 && selectedMessagePreview ? 'responsiveNewMsgWrapper' : 'newMsgWrapper'}`}>
-          <NewMessage messages={messages} onSelectMessage={setSelectedMessage} setSelectedMessagePreview={setSelectedMessagePreview} setAnswer={setAnswer} />
+          <NewMessage messages={messages} onSelectMessage={setSelectedMessage} setSelectedMessagePreview={setSelectedMessagePreview} />
         </div>
 
         {window.innerWidth < 780 && selectedMessagePreview && (
           <div className='responsiveSingleMessageHeader'>
             <div><img src={avatar} alt="avatar" /></div>
-            <div><p>{selectedMessage?.name}</p></div>
+            <div><p>{selectedMessage?.sender}</p></div>
             <div onClick={() => setSelectedMessagePreview(false)} className='backButtonRespDm'><img src={backButton} alt="backbutton" className='resHeaderAvatarImg' /></div>
           </div>
         )}
@@ -68,9 +75,9 @@ const Dm = () => {
             <img src={avatar} alt="" />
             {selectedMessage?.content}
           </div>
-          {!answer && <h5>Answer options</h5>}
+          {!currentAnswer && <h5>Answer options</h5>}
           <div>
-            <AnswersMsg selectedMessage={selectedMessage} answer={answer} setAnswer={setAnswer} selectedMessagePreview={selectedMessagePreview} />
+            <AnswersMsg selectedMessage={selectedMessage} currentAnswer={currentAnswer} handleAnswer={handleAnswer} />
           </div>
         </div>
       </div>
@@ -79,7 +86,10 @@ const Dm = () => {
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
-      {answer && <Popup />}
+      {showPopup && <Popup />}
+      <audio loop autoPlay>
+        <source src="public/music/Music/RogueFoxFight310520241104.mp3" type="audio/mpeg" />
+      </audio>
     </div>
   );
 };

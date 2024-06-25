@@ -86,6 +86,10 @@
 
 }
 
+.postingGameCard img {
+  width: 100%;
+}
+
 .postingProfileInfo {
   padding: 1rem;
 }

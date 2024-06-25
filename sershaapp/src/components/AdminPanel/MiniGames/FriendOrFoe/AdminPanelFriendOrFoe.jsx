@@ -8,6 +8,7 @@ import axios from 'axios';
 const AdminPanelFriendOrFoe = () => {
   const {
     baseUrl,
+    baseUrlImage,
     friendOrFoeCreateNew,
     setFriendOrFoeCreateNew,
     isFriendOrFoeEdit,
@@ -102,7 +103,7 @@ const AdminPanelFriendOrFoe = () => {
                   <td data-label="No.">{index + 1}</td>
                   <td data-label="AuthorName">{post.text}</td>
                   <td data-label="AuthorName">Male</td>
-                  <td data-label="Image"><img src={post.imagePath} alt="Post Image" /></td>
+                  <td data-label="Image"><img src={`${baseUrlImage}${post.imagePath}`} alt="Post Image" /></td>
                   <td data-label="AuthorName">{post.content}</td>
                   <td data-label="Bundle">Easy</td>
 

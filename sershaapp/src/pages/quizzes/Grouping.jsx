@@ -31,7 +31,8 @@ const Grouping = ({ currentQ }) => {
     },
   ];
 
-  const [dropped, setDropped] = useState(["Drop here", "Drop here", "Drop here", "Drop here", "Drop here", "Drop here"]);
+  const [droppedOne, setDroppedOne] = useState(new Array(currentQ.groups[0].groupingItems.length).fill("Drop here"));
+  const [droppedTwo, setDroppedTwo] = useState(new Array(currentQ.groups[1].groupingItems.length).fill("Drop here"));
   const [optionAnswer, setOptionAnswer] = useState([]);
 
   useEffect(() => {
@@ -41,21 +42,27 @@ const Grouping = ({ currentQ }) => {
   }, []);
 
 
-  const handleDrop = (index, item) => {
-    const newDropped = [...dropped];
-    newDropped[index] = item.name;
-    setDropped(newDropped);
+  const handleDropOne = (index, item) => {
+    const newDroppedOne = [...droppedOne];
+    newDroppedOne[index] = item.name;
+    setDroppedOne(newDroppedOne);
   };
 
-  const updateDropped = (currentIndex, draggedIndex) => {
-    const newDropped = [...dropped];
-    const draggedItem = newDropped[draggedIndex];
-    newDropped[draggedIndex] = newDropped[currentIndex];
-    console.log(newDropped)
-    newDropped[currentIndex] = draggedItem;
-    setDropped(newDropped);
-
+  const handleDropTwo = (index, item) => {
+    const newDroppedTwo = [...droppedTwo];
+    newDroppedTwo[index] = item.name;
+    setDroppedTwo(newDroppedTwo);
   };
+
+  // const updateDropped = (currentIndex, draggedIndex) => {
+  //   const newDropped = [...dropped];
+  //   const draggedItem = newDropped[draggedIndex];
+  //   newDropped[draggedIndex] = newDropped[currentIndex];
+  //   console.log(newDropped)
+  //   newDropped[currentIndex] = draggedItem;
+  //   setDropped(newDropped);
+
+  // };
 
   let items = []
 
@@ -82,10 +89,10 @@ const Grouping = ({ currentQ }) => {
       setShowPopup(true)
     }
 
-    const dropped1 = [dropped[0], dropped[1], dropped[2]];
-    const dropped2 = [dropped[3], dropped[4], dropped[5]];
+    // const dropped1 = [dropped[0], dropped[1], dropped[2]];
+    // const dropped2 = [dropped[3], dropped[4], dropped[5]];
 
-    let res = areArraysEqual(dropped1, currentQ.groups[0].groupingItems) && areArraysEqual(dropped2, currentQ.groups[1].groupingItems);
+    let res = areArraysEqual(droppedOne, currentQ.groups[0].groupingItems) && areArraysEqual(droppedTwo, currentQ.groups[1].groupingItems);
     if (res == true) {
       setCorrectAnswers(correctAnswers + 1);
     }
@@ -148,35 +155,29 @@ const Grouping = ({ currentQ }) => {
             </div>
             <div className='groupingDropBoxes'>
               <div className='fruitDropBoxes'>
-                {dropped.map((item, index) => {
-                  if (index < 3) {
-                    return (
-                      <DropBox
-                        key={index}
-                        index={index}
-                        handleDrop={handleDrop}
-                        currentItem={item}
-                        updateDropped={updateDropped}
-                      />
-                    );
-                  }
-                  return null;
+                {droppedOne.map((item, index) => {
+                  return (
+                    <DropBoxOne
+                      key={index}
+                      index={index}
+                      handleDropOne={handleDropOne}
+                      currentItem={item}
+                    // updateDropped={updateDropped}
+                    />
+                  );
                 })}
               </div>
               <div className='vegetableDropBoxes'>
-                {dropped.map((item, index) => {
-                  if (index >= 3) {
-                    return (
-                      <DropBox
-                        key={index}
-                        index={index}
-                        handleDrop={handleDrop}
-                        currentItem={item}
-                        updateDropped={updateDropped}
-                      />
-                    );
-                  }
-                  return null;
+                {droppedTwo.map((item, index) => {
+                  return (
+                    <DropBoxTwo
+                      key={index}
+                      index={index}
+                      handleDropTwo={handleDropTwo}
+                      currentItem={item}
+                    // updateDropped={updateDropped}
+                    />
+                  );
                 })}
               </div>
             </div>
@@ -186,11 +187,11 @@ const Grouping = ({ currentQ }) => {
 
           <div className='groupingOfferedAnswerWrapper'>
             {items.map((item, index) => (
-              <DraggableItem key={index} item={item} index={index} dropped={dropped} />
+              <DraggableItem key={index} item={item} index={index} droppedOne={droppedOne} droppedTwo={droppedTwo} />
             ))}
           </div>
 
-          {dropped.includes("Drop here") ? '' : <div className='groupingFinished' onClick={() => handleDone()}><img src={done} alt="done" />I'm Done</div>}
+          {droppedOne.includes("Drop here") && droppedTwo.includes("Drop here") ? '' : <div className='groupingFinished' onClick={() => handleDone()}><img src={done} alt="done" />I'm Done</div>}
         </div>
       </div>
 
@@ -202,7 +203,7 @@ const Grouping = ({ currentQ }) => {
   );
 };
 
-const DraggableItem = ({ item, index, dropped }) => {
+const DraggableItem = ({ item, index, droppedOne, droppedTwo }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "answer",
     item: { name: item },
@@ -211,7 +212,7 @@ const DraggableItem = ({ item, index, dropped }) => {
     }),
   }), [item, index]);
 
-  const isDropped = dropped.includes(item);
+  const isDropped = droppedOne.includes(item) || droppedTwo.includes(item)
 
   if (isDropped) {
     return (
@@ -244,14 +245,53 @@ const DraggableDroppedItem = ({ item, index, onDragStart }) => {
   );
 };
 
-const DropBox = ({ index, handleDrop, currentItem, updateDropped }) => {
+const DropBoxTwo = ({ index, handleDropTwo, currentItem, updateDropped }) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ["answer", "droppedItem"],
-    drop: (item) => handleDrop(index, item),
+    drop: (item) => handleDropTwo(index, item),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
-  }), [index, handleDrop]);
+  }), [index, handleDropTwo]);
+
+  const onDragStart = (e) => {
+    e.dataTransfer.setData("index", index);
+  };
+
+  const onDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const onDrop = (e) => {
+    const draggedIndex = e.dataTransfer.getData("index");
+
+    if (index === draggedIndex) return
+
+    updateDropped(index, draggedIndex);
+  };
+
+  return (
+    <div ref={drop} className='dropBox' onDragOver={onDragOver} onDrop={onDrop} style={{ backgroundColor: currentItem !== "Drop here" ? '#C26F4D' : "", color: currentItem !== "Drop here" ? '#FFFFFF' : "#FFB496", border: currentItem !== "Drop here" ? "none" : "1px dashed #FFB496" }}>
+      {currentItem !== "Drop here" && (
+        <DraggableDroppedItem item={currentItem} index={index} onDragStart={onDragStart} />
+      )}
+      {currentItem === "Drop here" && <p>{currentItem}</p>}
+    </div>
+  );
+}
+
+
+const DropBoxOne = ({ index, handleDropOne, currentItem, updateDropped }) => {
+  const [{ isOver }, drop] = useDrop(() => ({
+    accept: ["answer", "droppedItem"],
+    drop: (item) => handleDropOne(index, item),
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  }), [index, handleDropOne]);
+
+
+
 
   const onDragStart = (e) => {
     e.dataTransfer.setData("index", index);
@@ -278,5 +318,7 @@ const DropBox = ({ index, handleDrop, currentItem, updateDropped }) => {
     </div>
   );
 };
+
+
 
 export default Grouping;

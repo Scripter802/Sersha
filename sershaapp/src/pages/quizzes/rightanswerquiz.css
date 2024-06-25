@@ -92,11 +92,36 @@
     gap: 1rem;
 }
 
+#selected {
+    width: fit-content;
+    background: gray;
+}
+
+.doneButtonWrapper {
+    margin-top: 20px;
+}
+
+.doneButtonWrapper button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.doneButtonWrapper button:hover {
+    background-color: #0056b3;
+}
+
 .rightObenWrapper {
     display: flex;
     justify-content: space-between;
     width: 500px;
     margin-right: 1.875rem;
+}
+
+#rightObenWrap {
+    margin-left: 0;
 }
 
 .healthResponsive {

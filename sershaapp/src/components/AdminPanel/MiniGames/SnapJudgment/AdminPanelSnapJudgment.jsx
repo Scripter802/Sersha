@@ -6,7 +6,7 @@ import SnapJudgmentEdit from './SnapJudgmentEdit/SnapJudgmentEdit';
 import axios from 'axios';
 
 const AdminPanelSnapJudgment = () => {
-  const { baseUrl, snapJudgmentCreateNew,
+  const { baseUrl, baseUrlImage, snapJudgmentCreateNew,
     setSnapJudgmentCreateNew,
     editingSnapJudgment,
     setEditingSnapJudgment,
@@ -95,7 +95,7 @@ const AdminPanelSnapJudgment = () => {
               {allSnapJudgmentAssignments && allSnapJudgmentAssignments.map((post, index) =>
                 <tr key={index}>
                   <td data-label="No.">{index + 1}</td>
-                  <td data-label="Image"><img src={post.imagePath} alt="Post Image" /></td>
+                  <td data-label="Image"><img src={`${baseUrlImage}${post.imagePath}`} alt="Post Image" /></td>
                   <td data-label="AuthorName">{post.text}</td>
                   <td data-label="Content">{post.content}</td>
                   <td data-label="AuthorName">{post.answers.map((ans, i) => (

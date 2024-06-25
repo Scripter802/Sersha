@@ -6,6 +6,7 @@ import './signInUpPage.css';
 import LoginForm from '../../components/signInUp/LoginForm.jsx';
 import RegisterForm from '../../components/signInUp/RegisterForm.jsx';
 import skipImg from '../../assets/images/login/skip.png';
+import { heart } from '../../assets/images/customization/items/index.js';
 
 const signInUpSlider = [
   {
@@ -131,6 +132,15 @@ const SignInUpPage = () => {
         <div className='rightSideWrapper'>
           {logIn ? <LoginForm /> : <RegisterForm />}
         </div>
+      )}
+      {logIn == false && (
+        <div className='footerWrapper'>
+          <div className='footer'>
+            <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
+            <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
+          </div>
+        </div>
+
       )}
     </div>
   );

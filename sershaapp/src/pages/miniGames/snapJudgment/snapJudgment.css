@@ -87,6 +87,10 @@
   width: 100%;
 }
 
+.snapGameCard img {
+  width: 100%;
+}
+
 .snapProfilePhoto {
   border-radius: 20px 20px;
 }

@@ -31,8 +31,8 @@ const Slideshow = () => {
         <source src="public/music/SFX/Slideshow/LoadingSoundEffect.mp3" type="audio/mpeg" />
       </audio>
       {playBackgroundMusic && (
-        <audio autoPlay>
-          <source src="public/music/Misc/BackgroundMusicOne.mp3" type="audio/mpeg" />
+        <audio loop autoPlay>
+          <source src="public/music/Music/RogueFoxFight310520241104.mp3" type="audio/mpeg" />
         </audio>
       )}
     </div>

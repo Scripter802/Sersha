@@ -1,10 +1,12 @@
 import './headerResponsive.css'
 import { level, avatar, coin } from './../../assets/images/navbar/index.js'
-import { gameResponsive,
+import {
+  gameResponsive,
   homeResponsive,
   mapResponsive,
   messagesResponsive,
-  characterResponsive, } from '../../assets/images/headerResponsive/index.js'
+  characterResponsive,
+} from '../../assets/images/headerResponsive/index.js'
 
 const HeaderResponsive = () => {
   const path = window.location.pathname
@@ -12,7 +14,7 @@ const HeaderResponsive = () => {
 
   return (
     <div className='responsiveHeaderWrapper'>
-        
+
       <div className='responsiveRightWrapper'>
 
         <div className='responsiveProfileWrapper'>
@@ -21,18 +23,18 @@ const HeaderResponsive = () => {
             <img src={level} alt="level" className='responsiveLevel' />
             <img src={avatar} alt="avatar" className='responsiveAvatar' />
           </div>
-          
+
           <div className='responsiveProfileInfo'>
             <p>Camelia</p>
             <p>Level 2</p>
           </div>
 
         </div>
-          
+
         <div>
           <div className='responsiveCoinWrapper'>
-            <img src={coin} alt="coin" />
-            <p>3,483</p>  
+            <img src={coin} alt="coin" className='coinImg' />
+            <p>3,483</p>
           </div>
         </div>
 

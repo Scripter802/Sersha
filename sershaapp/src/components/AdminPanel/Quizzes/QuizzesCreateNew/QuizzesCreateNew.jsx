@@ -34,13 +34,11 @@ const QuizzesCreateNew = () => {
     currentQuestion.questions.forEach((question, qIndex) => {
       let type = question.type === 'Right Answer' ? 0 : question.type === 'Correct/Incorrect' ? 1 : question.type === 'Fill in The Blank' ? 2 : 3;
 
-
-      if (type == 3) {
+      if (type === 3) {
         question.text = 'Place the words into the appropriate groups';
-
       }
 
-      if (type == 1) {
+      if (type === 1) {
         if (question.isCorrect === undefined) {
           question.isCorrect = false;
         }
@@ -120,6 +118,12 @@ const QuizzesCreateNew = () => {
   const handleAddAnswer = (qIndex) => {
     const updatedQuestions = [...currentQuestion.questions];
     updatedQuestions[qIndex].answers.push({ text: '', isCorrect: false });
+    setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
+  };
+
+  const handleAddGroupItem = (qIndex, gIndex) => {
+    const updatedQuestions = [...currentQuestion.questions];
+    updatedQuestions[qIndex].groups[gIndex].items.push({ item: '' });
     setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
   };
 
@@ -308,13 +312,13 @@ const QuizzesCreateNew = () => {
                     <input
                       className='postProfileName'
                       type="text"
-                      value={item.text}
+                      value={item.item}
                       placeholder={`Option ${iIndex + 1}`}
-                      onChange={(e) => handleAnswerChange(qIndex, iIndex, 'text', e.target.value)}
+                      onChange={(e) => handleGroupItemChange(qIndex, 0, iIndex, e.target.value)}
                     />
                   </div>
                 ))}
-                <button className='addNewOptionFieldBtn' onClick={() => handleAddAnswer(qIndex)}>
+                <button className='addNewOptionFieldBtn' onClick={() => handleAddGroupItem(qIndex, 0)}>
                   <div className='incrementCharacter'>+</div>
                 </button>
               </div>
@@ -335,13 +339,13 @@ const QuizzesCreateNew = () => {
                     <input
                       className='postProfileName'
                       type="text"
-                      value={item.text}
+                      value={item.item}
                       placeholder={`Option ${iIndex + 1}`}
-                      onChange={(e) => handleAnswerChange(qIndex, iIndex, 'text', e.target.value)}
+                      onChange={(e) => handleGroupItemChange(qIndex, 1, iIndex, e.target.value)}
                     />
                   </div>
                 ))}
-                <button className='addNewOptionFieldBtn' onClick={() => handleAddAnswer(qIndex)}>
+                <button className='addNewOptionFieldBtn' onClick={() => handleAddGroupItem(qIndex, 1)}>
                   <div className='incrementCharacter'>+</div>
                 </button>
               </div>

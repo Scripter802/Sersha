@@ -24,9 +24,19 @@ const AdminPanelPostingChallenge = () => {
     setIsPostingChallengeEdit(true);
   };
 
-  const handleDeletePostingChallenge = (index) => {
-    // const updatedAssignments = allPostingChallengeAssignments.filter((_, i) => i !== index);
-    // setAllPostingChallengeAssignments(updatedAssignments);
+  const handleDeletePostingChallenge = async (post) => {
+    try {
+      const response = await axios.delete(`${baseUrl}/Quizzes/${post.id}`);
+      if (response.status === 200) {
+
+
+        // Update the allQuizzes state by filtering out the deleted quiz
+        const updatedQuizzes = allPostingChallengeAssignments.filter(q => q.id !== post.id);
+        setAllQuizzes(updatedQuizzes);
+      }
+    } catch (error) {
+      console.error('Error deleting the question:', error);
+    }
   };
 
   useEffect(() => {
@@ -80,7 +90,7 @@ const AdminPanelPostingChallenge = () => {
                   <td data-label="Stage">Easy</td>
                   <td data-label="Edit/Delete" className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEditPostingChallenge(index)}>Edit</button>
-                    <button className="delete-btn" onClick={() => handleDeletePostingChallenge(index)}>Delete</button>
+                    <button className="delete-btn" onClick={() => handleDeletePostingChallenge(post)}>Delete</button>
                   </td>
                 </tr>
               )}

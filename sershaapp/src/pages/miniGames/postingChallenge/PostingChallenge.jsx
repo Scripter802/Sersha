@@ -115,6 +115,7 @@ const PostingChallenge = () => {
           mistakes={incorrectAnsweredMiniGames}
           onRestart={handleRestart}
           onClaimPrize={handleClaimPrize}
+          title={`Game`}
         />
       )}
       <div className='postingChallengeTitleWrapper'>
@@ -166,7 +167,7 @@ const PostingChallenge = () => {
 
           <div className='postingChallengeMiddleContent'>
             <div className='postingGameCard'>
-              <img className='postingProfilePhoto' src={`${baseUrlImage}${currentSnap[snapNumber]?.imagePath}`} alt="snapProfilePhoto" />
+              <img className='postingProfilePhoto' src={`${baseUrlImage}${currentPosting[postingNumber]?.imagePath}`} alt="snapProfilePhoto" />
               <div className='postingProfileInfo'>
                 <p className='postingProfileName'></p>
                 <p className='postingPostText'>{currentPosting[postingNumber]?.content}</p>

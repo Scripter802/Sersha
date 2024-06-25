@@ -17,8 +17,8 @@ const QuizzesCreateNew = () => {
         statement1: '',
         statement2: '',
         groups: [
-          { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] },
-          { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] }
+          { groupName: '', items: [{ item: '' }] },
+          { groupName: '', items: [{ item: '' }] }
         ],
       }
     ]
@@ -89,8 +89,8 @@ const QuizzesCreateNew = () => {
           statement1: '',
           statement2: '',
           groups: [
-            { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] },
-            { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] }
+            { groupName: '', items: [{ item: '' }] },
+            { groupName: '', items: [{ item: '' }] }
           ],
           isCorrect: false,
         }
@@ -308,12 +308,15 @@ const QuizzesCreateNew = () => {
                     <input
                       className='postProfileName'
                       type="text"
-                      value={item.item}
+                      value={item.text}
                       placeholder={`Option ${iIndex + 1}`}
-                      onChange={(e) => handleGroupItemChange(qIndex, 0, iIndex, e.target.value)}
+                      onChange={(e) => handleAnswerChange(qIndex, iIndex, 'text', e.target.value)}
                     />
                   </div>
                 ))}
+                <button className='addNewOptionFieldBtn' onClick={() => handleAddAnswer(qIndex)}>
+                  <div className='incrementCharacter'>+</div>
+                </button>
               </div>
               <div>
                 <label className='questionFieldLabel'>Group 2 Name:</label>
@@ -332,12 +335,15 @@ const QuizzesCreateNew = () => {
                     <input
                       className='postProfileName'
                       type="text"
-                      value={item.item}
+                      value={item.text}
                       placeholder={`Option ${iIndex + 1}`}
-                      onChange={(e) => handleGroupItemChange(qIndex, 1, iIndex, e.target.value)}
+                      onChange={(e) => handleAnswerChange(qIndex, iIndex, 'text', e.target.value)}
                     />
                   </div>
                 ))}
+                <button className='addNewOptionFieldBtn' onClick={() => handleAddAnswer(qIndex)}>
+                  <div className='incrementCharacter'>+</div>
+                </button>
               </div>
             </>
           )}

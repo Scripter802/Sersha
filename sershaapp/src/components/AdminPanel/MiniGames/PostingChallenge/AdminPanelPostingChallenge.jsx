@@ -8,6 +8,7 @@ import axios from 'axios';
 const AdminPanelPostingChallenge = () => {
   const {
     baseUrl,
+    baseUrlImage,
     postingChallengeCreateNew,
     setPostingChallengeCreateNew,
     isPostingChallengeEdit,
@@ -71,7 +72,7 @@ const AdminPanelPostingChallenge = () => {
               {allPostingChallengeAssignments && allPostingChallengeAssignments.map((post, index) =>
                 <tr key={index}>
                   <td data-label="No.">{index + 1}</td>
-                  <td data-label="Image"><img src={post.imagePath} alt="Post Image" /></td>
+                  <td data-label="Image"><img src={`${baseUrlImage}${post.imagePath}`} alt="Post Image" /></td>
                   <td data-label="AuthorName">{post.text}</td>
                   <td data-label="PostContent">{post.content}</td><td data-label="AuthorName">{post.answers.map((ans, i) => (
                     ans.isCorrect ? ans.text : ''

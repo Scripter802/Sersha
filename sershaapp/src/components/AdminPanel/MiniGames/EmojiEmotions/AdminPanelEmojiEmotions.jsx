@@ -8,6 +8,7 @@ import axios from 'axios';
 const AdminPanelEmojiEmotions = () => {
   const {
     baseUrl,
+    baseUrlImage,
     emojiEmotionsCreateNew,
     setEmojiEmotionsCreateNew,
     isEmojiEmotionsEdit,
@@ -106,7 +107,7 @@ const AdminPanelEmojiEmotions = () => {
               {allEmojiEmotionsAssignments && allEmojiEmotionsAssignments.map((post, index) =>
                 <tr key={index}>
                   <td data-label="No.">{index + 1}</td>
-                  <td data-label="Image"><img src={post.imagePath} alt="Post Image" /></td>
+                  <td data-label="Image"><img src={`${baseUrlImage}${post.imagePath}`} alt="Post Image" /></td>
                   <td data-label="AuthorName">{post.answers.map((ans, i) => (
                     <p>{ans.text}</p>
                   ))}</td>

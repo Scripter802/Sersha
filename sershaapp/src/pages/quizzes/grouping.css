@@ -120,7 +120,7 @@
     justify-content: center;
     align-items: center;
     color: #FFFFFF;
-    height: 40px;
+    height: fit-content;
     width: fit-content;
     gap: 0.315rem;
     background: #C26F4D;
@@ -139,7 +139,7 @@
     color: #ffffff;
     border-radius: 20px 20px;
     width: 180px;
-    height: 40px;
+    min-height: 40px;
     margin-block: .315rem;
     cursor: pointer;
     text-align: center;

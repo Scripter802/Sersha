@@ -42,33 +42,41 @@ const RightAnswerQuiz = ({ currentQ }) => {
   ]
 
   const [message, setMessage] = useState(`${messages[0].name}`);
-  const [answer, setAnswer] = useState()
-  const [corAns, setCorAns] = useState('');
+  const [selectedAnswers, setSelectedAnswers] = useState([]);
+  const [corAns, setCorAns] = useState([]);
 
   useEffect(() => {
-    currentQ.answers.map(q => {
-      if (q.isCorrect == true) (
-        setCorAns(q.text)
-      );
-    })
+    const correctAnswers = currentQ.answers.filter(q => q.isCorrect).map(q => q.text);
+    setCorAns(correctAnswers);
+  }, [currentQ]);
 
-    if (answer == corAns) {
-      setCorrectAnswers(correctAnswers + 1);
-    }
-  }, [answer])
-
-  console.log(`CORRECT ANSWERS ${correctAnswers}`)
+  console.log(`CORRECT ANSWERS ${correctAnswers}`,)
   console.log(currentQuizz.questions.length, currentQuestion)
 
-  if (answer && currentQuizz.questions.length - 1 == currentQuestion) {
-    setShowPopup(true)
-  }
 
-  if (answer && currentQuizz.questions.length - 1 != currentQuestion) {
+  const handleAnswerSelection = (answer) => {
+    setSelectedAnswers(prev => {
+      if (prev.includes(answer)) {
+        return prev.filter(ans => ans !== answer);
+      }
+      return [...prev, answer];
+    });
+  };
 
-    setCurrentQuestion(currentQuestion + 1)
-  }
+  const handleSubmit = () => {
+    const isCorrect = corAns.every(answer => selectedAnswers.includes(answer)) && corAns.length === selectedAnswers.length;
 
+    if (isCorrect) {
+      setCorrectAnswers(correctAnswers + 1);
+    }
+
+    if (currentQuizz.questions.length - 1 === currentQuestion) {
+      setShowPopup(true);
+    } else {
+      setSelectedAnswers([]);
+      setCurrentQuestion(currentQuestion + 1);
+    }
+  };
 
   return (
     <div className='rightAnswerQuizWrapper'>
@@ -86,7 +94,7 @@ const RightAnswerQuiz = ({ currentQ }) => {
           </div>
         </div>
 
-        <div className='rightObenWrapper'>
+        <div className='rightObenWrapper' id='rightObenWrap'>
 
           <div className='inventory'>
             <img src={inventory} alt="" />
@@ -129,23 +137,24 @@ const RightAnswerQuiz = ({ currentQ }) => {
           <div className='rightAnswerAssignment'>
             {currentQ.text}
           </div>
-          {answer ? '' : <h5>Answer options</h5>}
+          {!selectedAnswers.length && <h5>Answer options</h5>}
 
           <div>
-            {currentQ.answers.map(msg => (
-              !answer &&
-              <div className='rightAnswerOfferedWrapper' onClick={() => setAnswer(`${msg.text}`)}>
-                <p className='rightAnswerOfferedAnswers'>{msg.text}</p>
+            {currentQ.answers.map((msg, index) => (
+              <div
+                key={index}
+                className={`rightAnswerOfferedWrapper `}
+                onClick={() => handleAnswerSelection(msg.text)}
+              >
+                <p className='rightAnswerOfferedAnswers'
+                  id={`${selectedAnswers.includes(msg.text) ? 'selected' : ''}`}>{msg.text}</p>
               </div>
             ))}
-            {answer ?
-              <div className='rightAnswerSelectedWrapper'>
-                <div className='rightAnswerSelected'>
-                  <img src={messages[0].avatar} alt="" />
-                  {answer ? `${answer}` : ''}
-                </div>
-              </div> : ''
-            }
+            {selectedAnswers.length > 0 && (
+              <div className='doneButtonWrapper'>
+                <button onClick={handleSubmit}>I am Done</button>
+              </div>
+            )}
           </div>
         </div>
       </div>

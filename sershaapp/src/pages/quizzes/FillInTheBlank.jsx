@@ -15,7 +15,7 @@ import HealthBar from '../../components/HealthBar'
 import { useGlobalContext } from '../../context/context'
 
 const FillInTheBlank = ({ currentQ }) => {
-  const { setShowPopup, currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers } = useGlobalContext();
+  const { setShowPopup, currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers, wrongAnswers, setWrongAnswers } = useGlobalContext();
   const messages = [
     {
       avatar: avatar,
@@ -47,13 +47,29 @@ const FillInTheBlank = ({ currentQ }) => {
   const fillInTheBlank = messages[0].message.split('#');
 
   useEffect(() => {
-    currentQ.answers.map(q => {
-      if (q.isCorrect == true) (
+    currentQ.answers.forEach(q => {
+      if (q.isCorrect) {
         setCorAns(q.text)
-      );
-    })
+      };
+    });
 
-  }, [])
+  }, [currentQ.answers]);
+
+  useEffect(() => {
+    if (dropped !== undefined) {
+      if (dropped === corAns) {
+        setCorrectAnswers(prev => prev + 1);
+      } else {
+        setWrongAnswers(prev => prev + 1);
+      }
+
+      if (currentQuizz.questions.length - 1 === currentQuestion) {
+        setShowPopup(true);
+      } else {
+        setCurrentQuestion(prev => prev + 1);
+      }
+    }
+  }, [dropped, corAns, currentQuestion, currentQuizz.questions.length, setCorrectAnswers, setCurrentQuestion, setShowPopup, setWrongAnswers]);
 
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -78,7 +94,8 @@ const FillInTheBlank = ({ currentQ }) => {
     if (dropped !== corAns) {
       setWrongAnswers(wrongAnswers + 1);
     }
-    setCurrentQuestion(currentQuestion + 1)
+    setDropped();
+    setCurrentQuestion(currentQuestion + 1);
   }
 
   let optionAnswer = currentQ.answers.map(item => item.text);

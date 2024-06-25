@@ -77,6 +77,8 @@ const FoxCustomization = () => {
   const { isTopPart, setIsTopPart, isBottomPart, setIsBottomPart } = useGlobalContext();
   const itemsTopPart = [AlienAntena, AnimalEars, AstronautHelmet, CapXBlue, CapXGreen, CapXRed, ChefHat, CowboyHat, FlowerCrown, HelmetArmour, LongHair, Mask, PiratesBandana, RegularGlasses, Sunglasses, SuperheroMask]
   const itemsBottomPart = [Apron, AstronautSuit, Book, Cape, CowboyBoots, DetectiveMagnifyingGlass, FairyWings, HoodieGreen, HoodieLightBlue, HoodiePink, HoodieRed, HoodieWhite, KnightArmour, MagicWand, NinjaBelt, PrincessGwon, SparkleWings, SuperheroSuitHighTech, Sunglasses, TshirtGreen, TshirtLightBlue, TshirtPink, TshirtRed, TshirtWhite, Tutu, WizardCloak]
+  const [topPart, setTopPart] = []
+  const [bottomPart, setBottomPart] = []
 
 
 
@@ -113,6 +115,9 @@ const FoxCustomization = () => {
           <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
         </div>
       </div>
+      <audio loop autoPlay>
+        <source src="public/music/Music/RogueFoxFight310520241104.mp3" type="audio/mpeg" />
+      </audio>
     </div>
   )
 }

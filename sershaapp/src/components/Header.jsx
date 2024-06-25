@@ -1,6 +1,6 @@
 import './header.css'
 import { game, home, logo, map, messages, rectangle, search, coin, level, avatar } from './../assets/images/navbar/index.js'
-
+import coinBlack from './../assets/images/navbar/coinBlack.png';
 
 const Header = () => {
   const path = window.location.pathname
@@ -19,7 +19,7 @@ const Header = () => {
       <div className='rightWrapper'>
         <div>
           <div className='coinWrapper'>
-            <img src={coin} alt="coin" />
+            <img src={coin} alt="coin" className='coinImg' />
             <p>3,483</p>
           </div>
         </div>

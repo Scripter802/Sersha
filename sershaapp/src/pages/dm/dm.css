@@ -134,6 +134,8 @@
         background-position: center;
         border-radius: 0 0 30px 30px;
         margin-bottom: 4rem;
+
+        min-height: 100vh;
     }
 
     .msgPreview {

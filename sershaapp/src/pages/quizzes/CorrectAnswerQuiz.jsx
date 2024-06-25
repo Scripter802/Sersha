@@ -56,7 +56,8 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
     setCorrectAnswers(correctAnswers + 1)
   }
   if (answer && currentQuizz.questions.length - 1 != currentQuestion) {
-    setCurrentQuestion(currentQuestion + 1)
+    setAnswer();
+    setCurrentQuestion(currentQuestion + 1);
   }
 
   return (

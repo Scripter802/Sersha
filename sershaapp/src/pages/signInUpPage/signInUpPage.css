@@ -2,7 +2,8 @@
     display: flex;
     background-image: url('../../assets/images/login/logInBackground.png');
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
+    position: relative;
 }
 
 .leftSideWrapper {
@@ -42,22 +43,23 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    margin-top: -4rem;
+    margin-top: -6.5rem;
     /* top: 60vh; */
 }
 
 .leftSideText h1 {
-    width: 50%;
-    font-size: 2.125rem;
+    width: 70%;
+    font-size: 1.75rem;
     font-weight: 500;
     line-height: 34px;
-    margin-bottom: 1.25rem;
+    margin: 0;
 }
 
 .leftSideText p {
-    width: 55%;
+    width: 65%;
     color: #FFB496;
     font-weight: 500;
+    margin: 0;
 }
 
 
@@ -95,12 +97,12 @@ article {
 
 .prev {
     left: 20%;
-    top: 90vh;
+    top: 95vh;
 }
 
 .next {
     right: 20%;
-    top: 90vh;
+    top: 95vh;
 }
 
 article.activeSlide {
@@ -121,7 +123,7 @@ article.nextSlide {
     display: flex;
     justify-content: center;
     align-items: center;
-    top: 90vh;
+    top: 95vh;
 }
 
 .dot {
@@ -145,6 +147,11 @@ article.nextSlide {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
 }
 
 
@@ -191,7 +198,7 @@ article.nextSlide {
         background-size: cover;
         background-position: center;
         border-radius: 20px 20px;
-        margin-top: 60%;
+        margin-top: 20%;
     }
 
     #leftSizeWrapper {
@@ -201,6 +208,8 @@ article.nextSlide {
     .leftSideText h1 {
         margin-top: 8rem;
         width: 80%;
+
+        font-size: 1.5rem;
     }
 
     .prev {
@@ -214,4 +223,26 @@ article.nextSlide {
     .dot {
         margin: 0 15px;
     }
+}
+
+@media (max-width: 600px) {
+
+    .slideImage {
+        background: url('../../assets/images/login/cardsResBackGround.png');
+        background-size: cover;
+        background-position: center;
+        border-radius: 20px 20px;
+        margin-top: 30%;
+    }
+
+    #leftSizeWrapper {
+        margin-top: 50vh;
+    }
+
+    .leftSideText h1 {
+        margin-top: 8rem;
+        width: 80%;
+        font-size: 1.25rem;
+    }
+
 }

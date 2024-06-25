@@ -1,8 +1,10 @@
 .posts {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
     background-image: url('../../assets/images/home/homePageBackground.png');
     background-size: cover;
+    background-position: center;
     border-radius: 30px 30px;
     min-height: 100vh;
     margin-bottom: 50px;
@@ -11,12 +13,19 @@
 .postWrapper {
     display: flex;
     flex-direction: column;
-    width: 25%;
+    width: 50%;
     height: fit-content;
     margin: 1rem;
     padding: 1rem;
     border-radius: 30px 30px;
     background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+    display: flex;
+    align-items: center;
+}
+
+.postWrapper img {
+    width: 500px;
+    height: 500px;
 }
 
 .postBy img {
@@ -36,8 +45,10 @@
 
 .postLikeWrapper {
     display: flex;
+    width: 500px;
     justify-content: space-between;
-    padding: 0 .75rem;
+    padding: .25rem .75rem;
+    margin-top: .25rem;
 }
 
 .postBy {
@@ -52,7 +63,7 @@
     margin-left: .5rem;
 }
 
-@media only screen and (max-width: 780px) {
+@media only screen and (max-width: 1000px) {
     html {
         position: relative;
     }
@@ -84,6 +95,11 @@
         gap: 1rem;
     }
 
+    .postWrapper img {
+        width: 100%;
+        height: 100%;
+    }
+
     .postImg,
     .postTitle {
         display: flex;
@@ -101,6 +117,14 @@
     .postLikeWrapper {
         padding-block: 0;
         padding-bottom: 1rem;
+        width: 100%;
+    }
+
+    .postBy img {
+        width: 35px;
+        height: 35px;
     }
 
 }
+
+@media only screen and (max-width: 600px) {}

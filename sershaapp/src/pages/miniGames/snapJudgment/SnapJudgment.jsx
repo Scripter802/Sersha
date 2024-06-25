@@ -198,6 +198,9 @@ const SnapJudgment = () => {
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
 
+      <audio loop autoPlay>
+        <source src="public/music/Music/SershaThemesongMediumoptimal310520241122.mp3" type="audio/mpeg" />
+      </audio>
     </div>
   );
 }

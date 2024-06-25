@@ -34,13 +34,14 @@ const Posts = ({ posts }) => {
         <div className='postWrapper' key={index}>
           {console.log(`post${post}`)}
           <div><p className='postTitle'>{post.title}</p></div>
-          <img src={`${baseUrlImage}${post?.imagePath}` || ''} alt={post.img ? 'post' : ''} className='postImg' />
+          {post?.imagePath != null && <img src={`${baseUrlImage}${post?.imagePath}` || ''} alt={post.img ? 'post' : ''} className='postImg' />
+          }
           <div className='postLikeWrapper'>
             <div className='postBy'>
               <img src={`${baseUrlImage}${post.author.authorImagePath}`} alt="postbyimg" />
               <p>{post.authorName}</p>
             </div>
-            <div>
+            <div className='postBy' >
               <img src={like} alt="likebtn" />
             </div>
           </div>
@@ -48,7 +49,7 @@ const Posts = ({ posts }) => {
 
       ))}
       <audio loop autoPlay>
-        <source src="public/music/Misc/BackgroundMusicFour.mp3" type="audio/mpeg" />
+        <source src="public/music/Music/RogueFoxFight310520241104.mp3" type="audio/mpeg" />
       </audio>
     </>
   );

@@ -1,24 +1,26 @@
-import avatar from '../../assets/images/navbar/userpick.png'
 
-const AnswersMsg = ({ selectedMessage, answer, setAnswer, selectedMessagePreview }) => {
+import avatar from '../../assets/images/navbar/userpick.png';
+
+const AnswersMsg = ({ selectedMessage, currentAnswer, handleAnswer }) => {
   return (
     <>
-      {selectedMessage?.responses.map(ans => (
-        !answer && (
-          <div className='possibleAnsWrapper' onClick={() => setAnswer(`${ans.content}`)}>
+      {selectedMessage?.responses?.map(ans => (
+        !currentAnswer && (
+          <div key={ans.id} className='possibleAnsWrapper' onClick={() => handleAnswer(ans.content)}>
             <p className='possibleAnswers'>{ans.content}</p>
-          </div>)
+          </div>
+        )
       ))}
-      {answer ?
+      {currentAnswer && (
         <div className='answerWrapper'>
           <div className='answer'>
             <img src={avatar} alt="" />
-            {answer ? `${answer}` : ''}
+            {currentAnswer}
           </div>
-        </div> : ''
-      }
+        </div>
+      )}
     </>
-  )
-}
+  );
+};
 
-export default AnswersMsg
+export default AnswersMsg;

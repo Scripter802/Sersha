@@ -37,6 +37,7 @@ const Dm = () => {
         if (message) newMessages.push(message);
       }
       setMessages(newMessages);
+      setSelectedMessage(newMessages[0]);
     };
 
     fetchMessages();

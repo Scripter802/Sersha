@@ -26,6 +26,8 @@ const AppProvider = ({ children }) => {
   const [allClothing, setAllClothing] = useState([]);
 
 
+  // NEW MESSAGE
+  const [newMessage, setNewMessage] = useState(0);
 
   // Function to handle selecting an item for the top part
   const handleSelectTopItem = (item) => {
@@ -336,6 +338,10 @@ const AppProvider = ({ children }) => {
         setIsTopPart,
         isBottomPart,
         setIsBottomPart,
+
+        //NewMessage
+        newMessage,
+        setNewMessage,
 
         // CLOTHING
         clothingCreateNew,

@@ -1,7 +1,7 @@
 import browse from '../../assets/images/customization/browse.png'
 import shop from '../../assets/images/customization/shop.png'
 import inventory from '../../assets/images/customization/inventory.png'
-import fox from '../../assets/images/customization/fox.png'
+import fox from '../../assets/images/customization/Trust.png'
 import foxbottompart from '../../assets/images/customization/foxbottompart.png'
 import foxtoppart from '../../assets/images/customization/foxtoppart.png'
 import {
@@ -75,7 +75,7 @@ import axios from 'axios'
 
 
 const FoxCustomization = () => {
-  const { baseUrl, isTopPart, setIsTopPart, isBottomPart, setIsBottomPart } = useGlobalContext();
+  const { baseUrl, isTopPart, setIsTopPart, isBottomPart, setIsBottomPart, selectedItem, setSelectedItem } = useGlobalContext();
   // const itemsTopPart = [AlienAntena, AnimalEars, AstronautHelmet, CapXBlue, CapXGreen, CapXRed, ChefHat, CowboyHat, FlowerCrown, HelmetArmour, LongHair, Mask, PiratesBandana, RegularGlasses, Sunglasses, SuperheroMask]
   // const itemsBottomPart = [Apron, AstronautSuit, Book, Cape, CowboyBoots, DetectiveMagnifyingGlass, FairyWings, HoodieGreen, HoodieLightBlue, HoodiePink, HoodieRed, HoodieWhite, KnightArmour, MagicWand, NinjaBelt, PrincessGwon, SparkleWings, SuperheroSuitHighTech, Sunglasses, TshirtGreen, TshirtLightBlue, TshirtPink, TshirtRed, TshirtWhite, Tutu, WizardCloak]
   const [topPart, setTopPart] = useState([]);

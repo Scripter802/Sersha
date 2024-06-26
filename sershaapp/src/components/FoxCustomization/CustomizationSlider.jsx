@@ -4,7 +4,7 @@ import 'tiny-slider/dist/tiny-slider.css';
 import { useGlobalContext } from "../../context/context";
 
 const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight }) => {
-  const { isTopPart, isBottomPart, baseUrlImage } = useGlobalContext();
+  const { isTopPart, isBottomPart, baseUrlImage, selectedItem, setSelectedItem } = useGlobalContext();
   const [sliderIndex, setSliderIndex] = useState(0);
   const sliderRef = useRef(null);
   const sliderDownRef = useRef(null);
@@ -38,17 +38,17 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
     touch: true,
     items: 5,
     onIndexChanged: (index) => setSliderIndex(index),
-    responsive: {
-      460: {
-        items: 5
-      },
-      700: {
-        items: 5
-      },
-      1000: {
-        items: 9
-      }
-    }
+    // responsive: {
+    //   460: {
+    //     items: 5
+    //   },
+    //   700: {
+    //     items: 5
+    //   },
+    //   1000: {
+    //     items: 5
+    //   }
+    // }
   };
 
   const renderItems = () => {

@@ -5,8 +5,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Domain;
 using Persistence;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace Application.Chats
 {
@@ -14,16 +12,15 @@ namespace Application.Chats
     {
         public class Command : IRequest
         {
-            public Guid Id { get; set; }
-            public string Sender { get; set; }
-            public string Content { get; set; }
-            public List<ResponseData> Responses { get; set; } = new List<ResponseData>();
+            public Guid Id { get; set; } 
+            public string Content { get; set; } 
+            public List<ResponseEditData> Responses { get; set; } = new List<ResponseEditData>();
 
-            public class ResponseData
+            public class ResponseEditData
             {
-                public Guid? Id { get; set; }
-                public string Content { get; set; }
-                public int NextMessageIndex { get; set; }
+                public Guid Id { get; set; } 
+                public string Content { get; set; } 
+                public int? NextMessageIndex { get; set; } 
             }
         }
 
@@ -38,76 +35,35 @@ namespace Application.Chats
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var chatMessage = await _context.ChatMessages
-                    .Include(m => m.Responses)
-                    .FirstOrDefaultAsync(m => m.Id == request.Id, cancellationToken);
-
+                var chatMessage = await _context.ChatMessages.FindAsync(request.Id);
                 if (chatMessage == null)
                 {
-                    throw new Exception("Message not found");
+                    throw new Exception("Chat message not found");
                 }
 
-                chatMessage.Sender = request.Sender;
-                chatMessage.Content = request.Content;
+                chatMessage.Content = request.Content; 
 
-                var messageDictionary = new Dictionary<int, ChatMessage>();
-
-                
-                for (int i = 0; i < request.Responses.Count; i++)
+                foreach (var responseEdit in request.Responses)
                 {
-                    var responseData = request.Responses[i];
-                    if (responseData.Id.HasValue)
+                    var response = await _context.UserResponses.FindAsync(responseEdit.Id);
+                    if (response != null)
                     {
-                        var response = chatMessage.Responses.FirstOrDefault(r => r.Id == responseData.Id.Value);
-                        if (response != null)
-                        {
-                            response.Content = responseData.Content;
-                            if (responseData.NextMessageIndex != -1)
-                            {
-                                if (messageDictionary.ContainsKey(responseData.NextMessageIndex))
-                                {
-                                    response.NextMessageId = messageDictionary[responseData.NextMessageIndex].Id;
-                                }
-                                else
-                                {
-                                    throw new KeyNotFoundException($"The given key '{responseData.NextMessageIndex}' was not present in the dictionary.");
-                                }
-                            }
-                            else
-                            {
-                                response.NextMessageId = null;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var response = new UserResponse
-                        {
-                            Id = Guid.NewGuid(),
-                            Content = responseData.Content,
-                            ChatMessageId = chatMessage.Id
-                        };
+                        response.Content = responseEdit.Content; 
 
-                        if (responseData.NextMessageIndex != -1)
+                        if (responseEdit.NextMessageIndex.HasValue)
                         {
-                            if (messageDictionary.ContainsKey(responseData.NextMessageIndex))
-                            {
-                                response.NextMessageId = messageDictionary[responseData.NextMessageIndex].Id;
-                            }
-                            else
-                            {
-                                throw new KeyNotFoundException($"The given key '{responseData.NextMessageIndex}' was not present in the dictionary.");
-                            }
+                            response.NextMessageId = _context.ChatMessages.Find(responseEdit.NextMessageIndex.Value)?.Id;
                         }
-
-                        chatMessage.Responses.Add(response);
-                        _context.UserResponses.Add(response);
                     }
                 }
 
                 var success = await _context.SaveChangesAsync(cancellationToken) > 0;
-                if (success) return Unit.Value;
-                throw new Exception("Problem saving changes");
+                if (!success)
+                {
+                    throw new Exception("Problem saving changes");
+                }
+
+                return Unit.Value;
             }
         }
     }

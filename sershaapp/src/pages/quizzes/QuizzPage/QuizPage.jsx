@@ -70,6 +70,7 @@ const QuizPage = () => {
           mistakes={currentQuizz.questions.length - correctAnswers}
           onRestart={handleRestart}
           onClaimPrize={handleClaimPrize}
+          title={`Quizz`}
         />
       )}
 

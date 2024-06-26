@@ -5,10 +5,15 @@ import Posts from '../../components/HomePage/Posts'
 
 import './homepage.css'
 import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive'
+import { useEffect, useState } from 'react'
+import { useGlobalContext } from '../../context/context'
 
 
 const HomePage = () => {
-  
+  const { newMessage, setNewMessage } = useGlobalContext();
+  const [newMessageSound, setNewMessageSound] = useState(false);
+
+
   const posts = [
     {
       title: 'Pre-teens now spending thousands on skincare to keep up with trends.',
@@ -29,6 +34,15 @@ const HomePage = () => {
     },
   ]
 
+  useEffect(() => {
+    const newMessageTimer = setTimeout(() => {
+      setNewMessageSound(true);
+      setNewMessage(1);
+    }, 2000);
+
+    return () => clearTimeout(newMessageTimer);
+  }, []);
+
   return (
     <div className='homePageWrapper'>
       {window.innerWidth < 1000 && <HeaderResponsive />}
@@ -37,7 +51,12 @@ const HomePage = () => {
           <Posts posts={posts} />
         </div>
       </div>
-      </div>
+      {newMessageSound == true && (
+        <audio autoPlay>
+          <source src="/music/SFX/DMs/esmmessagepingx2notificationsynthelectroniccartoon.mp3" type="audio/mpeg" />
+        </audio>
+      )}
+    </div>
   )
 }
 

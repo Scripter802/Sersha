@@ -17,8 +17,8 @@ const QuizzesCreateNew = () => {
         statement1: '',
         statement2: '',
         groups: [
-          { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] },
-          { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] }
+          { groupName: '', items: [{ item: '' }] },
+          { groupName: '', items: [{ item: '' }] }
         ],
       }
     ]
@@ -34,13 +34,11 @@ const QuizzesCreateNew = () => {
     currentQuestion.questions.forEach((question, qIndex) => {
       let type = question.type === 'Right Answer' ? 0 : question.type === 'Correct/Incorrect' ? 1 : question.type === 'Fill in The Blank' ? 2 : 3;
 
-
-      if (type == 3) {
+      if (type === 3) {
         question.text = 'Place the words into the appropriate groups';
-
       }
 
-      if (type == 1) {
+      if (type === 1) {
         if (question.isCorrect === undefined) {
           question.isCorrect = false;
         }
@@ -89,8 +87,8 @@ const QuizzesCreateNew = () => {
           statement1: '',
           statement2: '',
           groups: [
-            { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] },
-            { groupName: '', items: [{ item: '' }, { item: '' }, { item: '' }] }
+            { groupName: '', items: [{ item: '' }] },
+            { groupName: '', items: [{ item: '' }] }
           ],
           isCorrect: false,
         }
@@ -120,6 +118,12 @@ const QuizzesCreateNew = () => {
   const handleAddAnswer = (qIndex) => {
     const updatedQuestions = [...currentQuestion.questions];
     updatedQuestions[qIndex].answers.push({ text: '', isCorrect: false });
+    setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
+  };
+
+  const handleAddGroupItem = (qIndex, gIndex) => {
+    const updatedQuestions = [...currentQuestion.questions];
+    updatedQuestions[qIndex].groups[gIndex].items.push({ item: '' });
     setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
   };
 
@@ -314,6 +318,9 @@ const QuizzesCreateNew = () => {
                     />
                   </div>
                 ))}
+                <button className='addNewOptionFieldBtn' onClick={() => handleAddGroupItem(qIndex, 0)}>
+                  <div className='incrementCharacter'>+</div>
+                </button>
               </div>
               <div>
                 <label className='questionFieldLabel'>Group 2 Name:</label>
@@ -338,6 +345,9 @@ const QuizzesCreateNew = () => {
                     />
                   </div>
                 ))}
+                <button className='addNewOptionFieldBtn' onClick={() => handleAddGroupItem(qIndex, 1)}>
+                  <div className='incrementCharacter'>+</div>
+                </button>
               </div>
             </>
           )}

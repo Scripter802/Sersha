@@ -15,7 +15,18 @@
     justify-content: center;
     margin-top: 3.125rem;
     gap: 2rem;
+    min-height: 100vh;
 }
+
+.messageHistory {
+    margin-bottom: 1rem;
+}
+
+.receivedMsg,
+.answerWrapper {
+    margin-bottom: 1rem;
+}
+
 
 .newMsgWrapper {
     display: flex;

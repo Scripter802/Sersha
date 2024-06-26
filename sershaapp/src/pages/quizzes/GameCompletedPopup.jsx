@@ -2,11 +2,11 @@
 import React from 'react';
 import './gameCompletedPopup.css'; // Add your CSS styles here
 
-const GameCompletedPopup = ({ correctAnswers, mistakes, onRestart, onClaimPrize }) => {
+const GameCompletedPopup = ({ correctAnswers, mistakes, onRestart, onClaimPrize, title }) => {
   return (
     <div className="popup">
       <div className="popup-content">
-        <h2>Quizz Completed</h2>
+        <h2>{title} Completed</h2>
         <p>Every time you get better and better</p>
         <div className="results">
           <span className="correct">{correctAnswers} correct</span>

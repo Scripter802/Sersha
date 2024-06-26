@@ -75,9 +75,19 @@ const FriendOrFoe = () => {
   }, [seconds]);
 
   const handleAnswerClick = (selectedAnswer) => {
-    const correctAnswer = currentFriendOrFoe[friendOrFoeNumber]?.answers.find(ans => ans.isCorrect).text;
+    const currentQuestion = currentFriendOrFoe[friendOrFoeNumber];
+    if (!currentQuestion) {
+      console.error('No current question found.');
+      return;
+    }
 
-    if (selectedAnswer === correctAnswer) {
+    const correctAnswer = currentQuestion.answers.find(ans => ans.isCorrect)?.text;
+
+    console.log('Selected Answer:', selectedAnswer);
+    console.log('Correct Answer:', correctAnswer);
+
+    console.log(`${selectedAnswer}` === correctAnswer)
+    if (`${selectedAnswer}` == correctAnswer) {
       setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
     } else {
       setIncorrectAnsweredMiniGames(incorrectAnsweredMiniGames + 1);
@@ -90,6 +100,7 @@ const FriendOrFoe = () => {
       setIsGameCompleted(true); // Show the popup when the game is completed
     }
   };
+
 
   const handleRestart = () => {
     setCorrectAnsweredMiniGames(0);
@@ -115,6 +126,7 @@ const FriendOrFoe = () => {
           mistakes={incorrectAnsweredMiniGames}
           onRestart={handleRestart}
           onClaimPrize={handleClaimPrize}
+          title={`Game`}
         />
       )}
       <div className='friendOrFoeTitleWrapper'>
@@ -175,7 +187,7 @@ const FriendOrFoe = () => {
                   <p className='messageText'>{currentFriendOrFoe[friendOrFoeNumber]?.content}</p>
                 </div>
               </div>
-              <img className='middleGamePhoto' src={`${baseUrlImage}${currentSnap[snapNumber]?.imagePath}`} alt='gamephoto' />
+              <img className='middleGamePhoto' src={`${baseUrlImage}${currentFriendOrFoe[friendOrFoeNumber]?.imagePath}`} alt='gamephoto' />
             </div>
 
             <div className='friendOrFoeOptionAnswers'>

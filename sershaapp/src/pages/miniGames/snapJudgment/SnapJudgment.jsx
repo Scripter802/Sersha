@@ -77,7 +77,7 @@ const SnapJudgment = () => {
   let corInc = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const handleAnswerClick = (selectedAnswer) => {
-    const correctAnswerr = currentSnap[snapNumber].answers.find(ans => ans.isCorrect).text;
+    const correctAnswerr = currentSnap[snapNumber]?.answers.find(ans => ans.isCorrect).text;
     console.log(correctAnswerr, selectedAnswer)
     if (selectedAnswer == correctAnswerr) {
       setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
@@ -120,6 +120,7 @@ const SnapJudgment = () => {
           mistakes={incorrectAnsweredMiniGames}
           onRestart={handleRestart}
           onClaimPrize={handleClaimPrize}
+          title={`Game`}
         />
       )}
 

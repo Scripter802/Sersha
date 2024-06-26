@@ -59,6 +59,10 @@
   padding: 40px;
 }
 
+.middleGamePhoto {
+  width: 100%;
+}
+
 .friendOrFoeLeftSideContent {
   position: relative;
   flex: 1;
@@ -75,10 +79,10 @@
   width: 420px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-
   gap: .625rem;
+  overflow-y: auto;
+  height: 100%;
 }
 
 .messageGameCard {

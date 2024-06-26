@@ -7,8 +7,11 @@ import {
   messagesResponsive,
   characterResponsive,
 } from '../../assets/images/headerResponsive/index.js'
+import { useGlobalContext } from '../../context/context.jsx';
 
 const HeaderResponsive = () => {
+
+  const { newMessage } = useGlobalContext();
   const path = window.location.pathname
   console.log(path)
 
@@ -43,7 +46,7 @@ const HeaderResponsive = () => {
         <div className='responsiveMap'><img src={mapResponsive} alt="map" /></div>
         <div className='responsiveGame'><img src={gameResponsive} alt="game" /></div>
         <a href='/' className={`${path === '/' ? 'responsiveCurrentHome' : 'responsiveHome'}`}><img src={homeResponsive} alt="home" /></a>
-        <a href='/dm' className={`${path === '/dm' || path.includes('/quizzes/') ? 'responsiveDm' : 'responsiveMessages'}`} ><img src={messagesResponsive} alt="messages" /></a>
+        <a href='/dm' id="messages" className={`${path === '/dm' || path.includes('/quizzes/') ? 'responsiveDm' : 'responsiveMessages'}`} ><img src={messagesResponsive} alt="messages" />{newMessage == 1 && <p className='messageCounter'>{newMessage}</p>}</a>
         <a href='/foxcustomization' className={`${path === '/foxcustomization' ? 'responsiveDm' : 'responsiveSearch'}`}><img src={characterResponsive} alt="search" /></a>
       </div>
     </div>

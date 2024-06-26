@@ -10,13 +10,13 @@ import backButton from '../../assets/images/dms/backbuttonResponsive.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-
 const Dm = () => {
   const { baseUrl, selectedMessagePreview, setSelectedMessagePreview } = useGlobalContext();
   const [messages, setMessages] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [currentAnswer, setCurrentAnswer] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [messageHistory, setMessageHistory] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const Dm = () => {
         if (message) newMessages.push(message);
       }
       setMessages(newMessages);
+      setSelectedMessage(newMessages[0]);
     };
 
     fetchMessages();
@@ -51,6 +52,8 @@ const Dm = () => {
     } else {
       setShowPopup(true);
     }
+
+    setMessageHistory(prevHistory => [...prevHistory, { question: selectedMessage.content, answer }]);
   };
 
   console.log(selectedMessagePreview)
@@ -64,13 +67,27 @@ const Dm = () => {
 
         {window.innerWidth < 780 && selectedMessagePreview && (
           <div className='responsiveSingleMessageHeader'>
-            <div><img src={avatar} alt="avatar" /></div>
-            <div><p>{selectedMessage?.sender}</p></div>
+            <div><img src={selectedMessage?.sender.authorImagePath == null ? avatar : `${baseUrl}${selectedMessage?.sender.authorImagePath}`} alt="avatar" /></div>
+            <div><p>{selectedMessage?.sender.authorName}</p></div>
             <div onClick={() => setSelectedMessagePreview(false)} className='backButtonRespDm'><img src={backButton} alt="backbutton" className='resHeaderAvatarImg' /></div>
           </div>
         )}
 
         <div className={`${window.innerWidth < 780 && selectedMessagePreview ? 'responsiveMsgPreview' : 'msgPreview'}`}>
+          {messageHistory.map((msg, index) => (
+            <div key={index} className='messageHistory'>
+              <div className='receivedMsg'>
+                <img src={avatar} alt="" />
+                {msg.question}
+              </div>
+              <div className='answerWrapper'>
+                <div className='answer'>
+                  <img src={avatar} alt="" />
+                  {msg.answer}
+                </div>
+              </div>
+            </div>
+          ))}
           <div className='receivedMsg'>
             <img src={avatar} alt="" />
             {selectedMessage?.content}

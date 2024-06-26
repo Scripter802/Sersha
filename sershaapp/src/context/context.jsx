@@ -26,6 +26,8 @@ const AppProvider = ({ children }) => {
   const [allClothing, setAllClothing] = useState([]);
 
 
+  // NEW MESSAGE
+  const [newMessage, setNewMessage] = useState(0);
 
   // Function to handle selecting an item for the top part
   const handleSelectTopItem = (item) => {
@@ -208,6 +210,7 @@ const AppProvider = ({ children }) => {
   /* FOX CUSTOMIZATION FOX CUSTOMIZATION FOX CUSTOMIZATION FOX CUSTOMIZATION FOX CUSTOMIZATION */
   const [isTopPart, setIsTopPart] = useState(false);
   const [isBottomPart, setIsBottomPart] = useState(false);
+  const [selectedItem, setSelectedItem] = useState();
 
   /* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS */
 
@@ -336,6 +339,12 @@ const AppProvider = ({ children }) => {
         setIsTopPart,
         isBottomPart,
         setIsBottomPart,
+        selectedItem,
+        setSelectedItem,
+
+        //NewMessage
+        newMessage,
+        setNewMessage,
 
         // CLOTHING
         clothingCreateNew,

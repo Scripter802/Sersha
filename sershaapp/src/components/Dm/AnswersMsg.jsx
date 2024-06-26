@@ -1,4 +1,3 @@
-
 import avatar from '../../assets/images/navbar/userpick.png';
 
 const AnswersMsg = ({ selectedMessage, currentAnswer, handleAnswer }) => {

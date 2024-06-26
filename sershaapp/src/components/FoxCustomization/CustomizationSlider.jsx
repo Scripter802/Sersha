@@ -4,7 +4,7 @@ import 'tiny-slider/dist/tiny-slider.css';
 import { useGlobalContext } from "../../context/context";
 
 const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight }) => {
-  const { isTopPart, isBottomPart } = useGlobalContext();
+  const { isTopPart, isBottomPart, baseUrlImage, selectedItem, setSelectedItem } = useGlobalContext();
   const [sliderIndex, setSliderIndex] = useState(0);
   const sliderRef = useRef(null);
   const sliderDownRef = useRef(null);
@@ -38,17 +38,17 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
     touch: true,
     items: 5,
     onIndexChanged: (index) => setSliderIndex(index),
-    responsive: {
-      460: {
-        items: 5
-      },
-      700: {
-        items: 5
-      },
-      1000: {
-        items: 9
-      }
-    }
+    // responsive: {
+    //   460: {
+    //     items: 5
+    //   },
+    //   700: {
+    //     items: 5
+    //   },
+    //   1000: {
+    //     items: 5
+    //   }
+    // }
   };
 
   const renderItems = () => {
@@ -61,8 +61,8 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
             <div key={index} className="toppart">
               <img
                 className="tns-lazy-img"
-                src={el}
-                data-src={el}
+                src={`${baseUrlImage}${el.imagePath}`}
+                data-src={`${baseUrlImage}${el.imagePath}`}
                 alt=""
               />
             </div>
@@ -78,10 +78,11 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
         <div className="bottomPartsMainWrapper bottompart">
           {itemsBottomPart.map((el, index) => (
             <div key={index} className="bottompart">
+              {console.log(`${baseUrlImage}${el.imagePath}`)}
               <img
                 className="tns-lazy-img"
-                src={el}
-                data-src={el}
+                src={`${baseUrlImage}${el.imagePath}`}
+                data-src={`${baseUrlImage}${el.imagePath}`}
                 alt=""
               />
             </div>

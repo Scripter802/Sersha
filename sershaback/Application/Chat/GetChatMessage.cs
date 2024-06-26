@@ -27,8 +27,11 @@ namespace Application.Chats
 
             public async Task<ChatMessage> Handle(Query request, CancellationToken cancellationToken)
             {
+                
                 var message = await _context.ChatMessages
+                    .Include(m => m.Sender) 
                     .Include(m => m.Responses)
+                    .ThenInclude(r => r.NextMessage) 
                     .FirstOrDefaultAsync(m => m.Id == request.MessageId, cancellationToken);
 
                 if (message == null)
@@ -36,24 +39,25 @@ namespace Application.Chats
                     throw new Exception("Message not found");
                 }
 
-                await LoadNextMessages(message.Responses, cancellationToken);
+                await LoadNextMessagesAndAuthors(message.Responses, cancellationToken);
 
                 return message;
             }
 
-            private async Task LoadNextMessages(List<UserResponse> responses, CancellationToken cancellationToken)
+            private async Task LoadNextMessagesAndAuthors(List<UserResponse> responses, CancellationToken cancellationToken)
             {
                 foreach (var response in responses)
                 {
                     if (response.NextMessageId.HasValue)
                     {
                         response.NextMessage = await _context.ChatMessages
+                            .Include(m => m.Sender) 
                             .Include(m => m.Responses)
                             .FirstOrDefaultAsync(m => m.Id == response.NextMessageId.Value, cancellationToken);
 
                         if (response.NextMessage != null)
                         {
-                            await LoadNextMessages(response.NextMessage.Responses, cancellationToken);
+                            await LoadNextMessagesAndAuthors(response.NextMessage.Responses, cancellationToken);
                         }
                     }
                 }

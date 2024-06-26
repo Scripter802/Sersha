@@ -22,9 +22,10 @@ namespace Application.Chats
             }
 
             public async Task<List<ChatMessage>> Handle(Query request, CancellationToken cancellationToken)
-            {
+            {    
                 return await _context.ChatMessages
-                    .Include(m => m.Responses)
+                    .Include(m => m.Sender) 
+                    .Include(m => m.Responses) 
                     .ToListAsync(cancellationToken);
             }
         }

@@ -111,7 +111,7 @@ namespace Persistence
                 .HasForeignKey(si => si.SershaItemId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<ChatMessage>()
+            /*builder.Entity<ChatMessage>()
                 .HasMany(cm => cm.Responses)
                 .WithOne(r => r.ChatMessage)
                 .HasForeignKey(r => r.ChatMessageId)
@@ -121,7 +121,33 @@ namespace Persistence
                 .HasOne(r => r.NextMessage)
                 .WithMany()
                 .HasForeignKey(r => r.NextMessageId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);*/
+            // Konfiguracija za ChatMessage
+
+            builder.Entity<ChatMessage>(entity =>
+            {
+                //entity.HasKey(cm => cm.Id);  
+                //entity.Property(cm => cm.Content).IsRequired(); 
+
+                entity.HasMany(cm => cm.Responses)
+                    .WithOne(r => r.ChatMessage)
+                    .HasForeignKey(r => r.ChatMessageId)
+                    .OnDelete(DeleteBehavior.Cascade); 
+            });
+
+            
+            builder.Entity<UserResponse>(entity =>
+            {
+                //entity.HasKey(r => r.Id);  
+                //entity.Property(r => r.Content).IsRequired(); 
+
+                entity.HasOne(r => r.NextMessage)
+                    .WithMany()  
+                    .HasForeignKey(r => r.NextMessageId)
+                    .OnDelete(DeleteBehavior.Restrict); 
+
+                entity.Property(r => r.NextMessageId).IsRequired(false);
+            });
 
         }
     }

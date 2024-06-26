@@ -86,8 +86,8 @@ const FriendOrFoe = () => {
     console.log('Selected Answer:', selectedAnswer);
     console.log('Correct Answer:', correctAnswer);
 
-    console.log(`"${selectedAnswer}"` === correctAnswer)
-    if (`"${selectedAnswer}"` == correctAnswer) {
+    console.log(`${selectedAnswer}` === correctAnswer)
+    if (`${selectedAnswer}` == correctAnswer) {
       setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
     } else {
       setIncorrectAnsweredMiniGames(incorrectAnsweredMiniGames + 1);

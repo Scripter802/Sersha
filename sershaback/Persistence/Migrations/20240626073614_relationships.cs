@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class relationshipsandchat : Migration
+    public partial class relationships : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

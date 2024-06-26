@@ -122,7 +122,7 @@ namespace Persistence
                 .WithMany()
                 .HasForeignKey(r => r.NextMessageId)
                 .OnDelete(DeleteBehavior.Restrict);*/
-            // Konfiguracija za ChatMessage
+            // 
 
             builder.Entity<ChatMessage>(entity =>
             {

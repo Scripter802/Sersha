@@ -178,6 +178,7 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsHead")
@@ -388,6 +389,7 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("NextMessageId")

@@ -13,12 +13,13 @@ namespace Application.Chats
         public class Command : IRequest
         {
             public List<MessageData> Messages { get; set; } = new List<MessageData>();
+            public Guid SenderId { get; set; } 
 
             public class MessageData
             {
-                public string Sender { get; set; }
                 public string Content { get; set; }
-                public List<ResponseData> Responses { get; set; } = new List<ResponseData>();
+                public List<ResponseData> Responses { get; set; } = new List<ResponseData>();        
+                public bool IsHead { get; set; } = false; 
             }
 
             public class ResponseData
@@ -41,27 +42,31 @@ namespace Application.Chats
             {
                 var messageDictionary = new Dictionary<int, ChatMessage>();
 
-                
                 for (int i = 0; i < request.Messages.Count; i++)
                 {
                     var messageData = request.Messages[i];
+                    Console.WriteLine("-------------------------------------\n\n\n\n\n");
+
+                    
+                    Console.WriteLine(request.SenderId);
+                    
+                    Console.WriteLine("-------------------------------------\n\n\n\n\n");
                     var chatMessage = new ChatMessage
                     {
                         Id = Guid.NewGuid(),
-                        Sender = messageData.Sender,
+                        SenderId = request.SenderId,
                         Content = messageData.Content,
-                        Responses = new List<UserResponse>()
+                        Responses = new List<UserResponse>(),
+                        IsHead = request.Messages[i].IsHead && i == 0
                     };
 
                     messageDictionary[i] = chatMessage;
                     _context.ChatMessages.Add(chatMessage);
                 }
 
-                
                 var success = await _context.SaveChangesAsync(cancellationToken) > 0;
                 if (!success) throw new Exception("Problem saving messages");
 
-                
                 foreach (var kvp in messageDictionary)
                 {
                     var messageIndex = kvp.Key;

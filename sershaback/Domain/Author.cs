@@ -14,5 +14,6 @@ namespace Domain
         public IFormFile AuthorImage { get; set; }
         public string AuthorImagePath { get; set; }
         public ICollection<Post> Posts { get; set; }
+        public ICollection<ChatMessage> Messages { get; set; } = new List<ChatMessage>();
     }
 }

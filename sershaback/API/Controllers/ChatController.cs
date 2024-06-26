@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Domain;
 using System.Collections.Generic;
+using Application.Chat;
 
 namespace API.Controllers
 {
@@ -22,14 +23,14 @@ namespace API.Controllers
 
         [HttpGet("{messageId}")]
         [AllowAnonymous]
-        public async Task<ActionResult<ChatMessage>> GetChatMessage(Guid messageId)
+        public async Task<ActionResult<ChatMessageDTO>> GetChatMessage(Guid messageId)
         {
             return await Mediator.Send(new GetChatMessage.Query { MessageId = messageId });
         }
 
         [HttpGet("randomChatMessage")]
         [AllowAnonymous]
-        public async Task<ActionResult<ChatMessage>> GetRandomChatMessage()
+        public async Task<ActionResult<ChatMessageDTO>> GetRandomChatMessage()
         {
             return await Mediator.Send(new GetRandomChatMessage.Query());
         }
@@ -58,7 +59,7 @@ namespace API.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<List<ChatMessage>>> ListChatMessages()
+        public async Task<ActionResult<List<ChatMessageDTO>>> ListChatMessages()
         {
             return await Mediator.Send(new ListChatMessages.Query());
         }

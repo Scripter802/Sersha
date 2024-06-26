@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.Migrations
 {
-    public partial class relationshipsandchat : Migration
+    public partial class relationships : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,19 +45,6 @@ namespace Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AvatarImages", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ChatMessages",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Sender = table.Column<string>(nullable: true),
-                    Content = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ChatMessages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,6 +91,26 @@ namespace Persistence.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ChatMessages",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    SenderId = table.Column<Guid>(nullable: false),
+                    Content = table.Column<string>(nullable: false),
+                    IsHead = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChatMessages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ChatMessages_Authors_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "Authors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -174,11 +181,37 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Questions",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Text = table.Column<string>(nullable: true),
+                    ImagePath = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: true),
+                    QuizId = table.Column<Guid>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    QuestionType = table.Column<string>(nullable: false),
+                    IsCorrect = table.Column<bool>(nullable: true),
+                    Statement1 = table.Column<string>(nullable: true),
+                    Statement2 = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Questions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Questions_Quizzes_QuizId",
+                        column: x => x.QuizId,
+                        principalTable: "Quizzes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserResponses",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Content = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: false),
                     ChatMessageId = table.Column<Guid>(nullable: false),
                     NextMessageId = table.Column<Guid>(nullable: true)
                 },
@@ -197,32 +230,6 @@ namespace Persistence.Migrations
                         principalTable: "ChatMessages",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Questions",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Text = table.Column<string>(nullable: true),
-                    ImagePath = table.Column<string>(nullable: true),
-                    QuizId = table.Column<Guid>(nullable: false),
-                    Type = table.Column<int>(nullable: false),
-                    QuestionType = table.Column<string>(nullable: false),
-                    IsCorrect = table.Column<bool>(nullable: true),
-                    Statement1 = table.Column<string>(nullable: true),
-                    Statement2 = table.Column<string>(nullable: true),
-                    Content = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Questions", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Questions_Quizzes_QuizId",
-                        column: x => x.QuizId,
-                        principalTable: "Quizzes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -467,6 +474,11 @@ namespace Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_ChatMessages_SenderId",
+                table: "ChatMessages",
+                column: "SenderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GroupingItems_GroupId",
                 table: "GroupingItems",
                 column: "GroupId");
@@ -559,9 +571,6 @@ namespace Persistence.Migrations
                 name: "Groups");
 
             migrationBuilder.DropTable(
-                name: "Authors");
-
-            migrationBuilder.DropTable(
                 name: "SershaItems");
 
             migrationBuilder.DropTable(
@@ -575,6 +584,9 @@ namespace Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "AvatarImages");
+
+            migrationBuilder.DropTable(
+                name: "Authors");
 
             migrationBuilder.DropTable(
                 name: "Quizzes");

@@ -5,14 +5,17 @@ using System.Threading.Tasks;
 using Domain;
 using Persistence;
 using Microsoft.EntityFrameworkCore;
+using Application.Chat;
+using Application.Authors;
+using System.Linq;
 
 namespace Application.Chats
 {
     public class ListChatMessages
     {
-        public class Query : IRequest<List<ChatMessage>> { }
+        public class Query : IRequest<List<ChatMessageDTO>> { }
 
-        public class Handler : IRequestHandler<Query, List<ChatMessage>>
+        public class Handler : IRequestHandler<Query, List<ChatMessageDTO>>
         {
             private readonly DataContext _context;
 
@@ -21,12 +24,38 @@ namespace Application.Chats
                 _context = context;
             }
 
-            public async Task<List<ChatMessage>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<ChatMessageDTO>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return await _context.ChatMessages
+                var messages = await _context.ChatMessages
+                    .Include(m => m.Sender)
                     .Include(m => m.Responses)
+                    .ThenInclude(r => r.NextMessage)
                     .ToListAsync(cancellationToken);
+
+                return messages.Select(m => MapToDto(m)).ToList();
+            }
+
+            private ChatMessageDTO MapToDto(ChatMessage message)
+            {
+                return new ChatMessageDTO
+                {
+                    Id = message.Id,
+                    Content = message.Content,
+                    IsHead = message.IsHead,
+                    Sender = new AuthorDto
+                    {
+                        Id = message.Sender.Id,
+                        AuthorName = message.Sender.AuthorName 
+                    },
+                    Responses = message.Responses.Select(r => new UserResponseDTO
+                    {
+                        Id = r.Id,
+                        Content = r.Content,
+                        NextMessageId = r.NextMessageId
+                    }).ToList()
+                };
             }
         }
+
     }
 }

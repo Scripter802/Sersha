@@ -202,6 +202,7 @@ namespace Application.Quizzes
                         {
                             Text = questionDto.QuestionText,
                             Content = questionDto.Content,
+                            ImagePath = questionImagePath,
                             Answers = answers
                         };
 

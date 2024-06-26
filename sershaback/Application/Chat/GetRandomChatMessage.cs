@@ -7,16 +7,19 @@ using Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using Application.Chat;
+using Application.Authors;
+
 
 namespace Application.Chats
 {
     public class GetRandomChatMessage
     {
-        public class Query : IRequest<ChatMessage>
+        public class Query : IRequest<ChatMessageDTO>
         {
         }
 
-        public class Handler : IRequestHandler<Query, ChatMessage>
+        public class Handler : IRequestHandler<Query, ChatMessageDTO>
         {
             private readonly DataContext _context;
 
@@ -25,16 +28,17 @@ namespace Application.Chats
                 _context = context;
             }
 
-            public async Task<ChatMessage> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<ChatMessageDTO> Handle(Query request, CancellationToken cancellationToken)
             {
                 var messages = await _context.ChatMessages
+                    .Include(m => m.Sender)
                     .Include(m => m.Responses)
-                    .Where(x => x.Responses.Any(x => x.NextMessageId != null))
+                    .ThenInclude(r => r.NextMessage)
+                    .Where(x => x.Responses.Any(r => r.NextMessageId != null))
                     .ToListAsync(cancellationToken);
-                
+
                 Random random = new Random();
                 var message = messages
-                                .AsEnumerable()
                                 .OrderBy(q => random.Next())
                                 .FirstOrDefault();
 
@@ -42,28 +46,55 @@ namespace Application.Chats
                 {
                     throw new Exception("Message not found");
                 }
-                await LoadNextMessages(message.Responses, cancellationToken);    
-                   
-                return message;
+
+                await LoadNextMessagesAndAuthors(message.Responses, cancellationToken);
+
+                return MapToDTO(message);
             }
 
-            private async Task LoadNextMessages(List<UserResponse> responses, CancellationToken cancellationToken)
+            private async Task LoadNextMessagesAndAuthors(List<UserResponse> responses, CancellationToken cancellationToken)
             {
                 foreach (var response in responses)
                 {
                     if (response.NextMessageId.HasValue)
                     {
                         response.NextMessage = await _context.ChatMessages
+                            .Include(m => m.Sender)
                             .Include(m => m.Responses)
                             .FirstOrDefaultAsync(m => m.Id == response.NextMessageId.Value, cancellationToken);
 
                         if (response.NextMessage != null)
                         {
-                            await LoadNextMessages(response.NextMessage.Responses, cancellationToken);
+                            await LoadNextMessagesAndAuthors(response.NextMessage.Responses, cancellationToken);
                         }
                     }
                 }
             }
+
+            private ChatMessageDTO MapToDTO(ChatMessage message)
+            {
+                var dto = new ChatMessageDTO
+                {
+                    Id = message.Id,
+                    Content = message.Content,
+                    IsHead = message.IsHead,
+                    Sender = new AuthorDto
+                    {
+                        Id = message.Sender.Id,
+                        AuthorName = message.Sender.AuthorName
+                        
+                    },
+                    Responses = message.Responses.Select(r => new UserResponseDTO
+                    {
+                        Id = r.Id,
+                        Content = r.Content,
+                        NextMessageId = r.NextMessageId
+                    }).ToList()
+                };
+
+                return dto;
+            }
         }
+
     }
 }

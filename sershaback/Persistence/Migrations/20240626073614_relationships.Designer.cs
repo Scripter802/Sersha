@@ -9,8 +9,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240621085404_relationships and chat")]
-    partial class relationshipsandchat
+    [Migration("20240626073614_relationships")]
+    partial class relationships
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -180,12 +180,18 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Sender")
+                    b.Property<bool>("IsHead")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("SenderId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SenderId");
 
                     b.ToTable("ChatMessages");
                 });
@@ -266,6 +272,9 @@ namespace Persistence.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Content")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ImagePath")
@@ -382,6 +391,7 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("NextMessageId")
@@ -572,9 +582,6 @@ namespace Persistence.Migrations
                 {
                     b.HasBaseType("Domain.Question");
 
-                    b.Property<string>("Content")
-                        .HasColumnType("TEXT");
-
                     b.HasDiscriminator().HasValue("PostingChallenge");
                 });
 
@@ -607,6 +614,15 @@ namespace Persistence.Migrations
                         .WithMany("Users")
                         .HasForeignKey("AvatarImageId")
                         .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("Domain.ChatMessage", b =>
+                {
+                    b.HasOne("Domain.Author", "Sender")
+                        .WithMany("Messages")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Group", b =>

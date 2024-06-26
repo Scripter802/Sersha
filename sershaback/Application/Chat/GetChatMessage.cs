@@ -6,17 +6,20 @@ using Domain;
 using Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Application.Chat;
+using Application.Authors;
+using System.Linq;
 
 namespace Application.Chats
 {
     public class GetChatMessage
     {
-        public class Query : IRequest<ChatMessage>
+        public class Query : IRequest<ChatMessageDTO>
         {
             public Guid MessageId { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, ChatMessage>
+       public class Handler : IRequestHandler<Query, ChatMessageDTO>
         {
             private readonly DataContext _context;
 
@@ -25,9 +28,8 @@ namespace Application.Chats
                 _context = context;
             }
 
-            public async Task<ChatMessage> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<ChatMessageDTO> Handle(Query request, CancellationToken cancellationToken)
             {
-                
                 var message = await _context.ChatMessages
                     .Include(m => m.Sender) 
                     .Include(m => m.Responses)
@@ -41,7 +43,7 @@ namespace Application.Chats
 
                 await LoadNextMessagesAndAuthors(message.Responses, cancellationToken);
 
-                return message;
+                return MapToDto(message);
             }
 
             private async Task LoadNextMessagesAndAuthors(List<UserResponse> responses, CancellationToken cancellationToken)
@@ -62,6 +64,29 @@ namespace Application.Chats
                     }
                 }
             }
+
+            private ChatMessageDTO MapToDto(ChatMessage message)
+            {
+                return new ChatMessageDTO
+                {
+                    Id = message.Id,
+                    Content = message.Content,
+                    IsHead = message.IsHead,
+                    Sender = new AuthorDto
+                    {
+                        
+                        Id = message.Sender.Id,
+                        AuthorName = message.Sender.AuthorName
+                    },
+                    Responses = message.Responses.Select(r => new UserResponseDTO
+                    {
+                        Id = r.Id,
+                        Content = r.Content,
+                        NextMessageId = r.NextMessageId
+                    }).ToList()
+                };
+            }
         }
+
     }
 }

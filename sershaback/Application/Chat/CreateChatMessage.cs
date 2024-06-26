@@ -14,12 +14,12 @@ namespace Application.Chats
         {
             public List<MessageData> Messages { get; set; } = new List<MessageData>();
             public Guid SenderId { get; set; } 
-            public bool IsHead { get; set; } = false; 
 
             public class MessageData
             {
                 public string Content { get; set; }
-                public List<ResponseData> Responses { get; set; } = new List<ResponseData>();
+                public List<ResponseData> Responses { get; set; } = new List<ResponseData>();        
+                public bool IsHead { get; set; } = false; 
             }
 
             public class ResponseData
@@ -45,13 +45,19 @@ namespace Application.Chats
                 for (int i = 0; i < request.Messages.Count; i++)
                 {
                     var messageData = request.Messages[i];
+                    Console.WriteLine("-------------------------------------\n\n\n\n\n");
+
+                    
+                    Console.WriteLine(request.SenderId);
+                    
+                    Console.WriteLine("-------------------------------------\n\n\n\n\n");
                     var chatMessage = new ChatMessage
                     {
                         Id = Guid.NewGuid(),
                         SenderId = request.SenderId,
                         Content = messageData.Content,
                         Responses = new List<UserResponse>(),
-                        IsHead = request.IsHead && i == 0
+                        IsHead = request.Messages[i].IsHead && i == 0
                     };
 
                     messageDictionary[i] = chatMessage;

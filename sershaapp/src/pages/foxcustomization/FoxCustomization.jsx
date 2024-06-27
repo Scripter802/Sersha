@@ -134,7 +134,7 @@ const FoxCustomization = () => {
         </div>
       </div>
       <audio loop autoPlay>
-        <source src="/music/Music/RogueFoxFight310520241104.mp3" type="audio/mpeg" />
+        <source src="public/music/Music/SershaThemesongMediumoptimal310520241122.mp3" type="audio/mpeg" />
       </audio>
     </div>
   )

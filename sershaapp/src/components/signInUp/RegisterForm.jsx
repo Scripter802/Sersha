@@ -70,19 +70,19 @@ const RegisterForm = () => {
     e.preventDefault();
 
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/;
 
     console.log(passwordRegex, registerPassword)
 
-    // if (!passwordRegex.test(registerPassword)) {
-    //   setErrorMessage('Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.');
-    //   return;
-    // }
+    if (!passwordRegex.test(registerPassword)) {
+      setErrorMessage('Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.');
+      return;
+    }
 
-    // if (registerPassword !== registerRePassword) {
-    //   setErrorMessage('Passwords do not match');
-    //   return;
-    // }
+    if (registerPassword !== registerRePassword) {
+      setErrorMessage('Passwords do not match');
+      return;
+    }
 
 
     const formattedDateOfBirth = new Date(registerDateOfBirth).toISOString();

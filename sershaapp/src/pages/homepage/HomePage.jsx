@@ -56,6 +56,9 @@ const HomePage = () => {
           <source src="/music/SFX/DMs/esmmessagepingx2notificationsynthelectroniccartoon.mp3" type="audio/mpeg" />
         </audio>
       )}
+      <audio loop autoPlay>
+        <source src="/music/Music/SershaThemesongMediumoptimal310520241122.mp3" type="audio/mpeg" />
+      </audio>
     </div>
   )
 }

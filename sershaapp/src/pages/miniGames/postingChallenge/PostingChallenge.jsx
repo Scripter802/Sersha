@@ -202,7 +202,7 @@ const PostingChallenge = () => {
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
       <audio loop autoPlay>
-        <source src="public/music/Music/RogueFoxFight310520241104.mp3" type="audio/mpeg" />
+        <source src="/music/Music/RogueFoxFight310520241104.mp3" type="audio/mpeg" />
       </audio>
     </div>
   );

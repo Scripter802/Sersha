@@ -31,10 +31,10 @@ namespace Application.Chats
             public async Task<ChatMessageDTO> Handle(Query request, CancellationToken cancellationToken)
             {
                 var messages = await _context.ChatMessages
+                    .Where(x => x.IsHead == true)
                     .Include(m => m.Sender)
                     .Include(m => m.Responses)
                     .ThenInclude(r => r.NextMessage)
-                    .Where(x => x.Responses.Any(r => r.NextMessageId != null))
                     .ToListAsync(cancellationToken);
 
                 Random random = new Random();
@@ -88,7 +88,8 @@ namespace Application.Chats
                     {
                         Id = r.Id,
                         Content = r.Content,
-                        NextMessageId = r.NextMessageId
+                        NextMessageId = r.NextMessageId,
+                        NextMessage = r.NextMessage
                     }).ToList()
                 };
 

@@ -23,7 +23,7 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
       avatar: avatar,
       name: 'Jess',
       message: 'The Great Wall of China is visible from space.',
-      answer: ["True", "False"],
+      answer: ['True', 'False'],
     },
     {
       avatar: avatar,
@@ -44,25 +44,31 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
   ]
 
   const [message, setMessage] = useState(`${messages[0].name}`);
-  const [answer, setAnswer] = useState()
-  console.log(currentQ.isCorrect, answer)
-  console.log(`CORRECT ANSWERS ${correctAnswers}`)
+  const [answer, setAnswer] = useState(null);
 
   if (answer && currentQuizz.questions.length - 1 == currentQuestion) {
     setShowPopup(true)
   }
 
-  // useEffect(() => {
+  useEffect(() => {
+    console.log(`curQ ${currentQuestion}, ${currentQuizz.questions.length}`)
+    if (answer !== null) {
+      if (currentQ.isCorrect.toString() === answer) {
+        setCorrectAnswers(correctAnswers + 1);
+        setAnswer(null);
+      } else {
+        setHeartsNum(heartsNum - 1);
+        setAnswer(null);
+      }
 
+      if (currentQuizz.questions.length - 1 === currentQuestion) {
+        setShowPopup(true);
+      } else {
 
-  //   console.log(currentQ.isCorrect, answer)
-  // }, [answer])
-
-  if (answer && currentQuizz.questions.length - 1 != currentQuestion) {
-    currentQ.isCorrect == answer && setCorrectAnswers(correctAnswers + 1)
-    setAnswer();
-    setCurrentQuestion(currentQuestion + 1);
-  }
+        setCurrentQuestion(currentQuestion + 1);
+      }
+    }
+  }, [answer]);
 
   return (
     <div className='correctAnswerQuizWrapper'>

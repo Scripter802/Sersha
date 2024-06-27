@@ -52,11 +52,12 @@
 .postingChallengeGameContainer {
   display: flex;
   width: 960px;
-  height: 457px;
+  min-height: 457px;
   background-image: url(../../../assets/images/miniGames/postingChallenge/background.png);
   border-radius: 10px 10px;
   padding: 40px;
   border: none;
+  background-size: cover;
 }
 
 .postingChallengeLeftSideContent {
@@ -281,6 +282,7 @@
     background-image: none;
     display: unset;
     padding-inline: 1rem;
+
   }
 
   .postingGameCard {

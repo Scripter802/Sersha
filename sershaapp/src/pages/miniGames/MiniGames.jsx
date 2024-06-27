@@ -76,6 +76,10 @@ const MiniGames = () => {
         </div>
       </div>
       {isPopupOpen && <GameSelectionPopup onClose={handleClosePopup} navigate={navigate} />}
+      <audio loop autoPlay>
+        <source src="/music/Music/MiniGames.m4a" type="audio/mpeg" />
+      </audio>
+
     </div>
   );
 };

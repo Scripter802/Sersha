@@ -82,7 +82,8 @@ namespace Application.Chats
                     {
                         Id = r.Id,
                         Content = r.Content,
-                        NextMessageId = r.NextMessageId
+                        NextMessageId = r.NextMessageId,
+                        NextMessage = r.NextMessage
                     }).ToList()
                 };
             }

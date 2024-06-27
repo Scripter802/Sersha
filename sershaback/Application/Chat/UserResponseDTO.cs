@@ -1,4 +1,5 @@
 using System;
+using Domain;
 
 namespace Application.Chat
 {
@@ -7,5 +8,7 @@ namespace Application.Chat
         public Guid Id { get; set; }
         public string Content { get; set; }
         public Guid? NextMessageId { get; set; }
+        
+        public ChatMessage NextMessage { get; set; }
     }
 }

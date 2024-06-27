@@ -80,6 +80,9 @@ const QuizPage = () => {
           {currentQ.type === 1 && <CorrectAnswerQuiz currentQ={currentQ} />}
           {currentQ.type === 2 && <FillInTheBlank currentQ={currentQ} />}
           {currentQ.type === 3 && <Grouping currentQ={currentQ} />}
+          <audio loop autoPlay>
+            <source src="/music/Music/RogueFoxFight310520241104.mp3" type="audio/mpeg" />
+          </audio>
         </>
       )}
     </>

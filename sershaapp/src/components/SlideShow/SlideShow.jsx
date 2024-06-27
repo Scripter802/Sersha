@@ -28,11 +28,11 @@ const Slideshow = () => {
     <div className="slideshow">
       <img src={gifMergedLevelOne} alt="Slideshow GIF" />
       <audio autoPlay>
-        <source src="public/music/SFX/Slideshow/LoadingSoundEffect.mp3" type="audio/mpeg" />
+        <source src="/music/SFX/Slideshow/LoadingSoundEffect.mp3" type="audio/mpeg" />
       </audio>
       {playBackgroundMusic && (
         <audio loop autoPlay>
-          <source src="public/music/Music/SershaThemesongMediumoptimal310520241122.mp3" type="audio/mpeg" />
+          <source src="/music/Music/SershaThemesongMediumoptimal310520241122.mp3" type="audio/mpeg" />
         </audio>
       )}
     </div>

@@ -210,7 +210,8 @@ const AppProvider = ({ children }) => {
   /* FOX CUSTOMIZATION FOX CUSTOMIZATION FOX CUSTOMIZATION FOX CUSTOMIZATION FOX CUSTOMIZATION */
   const [isTopPart, setIsTopPart] = useState(false);
   const [isBottomPart, setIsBottomPart] = useState(false);
-  const [selectedItem, setSelectedItem] = useState();
+  const [selectedTopItem, setSelectedTopItem] = useState();
+  const [selectedBottomItem, setSelectedBottomItem] = useState();
 
   /* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS */
 
@@ -339,8 +340,10 @@ const AppProvider = ({ children }) => {
         setIsTopPart,
         isBottomPart,
         setIsBottomPart,
-        selectedItem,
-        setSelectedItem,
+        selectedTopItem,
+        setSelectedTopItem,
+        selectedBottomItem,
+        setSelectedBottomItem,
 
         //NewMessage
         newMessage,

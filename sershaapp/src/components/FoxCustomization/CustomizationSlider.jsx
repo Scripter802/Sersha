@@ -2,9 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import TinySlider from "tiny-slider-react";
 import 'tiny-slider/dist/tiny-slider.css';
 import { useGlobalContext } from "../../context/context";
+import './customizationSlider.css'
 
 const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight }) => {
-  const { isTopPart, isBottomPart, baseUrlImage, selectedItem, setSelectedItem } = useGlobalContext();
+  const { isTopPart, isBottomPart, baseUrlImage, selectedTopItem, setSelectedTopItem, selectedBottomItem, setSelectedBottomItem } = useGlobalContext();
   const [sliderIndex, setSliderIndex] = useState(0);
   const sliderRef = useRef(null);
   const sliderDownRef = useRef(null);
@@ -36,25 +37,28 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
     mouseDrag: true,
     controls: false,
     touch: true,
-    items: 5,
+    // items: 5,
     slideBy: 'page',
     loop: false,
     onIndexChanged: (info) => setSliderIndex(info.index),
-    responsive: {
-      460: {
-        items: 3,
-      },
-      700: {
-        items: 5,
-      },
-      1000: {
-        items: 6,
-      }
-    }
+    // responsive: {
+    //   460: {
+    //     items: 3,
+    //   },
+    //   700: {
+    //     items: 5,
+    //   },
+    //   1000: {
+    //     items: 6,
+    //   }
+    // }
   };
 
-  const handleItemClick = (el) => {
-    setSelectedItem(el);
+  const handleTopItemClick = (el) => {
+    setSelectedTopItem(el);
+  };
+  const handleBottomItemClick = (el) => {
+    setSelectedBottomItem(el);
   };
 
   const renderItems = () => {
@@ -70,7 +74,7 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
                 src={`${baseUrlImage}${el.imagePath}`}
                 data-src={`${baseUrlImage}${el.imagePath}`}
                 alt=""
-                onClick={() => handleItemClick(el)}
+                onClick={() => handleTopItemClick(el)}
               />
             </div>
           ))}
@@ -91,7 +95,7 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
                 src={`${baseUrlImage}${el.imagePath}`}
                 data-src={`${baseUrlImage}${el.imagePath}`}
                 alt=""
-                onClick={() => handleItemClick(el)}
+                onClick={() => handleBottomItemClick(el)}
               />
             </div>
           ))}
@@ -113,7 +117,7 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
       </div>
       <div className="tinySlidWrapper">
         {(isTopPart || isBottomPart) && (
-          <TinySlider settings={settings} className="singleImg" ref={sliderRef}>
+          <TinySlider settings={settings} className="singleImg" id="singleImg" ref={sliderRef}>
             {renderItems()}
           </TinySlider>
         )}

@@ -72,6 +72,8 @@
     margin: 0 auto;
 }
 
+#singleImg,
+#tns1,
 .singleImg {
     display: flex;
     align-items: center;

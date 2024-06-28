@@ -37,18 +37,24 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
     controls: false,
     touch: true,
     items: 5,
-    onIndexChanged: (index) => setSliderIndex(index),
-    // responsive: {
-    //   460: {
-    //     items: 5
-    //   },
-    //   700: {
-    //     items: 5
-    //   },
-    //   1000: {
-    //     items: 5
-    //   }
-    // }
+    slideBy: 'page',
+    loop: false,
+    onIndexChanged: (info) => setSliderIndex(info.index),
+    responsive: {
+      460: {
+        items: 3,
+      },
+      700: {
+        items: 5,
+      },
+      1000: {
+        items: 6,
+      }
+    }
+  };
+
+  const handleItemClick = (el) => {
+    setSelectedItem(el);
   };
 
   const renderItems = () => {
@@ -56,7 +62,7 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
       document.querySelector('.topPartsMainWrapper')?.classList.remove('displaynone');
       document.querySelector('.bottomPartsMainWrapper')?.classList.add('displaynone');
       return (
-        <div className="topPartsMainWrapper toppart">
+        <div className="topPartsMainWrapper toppart" id="toppart">
           {itemsTopPart.map((el, index) => (
             <div key={index} className="toppart">
               <img
@@ -64,6 +70,7 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
                 src={`${baseUrlImage}${el.imagePath}`}
                 data-src={`${baseUrlImage}${el.imagePath}`}
                 alt=""
+                onClick={() => handleItemClick(el)}
               />
             </div>
           ))}
@@ -75,7 +82,7 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
       document.querySelector('.topPartsMainWrapper')?.classList.add('displaynone');
       document.querySelector('.bottomPartsMainWrapper')?.classList.remove('displaynone');
       return (
-        <div className="bottomPartsMainWrapper bottompart">
+        <div className="bottomPartsMainWrapper bottompart" id="bottompart">
           {itemsBottomPart.map((el, index) => (
             <div key={index} className="bottompart">
               {console.log(`${baseUrlImage}${el.imagePath}`)}
@@ -84,6 +91,7 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
                 src={`${baseUrlImage}${el.imagePath}`}
                 data-src={`${baseUrlImage}${el.imagePath}`}
                 alt=""
+                onClick={() => handleItemClick(el)}
               />
             </div>
           ))}

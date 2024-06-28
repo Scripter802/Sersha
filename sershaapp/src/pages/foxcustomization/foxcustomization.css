@@ -3,10 +3,10 @@
     flex-direction: column;
     position: relative;
     border-radius: 30px 30px;
-    min-height: 100vh;
+    min-height: calc(100vh - 82px);
     background-image: url('../../assets/images/customization/background.png');
     background-size: cover;
-    min-width: 100vh;
+    min-width: 100vw;
 }
 
 .foxMiddle {
@@ -14,10 +14,22 @@
     height: 400px;
 }
 
-.toppart,
-.bottompart {
+#toppart,
+#bottompart {
     width: 100%;
     display: flex;
+    justify-content: space-evenly;
+}
+
+.selectedFoxItem {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.middleFoxRelative {
+    position: relative;
 }
 
 .displaynone {
@@ -47,19 +59,23 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    /* margin-top: 5%; */
 }
 
 .itemSlider {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
+    position: absolute;
     overflow: hidden;
+    bottom: 10%;
+    margin: 0 auto;
 }
 
 .singleImg {
     display: flex;
     align-items: center;
+    width: 100vw;
 }
 
 .tns-lazy-img {
@@ -96,9 +112,12 @@
 
 .tinySlidWrapper {
     width: 95vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-@media only screen and (max-width: 780px) {
+@media only screen and (max-width: 1000px) {
     .customizationWrapper {
         flex-direction: column;
         background: #000;
@@ -110,8 +129,9 @@
         background-image: url('../../assets/images/customization/background.png');
         background-size: cover;
         background-position: center;
-        margin-bottom: 3.7rem;
+        margin-bottom: 3.2rem;
         border-radius: 0 0 30px 30px;
+        min-height: calc(100vh - 150px);
     }
 
     .titleWrapper {
@@ -135,12 +155,17 @@
         position: relative;
     }
 
+    .middleFoxRelative {
+        top: -2rem;
+    }
+
     .foxTopPart {
         width: 90px;
         height: 90px;
         position: absolute;
-        left: 1.5rem;
+        left: 1.1rem;
         bottom: 3rem;
+        z-index: 1000;
     }
 
     .foxMiddle {
@@ -152,7 +177,7 @@
         width: 90px;
         height: 90px;
         position: absolute;
-        right: 1.5rem;
+        right: 1.1rem;
         bottom: 3rem;
     }
 

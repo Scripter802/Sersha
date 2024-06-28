@@ -75,7 +75,7 @@ import axios from 'axios'
 
 
 const FoxCustomization = () => {
-  const { baseUrl, isTopPart, setIsTopPart, isBottomPart, setIsBottomPart, selectedItem, setSelectedItem } = useGlobalContext();
+  const { baseUrl, baseUrlImage, isTopPart, setIsTopPart, isBottomPart, setIsBottomPart, selectedItem, setSelectedItem } = useGlobalContext();
   // const itemsTopPart = [AlienAntena, AnimalEars, AstronautHelmet, CapXBlue, CapXGreen, CapXRed, ChefHat, CowboyHat, FlowerCrown, HelmetArmour, LongHair, Mask, PiratesBandana, RegularGlasses, Sunglasses, SuperheroMask]
   // const itemsBottomPart = [Apron, AstronautSuit, Book, Cape, CowboyBoots, DetectiveMagnifyingGlass, FairyWings, HoodieGreen, HoodieLightBlue, HoodiePink, HoodieRed, HoodieWhite, KnightArmour, MagicWand, NinjaBelt, PrincessGwon, SparkleWings, SuperheroSuitHighTech, Sunglasses, TshirtGreen, TshirtLightBlue, TshirtPink, TshirtRed, TshirtWhite, Tutu, WizardCloak]
   const [topPart, setTopPart] = useState([]);
@@ -120,7 +120,10 @@ const FoxCustomization = () => {
         <div>
           <div className='foxWrapper'>
             <img className='foxTopPart' src={foxtoppart} onClick={() => { setIsTopPart(true); setIsBottomPart(false); console.log(isBottomPart, isTopPart) }} />
-            <img className='foxMiddle' src={fox} />
+            <div className='middleFoxRelative'>
+              <img className='foxMiddle' src={fox} />
+              {selectedItem && <img src={`${baseUrlImage}${selectedItem.imagePath}`} className='selectedFoxItem' />}
+            </div>
             <img className='foxBottomPart' src={foxbottompart} onClick={() => { setIsBottomPart(true); setIsTopPart(false); console.log(isBottomPart, isTopPart) }} />
           </div>
           <div className='itemSlider'>

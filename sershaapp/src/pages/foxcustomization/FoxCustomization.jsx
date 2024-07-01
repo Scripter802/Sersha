@@ -66,7 +66,7 @@ import {
 
 import CustomizationSlider from '../../components/FoxCustomization/CustomizationSlider.jsx'
 
-import './foxCustomization.css'
+import './foxcustomization.css'
 import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive.jsx'
 import { useGlobalContext } from '../../context/context.jsx'
 import { useEffect, useState } from 'react'

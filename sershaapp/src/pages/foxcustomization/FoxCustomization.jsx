@@ -64,8 +64,9 @@ import {
   heart
 } from '../../assets/images/customization/items/index.js'
 
-import './foxCustomization.css'
 import CustomizationSlider from '../../components/FoxCustomization/CustomizationSlider.jsx'
+
+import './foxCustomization.css'
 import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive.jsx'
 import { useGlobalContext } from '../../context/context.jsx'
 import { useEffect, useState } from 'react'

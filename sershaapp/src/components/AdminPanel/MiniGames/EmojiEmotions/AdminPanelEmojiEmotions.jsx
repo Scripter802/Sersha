@@ -88,7 +88,7 @@ const AdminPanelEmojiEmotions = () => {
         <EmojiEmotionsEdit />
       ) : (
         <div className='emojiEmotionsWrapperList'>
-          <div className='createNewEmojiEmotionsBtnWrapper'>
+          <div className='titleWrapper'>
             <h3 className="emojiEmotionsTitle">Emoji Emotions</h3>
             <button className="createNewEmojiEmotionsBtn" onClick={() => (setEmojiEmotionsCreateNew(true))}>Create New Question</button>
           </div>

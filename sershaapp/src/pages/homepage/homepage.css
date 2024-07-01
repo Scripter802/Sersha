@@ -13,7 +13,6 @@
 .postWrapper {
     display: flex;
     flex-direction: column;
-    width: 50%;
     height: fit-content;
     margin: 1rem;
     padding: 1rem;

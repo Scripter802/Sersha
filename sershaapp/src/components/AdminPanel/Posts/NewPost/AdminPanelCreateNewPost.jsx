@@ -52,12 +52,12 @@ const AdminPanelCreateNewPost = () => {
 
     console.log(allPosts)
     return (
-        <div className="newpostcontainer">
+        <div className="adminPanelCreateNewWrapper">
             <div className="close-btn" onClick={() => setCreateNewPost(false)}><img src={closeButton} alt='close' /></div>
             <h3 className="p-3 text-center">Create New Post</h3>
             <div>
                 <label>Headline:</label>
-                <input className='postHeadline' type="text" value={postHeadline} placeholder='Title' onChange={(e) => setPostHeadline(e.target.value)} />
+                <input className='inputField' type="text" value={postHeadline} placeholder='Title' onChange={(e) => setPostHeadline(e.target.value)} />
             </div>
 
             <div>
@@ -78,7 +78,7 @@ const AdminPanelCreateNewPost = () => {
 
             <div>
                 <label>Author</label>
-                <select className='postAuthor' type="dropdown" value={postAuthor} placeholder='Author' onChange={(e) => setPostAuthor(e.target.value)} >
+                <select className='inputField' type="dropdown" value={postAuthor} placeholder='Author' onChange={(e) => setPostAuthor(e.target.value)} >
                     <option value="" disabled >Select Author</option>
                     {allAuthors.map((author) => (
                         <option value={author.id} key={author.id}>{author.authorName}</option>
@@ -89,7 +89,7 @@ const AdminPanelCreateNewPost = () => {
 
             <div>
                 <label>Bundle</label>
-                <select className='postBundles' type="dropdown" value={postBundle} placeholder='Choose a bundle' onChange={(e) => setPostBundle(e.target.value)} >
+                <select className='inputField' type="dropdown" value={postBundle} placeholder='Choose a bundle' onChange={(e) => setPostBundle(e.target.value)} >
                     <option value="" disabled>Select Bundle</option>
                     <option value="Easy">Easy Bundle</option>
                     <option value="Medium">Medium Bundle</option>
@@ -99,7 +99,7 @@ const AdminPanelCreateNewPost = () => {
 
             <div>
                 <label>Type of Post</label>
-                <select className='postType' type="dropdown" value={postType} placeholder='Type of Post' onChange={(e) => setPostType(e.target.value)} >
+                <select className='inputField' type="dropdown" value={postType} placeholder='Type of Post' onChange={(e) => setPostType(e.target.value)} >
                     <option value="" disabled>Select Type</option>
                     <option value="Check-in">Check-in</option>
                     <option value="Headline">Headline</option>
@@ -107,7 +107,7 @@ const AdminPanelCreateNewPost = () => {
                 </select>
             </div>
 
-            <button className='newPostBtn' onClick={handleSubmit}>Submit</button>
+            <button className='submitBtn' onClick={handleSubmit}>Submit</button>
         </div>
     );
 };

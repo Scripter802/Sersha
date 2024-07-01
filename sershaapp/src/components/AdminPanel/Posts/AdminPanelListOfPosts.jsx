@@ -32,7 +32,7 @@ const AdminPanelListOfPosts = () => {
         )
           : (
             <div className="listOfPostsContainer">
-              <div className='createNewPostBtnWrapper'>
+              <div className='titleWrapper'>
                 <h3 className="p-3 text-center">All Posts</h3>
                 <button className="create-post-btn" onClick={() => (setCreateNewPost(true))}>Create New Post</button>
               </div>

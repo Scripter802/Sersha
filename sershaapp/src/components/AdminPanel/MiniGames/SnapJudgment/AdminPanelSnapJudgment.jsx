@@ -75,7 +75,7 @@ const AdminPanelSnapJudgment = () => {
         <SnapJudgmentEdit />
       ) : (
         <div className='SnapJudgmentWrapperList'>
-          <div className='createNewSnapJudgmentBtnWrapper'>
+          <div className='titleWrapper'>
             <h3 className="snapJudgmentTitle">Snap Judgment</h3>
             <button className="createNewSnapJudgmentBtn" onClick={() => (setSnapJudgmentCreateNew(true))}>Create New Question</button>
           </div>

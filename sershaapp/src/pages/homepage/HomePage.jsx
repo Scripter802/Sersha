@@ -10,7 +10,7 @@ import { useGlobalContext } from '../../context/context'
 
 
 const HomePage = () => {
-  const { newMessage, setNewMessage } = useGlobalContext();
+  const { newMessage, setNewMessage, setUser, user } = useGlobalContext();
   const [newMessageSound, setNewMessageSound] = useState(false);
 
 
@@ -38,10 +38,12 @@ const HomePage = () => {
     const newMessageTimer = setTimeout(() => {
       setNewMessageSound(true);
       setNewMessage(1);
-    }, 2000);
+    }, 4000);
 
     return () => clearTimeout(newMessageTimer);
   }, []);
+
+
 
   return (
     <div className='homePageWrapper'>

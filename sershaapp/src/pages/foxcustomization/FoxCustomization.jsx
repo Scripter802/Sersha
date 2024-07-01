@@ -64,7 +64,7 @@ import {
   heart
 } from '../../assets/images/customization/items/index.js'
 
-import './foxcustomization.css'
+import './foxCustomization.css'
 import CustomizationSlider from '../../components/FoxCustomization/CustomizationSlider.jsx'
 import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive.jsx'
 import { useGlobalContext } from '../../context/context.jsx'
@@ -82,6 +82,20 @@ const FoxCustomization = () => {
   const [bottomPart, setBottomPart] = useState([]);
 
   useEffect(() => {
+    if (localStorage.getItem('TopItem')) {
+      const topItem = localStorage.getItem('TopItem');
+      if (topItem) {
+        setSelectedTopItem(JSON.parse(topItem));
+      }
+    }
+
+    if (localStorage.getItem('BottomItem')) {
+      const bottomItem = localStorage.getItem('BottomItem');
+      if (bottomItem) {
+        setSelectedBottomItem(JSON.parse(bottomItem));
+      }
+    }
+
     const fetchFoxItems = async () => {
       try {
         const response = await axios.get(`${baseUrl}/SershaItem`);
@@ -98,7 +112,7 @@ const FoxCustomization = () => {
     };
 
     fetchFoxItems();
-  }, [baseUrl]);
+  }, []);
 
   console.log(`toppart: ${topPart.map(item => item.name).join(', ')} ; bottomPart: ${bottomPart.map(item => item.name).join(', ')}`);
 
@@ -119,13 +133,13 @@ const FoxCustomization = () => {
 
         <div>
           <div className='foxWrapper'>
-            <img className='foxTopPart' src={foxtoppart} onClick={() => { setIsTopPart(true); setIsBottomPart(false); console.log(isBottomPart, isTopPart) }} />
+            <img className='foxTopPart' src={foxtoppart} onClick={() => { setIsTopPart(true); setIsBottomPart(false) }} />
             <div className='middleFoxRelative'>
               <img className='foxMiddle' src={fox} />
               {selectedTopItem && <img src={`${baseUrlImage}${selectedTopItem.imagePath}`} className='selectedFoxItem' />}
               {selectedBottomItem && <img src={`${baseUrlImage}${selectedBottomItem.imagePath}`} className='selectedFoxItem' />}
             </div>
-            <img className='foxBottomPart' src={foxbottompart} onClick={() => { setIsBottomPart(true); setIsTopPart(false); console.log(isBottomPart, isTopPart) }} />
+            <img className='foxBottomPart' src={foxbottompart} onClick={() => { setIsBottomPart(true); setIsTopPart(false) }} />
           </div>
           <div className='itemSlider'>
             <CustomizationSlider itemsTopPart={topPart} itemsBottomPart={bottomPart} toLeft={toLeft} toRight={toRight} />
@@ -138,7 +152,7 @@ const FoxCustomization = () => {
         </div>
       </div>
       <audio loop autoPlay>
-        <source src="public/music/Music/SershaThemesongMediumoptimal310520241122.mp3" type="audio/mpeg" />
+        <source src="/music/Music/SershaThemesongMediumoptimal310520241122.mp3" type="audio/mpeg" />
       </audio>
     </div>
   )

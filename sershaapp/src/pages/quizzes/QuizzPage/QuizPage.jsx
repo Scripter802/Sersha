@@ -19,7 +19,10 @@ const QuizPage = () => {
     setCorrectAnswers,
     heartsNum,
     setHeartsNum,
-    showPopup, setShowPopup,
+    showPopup,
+    setShowPopup,
+    wrongAnswers,
+    setWrongAnswers
   } = useGlobalContext();
 
   const navigate = useNavigate();
@@ -31,7 +34,7 @@ const QuizPage = () => {
         const response = await axios.get(`${baseUrl}/Quizzes/randomByDifficulty/0`);
         setCurrentQuizz(response.data);
       } catch (error) {
-        console.error('Error fetching right answer questions:', error);
+        console.error('Error fetching Current Quizz:', error);
       }
     };
 
@@ -48,9 +51,12 @@ const QuizPage = () => {
     setShowPopup(false);
     setCurrentQuestion(0);
     setCorrectAnswers(0);
+    setWrongAnswers(0);
     setHeartsNum(3);
     // Fetch a new quiz or reset current quiz
   };
+
+  console.log(heartsNum)
 
   const handleClaimPrize = () => {
     // Handle prize claiming logic
@@ -59,17 +65,25 @@ const QuizPage = () => {
     navigate('/')
   };
 
+  const handlePlayGame = () => {
+    // Handle play Mini-Games to retrive hearts
+    console.log('Mini-games opened');
+    setShowPopup(false);
+    navigate('/minigames')
+  };
+
   let currentQ = currentQuizz?.questions[currentQuestion];
-  console.log(`currentQ: ${currentQuizz}`)
 
   return (
     <>
       {showPopup && (
         <GameCompletedPopup
           correctAnswers={correctAnswers}
-          mistakes={currentQuizz.questions.length - correctAnswers}
+          mistakes={wrongAnswers}
           onRestart={handleRestart}
           onClaimPrize={handleClaimPrize}
+          heartsNum={heartsNum}
+          onPlayGame={handlePlayGame}
           title={`Quizz`}
         />
       )}

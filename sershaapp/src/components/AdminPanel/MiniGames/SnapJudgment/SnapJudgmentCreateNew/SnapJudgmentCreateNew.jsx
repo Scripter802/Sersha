@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useGlobalContext } from '../../../../../context/context';
 import closeButton from '../../../../../assets/images/adminPanel/closeButton.png';
-import './snapJudgmentCreateNew.css';
 import axios from 'axios';
 
 const SnapJudgmentCreateNew = () => {
@@ -75,7 +74,7 @@ const SnapJudgmentCreateNew = () => {
   console.log(newSnapJudgment);
 
   return (
-    <div className="createNewSnapJudgmentContainer">
+    <div className="adminPanelCreateNewWrapper">
       <div className="close-btn" onClick={() => setSnapJudgmentCreateNew(false)}>
         <img src={closeButton} alt='close' />
       </div>

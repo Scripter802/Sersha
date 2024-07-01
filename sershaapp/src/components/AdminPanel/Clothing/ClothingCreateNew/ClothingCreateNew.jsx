@@ -44,7 +44,7 @@ const ClothingCreateNew = () => {
   };
 
   return (
-    <div className="createNewEmojiEmotionContainer">
+    <div className="adminPanelCreateNewWrapper">
       <div className="close-btn" onClick={() => setClothingCreateNew(false)}>
         <img src={closeButton} alt='close' />
       </div>
@@ -84,9 +84,9 @@ const ClothingCreateNew = () => {
         </select>
       </div>
       <div>
-        <label className='questionFieldLabel'>Name:</label>
+        <label className='fieldLabel'>Name:</label>
         <input
-          className='newRightAnswerQuestionInput'
+          className='inputField'
           type="text"
           value={clothingNewItem.name}
           placeholder='Name'

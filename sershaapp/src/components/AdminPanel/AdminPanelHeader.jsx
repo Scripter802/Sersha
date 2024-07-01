@@ -14,11 +14,11 @@ function AdminPanelHeader({ OpenSidebar }) {
       </div>
       <div className='header-right'>
         <div className='navigationWrapper'>
-          <div className='map'><img src={map} alt="map" /></div>
-          <div className='game'><img src={game} alt="game" /></div>
+          <a href='/map' className={`${path === '/map' || path.includes('/map/') ? 'currentMap' : 'map'}`}><img src={map} alt="map" /></a>
+          <a href='/minigames' className={`${path === '/minigames' || path.includes('/minigames/') ? 'currentMiniGames' : 'miniGames'}`}><img src={game} alt="game" /></a>
           <a href='/' className={`${path === '/' ? 'currentHome' : 'home'}`}><img src={home} alt="home" /></a>
           <a href='/dm' className={`${path === '/dm' || path.includes('/quizzes/') ? 'dm' : 'messages'}`} ><img src={messages} alt="messages" /></a>
-          <a href='/foxcustomization' className={`${path === '/foxcustomization' ? 'dm' : 'search'}`}><img src={search} alt="search" /></a>
+          <a href='/foxcustomization' className={`${path === '/foxcustomization' ? 'currentFoxCustomization' : 'foxCustomization'}`}><img src={search} alt="search" /></a>
         </div>
       </div>
     </header>

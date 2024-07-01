@@ -3,7 +3,7 @@
     flex-direction: column;
     position: relative;
     border-radius: 30px 30px;
-    min-height: calc(100vh - 82px);
+    min-height: calc(100vh - 102px);
     background-image: url('../../assets/images/customization/background.png');
     background-size: cover;
     min-width: 100vw;
@@ -16,9 +16,14 @@
 
 #toppart,
 #bottompart {
-    width: 100%;
     display: flex;
-    justify-content: space-evenly;
+}
+
+.toppart,
+.bottompart,
+.foxTopPart,
+.foxBottomPart {
+    cursor: pointer;
 }
 
 .selectedFoxItem {
@@ -198,7 +203,7 @@
     }
 
     .tinySlidWrapper {
-        width: 100%;
+        width: 100vw;
     }
 
     .sliderControls {

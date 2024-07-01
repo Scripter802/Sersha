@@ -2,7 +2,7 @@
 import React from 'react';
 import './gameCompletedPopup.css'; // Add your CSS styles here
 
-const GameCompletedPopup = ({ correctAnswers, mistakes, onRestart, onClaimPrize, title }) => {
+const GameCompletedPopup = ({ correctAnswers, mistakes, onRestart, onClaimPrize, onPlayGame, title, heartsNum }) => {
   return (
     <div className="popup">
       <div className="popup-content">
@@ -14,7 +14,8 @@ const GameCompletedPopup = ({ correctAnswers, mistakes, onRestart, onClaimPrize,
         </div>
         <div className="buttons">
           <button onClick={onRestart}>Restart</button>
-          <button onClick={onClaimPrize}>Claim Prize</button>
+          {heartsNum !== 0 ? <button onClick={onClaimPrize}>{"Claim Prize"}</button> : <button onClick={onPlayGame}>Play Mini-Games</button>}
+
         </div>
       </div>
     </div>

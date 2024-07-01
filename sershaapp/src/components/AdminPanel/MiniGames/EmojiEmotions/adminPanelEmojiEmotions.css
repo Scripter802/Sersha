@@ -1,24 +1,14 @@
 .emojiEmotionsWrapperList {
-  position: relative;
   margin: 20px auto;
-  background-color: transparent;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  color: #FFB496;
-
-  background: linear-gradient(180deg, #2F202F 0%, #460C23FF 100%);
+  width: 100%;
+  color: #ffffff;
+  background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+  opacity: 0.9;
+  padding: .75rem;
+  border-radius: 30px 30px;
+  padding-bottom: 2rem;
 }
 
-.createNewEmojiEmotionsBtnWrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.emojiEmotionsTitle {
-  padding: 10px 20px;
-}
 
 .createNewEmojiEmotionsBtn {
   margin-block: 20px;

@@ -80,10 +80,10 @@ const AdminPanelFriendOrFoe = () => {
       ) : isFriendOrFoeEdit ? (
         <FriendOrFoeEdit />
       ) : (
-        <div className='emojiEmotionsWrapperList'>
-          <div className='createNewEmojiEmotionsBtnWrapper'>
-            <h3 className="emojiEmotionsTitle">Friend Or Foe</h3>
-            <button className="createNewEmojiEmotionsBtn" onClick={() => (setFriendOrFoeCreateNew(true))}>Create New Question</button>
+        <div className='friendOrFoeWrapperList'>
+          <div className='titleWrapper'>
+            <h3 className="friendOrFoeTitle">Friend Or Foe</h3>
+            <button className="createNewFriendOrFoeBtn" onClick={() => (setFriendOrFoeCreateNew(true))}>Create New Question</button>
           </div>
           <table className="table table-striped table-bordered">
             <thead>

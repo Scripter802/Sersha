@@ -16,7 +16,7 @@ import HealthBar from '../../components/HealthBar'
 import { useGlobalContext } from '../../context/context'
 
 const CorrectAnswerQuiz = ({ currentQ }) => {
-  const { setShowPopup, currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers } = useGlobalContext();
+  const { setShowPopup, currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers, wrongAnswers, setWrongAnswers } = useGlobalContext();
 
   const messages = [
     {
@@ -46,7 +46,7 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
   const [message, setMessage] = useState(`${messages[0].name}`);
   const [answer, setAnswer] = useState(null);
 
-  if (answer && currentQuizz.questions.length - 1 == currentQuestion) {
+  if (heartsNum == 0 || answer && currentQuizz.questions.length - 1 == currentQuestion) {
     setShowPopup(true)
   }
 
@@ -54,10 +54,11 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
     console.log(`curQ ${currentQuestion}, ${currentQuizz.questions.length}`)
     if (answer !== null) {
       if (currentQ.isCorrect.toString() === answer) {
-        setCorrectAnswers(correctAnswers + 1);
+        setCorrectAnswers(prev => prev + 1);
         setAnswer(null);
       } else {
-        setHeartsNum(heartsNum - 1);
+        setWrongAnswers(prev => prev + 1)
+        setHeartsNum(prev => prev - 1);
         setAnswer(null);
       }
 

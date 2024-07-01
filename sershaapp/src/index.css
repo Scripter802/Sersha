@@ -313,3 +313,113 @@ label>input {
     display: none;
   }
 }
+
+/* ADMIN PANEL CREATE NEW */
+
+.adminPanelCreateNewWrapper {
+  padding: 20px;
+  background: linear-gradient(180deg, #2F202F 0%, #460C23F2 100%);
+  background-color: transparent;
+  border-radius: 10px;
+  width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.adminPanelCreateNewWrapper h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #FFF;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1.15rem;
+  right: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.close-btn>img {
+  width: 35px;
+  height: 35px;
+}
+
+.fieldLabel {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.inputField,
+.dropdown {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: transparent;
+  color: white;
+}
+
+.submitBtn {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submitBtn:hover {
+  background-color: #218838;
+}
+
+.optionsForm {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.addNewOptionFieldBtn {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  padding: 5px 15px;
+  background-color: #C26F4D;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.incrementCharacter {
+  font-size: 20px;
+  line-height: 15px;
+}
+
+@media only screen and (max-width: 768px) {
+  .adminPanelCreateNewWrapper {
+    width: 100%;
+  }
+}
+
+/* ADMIN PANEL PREVIEW */
+
+.titleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1.5rem 20px 2rem 20px;
+}
+
+.titleWrapper h3 {
+  font-size: 1.5rem;
+}

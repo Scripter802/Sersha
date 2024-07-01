@@ -16,7 +16,7 @@ import HealthBar from '../../components/HealthBar';
 import { useGlobalContext } from '../../context/context';
 
 const Grouping = ({ currentQ }) => {
-  const { setShowPopup, currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers } = useGlobalContext();
+  const { setShowPopup, currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers, wrongAnswers, setWrongAnswers } = useGlobalContext();
   const dropRefs = Array.from({ length: 6 }, () => useRef(null));
   console.log(currentQ)
 
@@ -31,9 +31,14 @@ const Grouping = ({ currentQ }) => {
     },
   ];
 
-  const [droppedOne, setDroppedOne] = useState(new Array(currentQ.groups[0].groupingItems.length).fill("Drop here"));
-  const [droppedTwo, setDroppedTwo] = useState(new Array(currentQ.groups[1].groupingItems.length).fill("Drop here"));
+  const [droppedOne, setDroppedOne] = useState();
+  const [droppedTwo, setDroppedTwo] = useState();
   const [optionAnswer, setOptionAnswer] = useState([]);
+
+  useEffect(() => {
+    setDroppedOne(new Array(currentQ.groups[0].groupingItems.length).fill("Drop here"));
+    setDroppedTwo(new Array(currentQ.groups[1].groupingItems.length).fill("Drop here"));
+  }, [currentQ]);
 
   useEffect(() => {
     const tempOptionAnswer = [];
@@ -83,21 +88,34 @@ const Grouping = ({ currentQ }) => {
     currentQ.groups[1].groupingItems.map(it => items.push(it.item))
   }
 
+  if (heartsNum == 0) {
+    setShowPopup(true)
+  }
+
 
   const handleDone = (arr1, arr2) => {
     if (currentQ?.groups && currentQuizz.questions.length - 1 == currentQuestion) {
       setShowPopup(true)
     }
 
-    // const dropped1 = [dropped[0], dropped[1], dropped[2]];
-    // const dropped2 = [dropped[3], dropped[4], dropped[5]];
+    const correctGroup1 = [];
+    const correctGroup2 = [];
 
-    let res = areArraysEqual(droppedOne, currentQ.groups[0].groupingItems) && areArraysEqual(droppedTwo, currentQ.groups[1].groupingItems);
+    currentQ.groups[0].groupingItems.forEach(item => correctGroup1.push(item.item))
+    currentQ.groups[1].groupingItems.forEach(item => correctGroup2.push(item.item))
+
+    console.log(correctGroup1, correctGroup2)
+
+    let res = areArraysEqual(droppedOne, correctGroup1) && areArraysEqual(droppedTwo, correctGroup2);
+    console.log(droppedOne, correctGroup1)
     if (res == true) {
-      setCorrectAnswers(correctAnswers + 1);
+      setCorrectAnswers(prev => prev + 1);
+    } else {
+      setWrongAnswers(prev => prev + 1);
+      setHeartsNum(prev => prev - 1);
     }
     console.log(res)
-    setCurrentQuestion(currentQuestion + 1)
+    setCurrentQuestion(prev => prev + 1)
   }
 
 
@@ -155,7 +173,7 @@ const Grouping = ({ currentQ }) => {
             </div>
             <div className='groupingDropBoxes'>
               <div className='fruitDropBoxes'>
-                {droppedOne.map((item, index) => {
+                {droppedOne?.map((item, index) => {
                   return (
                     <DropBoxOne
                       key={index}
@@ -168,7 +186,7 @@ const Grouping = ({ currentQ }) => {
                 })}
               </div>
               <div className='vegetableDropBoxes'>
-                {droppedTwo.map((item, index) => {
+                {droppedTwo?.map((item, index) => {
                   return (
                     <DropBoxTwo
                       key={index}
@@ -191,7 +209,7 @@ const Grouping = ({ currentQ }) => {
             ))}
           </div>
 
-          {droppedOne.includes("Drop here") && droppedTwo.includes("Drop here") ? '' : <div className='groupingFinished' onClick={() => handleDone()}><img src={done} alt="done" />I'm Done</div>}
+          {droppedOne?.includes("Drop here") && droppedTwo?.includes("Drop here") ? '' : <div className='groupingFinished' onClick={() => handleDone()}><img src={done} alt="done" />I'm Done</div>}
         </div>
       </div>
 
@@ -212,7 +230,7 @@ const DraggableItem = ({ item, index, droppedOne, droppedTwo }) => {
     }),
   }), [item, index]);
 
-  const isDropped = droppedOne.includes(item) || droppedTwo.includes(item)
+  const isDropped = droppedOne?.includes(item) || droppedTwo?.includes(item)
 
   if (isDropped) {
     return (
@@ -245,7 +263,7 @@ const DraggableDroppedItem = ({ item, index, onDragStart }) => {
   );
 };
 
-const DropBoxTwo = ({ index, handleDropTwo, currentItem, updateDropped }) => {
+const DropBoxTwo = ({ index, handleDropTwo, currentItem }) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ["answer", "droppedItem"],
     drop: (item) => handleDropTwo(index, item),
@@ -267,7 +285,6 @@ const DropBoxTwo = ({ index, handleDropTwo, currentItem, updateDropped }) => {
 
     if (index === draggedIndex) return
 
-    updateDropped(index, draggedIndex);
   };
 
   return (
@@ -306,7 +323,6 @@ const DropBoxOne = ({ index, handleDropOne, currentItem, updateDropped }) => {
 
     if (index === draggedIndex) return
 
-    updateDropped(index, draggedIndex);
   };
 
   return (

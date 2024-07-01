@@ -8,12 +8,20 @@ import {
   characterResponsive,
 } from '../../assets/images/headerResponsive/index.js'
 import { useGlobalContext } from '../../context/context.jsx';
+import { useEffect } from 'react';
 
 const HeaderResponsive = () => {
 
-  const { newMessage } = useGlobalContext();
+  const { newMessage, user, setUser } = useGlobalContext();
   const path = window.location.pathname
-  console.log(path)
+
+  useEffect(() => {
+    const singleUser = localStorage.getItem('userData');
+
+    if (singleUser !== null) {
+      setUser(JSON.parse(singleUser));
+    }
+  }, []);
 
   return (
     <div className='responsiveHeaderWrapper'>
@@ -28,8 +36,8 @@ const HeaderResponsive = () => {
           </div>
 
           <div className='responsiveProfileInfo'>
-            <p>Camelia</p>
-            <p>Level 2</p>
+            <p>{user?.fullName}</p>
+            <p>Level {user?.level}</p>
           </div>
 
         </div>
@@ -37,7 +45,7 @@ const HeaderResponsive = () => {
         <div>
           <div className='responsiveCoinWrapper'>
             <img src={coin} alt="coin" className='coinImg' />
-            <p>3,483</p>
+            <p>{user?.coinBalance}</p>
           </div>
         </div>
 

@@ -61,10 +61,10 @@ const AdminPanelPostingChallenge = () => {
       ) : isPostingChallengeEdit ? (
         <PostingChallengeEdit />
       ) : (
-        <div className='SnapJudgmentWrapperList'>
-          <div className='createNewSnapJudgmentBtnWrapper'>
+        <div className='postingChallengeWrapperList'>
+          <div className='titleWrapper'>
             <h3 className="snapJudgmentTitle">Posting Challenge</h3>
-            <button className="createNewSnapJudgmentBtn" onClick={() => setPostingChallengeCreateNew(true)}>Create New Question</button>
+            <button className="createNewPostingChallengeBtn" onClick={() => setPostingChallengeCreateNew(true)}>Create New Question</button>
           </div>
           <table className="table table-striped table-bordered">
             <thead>

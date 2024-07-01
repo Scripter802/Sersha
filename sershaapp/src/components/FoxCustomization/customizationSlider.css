@@ -5,3 +5,7 @@
 #tns1-ow {
   width: 100vw;
 }
+
+.tns-visually-hidden {
+  display: none;
+}

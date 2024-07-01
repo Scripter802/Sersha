@@ -73,7 +73,7 @@ const PostingChallengeCreateNew = () => {
   };
 
   return (
-    <div className="createNewPostingChallengeContainer">
+    <div className="adminPanelCreateNewWrapper">
       <div className="close-btn" onClick={() => setPostingChallengeCreateNew(false)}>
         <img src={closeButton} alt='close' />
       </div>

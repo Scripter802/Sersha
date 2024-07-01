@@ -30,7 +30,7 @@ const PostAuthorList = () => {
         )
           : (
             <div className="listOfPostsContainer">
-              <div className='createNewPostBtnWrapper'>
+              <div className='titleWrapper'>
                 <h3 className="p-3 text-center">All Authors</h3>
                 <button className="create-post-btn" onClick={() => (setCreateNewPostAuthor(true))}>Create New Author</button>
               </div>

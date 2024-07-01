@@ -12,6 +12,8 @@
     align-items: center;
     padding: 1rem;
     background: black;
+    position: sticky;
+    top: 0;
 }
 
 .logo {
@@ -23,6 +25,32 @@
 .logoImg {
     width: 150px;
     height: 50px;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdownMenu button {
+    background: none;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    text-align: left;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s;
+}
+
+.dropdownMenu button:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 #messages {
@@ -60,10 +88,11 @@
 .game,
 .home,
 .messages,
-.search {
+.miniGames,
+.foxCustomization {
     display: flex;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     background-color: #444648;
     border-radius: 100%;
     justify-content: center;
@@ -74,15 +103,16 @@
 .map:hover,
 .game:hover,
 .home:hover,
+.miniGames:hover,
 .messages:hover,
-.search:hover {
+.foxCustomization:hover {
     background: #C26F4D;
 }
 
 .dm {
     display: flex;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     background-color: #C26F4D;
     border-radius: 100%;
     justify-content: center;
@@ -90,10 +120,10 @@
     cursor: pointer;
 }
 
-.minigames {
+.currentMiniGames {
     display: flex;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     background-color: #C26F4D;
     border-radius: 100%;
     justify-content: center;
@@ -103,8 +133,19 @@
 
 .currentHome {
     display: flex;
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
+    background-color: #C26F4D;
+    border-radius: 100%;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.currentFoxCustomization {
+    display: flex;
+    width: 60px;
+    height: 60px;
     background-color: #C26F4D;
     border-radius: 100%;
     justify-content: center;
@@ -125,8 +166,8 @@
 }
 
 .home {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
 }
 
 .coinWrapper {
@@ -158,6 +199,7 @@
     align-items: center;
     color: white;
     width: 130px;
+    position: relative;
 }
 
 .profileInfo {

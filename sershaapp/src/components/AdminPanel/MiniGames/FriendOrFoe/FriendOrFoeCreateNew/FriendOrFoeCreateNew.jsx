@@ -73,7 +73,7 @@ const FriendOrFoeCreateNew = () => {
   };
 
   return (
-    <div className="createNewFriendOrFoeContainer">
+    <div className="adminPanelCreateNewWrapper">
       <div className="close-btn" onClick={() => setFriendOrFoeCreateNew(false)}>
         <img src={closeButton} alt='close' />
       </div>

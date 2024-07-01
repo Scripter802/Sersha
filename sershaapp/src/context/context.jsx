@@ -12,6 +12,10 @@ const baseUrlImage = "http://localhost:5000";
 
 const AppProvider = ({ children }) => {
 
+  // SINGLE USER
+  const [user, setUser] = useState();
+  const [selectedUser, setSelectedUser] = useState();
+
 
   // CLOTHING
 
@@ -22,7 +26,8 @@ const AppProvider = ({ children }) => {
     bodyPart: '',
     name: ''
   });
-
+  const [isClothingItemEdit, setIsClothingItemEdit] = useState(false);
+  const [clothingEditingItem, setClothingEditingItem] = useState(null);
   const [allClothing, setAllClothing] = useState([]);
 
 
@@ -332,6 +337,8 @@ const AppProvider = ({ children }) => {
         fillInTheBlankAPI,
         groupingAPI,
 
+
+
         //FOX CUSTOMIZATION
 
         handleSelectTopItem,
@@ -354,6 +361,10 @@ const AppProvider = ({ children }) => {
         setClothingCreateNew,
         clothingNewItem,
         setClothingNewItem,
+        isClothingItemEdit,
+        setIsClothingItemEdit,
+        clothingEditingItem,
+        setClothingEditingItem,
         allClothing,
         setAllClothing,
 
@@ -380,6 +391,13 @@ const AppProvider = ({ children }) => {
         // USERS
         allUsers,
         setAllUsers,
+
+        // SINGLE USER
+        user,
+        setUser,
+        selectedUser,
+        setSelectedUser,
+
 
         // AUTHORS
         allAuthors,

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useGlobalContext } from '../../../../../context/context';
 import closeButton from '../../../../../assets/images/adminPanel/closeButton.png';
-import './emojiEmotionsCreateNew.css';
 
 const EmojiEmotionsCreateNew = () => {
   const { setEmojiEmotionsCreateNew, allEmojiEmotionsAssignments, setAllEmojiEmotionsAssignments, baseUrl } = useGlobalContext();
@@ -83,7 +82,7 @@ const EmojiEmotionsCreateNew = () => {
   };
 
   return (
-    <div className="createNewEmojiEmotionContainer">
+    <div className="adminPanelCreateNewWrapper">
       <div className="close-btn" onClick={() => setEmojiEmotionsCreateNew(false)}>
         <img src={closeButton} alt='close' />
       </div>
@@ -96,26 +95,26 @@ const EmojiEmotionsCreateNew = () => {
           onChange={(e) => handleImageChange(0, e.target.files[0])}
         />
       </div>
-      <div className='newRightAnswerOptions'>
-        <label className='optionsFieldLabel'>Options (check correct answer)</label>
+      <div className='optionsForm'>
+        <label className='fieldLabel'>Options (check correct answer)</label>
         {newEmojiEmotion?.questions[0]?.answers.map((ans, aIndex) => (
           <div className='optionBox' key={aIndex} style={{ marginBlock: ".5rem" }}>
             <input
-              className='postProfileName'
+              className='inputField'
               type="text"
               value={ans.text}
               placeholder={`Option ${aIndex + 1}`}
               onChange={(e) => handleAnswerChange(0, aIndex, 'text', e.target.value)}
             />
             <input
-              className='postProfileName'
+              className='inputField'
               type="checkbox"
               checked={ans.isCorrect}
               onChange={(e) => handleAnswerChange(0, aIndex, 'isCorrect', e.target.checked)}
             />
           </div>
         ))}
-        <button className='addNewOptionFieldBtn' style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '50px' }} onClick={() => handleAddAnswer(0)}>
+        <button className='addNewOptionFieldBtn' onClick={() => handleAddAnswer(0)}>
           <div className='incrementCharacter'>+</div>
         </button>
       </div>

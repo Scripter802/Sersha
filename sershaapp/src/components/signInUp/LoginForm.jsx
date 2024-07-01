@@ -26,7 +26,9 @@ const LoginForm = () => {
     setLogIn,
     windowWidth,
     setWindowWidth,
-    loginUser, // Use loginUser from context
+    loginUser,
+    user,
+    setUser, // Use loginUser from context
   } = useGlobalContext();
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -45,8 +47,11 @@ const LoginForm = () => {
     if (token && userData) {
       try {
         const parsedUserData = JSON.parse(userData);
-        setIsLoggedIn(true);
-        // You might want to set the user data in context or state here if needed
+        setUser(userData)
+        setIsLoggedIn(true)
+        if (!localStorage.getItem('userData')) {
+          localStorage.setItem('userData', JSON.stringify(userData));
+        }
         console.log('User already logged in:', parsedUserData);
       } catch (error) {
         console.error('Error parsing userData:', error);
@@ -80,7 +85,7 @@ const LoginForm = () => {
         const data = await response.json();
         console.log('Login successful:', data);
         loginUser(data.token); // Use loginUser function from context
-        localStorage.setItem('userData', JSON.stringify(data.user));
+        localStorage.setItem('userData', JSON.stringify(data));
         setIsLoggedIn(true);
       } else if (logEmail === 'admin@admin.com' && logPassword === 'admin') {
         const adminData = {

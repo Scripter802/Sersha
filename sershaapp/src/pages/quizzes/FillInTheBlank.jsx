@@ -61,6 +61,7 @@ const FillInTheBlank = ({ currentQ }) => {
         setCorrectAnswers(prev => prev + 1);
       } else {
         setWrongAnswers(prev => prev + 1);
+        setHeartsNum(prev => prev - 1);
       }
 
       if (currentQuizz.questions.length - 1 === currentQuestion) {
@@ -69,7 +70,7 @@ const FillInTheBlank = ({ currentQ }) => {
         setCurrentQuestion(prev => prev + 1);
       }
     }
-  }, [dropped, corAns, currentQuestion, currentQuizz.questions.length, setCorrectAnswers, setCurrentQuestion, setShowPopup, setWrongAnswers]);
+  }, [dropped, heartsNum, corAns, currentQuestion, currentQuizz.questions.length, setCorrectAnswers, setCurrentQuestion, setShowPopup, setWrongAnswers]);
 
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
@@ -83,7 +84,8 @@ const FillInTheBlank = ({ currentQ }) => {
 
   console.log(`CORRECT ANSWERS ${correctAnswers}`)
 
-  if (dropped && currentQuizz.questions.length - 1 == currentQuestion) {
+
+  if (dropped && currentQuizz.questions.length - 1 == currentQuestion || heartsNum === 0) {
     setShowPopup(true)
   }
 
@@ -99,7 +101,6 @@ const FillInTheBlank = ({ currentQ }) => {
   }
 
   let optionAnswer = currentQ.answers.map(item => item.text);
-  console.log(currentQ)
 
   return (
     <div className='fillBlankQuizWrapper'>
@@ -124,9 +125,9 @@ const FillInTheBlank = ({ currentQ }) => {
           </div>
 
           <div className='hearts'>
-            <div className='heartWrapper'>{heartsNum === 1 || heartsNum === 2 || heartsNum === 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />} </div>
-            <div className='heartWrapper'>{heartsNum === 2 || heartsNum === 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />} </div>
-            <div className='heartWrapper'>{heartsNum === 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />} </div>
+            <div className='heartWrapper'>{heartsNum >= 1 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />}</div>
+            <div className='heartWrapper'>{heartsNum >= 2 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />}</div>
+            <div className='heartWrapper'>{heartsNum >= 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />}</div>
           </div>
 
           <div className='sershaLogo'>

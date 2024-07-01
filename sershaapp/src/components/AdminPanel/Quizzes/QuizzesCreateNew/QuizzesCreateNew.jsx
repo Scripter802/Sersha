@@ -139,8 +139,16 @@ const QuizzesCreateNew = () => {
     setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
   };
 
+  const Divider = () => {
+    return (
+      <hr
+        style={{ borderTop: "1px dotted lightgrey", marginBlock: '1rem' }}
+      ></hr>
+    );
+  };
+
   return (
-    <div className="newRightAnswerQuestionContainer">
+    <div className="adminPanelCreateNewWrapper">
       <div className="close-btn" onClick={() => setQuizzesCreateNew(false)}>
         <img src={closeButton} alt='close' />
       </div>
@@ -180,28 +188,28 @@ const QuizzesCreateNew = () => {
           {question.type === 'Right Answer' && (
             <>
               <div>
-                <label className='questionFieldLabel'>Question:</label>
+                <label className='fieldLabel'>Question:</label>
                 <input
-                  className='newRightAnswerQuestionInput'
+                  className='inputField'
                   type="text"
                   value={question.text}
                   placeholder='Question'
                   onChange={(e) => handleQuestionChange(qIndex, 'text', e.target.value)}
                 />
               </div>
-              <div className='newRightAnswerOptions'>
-                <label className='optionsFieldLabel'>Options (check correct answer)</label>
+              <div className='optionsForm'>
+                <label className='fieldLabel'>Options (check correct answer)</label>
                 {question.answers.map((ans, aIndex) => (
                   <div className='optionBox' key={aIndex}>
                     <input
-                      className='postProfileName'
+                      className='inputField'
                       type="text"
                       value={ans.text}
                       placeholder={`Option ${aIndex + 1}`}
                       onChange={(e) => handleAnswerChange(qIndex, aIndex, 'text', e.target.value)}
                     />
                     <input
-                      className='postProfileName'
+                      className='inputField'
                       type="checkbox"
                       checked={ans.isCorrect}
                       onChange={(e) => handleAnswerChange(qIndex, aIndex, 'isCorrect', e.target.checked)}
@@ -212,29 +220,30 @@ const QuizzesCreateNew = () => {
                   <div className='incrementCharacter'>+</div>
                 </button>
               </div>
+              <Divider />
             </>
           )}
 
           {question.type === 'Correct/Incorrect' && (
             <>
               <div>
-                <label className='questionFieldLabel'>Statement:</label>
+                <label className='fieldLabel'>Statement:</label>
                 <input
-                  className='newRightAnswerQuestionInput'
+                  className='inputField'
                   type="text"
                   value={question.text}
                   placeholder='Statement'
                   onChange={(e) => handleQuestionChange(qIndex, 'text', e.target.value)}
                 />
               </div>
-              <div className='newRightAnswerOptions'>
-                <label className='optionsFieldLabel'>Options</label>
+              <div className='optionsForm'>
+                <label className='fieldLabel'>Options</label>
                 <div className='optionBox'>
                   <label>
                     True
                     <input
                       id='correctIncorrectTrue'
-                      className='postProfileName'
+                      className='inputField'
                       type="checkbox"
                       checked={question.isCorrect}
                       onChange={(e) => handleIsCorrectChange(qIndex, e.target.checked)}
@@ -242,15 +251,16 @@ const QuizzesCreateNew = () => {
                   </label>
                 </div>
               </div>
+              <Divider />
             </>
           )}
 
           {question.type === 'Fill in The Blank' && (
             <>
               <div>
-                <label className='questionFieldLabel'>Statement 1:</label>
+                <label className='fieldLabel'>Statement 1:</label>
                 <input
-                  className='newRightAnswerQuestionInput'
+                  className='inputField'
                   type="text"
                   value={question.statement1}
                   placeholder='Statement 1'
@@ -258,28 +268,28 @@ const QuizzesCreateNew = () => {
                 />
               </div>
               <div>
-                <label className='questionFieldLabel'>Statement 2:</label>
+                <label className='fieldLabel'>Statement 2:</label>
                 <input
-                  className='newRightAnswerQuestionInput'
+                  className='inputField'
                   type="text"
                   value={question.statement2}
                   placeholder='Statement 2'
                   onChange={(e) => handleQuestionChange(qIndex, 'statement2', e.target.value)}
                 />
               </div>
-              <div className='newRightAnswerOptions'>
-                <label className='optionsFieldLabel'>Options</label>
+              <div className='optionsForm'>
+                <label className='fieldLabel'>Options</label>
                 {question.answers.map((ans, aIndex) => (
                   <div className='optionBox' key={aIndex}>
                     <input
-                      className='postProfileName'
+                      className='inputField'
                       type="text"
                       value={ans.text}
                       placeholder={`Option ${aIndex + 1}`}
                       onChange={(e) => handleAnswerChange(qIndex, aIndex, 'text', e.target.value)}
                     />
                     <input
-                      className='postProfileName'
+                      className='inputField'
                       type="checkbox"
                       checked={ans.isCorrect}
                       onChange={(e) => handleAnswerChange(qIndex, aIndex, 'isCorrect', e.target.checked)}
@@ -290,27 +300,28 @@ const QuizzesCreateNew = () => {
                   <div className='incrementCharacter'>+</div>
                 </button>
               </div>
+              <Divider />
             </>
           )}
 
           {question.type === 'Grouping' && (
             <>
               <div>
-                <label className='questionFieldLabel'>Group 1 Name:</label>
+                <label className='fieldLabel'>Group 1 Name:</label>
                 <input
-                  className='newRightAnswerQuestionInput'
+                  className='inputField'
                   type="text"
                   value={question.groups[0].groupName}
                   placeholder='Group 1 Name'
                   onChange={(e) => handleGroupChange(qIndex, 0, 'groupName', e.target.value)}
                 />
               </div>
-              <div className='newRightAnswerOptions'>
-                <label className='optionsFieldLabel'>Options</label>
+              <div className='optionsForm'>
+                <label className='fieldLabel'>Options</label>
                 {question.groups[0].items.map((item, iIndex) => (
                   <div className='optionBox' key={iIndex}>
                     <input
-                      className='postProfileName'
+                      className='inputField'
                       type="text"
                       value={item.item}
                       placeholder={`Option ${iIndex + 1}`}
@@ -323,21 +334,21 @@ const QuizzesCreateNew = () => {
                 </button>
               </div>
               <div>
-                <label className='questionFieldLabel'>Group 2 Name:</label>
+                <label className='fieldLabel'>Group 2 Name:</label>
                 <input
-                  className='newRightAnswerQuestionInput'
+                  className='inputField'
                   type="text"
                   value={question.groups[1].groupName}
                   placeholder='Group 2 Name'
                   onChange={(e) => handleGroupChange(qIndex, 1, 'groupName', e.target.value)}
                 />
               </div>
-              <div className='newRightAnswerOptions'>
-                <label className='optionsFieldLabel'>Options</label>
+              <div className='optionsForm'>
+                <label className='fieldLabel'>Options</label>
                 {question.groups[1].items.map((item, iIndex) => (
                   <div className='optionBox' key={iIndex}>
                     <input
-                      className='postProfileName'
+                      className='inputField'
                       type="text"
                       value={item.item}
                       placeholder={`Option ${iIndex + 1}`}
@@ -349,13 +360,14 @@ const QuizzesCreateNew = () => {
                   <div className='incrementCharacter'>+</div>
                 </button>
               </div>
+              <Divider />
             </>
           )}
         </div>
       ))}
 
-      <button className='newPostBtn' onClick={handleAddQuestion}>Add New Question</button>
-      <button className='newPostBtn' onClick={handleSubmit}>Submit Quiz</button>
+      <button className='newQuestionBtn' onClick={handleAddQuestion}>Add New Question</button>
+      <button className='submitBtn' onClick={handleSubmit}>Submit Quiz</button>
     </div>
   );
 };

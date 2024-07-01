@@ -32,33 +32,36 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
   };
 
   const settings = {
+    container: '.myslider',
     lazyload: true,
     nav: false,
     mouseDrag: true,
     controls: false,
     touch: true,
-    // items: 5,
-    slideBy: 'page',
+    items: 5,
+    slideBy: 1,
     loop: false,
     onIndexChanged: (info) => setSliderIndex(info.index),
-    // responsive: {
-    //   460: {
-    //     items: 3,
-    //   },
-    //   700: {
-    //     items: 5,
-    //   },
-    //   1000: {
-    //     items: 6,
-    //   }
-    // }
+    responsive: {
+      0: {
+        items: 3,
+      },
+      // "700": {
+      //   "items": 2,
+      // },
+      1000: {
+        items: 5,
+      }
+    }
   };
 
   const handleTopItemClick = (el) => {
     setSelectedTopItem(el);
+    localStorage.setItem('TopItem', JSON.stringify(el));
   };
   const handleBottomItemClick = (el) => {
     setSelectedBottomItem(el);
+    localStorage.setItem('BottomItem', JSON.stringify(el));
   };
 
   const renderItems = () => {
@@ -66,9 +69,9 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
       document.querySelector('.topPartsMainWrapper')?.classList.remove('displaynone');
       document.querySelector('.bottomPartsMainWrapper')?.classList.add('displaynone');
       return (
-        <div className="topPartsMainWrapper toppart" id="toppart">
+        <>
           {itemsTopPart.map((el, index) => (
-            <div key={index} className="toppart">
+            <div key={index} className="toppart topPartsMainWrapper myslider">
               <img
                 className="tns-lazy-img"
                 src={`${baseUrlImage}${el.imagePath}`}
@@ -78,7 +81,7 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
               />
             </div>
           ))}
-        </div>
+        </>
       );
     }
 
@@ -86,9 +89,9 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
       document.querySelector('.topPartsMainWrapper')?.classList.add('displaynone');
       document.querySelector('.bottomPartsMainWrapper')?.classList.remove('displaynone');
       return (
-        <div className="bottomPartsMainWrapper bottompart" id="bottompart">
+        <>
           {itemsBottomPart.map((el, index) => (
-            <div key={index} className="bottompart">
+            <div key={index} className="bottompart bottomPartsMainWrapper myslider">
               {console.log(`${baseUrlImage}${el.imagePath}`)}
               <img
                 className="tns-lazy-img"
@@ -99,10 +102,10 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
               />
             </div>
           ))}
-        </div>
+        </>
       );
     }
-    return null; // If no items to render, return null
+    return null;
   };
 
   return (
@@ -115,13 +118,13 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
           <img src={toRight} alt="rightArrow" />
         </div>
       </div>
-      <div className="tinySlidWrapper">
-        {(isTopPart || isBottomPart) && (
-          <TinySlider settings={settings} className="singleImg" id="singleImg" ref={sliderRef}>
-            {renderItems()}
-          </TinySlider>
-        )}
-      </div>
+      {/* <div className="tinySlidWrapper"> */}
+      {(isTopPart || isBottomPart) && (
+        <TinySlider settings={settings} className="singleImg" id="singleImg" ref={sliderRef}>
+          {renderItems()}
+        </TinySlider>
+      )}
+      {/* </div> */}
     </>
   );
 };

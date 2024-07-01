@@ -15,14 +15,16 @@ import fillInTheBlankIcon from '../../assets/images/adminPanel/fillInTheBlankIco
 import groupingIcon from '../../assets/images/adminPanel/groupingIcon.png'
 import miniGames from '../../assets/images/adminPanel/minigames.png'
 import { useGlobalContext } from '../../context/context';
+import { useNavigate } from 'react-router-dom'
 
 function AdminPanelSidebar({ openSidebarToggle, OpenSidebar }) {
     const { activeTab, setActiveTab, quizzesActiveTab, setQuizzesActiveTab, miniGamesActiveTab, setMiniGamesActiveTab, } = useGlobalContext();
+    const navigate = useNavigate();
 
     return (
         <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive" : ""}>
             <div className='sidebar-title'>
-                <div className='sidebar-brand' >
+                <div className='sidebar-brand' onClick={() => navigate('/')}>
                     <img src={sershafox} alt="sershafox" /> ADMIN PANEL
                 </div>
                 <span className='icon close_icon' onClick={OpenSidebar}>X</span>
@@ -50,11 +52,11 @@ function AdminPanelSidebar({ openSidebarToggle, OpenSidebar }) {
                         <img style={{ width: "20px" }} src={newPost} alt="post image" /> Posts
                     </div>
                 </li>
-                <li className='sidebar-list-item'>
+                {/* <li className='sidebar-list-item'>
                     <div onClick={() => { setActiveTab('Dm'); OpenSidebar() }} style={{ backgroundColor: `${activeTab === "Dm" ? "#C26F4D" : ""}` }}>
                         <span>💬</span> DMs
                     </div>
-                </li>
+                </li> */}
                 <li className='sidebar-list-item'>
                     <div onClick={() => { setActiveTab('Quizzes'); OpenSidebar() }} style={{ backgroundColor: `${activeTab === "Quizzes" ? "#C26F4D" : ""}` }}>
                         <span>❓</span>  Quizzes

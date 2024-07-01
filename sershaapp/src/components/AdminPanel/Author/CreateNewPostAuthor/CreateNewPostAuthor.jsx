@@ -47,12 +47,12 @@ const CreateNewPostAuthor = () => {
 
 
   return (
-    <div className="newPostAuthorContainer">
+    <div className="adminPanelCreateNewWrapper">
       <div className="close-btn" onClick={() => setCreateNewPostAuthor(false)}><img src={closeButton} alt='close' /></div>
       <h3 className="p-3 text-center">Create New Author</h3>
       <div>
         <label>Author name:</label>
-        <input className='authorName' type="text" value={newPostAuthorName} placeholder='Author Name' onChange={(e) => setNewPostAuthorName(e.target.value)} />
+        <input className='inputField' type="text" value={newPostAuthorName} placeholder='Author Name' onChange={(e) => setNewPostAuthorName(e.target.value)} />
       </div>
 
       <div>
@@ -64,14 +64,17 @@ const CreateNewPostAuthor = () => {
               {newPostAuthorImage ? (
                 <img src={URL.createObjectURL(newPostAuthorImage)} alt="Author" className="uploaded-image-Author" />
               ) : (
-                <p>Drag 'n' drop an image here, or click to select an image</p>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <p>Drag 'n' drop an image here</p>
+                  <p>or click to select an image</p>
+                </div>
               )}
             </div>
           )}
         </Dropzone>
       </div>
 
-      <button className='newPostAuthorBtn' onClick={handleSubmit}>Submit</button>
+      <button className='submitBtn' onClick={handleSubmit}>Submit</button>
     </div>
   );
 };

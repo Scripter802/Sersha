@@ -60,15 +60,15 @@ const AdminPanelQuizzes = () => {
   };
 
   return (
-    <div className="adminPanelQuizzesContainer" style={{ position: 'relative' }}>
+    <div className="" style={{ position: 'relative' }}>
       {quizzesCreateNew ? (
         <QuizzesCreateNew />
       ) : quizzesEdit ? (
         <QuizzesEdit />
       ) : (
-        <div className='rightAnswerWrapperList'>
-          <div className='createNewQuestionBtnWrapper'>
-            <h3 className="quizTitle">Quizzes</h3>
+        <div className='adminPanelQuizzesContainer'>
+          <div className='titleWrapper'>
+            <h3 className="quizzTitle">Quizzes</h3>
             <button className="createNewQuizzBtn" onClick={() => setQuizzesCreateNew(true)}>Create New Quizz</button>
           </div>
           <table className="table table-striped table-bordered">

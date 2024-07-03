@@ -30,7 +30,7 @@ const getRandomItems = (array, numItems) => {
 const EmojiEmotions = () => {
   const {
     baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc
   } = useGlobalContext();
 
   const [seconds, setSeconds] = useState(25);
@@ -69,11 +69,12 @@ const EmojiEmotions = () => {
     }, 1000);
 
     return () => clearInterval(intervalIdRef.current);
-  }, []);
+  }, [currentEmoji]);
 
   useEffect(() => {
     if (seconds === 0) {
       clearInterval(intervalIdRef.current);
+      setIsGameCompleted(true);
     }
   }, [seconds]);
 
@@ -82,8 +83,12 @@ const EmojiEmotions = () => {
 
     if (selectedAnswer === correctAnswer) {
       setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
+      setCorInc(prevCorInc => prevCorInc.map((item, index) => index === emojiNumber ? true : item));
+
     } else {
       setIncorrectAnsweredMiniGames(incorrectAnsweredMiniGames + 1);
+      setCorInc(prevCorInc => prevCorInc.map((item, index) => index === emojiNumber ? false : item));
+
     }
 
     if (emojiNumber < currentEmoji.length - 1) {
@@ -102,6 +107,8 @@ const EmojiEmotions = () => {
     setSeconds(25);
     const randomSnaps = getRandomItems(allEmoji, 10);
     setCurrentEmoji(randomSnaps);
+    setCorInc([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
   };
 
   const handleClaimPrize = () => {
@@ -145,16 +152,9 @@ const EmojiEmotions = () => {
           </div>
         ) : (
           <div className='emojiEmotionsAnswersNumber'>
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
-            <div>6</div>
-            <div>7</div>
-            <div>8</div>
-            <div>9</div>
-            <div>10</div>
+            {corInc?.map((c, i) => (
+              <div key={i}>{typeof c === 'number' ? c : c === true ? <img src={correctAnswer} alt="correct" /> : <img src={incorrectAnswer} alt="incorrect" />}</div>
+            ))}
           </div>
         )
         }
@@ -179,7 +179,7 @@ const EmojiEmotions = () => {
                 {emojiNumber < 2 ? <img src={questionMark} alt='hidden emoji' /> : <img src={`${baseUrlImage}${currentEmoji && currentEmoji[emojiNumber - 2].imagePath}`} alt='emojis' />}
               </div>
               <div className='emojiWrap'>
-                {emojiNumber === 0 ? <img src={questionMark} alt='hidden emoji' /> : emojiNumber === 1 ? <img src={`${baseUrlImage}${currentEmoji[emojiNumber].imagePath}`} alt='emojis' /> : <img src={`${baseUrlImage}${currentEmoji[emojiNumber - 1].imagePath}`} alt='emojis' />}
+                {emojiNumber === 0 ? <img src={questionMark} alt='hidden emoji' /> : emojiNumber === 1 ? <img src={`${baseUrlImage}${currentEmoji[emojiNumber - 1].imagePath}`} alt='emojis' /> : <img src={`${baseUrlImage}${currentEmoji[emojiNumber - 1].imagePath}`} alt='emojis' />}
               </div>
               <div className='emojiWrap'>
                 {<img src={`${baseUrlImage}${currentEmoji[emojiNumber]?.imagePath}`} />}

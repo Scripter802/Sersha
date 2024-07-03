@@ -41,8 +41,14 @@ const LoginForm = () => {
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userData = localStorage.getItem('userData');
+    let token;
+    let userData;
+    if (localStorage.getItem('token')) {
+      token = localStorage.getItem('token');
+    }
+    if (localStorage.getItem('userData')) {
+      userData = localStorage.getItem('userData');
+    }
 
     if (token && userData) {
       try {
@@ -55,8 +61,9 @@ const LoginForm = () => {
         console.log('User already logged in:', parsedUserData);
       } catch (error) {
         console.error('Error parsing userData:', error);
-        // Handle the error appropriately, maybe clear the invalid data from localStorage
-        localStorage.removeItem('userData');
+        if (localStorage.getItem('userData')) {
+          localStorage.removeItem('userData');
+        }
       }
     }
   }, []);
@@ -97,10 +104,10 @@ const LoginForm = () => {
         setIsLoggedIn(true);
       } else {
         const errorData = await response.json();
-        setErrorMessage(errorData.message || 'Login failed');
+        setErrorMessage(errorData || "Username or Password is incorrect!");
       }
     } catch (error) {
-      setErrorMessage(error.message || 'An error occurred');
+      setErrorMessage("Username or Password is incorrect!");
     }
   };
 

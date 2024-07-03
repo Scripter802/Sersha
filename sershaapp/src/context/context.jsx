@@ -121,6 +121,7 @@ const AppProvider = ({ children }) => {
 
   const [correctAnsweredMiniGames, setCorrectAnsweredMiniGames] = useState(0);
   const [incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames] = useState(0);
+  const [corInc, setCorInc] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
 
   /* SNAP JUDGMENT */
   const [snapJudgmentCreateNew, setSnapJudgmentCreateNew] = useState(false);
@@ -478,6 +479,7 @@ const AppProvider = ({ children }) => {
         setMiniGamesActiveTab,
         correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
         incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames,
+        corInc, setCorInc,
 
         // SNAP JUDGMENT ADMIN PANEL MINIGAMES SNAPJUDGMENT
         snapJudgmentCreateNew,

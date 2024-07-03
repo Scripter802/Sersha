@@ -1,7 +1,7 @@
 import './dm.css';
 import avatar from '../../assets/images/dms/userpick.png';
 import { heart } from '../../assets/images/customization/items/index.js';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Popup from '../../components/Popup.jsx';
 import NewMessage from '../../components/Dm/NewMessage.jsx';
 import AnswersMsg from '../../components/Dm/AnswersMsg.jsx';
@@ -18,6 +18,16 @@ const Dm = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [messageHistory, setMessageHistory] = useState([]);
   const navigate = useNavigate();
+  const messagesEndRef = useRef(null);
+  const messagesPreviewRef = useRef(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages, messageHistory]);
 
   useEffect(() => {
     const fetchRandomChat = async () => {
@@ -73,7 +83,7 @@ const Dm = () => {
           </div>
         )}
 
-        <div className={`${window.innerWidth < 780 && selectedMessagePreview ? 'responsiveMsgPreview' : 'msgPreview'}`}>
+        <div className={`${window.innerWidth < 780 && selectedMessagePreview ? 'responsiveMsgPreview' : 'msgPreview'}`} ref={messagesPreviewRef}>
           {messageHistory.map((msg, index) => (
             <div key={index} className='messageHistory'>
               <div className='receivedMsg'>
@@ -96,7 +106,9 @@ const Dm = () => {
           <div>
             <AnswersMsg selectedMessage={selectedMessage} currentAnswer={currentAnswer} handleAnswer={handleAnswer} />
           </div>
+          <div ref={messagesEndRef} />
         </div>
+
       </div>
 
       <div className='footer'>

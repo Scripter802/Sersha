@@ -28,7 +28,7 @@ const getRandomItems = (array, numItems) => {
 const FriendOrFoe = () => {
   const {
     baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
   const totalAnswered = correctAnsweredMiniGames + incorrectAnsweredMiniGames;
@@ -66,11 +66,12 @@ const FriendOrFoe = () => {
     }, 1000);
 
     return () => clearInterval(intervalIdRef.current);
-  }, []);
+  }, [currentFriendOrFoe]);
 
   useEffect(() => {
     if (seconds === 0) {
       clearInterval(intervalIdRef.current);
+      setIsGameCompleted(true);
     }
   }, [seconds]);
 
@@ -89,8 +90,12 @@ const FriendOrFoe = () => {
     console.log(`${selectedAnswer}` === correctAnswer)
     if (`${selectedAnswer}` == correctAnswer) {
       setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
+      setCorInc(prevCorInc => prevCorInc.map((item, index) => index === friendOrFoeNumber ? true : item));
+
     } else {
       setIncorrectAnsweredMiniGames(incorrectAnsweredMiniGames + 1);
+      setCorInc(prevCorInc => prevCorInc.map((item, index) => index === friendOrFoeNumber ? false : item));
+
     }
 
     if (friendOrFoeNumber < currentFriendOrFoe.length - 1) {
@@ -110,6 +115,8 @@ const FriendOrFoe = () => {
     setSeconds(25);
     const randomSnaps = getRandomItems(allFriendOrFoe, 10);
     setCurrentFriendOrFoe(randomSnaps);
+    setCorInc([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
   };
 
   const handleClaimPrize = () => {
@@ -152,16 +159,9 @@ const FriendOrFoe = () => {
           </div>
         ) : (
           <div className='friendOrFoeAnswersNumber'>
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
-            <div>6</div>
-            <div>7</div>
-            <div>8</div>
-            <div>9</div>
-            <div>10</div>
+            {corInc?.map((c, i) => (
+              <div key={i}>{typeof c === 'number' ? c : c === true ? <img src={correctAnswer} alt="correct" /> : <img src={incorrectAnswer} alt="incorrect" />}</div>
+            ))}
           </div>
         )
         }

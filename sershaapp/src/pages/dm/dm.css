@@ -13,9 +13,9 @@
 .dmsContainer {
     display: flex;
     justify-content: center;
-    margin-top: 3.125rem;
+    padding-top: 3.125rem;
     gap: 2rem;
-    min-height: 100vh;
+    min-height: calc(100vh - 86px);
 }
 
 .messageHistory {

@@ -52,15 +52,18 @@
 .friendOrFoeGameContainer {
   display: flex;
   width: 960px;
-  height: 457px;
+  min-height: 450px;
   background-image: url(../../../assets/images/miniGames/emojiEmotions/EmojiEmotionsCardBackground.png);
   background: linear-gradient(180deg, #2F202F33 0%, #460C2333 100%);
   border-radius: 10px 10px;
   padding: 40px;
+  position: relative;
 }
 
 .middleGamePhoto {
   width: 100%;
+  object-fit: fill;
+  max-height: 200px;
 }
 
 .friendOrFoeLeftSideContent {
@@ -80,9 +83,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .625rem;
-  overflow-y: auto;
-  height: 100%;
+  min-height: 100%;
 }
 
 .messageGameCard {
@@ -90,8 +91,8 @@
   justify-content: left;
   align-items: center;
   background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
-  border-radius: 20px 20px;
-  padding: 1.5rem;
+  border-radius: 20px 20px 0 0;
+  padding: .5rem;
   gap: 1.125rem;
   width: 100%;
 }
@@ -119,6 +120,8 @@
   justify-content: center;
   align-items: center;
   gap: .315rem;
+  position: absolute;
+  bottom: 2rem;
 }
 
 .friendOrFoeDeclineButton {

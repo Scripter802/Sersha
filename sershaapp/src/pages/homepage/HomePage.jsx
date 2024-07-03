@@ -38,6 +38,7 @@ const HomePage = () => {
     const newMessageTimer = setTimeout(() => {
       setNewMessageSound(true);
       setNewMessage(1);
+      localStorage.setItem('New Message', 1)
     }, 4000);
 
     return () => clearTimeout(newMessageTimer);

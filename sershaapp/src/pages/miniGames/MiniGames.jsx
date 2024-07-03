@@ -19,6 +19,9 @@ const MiniGames = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const navigate = useNavigate();
 
+  let body = document.querySelector('body');
+  body.classList.add('overflowHidden');
+
   const handleStartClick = () => {
     setIsPopupOpen(true);
   };

@@ -40,7 +40,7 @@ const MiniGames = () => {
           <div className='gameContent'>
             <img src={game} alt="game" />
             <h1>Mini Games</h1>
-            <p>You must play three games of three rounds each</p>
+            <p>Sharpen your skills with mini challenges!</p>
             <button className='startGameButton' onClick={handleStartClick}>
               <img src={done} alt="done" /> Start
             </button>

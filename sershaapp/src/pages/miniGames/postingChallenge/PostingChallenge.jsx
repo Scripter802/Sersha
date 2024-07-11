@@ -28,7 +28,7 @@ const getRandomItems = (array, numItems) => {
 const PostingChallenge = () => {
   const {
     baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged,
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
   const totalAnswered = correctAnsweredMiniGames + incorrectAnsweredMiniGames;
@@ -81,7 +81,7 @@ const PostingChallenge = () => {
     if (selectedAnswer === correctAnswer) {
       setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === postingNumber ? true : item));
-
+      handleFoxDamaged();
     } else {
       setIncorrectAnsweredMiniGames(incorrectAnsweredMiniGames + 1);
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === postingNumber ? false : item));
@@ -93,6 +93,7 @@ const PostingChallenge = () => {
       setSeconds(25); // Reset the timer for the next question
     } else {
       setIsGameCompleted(true); // Show the popup when the game is completed
+      clearInterval(intervalIdRef.current);
     }
   };
 
@@ -104,7 +105,8 @@ const PostingChallenge = () => {
     setSeconds(25);
     const randomSnaps = getRandomItems(allPosting, 10);
     setCurrentPosting(randomSnaps);
-    setCorInc([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    setCorInc([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    setRoughFoxDamaged('');
   };
 
   const handleClaimPrize = () => {
@@ -122,6 +124,7 @@ const PostingChallenge = () => {
           onRestart={handleRestart}
           onClaimPrize={handleClaimPrize}
           title={`Game`}
+          isQuizz={false}
         />
       )}
       <div className='postingChallengeTitleWrapper'>
@@ -186,7 +189,13 @@ const PostingChallenge = () => {
           )}
 
           <div className='postingChallengeRightSideContent'>
-            <div className='postingFoxWrap'><p className='postingFoxTextTought'>Multi kill! Awesome!</p><img className='postingFoxTought' src={foxTought} alt="foxtought" /><img className='foxUserPick' src={foxuserpick} alt="foxuserpick" /></div>
+            <div className='postingFoxWrap'>
+              {roughFoxDamaged && <>
+                <p className='postingFoxTextTought'>
+                  {roughFoxDamaged}
+                </p>
+                <img className='postingFoxTought' src={foxTought} alt="foxtought" /></>}
+              <img className='foxUserPick' src={foxuserpick} alt="foxuserpick" /></div>
             <div className='postingGameTimerWrapper'>
               <div className='postingGameTimeCirkle'></div>
               <p className='postingGamePad'>{seconds}</p>

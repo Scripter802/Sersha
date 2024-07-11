@@ -146,9 +146,9 @@ const FillInTheBlank = ({ currentQ }) => {
           <div className='evilFox'>
             <img src={evilfox} alt="" />
 
-            {/* <div className='tictac'>
-              <img src={tictac} alt="" />
-            </div> */}
+            <div className='tictac'>
+              <p>TikTac</p>
+            </div>
           </div>
         </div>
         <div>

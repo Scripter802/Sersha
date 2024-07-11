@@ -159,7 +159,7 @@ const RightAnswerQuiz = ({ currentQ }) => {
             ))}
             {selectedAnswers.length > 0 && (
               <div className='doneButtonWrapper'>
-                <button onClick={handleSubmit}>I am Done</button>
+                <button onClick={handleSubmit}>Check</button>
               </div>
             )}
           </div>

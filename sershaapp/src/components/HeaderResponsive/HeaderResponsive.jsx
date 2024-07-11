@@ -59,8 +59,8 @@ const HeaderResponsive = () => {
 
       </div>
       <div className='responsiveNavigationWrapper'>
-        <div className='responsiveMap'><img src={mapResponsive} alt="map" /></div>
-        <div className='responsiveGame'><img src={gameResponsive} alt="game" /></div>
+        <a href='/map' className={`${path === '/map' ? 'currentMap' : 'map'}`}><img src={mapResponsive} alt="map" /></a>
+        <a href='/minigames' className={`${path === '/minigames' || path.includes('/minigames/') ? 'currentMiniGames' : 'miniGames'}`}><img src={gameResponsive} alt="game" /></a>
         <a href='/' className={`${path === '/' ? 'responsiveCurrentHome' : 'responsiveHome'}`}><img src={homeResponsive} alt="home" /></a>
         <a href='/dm' id="messages" className={`${path === '/dm' || path.includes('/quizzes/') ? 'responsiveDm' : 'responsiveMessages'}`} ><img src={messagesResponsive} alt="messages" />{newMessage >= 1 && <p className='messageCounter'>{newMessage}</p>}</a>
         <a href='/foxcustomization' className={`${path === '/foxcustomization' ? 'responsiveDm' : 'responsiveSearch'}`}><img src={characterResponsive} alt="search" /></a>

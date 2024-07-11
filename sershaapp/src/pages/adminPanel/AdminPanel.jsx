@@ -9,7 +9,7 @@ import { useGlobalContext } from '../../context/context'
 
 const AdminPanel = () => {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false)
-  const { fillInTheBlankCreateNew } = useGlobalContext();
+  const { activeTab } = useGlobalContext();
 
 
   const OpenSidebar = () => {
@@ -20,7 +20,7 @@ const AdminPanel = () => {
 
   return (
     <div className='adminBackground'>
-      <div className={fillInTheBlankCreateNew ? 'grid-fillInTheBlank' : `grid-container`}>
+      <div className={`${activeTab == 'Quizzes' || activeTab == 'Mini-Games' || activeTab == 'Clothing' ? 'grid-container-quizzes' : 'grid-container'}`}>
         <Header OpenSidebar={OpenSidebar} />
         <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} />
         <Home />

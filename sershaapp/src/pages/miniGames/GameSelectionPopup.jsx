@@ -3,6 +3,7 @@ import snapJudgment from '../../assets/images/miniGames/snapJudgment.png';
 import emojiEmotions from '../../assets/images/miniGames/emojiEmotions.png';
 import friendOrFoe from '../../assets/images/miniGames/friendOrFoe.png';
 import postingChallenge from '../../assets/images/miniGames/postingChallenge.png';
+import closeButton from '../../assets/images/adminPanel/closeButton.png'
 
 const GameSelectionPopup = ({ onClose, navigate }) => {
   return (
@@ -28,6 +29,9 @@ const GameSelectionPopup = ({ onClose, navigate }) => {
           </div>
         </div>
         <button className="close-popup-button" onClick={onClose}>Close</button>
+      </div>
+      <div className="close-btn" onClick={onClose}>
+        <img src={closeButton} alt='close' />
       </div>
     </div>
   );

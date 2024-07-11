@@ -46,17 +46,19 @@
 }
 
 .popup-inner {
-  background: white;
+  background: linear-gradient(166.72deg, #CE3D21 5.04%, #922627 90.45%);
+  color: white;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
+  position: relative;
 }
 
 .game-options {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
 .game-option {
@@ -72,7 +74,7 @@
 .close-popup-button {
   margin-top: 20px;
   padding: 10px 20px;
-  background: #f00;
+  background: #C26F4D;
   color: white;
   border: none;
   border-radius: 5px;

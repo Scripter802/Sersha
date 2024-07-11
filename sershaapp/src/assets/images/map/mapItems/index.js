@@ -11,6 +11,7 @@ import group1 from "./Group83.png"
 import group2 from "./Group87.png"
 import group3 from "./Group88.png"
 import group4 from "./Group94.png"
+import group4One from "./Group94One.png"
 import group5 from "./Group95.png"
 import group6 from "./Group96.png"
 import group7 from "./Group97.png"
@@ -44,7 +45,7 @@ import repeatPart4 from "./repeatpart4.png"
 import repeatPart5 from "./repeatpart5.png"
 import repeatPart6 from "./repeatpart6.png"
 import repeatPart7 from "./repeatpart7.png"
-import topLeftZone from "./topleftzone.png"
+import topLeftZone from "./topleftzoneOne.png"
 import topLeftZone1 from "./topleftzone1.png"
 import topLeftZone2 from "./topleftzone2.png"
 import topLeftZone3 from "./topleftzone3.png"
@@ -67,6 +68,7 @@ export {
   group2,
   group3,
   group4,
+  group4One,
   group5,
   group6,
   group7,

@@ -150,7 +150,8 @@
     position: relative;
 }
 
-.currentMiniGames {
+.currentMiniGames,
+.currentMap {
     display: flex;
     width: 60px;
     height: 60px;
@@ -239,6 +240,7 @@
     align-items: center;
     color: white;
     width: 130px;
+    margin-right: 1.15px;
 }
 
 .level {
@@ -247,7 +249,9 @@
 
 .avatarWrapper {
     display: flex;
-    position: relative;
+    position: absolute;
+    right: -1rem;
+    top: 50%;
 }
 
 .avatar {

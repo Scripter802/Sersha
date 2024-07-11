@@ -118,10 +118,20 @@ const AppProvider = ({ children }) => {
 
   /* ADMIN MINI-GAMES */
   const [miniGamesActiveTab, setMiniGamesActiveTab] = useState('Snap Judgment');
-
   const [correctAnsweredMiniGames, setCorrectAnsweredMiniGames] = useState(0);
   const [incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames] = useState(0);
   const [corInc, setCorInc] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  const [rewardItems, setRewardItem] = useState(['Coin Multiplier', 'Correct Answer', 'Deal Damage', 'Healing Potion', 'Shield']);
+  const roughFoxComments = ["Ouch!", "Yikes!", "Oof!", "Ow!", "Whoa!", "Argh!", "Dang!", "Eek!", "Gah!", "Ack!", "Ugh!"];
+  const [roughFoxDamaged, setRoughFoxDamaged] = useState('');
+
+  const handleFoxDamaged = () => {
+    let randomIndex = Math.floor(Math.random() * roughFoxComments.length);
+
+    setRoughFoxDamaged(roughFoxComments[randomIndex]);
+
+  }
+
 
   /* SNAP JUDGMENT */
   const [snapJudgmentCreateNew, setSnapJudgmentCreateNew] = useState(false);
@@ -477,9 +487,18 @@ const AppProvider = ({ children }) => {
         // MINI GAMES 
         miniGamesActiveTab,
         setMiniGamesActiveTab,
-        correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-        incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames,
-        corInc, setCorInc,
+        correctAnsweredMiniGames,
+        setCorrectAnsweredMiniGames,
+        incorrectAnsweredMiniGames,
+        setIncorrectAnsweredMiniGames,
+        corInc,
+        setCorInc,
+        rewardItems,
+        setRewardItem,
+        roughFoxComments,
+        roughFoxDamaged,
+        setRoughFoxDamaged,
+        handleFoxDamaged,
 
         // SNAP JUDGMENT ADMIN PANEL MINIGAMES SNAPJUDGMENT
         snapJudgmentCreateNew,

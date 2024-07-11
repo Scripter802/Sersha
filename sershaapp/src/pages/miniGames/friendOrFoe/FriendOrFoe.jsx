@@ -28,7 +28,7 @@ const getRandomItems = (array, numItems) => {
 const FriendOrFoe = () => {
   const {
     baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged,
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
   const totalAnswered = correctAnsweredMiniGames + incorrectAnsweredMiniGames;
@@ -91,7 +91,7 @@ const FriendOrFoe = () => {
     if (`${selectedAnswer}` == correctAnswer) {
       setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === friendOrFoeNumber ? true : item));
-
+      handleFoxDamaged();
     } else {
       setIncorrectAnsweredMiniGames(incorrectAnsweredMiniGames + 1);
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === friendOrFoeNumber ? false : item));
@@ -103,6 +103,7 @@ const FriendOrFoe = () => {
       setSeconds(25); // Reset the timer for the next question
     } else {
       setIsGameCompleted(true); // Show the popup when the game is completed
+      clearInterval(intervalIdRef.current);
     }
   };
 
@@ -115,8 +116,8 @@ const FriendOrFoe = () => {
     setSeconds(25);
     const randomSnaps = getRandomItems(allFriendOrFoe, 10);
     setCurrentFriendOrFoe(randomSnaps);
-    setCorInc([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-
+    setCorInc([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    setRoughFoxDamaged('');
   };
 
   const handleClaimPrize = () => {
@@ -134,6 +135,7 @@ const FriendOrFoe = () => {
           onRestart={handleRestart}
           onClaimPrize={handleClaimPrize}
           title={`Game`}
+          isQuizz={false}
         />
       )}
       <div className='friendOrFoeTitleWrapper'>
@@ -203,7 +205,13 @@ const FriendOrFoe = () => {
           )}
 
           <div className='friendOrFoeRightSideContent'>
-            <div className='friendOrFoeFoxWrap'><p className='friendOrFoeFoxTextTought'>Multi kill! Awesome!</p><img className='friendOrFoeFoxTought' src={foxTought} alt="foxtought" /><img className='foxUserPick' src={foxuserpick} alt="foxuserpick" /></div>
+            <div className='friendOrFoeFoxWrap'>
+              {roughFoxDamaged && <>
+                <p className='friendOrFoeFoxTextTought'>
+                  {roughFoxDamaged}
+                </p>
+                <img className='friendOrFoeFoxTought' src={foxTought} alt="foxtought" /></>}
+              <img className='foxUserPick' src={foxuserpick} alt="foxuserpick" /></div>
             <div className='friendOrFoeGameTimerWrapper'>
               <div className='friendOrFoeGameTimeCirkle'></div>
               <p className='friendOrFoeGamePad'>{seconds}</p>

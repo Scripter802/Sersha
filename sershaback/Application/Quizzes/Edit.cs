@@ -22,19 +22,34 @@ namespace Application.Quizzes
             public Guid Id { get; set; }
             public Difficulty Difficulty { get; set; }
             public List<QuestionDto> Questions { get; set; } = new List<QuestionDto>();
+            public string QuizName { get; set; }
+            public string ConversationStarter { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
+                /*RuleFor(x => x.QuizName).NotEmpty().WithMessage("Quiz name is required.");
+                RuleFor(x => x.ConversationStarter).NotEmpty().WithMessage("Conversation starter is required.");*/
+        
                 RuleFor(x => x.Difficulty).IsInEnum();
                 RuleForEach(x => x.Questions).ChildRules(question =>
                 {
                     question.RuleFor(q => q.QuestionText)
                         .NotEmpty()
-                        .When(q => q.ImageFile == null)
-                        .WithMessage("Either QuestionText or ImageFile must be provided.");
+                        .When(q => q.ImageFile == null && (string.IsNullOrEmpty(q.Statement1) || string.IsNullOrEmpty(q.Statement2)))
+                        .WithMessage("QuestionText or ImageFile or Statement1 and Statement2 must be filled.");
+
+                    question.RuleFor(q => q.ImageFile)
+                        .NotNull()
+                        .When(q => string.IsNullOrEmpty(q.QuestionText) && (string.IsNullOrEmpty(q.Statement1) || string.IsNullOrEmpty(q.Statement2)))
+                        .WithMessage("QuestionText or ImageFile or Statement1 and Statement2 must be filled.");
+
+                    question.RuleFor(q => new { q.Statement1, q.Statement2 })
+                        .Must(statements => !string.IsNullOrEmpty(statements.Statement1) && !string.IsNullOrEmpty(statements.Statement2))
+                        .When(q => string.IsNullOrEmpty(q.QuestionText) && q.ImageFile == null)
+                        .WithMessage("QuestionText or ImageFile or Statement1 and Statement2 must be filled.");
                 });
             }
         }
@@ -63,6 +78,8 @@ namespace Application.Quizzes
                 }
 
                 quiz.Difficulty = request.Difficulty;
+                quiz.QuizName = request.QuizName;
+                quiz.ConversationStarter = request.ConversationStarter;
 
                 var updatedQuestionIds = request.Questions.Select(q => q.Id).ToList();
                 _context.Questions.RemoveRange(quiz.Questions.Where(q => !updatedQuestionIds.Contains(q.Id)));

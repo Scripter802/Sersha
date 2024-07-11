@@ -19,5 +19,6 @@ namespace Application.User
         public string Password { get; internal set; }
         public int Stage { get; set; }
         public AvatarImageDTO AvatarImage { get; set; } 
+        public bool isFirstTimeLoggedIn { get; set; }
     }
 }

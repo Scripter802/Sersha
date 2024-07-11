@@ -9,7 +9,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240626073614_relationships")]
+    [Migration("20240711073659_relationships")]
     partial class relationships
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -125,6 +125,9 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
+                    b.Property<bool>("isFirstTimeLoggedIn")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AvatarImageId");
@@ -180,7 +183,6 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsHead")
@@ -308,8 +310,14 @@ namespace Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("ConversationStarter")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("Difficulty")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("QuizName")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -391,7 +399,6 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("NextMessageId")

@@ -47,7 +47,7 @@ namespace Application.Avatar
 
                 if (request.Image != null)
                 {
-                    // Delete the old image if it exists
+                    
                     if (!string.IsNullOrEmpty(avatarImage.ImagePath))
                     {
                         var oldFilePath = Path.Combine(_env.WebRootPath, avatarImage.ImagePath);
@@ -82,7 +82,7 @@ namespace Application.Avatar
                     await file.CopyToAsync(stream);
                 }
 
-                return "Images/userAvatarImages/" + fileName;
+                return "/Images/userAvatarImages/" + fileName;
             }
         }
     }

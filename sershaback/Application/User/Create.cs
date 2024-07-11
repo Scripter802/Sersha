@@ -27,6 +27,7 @@ namespace Application.User
             public string ParentsFullName { get; set; }
             public string ParentPhoneNumber { get; set; }
             public DateTime UserBirthDate { get; set; }
+            public bool? isFirstTimeLoggedIn { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -74,7 +75,8 @@ namespace Application.User
                     ParentPhoneNumber = request.ParentPhoneNumber,
                     UserBirthDate = request.UserBirthDate,
                     Type = "User",
-                    Stage = 1
+                    Stage = 1,
+                    isFirstTimeLoggedIn = true
                 };
 
                 var results = await _userMenager.CreateAsync(user, request.Password);

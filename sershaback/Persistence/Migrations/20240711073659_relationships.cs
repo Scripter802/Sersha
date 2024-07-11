@@ -52,7 +52,9 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Difficulty = table.Column<int>(nullable: false)
+                    Difficulty = table.Column<int>(nullable: false),
+                    QuizName = table.Column<string>(nullable: true),
+                    ConversationStarter = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -101,7 +103,7 @@ namespace Persistence.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     SenderId = table.Column<Guid>(nullable: false),
-                    Content = table.Column<string>(nullable: false),
+                    Content = table.Column<string>(nullable: true),
                     IsHead = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -167,7 +169,8 @@ namespace Persistence.Migrations
                     UserBirthDate = table.Column<DateTime>(nullable: false),
                     Type = table.Column<string>(nullable: true),
                     AvatarImageId = table.Column<Guid>(nullable: true),
-                    Stage = table.Column<int>(nullable: false)
+                    Stage = table.Column<int>(nullable: false),
+                    isFirstTimeLoggedIn = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -211,7 +214,7 @@ namespace Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Content = table.Column<string>(nullable: false),
+                    Content = table.Column<string>(nullable: true),
                     ChatMessageId = table.Column<Guid>(nullable: false),
                     NextMessageId = table.Column<Guid>(nullable: true)
                 },

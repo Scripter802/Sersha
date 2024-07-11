@@ -32,5 +32,8 @@ namespace Domain
 
         public ICollection<SershaItemsUserOwns> OwnedSershaItems { get; set; }
         public ICollection<SershaItemsUserSelected> SelectedSershaItems { get; set; }
+
+        public bool isFirstTimeLoggedIn { get; set; } = true; 
+
     }
 }

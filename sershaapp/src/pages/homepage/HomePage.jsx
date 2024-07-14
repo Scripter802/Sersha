@@ -46,6 +46,27 @@ const HomePage = () => {
 
 
 
+  // useEffect(() => {
+  //   const updateUserFirstTimeLogin = async () => {
+  //     if (user && user.isFirstTimeLoggedIn === true) {
+  //       setUser(prevUser => ({ ...prevUser, isFirstTimeLoggedIn: false }));
+
+  //       try {
+  //         await axios.put(`${baseUrl}/User/${user.email}`, { ...user, isFirstTimeLoggedIn: false }, {
+  //           headers: {
+  //             'Content-Type': 'application/json',
+  //           },
+  //         });
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     }
+  //   };
+
+  //   updateUserFirstTimeLogin();
+  // }, [user, setUser]);
+
+
   return (
     <div className='homePageWrapper'>
       {window.innerWidth < 1000 && <HeaderResponsive />}

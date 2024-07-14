@@ -10,6 +10,7 @@ import { useGlobalContext } from '../../context/context.jsx';
 import visible from '../../assets/images/login/visible.png';
 import './loginform.css';
 import Slideshow from '../SlideShow/SlideShow.jsx';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
   const {
@@ -31,6 +32,7 @@ const LoginForm = () => {
     setUser, // Use loginUser from context
   } = useGlobalContext();
 
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -93,6 +95,7 @@ const LoginForm = () => {
         console.log('Login successful:', data);
         loginUser(data.token); // Use loginUser function from context
         localStorage.setItem('userData', JSON.stringify(data));
+        setUser(data);
         setIsLoggedIn(true);
       } else if (logEmail === 'admin@admin.com' && logPassword === 'admin') {
         const adminData = {
@@ -111,8 +114,15 @@ const LoginForm = () => {
     }
   };
 
-  if (isLoggedIn) {
-    return <Slideshow />; // Render the slideshow component after login
+  if (isLoggedIn == true) {
+    console.log(`user login is logged in: ${user.isFirstTimeLoggedIn}`)
+    if (user && user.isFirstTimeLoggedIn == true) {
+      console.log(`user login is first time: ${user.isFirstTimeLoggedIn}`)
+      return (<Slideshow />)
+    }
+    else {
+      navigate('/');
+    }
   }
 
   return (

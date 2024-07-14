@@ -44,6 +44,8 @@ const Header = () => {
     }
   }, []);
 
+  console.log(user)
+
   return (
     <div className='headerWrapper'>
       <a className='logo' href='/' ><img src={logo} className='logoImg' alt="logo" /></a>
@@ -64,7 +66,7 @@ const Header = () => {
         <div className='profileWrapper'>
 
           <div className='profileInfo'>
-            <p>{user?.fullName}</p>
+            <p style={{ textAlign: "center" }}>{user?.fullName}</p>
             <p>Level {user?.level}</p>
           </div>
 

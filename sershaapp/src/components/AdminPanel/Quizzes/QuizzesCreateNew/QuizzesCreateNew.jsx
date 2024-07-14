@@ -9,6 +9,8 @@ const QuizzesCreateNew = () => {
   const { baseUrl, setQuizzesCreateNew } = useGlobalContext();
   const [currentQuestion, setCurrentQuestion] = useState({
     stage: '',
+    quizName: '',
+    conversationStarter: '',
     questions: [
       {
         type: '',
@@ -30,6 +32,8 @@ const QuizzesCreateNew = () => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('difficulty', dif);
+    formData.append('quizName', currentQuestion.quizName);
+    formData.append('conversationStarter', currentQuestion.conversationStarter);
 
     currentQuestion.questions.forEach((question, qIndex) => {
       let type = question.type === 'Right Answer' ? 0 : question.type === 'Correct/Incorrect' ? 1 : question.type === 'Fill in The Blank' ? 2 : 3;
@@ -166,6 +170,28 @@ const QuizzesCreateNew = () => {
           <option value="Medium">Medium Bundle</option>
           <option value="Hard">Hard Bundle</option>
         </select>
+      </div>
+
+      <div>
+        <label className='fieldLabel'>Quizz name:</label>
+        <input
+          className='inputField'
+          type="text"
+          value={currentQuestion.quizName}
+          placeholder='Quizz Name'
+          onChange={(e) => setCurrentQuestion({ ...currentQuestion, quizName: e.target.value })}
+        />
+      </div>
+
+      <div>
+        <label className='fieldLabel'>Conversation starter:</label>
+        <input
+          className='inputField'
+          type="textarea"
+          value={currentQuestion.conversationStarter}
+          placeholder='Conversation Starter'
+          onChange={(e) => setCurrentQuestion({ ...currentQuestion, conversationStarter: e.target.value })}
+        />
       </div>
 
       {currentQuestion.questions.map((question, qIndex) => (

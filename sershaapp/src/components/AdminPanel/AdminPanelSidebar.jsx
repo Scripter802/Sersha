@@ -107,6 +107,11 @@ function AdminPanelSidebar({ openSidebarToggle, OpenSidebar }) {
                         <span>🦊</span>  Clothing
                     </div>
                 </li>
+                <li className='sidebar-list-item'>
+                    <div onClick={() => { setActiveTab('Avatar'); OpenSidebar() }} style={{ backgroundColor: `${activeTab === "Avatar" ? "#C26F4D" : ""}` }}>
+                        <span>🦊</span>  Avatar
+                    </div>
+                </li>
             </ul>
         </aside>
     )

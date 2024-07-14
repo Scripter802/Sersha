@@ -54,7 +54,8 @@ const RegisterForm = () => {
 
     fetchAvatars();
   }, [baseUrl]);
-  console.log(avatars)
+  console.log(selectedAvatar)
+
   const handleAvatarSelect = (avatar) => {
     setSelectedAvatar(avatar);
     setShowAvatarModal(false);
@@ -100,7 +101,7 @@ const RegisterForm = () => {
       parentsFullName: registerNameOfParent,
       parentPhoneNumber: registerPhoneNumber,
       userBirthDate: formattedDateOfBirth,
-      avatarId: selectedAvatar.id,
+      avatarImage: selectedAvatar,
     };
 
     try {
@@ -338,7 +339,7 @@ const RegisterForm = () => {
               </div>
             </div>
 
-            <div className="avatarWrapper mb-3">
+            <div className="avatarWrapperReg mb-3">
               <label>
                 Avatar
                 <div className="avatar-selection" onClick={() => setShowAvatarModal(true)}>

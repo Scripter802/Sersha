@@ -30,6 +30,17 @@ const AppProvider = ({ children }) => {
   const [clothingEditingItem, setClothingEditingItem] = useState(null);
   const [allClothing, setAllClothing] = useState([]);
 
+  // AVATARS
+
+  const [avatarCreateNew, setAvatarCreateNew] = useState(false);
+  const [avatarNew, setAvatarNew] = useState({
+    image: null,
+    name: ''
+  });
+  const [isAvatarEdit, setIsAvatarEdit] = useState(false);
+  const [avatarEditing, setAvatarEditing] = useState(null);
+  const [allAvatars, setAllAvatars] = useState([]);
+
 
   // NEW MESSAGE
   const [newMessage, setNewMessage] = useState(0);
@@ -378,6 +389,18 @@ const AppProvider = ({ children }) => {
         setClothingEditingItem,
         allClothing,
         setAllClothing,
+
+        // AVATARS
+        avatarCreateNew,
+        setAvatarCreateNew,
+        avatarNew,
+        setAvatarNew,
+        isAvatarEdit,
+        setIsAvatarEdit,
+        avatarEditing,
+        setAvatarEditing,
+        allAvatars,
+        setAllAvatars,
 
         // POSTS 
         allPosts,

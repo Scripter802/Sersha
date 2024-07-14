@@ -20,7 +20,7 @@ const AdminPanel = () => {
 
   return (
     <div className='adminBackground'>
-      <div className={`${activeTab == 'Quizzes' || activeTab == 'Mini-Games' || activeTab == 'Clothing' ? 'grid-container-quizzes' : 'grid-container'}`}>
+      <div className={`grid-container`}>
         <Header OpenSidebar={OpenSidebar} />
         <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={OpenSidebar} />
         <Home />

@@ -25,6 +25,7 @@ namespace Application.User
             public string ParentsFullName{get; set;}
             public string ParentPhoneNumber{get; set;}
             public DateTime UserBirthDate{get; set;}
+            public Guid AvatarImageId { get; set; }
         
         }
 
@@ -74,9 +75,11 @@ namespace Application.User
                     ParentsFullName = request.ParentsFullName,
                     ParentPhoneNumber = request.ParentPhoneNumber,
                     UserBirthDate = request.UserBirthDate,
+                    AvatarImageId = request.AvatarImageId,
                     Type = "User"
 
                 };
+                user.AvatarImage = _context.AvatarImages.FirstOrDefault(x=> x.Id == user.AvatarImageId);
                 //handler logic 
                 var results = await _userMenager.CreateAsync(user, request.Password);
 

@@ -53,11 +53,19 @@ namespace Application.User
                 var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
                 if (result.Succeeded)
                 {
+                    var image = user.AvatarImage?.ImagePath ?? null;
                     return new User
                     {
                         FullName = user.FullName,
                         Token = _jwtGenerator.CreateToken(user),
-                        Image = null
+                        isFirstTimeLoggedIn = user.isFirstTimeLoggedIn,
+                        Image = image,
+                        Level = user.Level,
+                        CoinBalance = user.CoinBalance,
+                        Stage = user.Stage,
+                        UserBirthDate = user.UserBirthDate,
+                        Email = user.Email,
+
                     };
                 }
                 throw new RestException(HttpStatusCode.Unauthorized);

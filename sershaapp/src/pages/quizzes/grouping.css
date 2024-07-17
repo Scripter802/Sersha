@@ -22,6 +22,11 @@
     gap: 0.625rem;
 }
 
+.selected p {
+    background: rgb(255, 180, 150);
+    color: black;
+}
+
 .groupingWrapper {
     background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
     height: fit-content;
@@ -159,6 +164,7 @@
     background-color: #ffffff;
     border-radius: 20px 20px;
     padding: .75rem;
+    cursor: pointer;
 }
 
 .GroupingquizWrapper {

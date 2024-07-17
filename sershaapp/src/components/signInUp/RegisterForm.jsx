@@ -34,7 +34,7 @@ const RegisterForm = () => {
 
   const [errorMessage, setErrorMessage] = useState('');
   const [avatars, setAvatars] = useState([]);
-  const [selectedAvatar, setSelectedAvatar] = useState(null);
+  const [selectedAvatar, setSelectedAvatar] = useState('');
   const [showAvatarModal, setShowAvatarModal] = useState(false);
   const [parentNameError, setParentNameError] = useState();
   const [childNameError, setChildNameError] = useState();
@@ -57,7 +57,7 @@ const RegisterForm = () => {
   console.log(selectedAvatar)
 
   const handleAvatarSelect = (avatar) => {
-    setSelectedAvatar(avatar);
+    setSelectedAvatar(avatar.id);
     setShowAvatarModal(false);
   };
 

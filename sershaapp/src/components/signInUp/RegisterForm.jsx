@@ -101,7 +101,7 @@ const RegisterForm = () => {
       parentsFullName: registerNameOfParent,
       parentPhoneNumber: registerPhoneNumber,
       userBirthDate: formattedDateOfBirth,
-      avatarImage: selectedAvatar,
+      avatarImageId: selectedAvatar,
     };
 
     try {

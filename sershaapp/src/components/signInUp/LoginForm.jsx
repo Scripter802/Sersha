@@ -114,16 +114,21 @@ const LoginForm = () => {
     }
   };
 
-  if (isLoggedIn == true) {
-    console.log(`user login is logged in: ${user.isFirstTimeLoggedIn}`)
-    if (user && user.isFirstTimeLoggedIn == true) {
-      console.log(`user login is first time: ${user.isFirstTimeLoggedIn}`)
-      return (<Slideshow />)
+  useEffect(() => {
+
+    if (isLoggedIn == true) {
+      console.log(`user login is logged in: ${user.isFirstTimeLoggedIn}`)
+      if (user && user.isFirstTimeLoggedIn == true) {
+        console.log(`user login is first time: ${user.isFirstTimeLoggedIn}`)
+        return (<Slideshow />)
+      }
+      else {
+        navigate('/');
+      }
     }
-    else {
-      navigate('/');
-    }
-  }
+
+  }, [isLoggedIn])
+
 
   return (
     <>

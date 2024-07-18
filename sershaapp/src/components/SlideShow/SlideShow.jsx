@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react';
 import gifMergedLevelOne from '../../assets/images/slideshow/easyBundle/gifMergedLevelOne.gif';
 import './slideshow.css';
 import { useNavigate } from 'react-router-dom';
+import { useGlobalContext } from '../../context/context';
+import axios from 'axios';
 
 const Slideshow = () => {
   const navigate = useNavigate();
   const duration = 128.33 * 1000; // 128.33 seconds in milliseconds
   const [playBackgroundMusic, setPlayBackgroundMusic] = useState(false);
+  const { user } = useGlobalContext();
 
   useEffect(() => {
     const timer = setTimeout(() => {
+
       navigate('/');
     }, duration);
 

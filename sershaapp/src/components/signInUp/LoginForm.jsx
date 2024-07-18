@@ -11,6 +11,7 @@ import visible from '../../assets/images/login/visible.png';
 import './loginform.css';
 import Slideshow from '../SlideShow/SlideShow.jsx';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const LoginForm = () => {
   const {
@@ -35,6 +36,24 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const isFirstTimeLoggedInChange = async () => {
+    try {
+      const response = await axios.put(
+        `${baseUrl}/User/${user.email}`,
+        { isFirstTimeLoggedIn: false },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log('User updated:', response.data);
+    } catch (error) {
+      console.log('Error updating user:', error);
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -114,21 +133,19 @@ const LoginForm = () => {
     }
   };
 
-  useEffect(() => {
+  if (isLoggedIn == true) {
+    console.log(`user login is logged in: ${user.isFirstTimeLoggedIn}`)
+    if (user && user.isFirstTimeLoggedIn == true) {
+      console.log(`user login is first time: ${user.isFirstTimeLoggedIn}`)
 
-    if (isLoggedIn == true) {
-      console.log(`user login is logged in: ${user.isFirstTimeLoggedIn}`)
-      if (user && user.isFirstTimeLoggedIn == true) {
-        console.log(`user login is first time: ${user.isFirstTimeLoggedIn}`)
-        return (<Slideshow />)
-      }
-      else {
-        navigate('/');
-      }
+
+      isFirstTimeLoggedInChange();
+      return (<Slideshow />)
     }
-
-  }, [isLoggedIn])
-
+    else {
+      navigate('/');
+    }
+  }
 
   return (
     <>

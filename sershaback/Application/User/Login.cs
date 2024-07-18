@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -34,12 +35,14 @@ namespace Application.User
             private readonly SignInManager<AppUser> _signInManager;
             private readonly UserManager<AppUser> _userManager;
             private readonly IJwtGenerator _jwtGenerator;
+            private readonly DataContext _context;
 
-            public Handler(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IJwtGenerator jwtGenerator)
+            public Handler(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IJwtGenerator jwtGenerator, DataContext context)
             {
                 _jwtGenerator = jwtGenerator;
                 _signInManager = signInManager;
                 _userManager = userManager;
+                _context = context;
             }
 
             public async Task<User> Handle(Query request, CancellationToken cancellationToken)
@@ -53,7 +56,8 @@ namespace Application.User
                 var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
                 if (result.Succeeded)
                 {
-                    var image = user.AvatarImage?.ImagePath ?? null;
+                    
+                    var image = _context.AvatarImages.FirstOrDefault(x => x.Id == user.AvatarImageId)?.ImagePath ?? null;
                     return new User
                     {
                         FullName = user.FullName,

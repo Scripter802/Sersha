@@ -1,13 +1,24 @@
 .popup {
   position: fixed;
-  top: 0;
+  top: 90px;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 80vh;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-y: hidden;
+}
+
+.allQuestions {
+  text-align: left;
+  color: white;
+  overflow-y: hidden;
+}
+
+.questionNum {
+  color: white;
 }
 
 .popup-content {
@@ -17,6 +28,8 @@
   text-align: center;
   width: 90%;
   max-width: 500px;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .popup-content h2 {

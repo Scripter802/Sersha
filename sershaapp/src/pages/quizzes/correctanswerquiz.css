@@ -73,7 +73,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #000000;
+    color: #fff;
     height: 80px;
     width: 210px;
     gap: 0.315rem;
@@ -81,6 +81,11 @@
     border-radius: 20px 20px;
     padding: .75rem;
     cursor: pointer;
+}
+
+.correctOfferedAnswers:hover {
+    background: #FFB496;
+    color: #000;
 }
 
 .correctAnswerSelectedWrapper {

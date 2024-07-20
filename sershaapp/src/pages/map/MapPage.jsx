@@ -43,7 +43,7 @@ import {
   group28,
   repeatPart,
   repeatPart1,
-  repeatPart2,
+  repeatPartTwo,
   repeatPart3,
   repeatPart4,
   repeatPart5,
@@ -59,12 +59,13 @@ import {
   topRightZone3,
 } from '../../assets/images/map/mapItems/index.js';
 import mergedMapCenter from "../../assets/images/map/mergedMap.png"
+// import centerOne from "../../assets/images/map/mapItems/repeatpartTwo.png"
 import lockGame from "../../assets/images/map/mapItems/lockLevel.png"
 import completedGame from "../../assets/images/map/mapItems/completedLevel.png"
 
 const mapsData = [
   { id: 1, item: mergedMapCenter, position: { left: '220%', top: '50%' } },
-  { id: 1, item: mergedMapCenter, position: { left: '781.3%', top: '50%' } },
+  { id: 1, item: repeatPartTwo, position: { left: '540.75%', top: '50%' } },
   { id: 2, item: group18Two, position: { left: '0%', top: '85%' } },
   { id: 3, item: group5, position: { left: '38%', top: '37%' } },
   { id: 4, item: group8, position: { left: '58%', top: '83%' } },

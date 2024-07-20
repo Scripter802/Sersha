@@ -5,12 +5,14 @@
   background-color: #A2302400;
   /* Adjust based on your requirement */
   overflow-y: hidden;
+  width: 100%;
 }
 
 .map-background {
   position: absolute;
   height: 100%;
   object-fit: cover;
+  overflow-x: hidden;
 }
 
 .map-item {

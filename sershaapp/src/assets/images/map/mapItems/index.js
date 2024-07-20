@@ -39,7 +39,7 @@ import group27 from "./Group127.png"
 import group28 from "./Group971.png"
 import repeatPart from "./repeatpart.png"
 import repeatPart1 from "./repeatpart1.png"
-import repeatPart2 from "./repeatpart2.png"
+import repeatPartTwo from "./repeatpartTwo.png"
 import repeatPart3 from "./repeatpart3.png"
 import repeatPart4 from "./repeatpart4.png"
 import repeatPart5 from "./repeatpart5.png"
@@ -96,7 +96,7 @@ export {
   group28,
   repeatPart,
   repeatPart1,
-  repeatPart2,
+  repeatPartTwo,
   repeatPart3,
   repeatPart4,
   repeatPart5,

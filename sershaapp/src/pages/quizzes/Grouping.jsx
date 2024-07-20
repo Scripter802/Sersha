@@ -18,6 +18,8 @@ const Grouping = ({ currentQ }) => {
   const [droppedTwo, setDroppedTwo] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [optionAnswer, setOptionAnswer] = useState([]);
+  const [feedback, setFeedback] = useState(null);
+  const [showNextButton, setShowNextButton] = useState(false);
 
   useEffect(() => {
     setDroppedOne(new Array(currentQ.groups[0].groupingItems.length).fill(null));
@@ -50,17 +52,14 @@ const Grouping = ({ currentQ }) => {
         setDroppedTwo(newDroppedTwo);
       }
 
-      // Add the old answer back to optionAnswer if it exists
       if (oldAnswer) {
         setOptionAnswer(prevOptionAnswer => [...prevOptionAnswer, oldAnswer]);
       }
 
-      // Remove the placed answer from optionAnswer
       setOptionAnswer(prevOptionAnswer => prevOptionAnswer.filter(answer => answer !== selectedAnswer));
 
-      setSelectedAnswer(null); // Clear the selected answer
+      setSelectedAnswer(null);
     } else {
-      // If the clicked item is already placed, remove it and add back to optionAnswer
       if (group === 'one' && droppedOne[index]) {
         const itemToRemove = droppedOne[index];
         const newDroppedOne = [...droppedOne];
@@ -83,7 +82,7 @@ const Grouping = ({ currentQ }) => {
     setShowPopup(true);
   }
 
-  const handleDone = () => {
+  const handleCheck = () => {
     if (currentQ?.groups && currentQuizz.questions.length - 1 === currentQuestion) {
       setShowPopup(true);
     }
@@ -95,20 +94,29 @@ const Grouping = ({ currentQ }) => {
 
     if (res) {
       setCorrectAnswers(prev => prev + 1);
+      setFeedback({ type: 'correct', message: 'Correct Answer!' });
     } else {
       setWrongAnswers(prev => prev + 1);
       setHeartsNum(prev => prev - 1);
+      setFeedback({ type: 'wrong', message: 'Wrong Answer!' });
     }
 
-    setCurrentQuestion(prev => prev + 1);
+    setShowNextButton(true); Z
   };
+
+  const handleNext = () => {
+    setSelectedAnswer(null);
+    setFeedback(null);
+    setShowNextButton(false);
+    setCurrentQuestion(prev => prev + 1);
+  }
 
   return (
     <div className='GroupingQuizWrapper'>
       <div className='GroupingQuizTitleWrapper'>
         <div className='GroupingQuizTitle'>
           <div>
-            <img src={close} alt="" />
+            <img src={close} alt="Close" />
             <h1>The battle has begun</h1>
           </div>
           <div className='healthResponsive'>
@@ -117,7 +125,7 @@ const Grouping = ({ currentQ }) => {
         </div>
         <div className='rightObenWrapper'>
           <div className='inventory'>
-            <img src={inventory} alt="" />
+            <img src={inventory} alt="Inventory" />
           </div>
           <div className='hearts'>
             {[...Array(3)].map((_, i) => (
@@ -128,7 +136,7 @@ const Grouping = ({ currentQ }) => {
           </div>
           <div className='sershaLogo'>
             <p>Sersha</p>
-            <img src={sershafox} alt="" />
+            <img src={sershafox} alt="Sersha" />
           </div>
         </div>
       </div>
@@ -139,7 +147,7 @@ const Grouping = ({ currentQ }) => {
             <HealthBar />
           </div>
           <div className='evilFox'>
-            <img src={evilfox} alt="" />
+            <img src={evilfox} alt="Evil Fox" />
           </div>
         </div>
 
@@ -190,19 +198,23 @@ const Grouping = ({ currentQ }) => {
           </div>
 
           {(droppedOne.includes(null) || droppedTwo.includes(null)) || (
-            <div className='groupingFinished' onClick={handleDone}>
-              <img src={done} alt="done" />
-              Check
+            <div className='groupingFinished' onClick={showNextButton ? handleNext : handleCheck}>
+              {showNextButton ? 'Next' : 'Check'}
+            </div>
+          )}
+          {feedback && (
+            <div className={`feedback ${feedback.type}`}>
+              <p>{feedback.message}</p>
             </div>
           )}
         </div>
-      </div>
+      </div >
 
       <div className='footer'>
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
-    </div>
+    </div >
   );
 };
 

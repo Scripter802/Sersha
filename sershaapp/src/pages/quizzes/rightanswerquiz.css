@@ -156,6 +156,37 @@
     gap: 1rem;
 }
 
+.feedback {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.feedback.correct {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.feedback.wrong {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.doneButtonWrapper button {
+    padding: 10px 20px;
+    background-color: rgb(194, 111, 77);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.doneButtonWrapper button:hover {
+    background-color: #0056b3;
+}
+
 @media only screen and (max-width: 780px) {
     .rightAnswerQuizWrapper {
         border-radius: 0;

@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  const { newMessage, setNewMessage, user, setUser } = useGlobalContext();
+  const { newMessage, setNewMessage, user, setUser, baseUrlImage } = useGlobalContext();
   const path = window.location.pathname
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
@@ -72,7 +72,7 @@ const Header = () => {
 
           <div className='avatarWrapper' onClick={toggleDropdown}>
             <img src={level} alt="level" className='avatar' />
-            <img src={avatar} alt="avatar" className='avatar' />
+            <img src={user?.image ? `${baseUrlImage}${user.image}` : avatar} alt="avatar" className='avatar' />
             {dropdownVisible && (
               <div className='dropdownMenu'>
                 <button onClick={handleSettings}>Settings</button>

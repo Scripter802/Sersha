@@ -1,25 +1,39 @@
-import { heart } from '../../assets/images/customization/items/index'
-import avatar from '../../assets/images/navbar/userpick.png'
-import { useEffect, useState } from 'react'
-import close from '../../assets/images/quiz/close.png'
-import inventory from '../../assets/images/quiz/inventory.png'
-import { CiHeart } from 'react-icons/ci'
-import { FaHeart } from "react-icons/fa";
-import sershafox from '../../assets/images/quiz/sershafox.png'
-import evilfox from '../../assets/images/attact/evilfox.png'
-import dropPlace from '../../assets/images/quiz/dropPlace.png'
-import done from '../../assets/images/quiz/done.png'
-import './fillintheblank.css'
-import HealthBar from '../../components/HealthBar'
-import { useGlobalContext } from '../../context/context'
+import { useEffect, useState } from 'react';
+import { useGlobalContext } from '../../context/context';
+import HealthBar from '../../components/HealthBar';
+import './fillintheblank.css';
+import { FaHeart } from 'react-icons/fa';
+import { CiHeart } from 'react-icons/ci';
+import close from '../../assets/images/quiz/close.png';
+import inventory from '../../assets/images/quiz/inventory.png';
+import sershafox from '../../assets/images/quiz/sershafox.png';
+import evilfox from '../../assets/images/attact/evilfox.png';
+import dropPlace from '../../assets/images/quiz/dropPlace.png';
+import done from '../../assets/images/quiz/done.png';
+import tictac from '../../assets/images/quiz/saybubble.png';
+import { heart } from '../../assets/images/customization/items/index';
 
 const FillInTheBlank = ({ currentQ }) => {
-  const { setShowPopup, currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers, wrongAnswers, setWrongAnswers } = useGlobalContext();
+  const {
+    setShowPopup,
+    currentQuestion,
+    currentQuizz,
+    setCurrentQuestion,
+    heartsNum,
+    setHeartsNum,
+    correctAnswers,
+    setCorrectAnswers,
+    wrongAnswers,
+    setWrongAnswers
+  } = useGlobalContext();
+
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [dropped, setDropped] = useState(null);
   const [corAns, setCorAns] = useState('');
   const [answers, setAnswers] = useState([]);
   const [showCheckButton, setShowCheckButton] = useState(false);
+  const [feedback, setFeedback] = useState(null); // For storing feedback
+  const [showNextButton, setShowNextButton] = useState(false); // To toggle "Next" button
 
   useEffect(() => {
     const correctAnswer = currentQ.answers.find(q => q.isCorrect);
@@ -39,10 +53,8 @@ const FillInTheBlank = ({ currentQ }) => {
       setDropped(selectedAnswer);
       setShowCheckButton(true);
 
-      // Remove selected answer from the options
       const newAnswers = answers.filter(answer => answer.text !== selectedAnswer);
 
-      // Add old answer back to the options if it exists
       if (oldAnswer) {
         newAnswers.push({ text: oldAnswer, isCorrect: oldAnswer === corAns });
       }
@@ -69,18 +81,26 @@ const FillInTheBlank = ({ currentQ }) => {
   const handleCheckAnswer = () => {
     if (dropped === corAns) {
       setCorrectAnswers(prev => prev + 1);
+      setFeedback({ type: 'correct', message: 'Correct Answer!' });
     } else {
       setWrongAnswers(prev => prev + 1);
       setHeartsNum(prev => prev - 1);
+      setFeedback({ type: 'wrong', message: 'Wrong Answer!' });
     }
 
+    setShowNextButton(true);
     setShowCheckButton(false);
+  };
 
+  const handleNext = () => {
     if (currentQuizz.questions.length - 1 === currentQuestion) {
       setShowPopup(true);
     } else {
-      setCurrentQuestion(prev => prev + 1);
+      setSelectedAnswer(null);
       setDropped(null);
+      setCurrentQuestion(prev => prev + 1);
+      setFeedback(null); // Reset feedback
+      setShowNextButton(false);
     }
   };
 
@@ -89,7 +109,7 @@ const FillInTheBlank = ({ currentQ }) => {
       <div className='fillBlankQuizTitleWrapper'>
         <div className='fillBlankQuizTitle'>
           <div>
-            <img src={close} alt="" />
+            <img src={close} alt='' />
             <h1>The battle has begun</h1>
           </div>
           <div className='healthResponsive'>
@@ -98,7 +118,7 @@ const FillInTheBlank = ({ currentQ }) => {
         </div>
         <div className='rightObenWrapper'>
           <div className='inventory'>
-            <img src={inventory} alt="" />
+            <img src={inventory} alt='' />
           </div>
           <div className='hearts'>
             {[...Array(3)].map((_, i) => (
@@ -109,7 +129,7 @@ const FillInTheBlank = ({ currentQ }) => {
           </div>
           <div className='sershaLogo'>
             <p>Sersha</p>
-            <img src={sershafox} alt="" />
+            <img src={sershafox} alt='' />
           </div>
         </div>
       </div>
@@ -119,9 +139,9 @@ const FillInTheBlank = ({ currentQ }) => {
             <HealthBar />
           </div>
           <div className='evilFox'>
-            <img src={evilfox} alt="" />
+            <img src={evilfox} alt='' />
             <div className='tictac'>
-              <p>TikTac</p>
+              <img src={tictac} alt='Tictac' />
             </div>
           </div>
         </div>
@@ -141,7 +161,6 @@ const FillInTheBlank = ({ currentQ }) => {
             </div>
             {currentQ.statement2}
           </div>
-
           <h5>Answer options</h5>
           <div className='fillInBlankAnswerWrapper'>
             {answers.map((item, index) => (
@@ -156,18 +175,30 @@ const FillInTheBlank = ({ currentQ }) => {
           </div>
           {showCheckButton && (
             <div className='groupingFinished' onClick={handleCheckAnswer}>
-              <img src={done} alt="done" />
+              <img src={done} alt='done' />
               Check
+            </div>
+          )}
+          {showNextButton && (
+            <div className='groupingFinished' onClick={handleNext}>
+              Next
+            </div>
+          )}
+          {feedback && (
+            <div className={`feedback ${feedback.type}`}>
+              <p>{feedback.message}</p>
             </div>
           )}
         </div>
       </div>
       <div className='footer'>
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
-        <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
+        <small className='madeWith'>
+          Made with <img src={heart} alt='heart' />
+        </small>
       </div>
     </div>
   );
-}
+};
 
 export default FillInTheBlank;

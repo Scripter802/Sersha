@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 
 const HeaderResponsive = () => {
 
-  const { newMessage, setNewMessage, user, setUser } = useGlobalContext();
+  const { newMessage, setNewMessage, user, setUser, baseUrlImage } = useGlobalContext();
   const path = window.location.pathname
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const HeaderResponsive = () => {
 
           <div className='responsiveAvatarWrapper'>
             <img src={level} alt="level" className='responsiveLevel' />
-            <img src={avatar} alt="avatar" className='responsiveAvatar' />
+            <img src={user?.image ? `${baseUrlImage}${user.image}` : avatar} alt="avatar" className='responsiveAvatar' />
           </div>
 
           <div className='responsiveProfileInfo'>

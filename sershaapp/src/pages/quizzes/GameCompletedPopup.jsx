@@ -21,6 +21,8 @@ const GameCompletedPopup = ({ correctAnswers, mistakes, onRestart, onClaimPrize,
     return rewardItems[randomIndex];
   };
 
+  console.log(currentQuizz)
+
   useEffect(() => {
     let prizeCount = 0;
     if (correctAnswers === 10) prizeCount = 4;
@@ -73,6 +75,75 @@ const GameCompletedPopup = ({ correctAnswers, mistakes, onRestart, onClaimPrize,
             </div>
           ))}
         </div>
+        <div className='allQuestions'>
+          {isQuizz && currentQuizz?.questions?.map((item, index) => {
+            if (item.type === 0) {
+              return (
+                <div key={index}>
+
+                  <p className='questionNum'>Question {index + 1}:</p>
+                  <p> {item.text}</p>
+                  Correct Answer:
+                  {item.answers.map((ans, i) => (
+                    ans.isCorrect && <p key={i}> {ans.text}</p>
+                  ))}
+                  <hr
+                    style={{ borderTop: "1px dotted lightgrey", marginBlock: '1rem' }}
+                  ></hr>
+                </div>
+              );
+            } else if (item.type === 1) {
+              return (
+                <div key={index}>
+
+                  <p className='questionNum'>Question {index + 1}:</p>
+                  <p>{item.text}</p>
+                  Correct Answer:
+                  <p> {item.isCorrect ? "True" : "False"}</p>
+                  <hr
+                    style={{ borderTop: "1px dotted lightgrey", marginBlock: '1rem' }}
+                  ></hr>
+                </div>
+              );
+            } else if (item.type === 2) {
+              return (
+                <div key={index}>
+                  <p className='questionNum'>Question {index + 1}:</p>
+                  <p>{item.statement1} ____ {item.statement2}</p>
+                  Correct Answer:
+                  {item.answers.map((ans, i) => (
+                    ans.isCorrect && <p key={i}> {ans.text}</p>
+                  ))}
+                  <hr
+                    style={{ borderTop: "1px dotted lightgrey", marginBlock: '1rem' }}
+                  ></hr>
+                </div>
+              );
+            } else if (item.type === 3) {
+              return (
+                <div key={index}>
+                  <p className='questionNum'>Question {index + 1}:</p>
+                  {item.groups.map((group, ig) => (
+                    <div key={ig}>
+                      <p> {group.name}:</p>
+                      Correct Answer:
+                      {group.groupingItems.map((groupItem, i) => (
+                        <p key={i}> {groupItem.item}</p>
+                      ))}
+
+                      <hr
+                        style={{ borderTop: "1px dotted lightgrey", marginBlock: '1rem' }}
+                      ></hr>
+                    </div>
+                  ))}
+                </div>
+              );
+            } else {
+              return null;
+            }
+          })}
+        </div>
+
         <div className="results">
           <span className="correct"><img src={done} alt="Correct" />{correctAnswers} correct</span>
           <span className="mistakes" style={{ marginLeft: '.5rem' }}><img src={incorrect} alt="Incorrect" />{mistakes} mistake{mistakes !== 1 && 's'}</span>

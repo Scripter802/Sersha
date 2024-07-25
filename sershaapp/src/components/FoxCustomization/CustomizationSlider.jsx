@@ -31,8 +31,32 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
     }
   };
 
-  const settings = {
-    container: '.myslider',
+  const settings1 = {
+    container: '.singleImg',
+    lazyload: true,
+    nav: false,
+    mouseDrag: true,
+    controls: false,
+    touch: true,
+    items: 5,
+    slideBy: 1,
+    loop: false,
+    onIndexChanged: (info) => setSliderIndex(info.index),
+    responsive: {
+      0: {
+        items: 3,
+      },
+      // "700": {
+      //   "items": 2,
+      // },
+      1000: {
+        items: 5,
+      }
+    }
+  };
+
+  const settings2 = {
+    container: '.singleImg1',
     lazyload: true,
     nav: false,
     mouseDrag: true,
@@ -119,11 +143,18 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
         </div>
       </div>
       {/* <div className="tinySlidWrapper"> */}
-      {(isTopPart || isBottomPart) && (
-        <TinySlider settings={settings} className="singleImg" id="singleImg" ref={sliderRef}>
+      {isTopPart ? (
+        <TinySlider settings={settings1} className="singleImg" id="singleImg" ref={sliderRef}>
           {renderItems()}
         </TinySlider>
-      )}
+      ) :
+        isBottomPart && (
+          <TinySlider settings={settings2} className="singleImg1" id="singleImg" ref={sliderDownRef}>
+            {renderItems()}
+          </TinySlider>
+        )}
+
+
       {/* </div> */}
     </>
   );

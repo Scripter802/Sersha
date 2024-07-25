@@ -20,12 +20,17 @@ namespace Application.Quizzes
         {
             public Difficulty Difficulty { get; set; }
             public List<QuestionDto> Questions { get; set; } = new List<QuestionDto>();
+            public string QuizName { get; set; }
+            public string ConversationStarter { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
         {
             public CommandValidator()
             {
+                /*RuleFor(x => x.QuizName).NotEmpty().WithMessage("Quiz name is required.");
+                RuleFor(x => x.ConversationStarter).NotEmpty().WithMessage("Conversation starter is required.");*/
+       
                 RuleFor(x => x.Difficulty).IsInEnum();
                 RuleForEach(x => x.Questions).ChildRules(question =>
                 {
@@ -66,7 +71,10 @@ namespace Application.Quizzes
                 {
                     Id = Guid.NewGuid(),
                     Difficulty = request.Difficulty,
-                    Questions = new List<Question>()
+                    Questions = new List<Question>(),
+                    QuizName = request.QuizName,
+                    ConversationStarter = request.ConversationStarter
+
                 };
 
                 foreach (var questionDto in request.Questions)

@@ -1,0 +1,87 @@
+.clothing-page {
+    margin: 20px auto;
+    width: 80%;
+    color: #ffffff;
+    background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+    opacity: 0.9;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.create-new-item-btn {
+    display: block;
+    padding: 10px 20px;
+    background-color: #444648;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.create-new-item-btn:hover {
+    background-color: #C26F4D;
+}
+
+.clothing-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.clothing-table th,
+.clothing-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    color: #FFB496;
+}
+
+.clothing-table th {
+    font-weight: bold;
+}
+
+.clothing-table tbody tr:hover {
+    background-color: #d96f4630;
+}
+
+.clothing-image {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.settingsData {
+    width: 1%;
+    white-space: nowrap;
+}
+
+.edit-btn,
+.delete-btn {
+    margin-right: 5px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.edit-btn {
+    background-color: #444648;
+    color: #fff;
+}
+
+.delete-btn {
+    background-color: #444648;
+    color: #fff;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+    background-color: #C26F4D;
+}
+
+@media (max-width: 1000px) {
+    .clothing-page {
+        width: 100%;
+    }
+}

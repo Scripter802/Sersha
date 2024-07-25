@@ -27,7 +27,7 @@ const getRandomItems = (array, numItems) => {
 const SnapJudgment = () => {
   const {
     baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged,
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
   let totalAnswered = correctAnsweredMiniGames + incorrectAnsweredMiniGames;
@@ -35,7 +35,6 @@ const SnapJudgment = () => {
   const [currentSnap, setCurrentSnap] = useState([]);
   const [snapNumber, setSnapNumber] = useState(0);
   const [isGameCompleted, setIsGameCompleted] = useState(false);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -71,30 +70,32 @@ const SnapJudgment = () => {
   useEffect(() => {
     if (seconds === 0) {
       clearInterval(intervalIdRef.current);
+      setIsGameCompleted(true);
     }
   }, [seconds]);
-
-  let corInc = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   const handleAnswerClick = (selectedAnswer) => {
     const correctAnswerr = currentSnap[snapNumber]?.answers.find(ans => ans.isCorrect).text;
     console.log(correctAnswerr, selectedAnswer)
-    if (selectedAnswer == correctAnswerr) {
+    if (selectedAnswer === correctAnswerr) {
       setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
-      corInc[snapNumber] = 'true';
+      setCorInc(prevCorInc => prevCorInc.map((item, index) => index === snapNumber ? true : item));
+      handleFoxDamaged();
     } else {
       setIncorrectAnsweredMiniGames(incorrectAnsweredMiniGames + 1);
-      corInc[snapNumber] = 'false';
+      setCorInc(prevCorInc => prevCorInc.map((item, index) => index === snapNumber ? false : item));
     }
+    console.log(corInc, snapNumber)
 
     if (snapNumber < currentSnap.length - 1) {
       setSnapNumber(snapNumber + 1);
       setSeconds(25); // Reset the timer for the next question
     } else {
       setIsGameCompleted(true); // Show the popup when the game is completed
+      clearInterval(intervalIdRef.current);
     }
   };
-  console.log(corInc[snapNumber], corInc)
+
   const handleRestart = () => {
     setCorrectAnsweredMiniGames(0);
     setIncorrectAnsweredMiniGames(0);
@@ -103,7 +104,8 @@ const SnapJudgment = () => {
     setSeconds(25);
     const randomSnaps = getRandomItems(allSnap, 10);
     setCurrentSnap(randomSnaps);
-
+    setCorInc([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    setRoughFoxDamaged('');
   };
 
   const handleClaimPrize = () => {
@@ -111,6 +113,8 @@ const SnapJudgment = () => {
     setIsGameCompleted(false);
     navigate('/');
   };
+
+
 
   return (
     <div className='snapJudgmentGameWrapper'>
@@ -121,6 +125,7 @@ const SnapJudgment = () => {
           onRestart={handleRestart}
           onClaimPrize={handleClaimPrize}
           title={`Game`}
+          isQuizz={false}
         />
       )}
 
@@ -145,17 +150,15 @@ const SnapJudgment = () => {
           </div>
         ) : (
           <div className='snapAnswersNumber'>
-            {corInc.map((c, i) => (
-              <div>{typeof c == 'number' ? c : c == true ? <img src={correctAnswer} /> : <img src={incorrectAnswer} />}</div>
+            {corInc?.map((c, i) => (
+              <div key={i}>{typeof c === 'number' ? c : c === true ? <img src={correctAnswer} alt="correct" /> : <img src={incorrectAnswer} alt="incorrect" />}</div>
             ))}
           </div>
-        )
-        }
+        )}
       </div>
 
       <div className='snapGameWrapper'>
         <div className='snapGameContainer'>
-
           <div className='snapLeftSideContent'>
             <div className='gameResult'>
               <div className='correctAnswered'><img src={correctAnswer} alt="correctAnswer" />{`${correctAnsweredMiniGames}`} <span>correct</span> </div>
@@ -171,9 +174,9 @@ const SnapJudgment = () => {
               <p className='snapPostText'>{currentSnap[snapNumber]?.content}</p>
             </div>
             <div className='snapOptionAnswers'>
-              <img src={unlike} alt="unlike" onClick={() => handleAnswerClick('Unlike')} />
-              <img className='neutralAnswer' src={neutral} alt="Neutral" onClick={() => handleAnswerClick('neutral')} />
-              <img src={like} alt="like" onClick={() => handleAnswerClick('Like')} />
+              <img className='unlike' src={unlike} alt="unlike" onClick={() => handleAnswerClick('Unlike')} />
+              <img className='neutralAnswer' src={neutral} alt="Neutral" onClick={() => handleAnswerClick('Neutral')} />
+              <img className='like' src={like} alt="like" onClick={() => handleAnswerClick('Like')} />
             </div>
           </div>
 
@@ -184,7 +187,13 @@ const SnapJudgment = () => {
           )}
 
           <div className='snapRightSideContent'>
-            <div className='foxWrap'><p className='foxTextTought'>You’re awesome!</p><img className='foxTought' src={foxTought} alt="foxtought" /><img className='foxUserPick' src={foxuserpick} alt="foxuserpick" /></div>
+            <div className='foxWrap'>
+              {roughFoxDamaged && <> <p className='foxTextTought'>
+                {roughFoxDamaged}
+              </p>
+                <img className='foxTought' src={foxTought} alt="foxtought" /></>}
+              <img className='foxUserPick' src={foxuserpick} alt="foxuserpick" />
+            </div>
             <div className='gameTimerWrapper'>
               <div className='gameTimeCirkle'></div>
               <p className='gamePad'>{seconds}</p>
@@ -198,7 +207,6 @@ const SnapJudgment = () => {
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
-
 
       <audio loop autoPlay>
         <source src="/music/Music/RogueFoxFight310520241104.mp3" type="audio/mpeg" />

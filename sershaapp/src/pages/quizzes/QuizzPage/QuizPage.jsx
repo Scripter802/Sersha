@@ -85,6 +85,8 @@ const QuizPage = () => {
           heartsNum={heartsNum}
           onPlayGame={handlePlayGame}
           title={`Quizz`}
+          isQuizz={true}
+          currentQuizz={currentQuizz}
         />
       )}
 

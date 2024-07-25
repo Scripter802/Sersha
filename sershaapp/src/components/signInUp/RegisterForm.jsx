@@ -11,6 +11,7 @@ import './registerForm.css';
 const RegisterForm = () => {
   const {
     baseUrl,
+    baseUrlImage,
     registerNameOfParent,
     setRegisterNameOfParent,
     registerNameOfChild,
@@ -33,8 +34,13 @@ const RegisterForm = () => {
 
   const [errorMessage, setErrorMessage] = useState('');
   const [avatars, setAvatars] = useState([]);
-  const [selectedAvatar, setSelectedAvatar] = useState(null);
+  const [selectedAvatar, setSelectedAvatar] = useState('');
   const [showAvatarModal, setShowAvatarModal] = useState(false);
+  const [parentNameError, setParentNameError] = useState();
+  const [childNameError, setChildNameError] = useState();
+  const [ageError, setAgeError] = useState();
+  const [phoneNumberError, setPhoneNumberError] = useState();
+  const [emailError, setEmailError] = useState();
 
   useEffect(() => {
     const fetchAvatars = async () => {
@@ -48,9 +54,10 @@ const RegisterForm = () => {
 
     fetchAvatars();
   }, [baseUrl]);
+  console.log(selectedAvatar)
 
   const handleAvatarSelect = (avatar) => {
-    setSelectedAvatar(avatar);
+    setSelectedAvatar(avatar.id);
     setShowAvatarModal(false);
   };
 
@@ -75,7 +82,7 @@ const RegisterForm = () => {
     console.log(passwordRegex, registerPassword)
 
     if (!passwordRegex.test(registerPassword)) {
-      setErrorMessage('Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.');
+      setErrorMessage('Password must contain minimum 8 letters: 1 uppercase letter 1 lowercase letter, 1 number, and 1 special character.');
       return;
     }
 
@@ -94,7 +101,7 @@ const RegisterForm = () => {
       parentsFullName: registerNameOfParent,
       parentPhoneNumber: registerPhoneNumber,
       userBirthDate: formattedDateOfBirth,
-      avatarImage: selectedAvatar,
+      avatarImageId: selectedAvatar,
     };
 
     try {
@@ -120,6 +127,62 @@ const RegisterForm = () => {
       setErrorMessage(error.message || 'An error occurred');
     }
   };
+
+
+  //  ERROR HANDLE //
+
+  const parentNameHandle = (e) => {
+    let parName = e;
+    if (parName.length < 2) {
+      setParentNameError('Name must have at least 2 letters!')
+    } else {
+      setParentNameError('')
+    }
+    setRegisterNameOfParent(e);
+  }
+
+  const childNameHandle = (e) => {
+    let childName = e;
+    if (childName.length < 2) {
+      setChildNameError('Name must have at least 2 letters!')
+    } else {
+      setChildNameError('')
+    }
+    setRegisterNameOfChild(e);
+  }
+
+  const dateHandle = (dateString) => {
+    const dateNum = new Date(dateString);
+    if (isNaN(dateNum.getTime())) {
+      setAgeError('Date is not valid! Please enter a valid date.');
+    } else {
+      setAgeError('');
+    }
+    setRegisterDateOfBirth(dateString);
+  };
+
+  const phoneHandle = (e) => {
+    let reg = /^\+?([0-9]{10,15})$/;
+    let phoneNum = e;
+    if (!phoneNum.match(reg)) {
+      setPhoneNumberError('Phone number is not valid!')
+    } else {
+      setPhoneNumberError('')
+    }
+    setRegisterPhoneNumber(e);
+  }
+
+  const emailHandle = (e) => {
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+    let emailCurr = e;
+    if (reg.test(emailCurr) == false) {
+      setEmailError('Email is not valid! Please enter your email!')
+    } else {
+      setEmailError('')
+    }
+    setRegisterEmail(e);
+  }
+  // ERROR HANDLE END //
 
   return (
     <>
@@ -151,10 +214,10 @@ const RegisterForm = () => {
                     name="parentName"
                     value={registerNameOfParent}
                     placeholder="Name of parent"
-                    onChange={(e) => setRegisterNameOfParent(e.target.value)}
+                    onChange={(e) => parentNameHandle(e.target.value)}
                   />
                 </label>
-                <div className={`invalid-feedback text-start`}></div>
+                <div className={`invalid-feedback text-start`}>{parentNameError}</div>
               </div>
 
               <div className="childName mb-3">
@@ -167,10 +230,10 @@ const RegisterForm = () => {
                     name="childName"
                     value={registerNameOfChild}
                     placeholder="Name of child"
-                    onChange={(e) => setRegisterNameOfChild(e.target.value)}
+                    onChange={(e) => childNameHandle(e.target.value)}
                   />
                 </label>
-                <div className={`invalid-feedback text-start`}></div>
+                <div className={`invalid-feedback text-start`}>{childNameError}</div>
               </div>
             </div>
 
@@ -185,10 +248,10 @@ const RegisterForm = () => {
                     name="childAge"
                     value={registerDateOfBirth}
                     placeholder="Age of child"
-                    onChange={(e) => setRegisterDateOfBirth(e.target.value)}
+                    onChange={(e) => dateHandle(e.target.value)}
                   />
                 </label>
-                <div className={`invalid-feedback text-start`}></div>
+                <div className={`invalid-feedback text-start`}>{ageError}</div>
               </div>
 
               <div className="phone mb-3">
@@ -201,10 +264,10 @@ const RegisterForm = () => {
                     name="phone"
                     value={registerPhoneNumber}
                     placeholder="Phone number"
-                    onChange={(e) => setRegisterPhoneNumber(e.target.value)}
+                    onChange={(e) => phoneHandle(e.target.value)}
                   />
                 </label>
-                <div className={`invalid-feedback text-start`}></div>
+                <div className={`invalid-feedback text-start`}>{phoneNumberError}</div>
               </div>
             </div>
 
@@ -218,10 +281,10 @@ const RegisterForm = () => {
                   name="email"
                   value={registerEmail}
                   placeholder="Email"
-                  onChange={(e) => setRegisterEmail(e.target.value)}
+                  onChange={(e) => emailHandle(e.target.value)}
                 />
               </label>
-              <div className={`invalid-feedback text-start`}></div>
+              <div className={`invalid-feedback text-start`}>{emailError}</div>
             </div>
 
             <div className='passwordWrapper'>
@@ -276,12 +339,12 @@ const RegisterForm = () => {
               </div>
             </div>
 
-            <div className="avatarWrapper mb-3">
+            <div className="avatarWrapperReg mb-3">
               <label>
                 Avatar
                 <div className="avatar-selection" onClick={() => setShowAvatarModal(true)}>
                   {selectedAvatar ? (
-                    <img src={selectedAvatar.imagePath} alt="Selected Avatar" />
+                    <img src={`${baseUrlImage}${selectedAvatar.imagePath}`} alt="Selected Avatar" />
                   ) : (
                     <p>Choose Avatar</p>
                   )}

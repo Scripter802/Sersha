@@ -41,11 +41,11 @@ const AdminPanelQuizzes = () => {
     fetchAllQuizzes();
   }, [quizzesEdit, quizzesCreateNew]);
 
-  const handleEditQuestion = (index) => {
-    setEditingQuestion(questions[index]);
-    setIsQuestionEdit(true);
-  };
-
+  // const handleEditQuestion = (index) => {
+  //   setEditingQuestion(questions[index]);
+  //   setIsQuestionEdit(true);
+  // };
+  console.log(allQuizzes)
 
   const handleOpenSingleQuizz = (quizz) => {
     setSelectedQuizz(quizz);
@@ -87,7 +87,7 @@ const AdminPanelQuizzes = () => {
                 <tr key={indexQ}>
                   {console.log(quest)}
                   <td data-label="No.">{indexQ + 1}</td>
-                  <td data-label="Question">{`Quizz Name ${indexQ + 1}`}</td>
+                  <td data-label="Question">{`${quest.quizName}`}</td>
                   <td data-label="Bundle">
                     {(() => {
                       switch (quest.difficulty) {
@@ -102,7 +102,7 @@ const AdminPanelQuizzes = () => {
                       }
                     })()}
                   </td>
-                  <td data-label="ConversationStarter">{`Conversation Starter Text ${indexQ + 1}`}</td>
+                  <td data-label="ConversationStarter">{`${quest.conversationStarter}`}</td>
                   <td data-label="NumberOfQuestions" className='noQ'>{quest.questions.length}</td>
                   <td data-label="Edit/Delete" className='settingsData'>
                     <button className="edit-btn" onClick={() => handleOpenSingleQuizz(quest)}>Edit</button>

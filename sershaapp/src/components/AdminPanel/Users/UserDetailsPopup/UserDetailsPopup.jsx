@@ -4,6 +4,9 @@ import './userDetailsPopup.css';
 const UserDetailsPopup = ({ user, onClose }) => {
   if (!user) return null;
 
+  let birth = user.userBirthDate;
+
+
   return (
     <div className="popupOverlay" onClick={onClose}>
       <div className="popupContent" onClick={(e) => e.stopPropagation()}>
@@ -14,7 +17,7 @@ const UserDetailsPopup = ({ user, onClose }) => {
           <p><strong>Parents' Full Name:</strong> {user.parentsFullName}</p>
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Parent's Phone Number:</strong> {user.parentPhoneNumber}</p>
-          <p><strong>User Birth Date:</strong> {user.userBirthDate}</p>
+          <p><strong>User Birth Date:</strong> {new Date(birth).toLocaleDateString()}</p>
           <p><strong>Current Level:</strong> {user.level}</p>
           <p><strong>Coin Balance:</strong> {user.coinBalance}</p>
         </div>

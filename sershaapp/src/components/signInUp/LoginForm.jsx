@@ -10,6 +10,8 @@ import { useGlobalContext } from '../../context/context.jsx';
 import visible from '../../assets/images/login/visible.png';
 import './loginform.css';
 import Slideshow from '../SlideShow/SlideShow.jsx';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const LoginForm = () => {
   const {
@@ -31,8 +33,27 @@ const LoginForm = () => {
     setUser, // Use loginUser from context
   } = useGlobalContext();
 
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const isFirstTimeLoggedInChange = async () => {
+    try {
+      const response = await axios.put(
+        `${baseUrl}/User/${user.email}`,
+        { isFirstTimeLoggedIn: false },
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log('User updated:', response.data);
+    } catch (error) {
+      console.log('Error updating user:', error);
+    }
+  };
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -41,8 +62,14 @@ const LoginForm = () => {
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userData = localStorage.getItem('userData');
+    let token;
+    let userData;
+    if (localStorage.getItem('token')) {
+      token = localStorage.getItem('token');
+    }
+    if (localStorage.getItem('userData')) {
+      userData = localStorage.getItem('userData');
+    }
 
     if (token && userData) {
       try {
@@ -55,8 +82,9 @@ const LoginForm = () => {
         console.log('User already logged in:', parsedUserData);
       } catch (error) {
         console.error('Error parsing userData:', error);
-        // Handle the error appropriately, maybe clear the invalid data from localStorage
-        localStorage.removeItem('userData');
+        if (localStorage.getItem('userData')) {
+          localStorage.removeItem('userData');
+        }
       }
     }
   }, []);
@@ -86,6 +114,7 @@ const LoginForm = () => {
         console.log('Login successful:', data);
         loginUser(data.token); // Use loginUser function from context
         localStorage.setItem('userData', JSON.stringify(data));
+        setUser(data);
         setIsLoggedIn(true);
       } else if (logEmail === 'admin@admin.com' && logPassword === 'admin') {
         const adminData = {
@@ -97,15 +126,25 @@ const LoginForm = () => {
         setIsLoggedIn(true);
       } else {
         const errorData = await response.json();
-        setErrorMessage(errorData.message || 'Login failed');
+        setErrorMessage(errorData || "Username or Password is incorrect!");
       }
     } catch (error) {
-      setErrorMessage(error.message || 'An error occurred');
+      setErrorMessage("Username or Password is incorrect!");
     }
   };
 
-  if (isLoggedIn) {
-    return <Slideshow />; // Render the slideshow component after login
+  if (isLoggedIn == true) {
+    console.log(`user login is logged in: ${user.isFirstTimeLoggedIn}`)
+    if (user && user.isFirstTimeLoggedIn == true) {
+      console.log(`user login is first time: ${user.isFirstTimeLoggedIn}`)
+
+
+      isFirstTimeLoggedInChange();
+      return (<Slideshow />)
+    }
+    else {
+      navigate('/');
+    }
   }
 
   return (

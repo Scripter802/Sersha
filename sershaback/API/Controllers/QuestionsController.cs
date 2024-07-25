@@ -40,6 +40,35 @@ namespace API.Controllers
         return NoContent();
     }
 
+    [AllowAnonymous]
+    [HttpDelete("{quizId}/questions/{questionId}")]
+    public async Task<IActionResult> DeleteQuestion(Guid quizId, Guid questionId)
+    {
+        var result = await Mediator.Send(new DeleteQuestion.Command { QuizId = quizId, QuestionId = questionId });
+        if (!result)
+        {
+            return NotFound("Question not found");
+        }
+        return NoContent(); 
+    }
+
+    [AllowAnonymous]
+    [HttpPut("{quizId}/questions/{questionId}")]
+    public async Task<IActionResult> EditQuestion(Guid quizId, Guid questionId, [FromForm] EditQuestion.Command command)
+    {
+        if (quizId != command.QuizId || questionId != command.QuestionId)
+        {
+            return BadRequest("Mismatched Quiz ID or Question ID");
+        }
+
+        var result = await Mediator.Send(command);
+        if (!result)
+        {
+            return NotFound("Question not found or error in updating");
+        }
+        return NoContent();
+    }
+
   
     }
 }

@@ -38,11 +38,33 @@ const HomePage = () => {
     const newMessageTimer = setTimeout(() => {
       setNewMessageSound(true);
       setNewMessage(1);
+      localStorage.setItem('New Message', 1)
     }, 4000);
 
     return () => clearTimeout(newMessageTimer);
   }, []);
 
+
+
+  // useEffect(() => {
+  //   const updateUserFirstTimeLogin = async () => {
+  //     if (user && user.isFirstTimeLoggedIn === true) {
+  //       setUser(prevUser => ({ ...prevUser, isFirstTimeLoggedIn: false }));
+
+  //       try {
+  //         await axios.put(`${baseUrl}/User/${user.email}`, { ...user, isFirstTimeLoggedIn: false }, {
+  //           headers: {
+  //             'Content-Type': 'application/json',
+  //           },
+  //         });
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     }
+  //   };
+
+  //   updateUserFirstTimeLogin();
+  // }, [user, setUser]);
 
 
   return (

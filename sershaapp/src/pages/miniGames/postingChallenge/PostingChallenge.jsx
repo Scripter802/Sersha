@@ -28,7 +28,7 @@ const getRandomItems = (array, numItems) => {
 const PostingChallenge = () => {
   const {
     baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged,
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
   const totalAnswered = correctAnsweredMiniGames + incorrectAnsweredMiniGames;
@@ -66,11 +66,12 @@ const PostingChallenge = () => {
     }, 1000);
 
     return () => clearInterval(intervalIdRef.current);
-  }, []);
+  }, [currentPosting]);
 
   useEffect(() => {
     if (seconds === 0) {
       clearInterval(intervalIdRef.current);
+      setIsGameCompleted(true);
     }
   }, [seconds]);
 
@@ -79,8 +80,12 @@ const PostingChallenge = () => {
 
     if (selectedAnswer === correctAnswer) {
       setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
+      setCorInc(prevCorInc => prevCorInc.map((item, index) => index === postingNumber ? true : item));
+      handleFoxDamaged();
     } else {
       setIncorrectAnsweredMiniGames(incorrectAnsweredMiniGames + 1);
+      setCorInc(prevCorInc => prevCorInc.map((item, index) => index === postingNumber ? false : item));
+
     }
 
     if (postingNumber < currentPosting.length - 1) {
@@ -88,6 +93,7 @@ const PostingChallenge = () => {
       setSeconds(25); // Reset the timer for the next question
     } else {
       setIsGameCompleted(true); // Show the popup when the game is completed
+      clearInterval(intervalIdRef.current);
     }
   };
 
@@ -99,6 +105,8 @@ const PostingChallenge = () => {
     setSeconds(25);
     const randomSnaps = getRandomItems(allPosting, 10);
     setCurrentPosting(randomSnaps);
+    setCorInc([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    setRoughFoxDamaged('');
   };
 
   const handleClaimPrize = () => {
@@ -116,6 +124,7 @@ const PostingChallenge = () => {
           onRestart={handleRestart}
           onClaimPrize={handleClaimPrize}
           title={`Game`}
+          isQuizz={false}
         />
       )}
       <div className='postingChallengeTitleWrapper'>
@@ -140,16 +149,9 @@ const PostingChallenge = () => {
           </div>
         ) : (
           <div className='postingChallengeAnswersNumber'>
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
-            <div>6</div>
-            <div>7</div>
-            <div>8</div>
-            <div>9</div>
-            <div>10</div>
+            {corInc?.map((c, i) => (
+              <div key={i}>{typeof c === 'number' ? c : c === true ? <img src={correctAnswer} alt="correct" /> : <img src={incorrectAnswer} alt="incorrect" />}</div>
+            ))}
           </div>
         )}
       </div>
@@ -187,7 +189,13 @@ const PostingChallenge = () => {
           )}
 
           <div className='postingChallengeRightSideContent'>
-            <div className='postingFoxWrap'><p className='postingFoxTextTought'>Multi kill! Awesome!</p><img className='postingFoxTought' src={foxTought} alt="foxtought" /><img className='foxUserPick' src={foxuserpick} alt="foxuserpick" /></div>
+            <div className='postingFoxWrap'>
+              {roughFoxDamaged && <>
+                <p className='postingFoxTextTought'>
+                  {roughFoxDamaged}
+                </p>
+                <img className='postingFoxTought' src={foxTought} alt="foxtought" /></>}
+              <img className='foxUserPick' src={foxuserpick} alt="foxuserpick" /></div>
             <div className='postingGameTimerWrapper'>
               <div className='postingGameTimeCirkle'></div>
               <p className='postingGamePad'>{seconds}</p>

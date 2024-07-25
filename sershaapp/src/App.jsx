@@ -25,6 +25,7 @@ import PostingChallenge from './pages/miniGames/postingChallenge/PostingChalleng
 import SnapJudgment from './pages/miniGames/snapJudgment/SnapJudgment.jsx'
 import ProtectedRoute from './components/signInUp/ProtectedRoute.jsx'
 import QuizPage from './pages/quizzes/QuizzPage/QuizPage.jsx'
+import MapPage from './pages/map/MapPage.jsx'
 
 // Layout Component
 const Layout = () => {
@@ -55,6 +56,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <FoxCustomization />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/map',
+        element: (
+          <ProtectedRoute>
+            <MapPage />
           </ProtectedRoute>
         ),
       },

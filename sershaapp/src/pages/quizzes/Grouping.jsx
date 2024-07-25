@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { heart } from '../../assets/images/customization/items/index';
 import avatar from '../../assets/images/navbar/userpick.png';
 import close from '../../assets/images/quiz/close.png';
@@ -8,148 +8,135 @@ import { CiHeart } from 'react-icons/ci';
 import { FaHeart } from "react-icons/fa";
 import sershafox from '../../assets/images/quiz/sershafox.png';
 import evilfox from '../../assets/images/attact/evilfox.png';
-import dropPlace from '../../assets/images/quiz/dropPlace.png';
-import { useDrag, useDrop } from 'react-dnd';
-
 import './grouping.css';
 import HealthBar from '../../components/HealthBar';
 import { useGlobalContext } from '../../context/context';
 
 const Grouping = ({ currentQ }) => {
   const { setShowPopup, currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers, wrongAnswers, setWrongAnswers } = useGlobalContext();
-  const dropRefs = Array.from({ length: 6 }, () => useRef(null));
-  console.log(currentQ)
-
-  const messages = [
-    {
-      group: ['Fruits'],
-      answers: ["Watermelon", "Strawberries", "Mango"],
-    },
-    {
-      group: ['Vegetables'],
-      answers: ["Pumpkin", "Mushroom", "Potato"],
-    },
-  ];
-
-  const [droppedOne, setDroppedOne] = useState();
-  const [droppedTwo, setDroppedTwo] = useState();
+  const [droppedOne, setDroppedOne] = useState([]);
+  const [droppedTwo, setDroppedTwo] = useState([]);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [optionAnswer, setOptionAnswer] = useState([]);
+  const [feedback, setFeedback] = useState(null);
+  const [showNextButton, setShowNextButton] = useState(false);
 
   useEffect(() => {
-    setDroppedOne(new Array(currentQ.groups[0].groupingItems.length).fill("Drop here"));
-    setDroppedTwo(new Array(currentQ.groups[1].groupingItems.length).fill("Drop here"));
+    setDroppedOne(new Array(currentQ.groups[0].groupingItems.length).fill(null));
+    setDroppedTwo(new Array(currentQ.groups[1].groupingItems.length).fill(null));
   }, [currentQ]);
 
   useEffect(() => {
     const tempOptionAnswer = [];
-    messages.forEach(item => item.answers.forEach(ans => tempOptionAnswer.push(ans)));
+    currentQ.groups.forEach(group => group.groupingItems.forEach(item => tempOptionAnswer.push(item.item)));
     setOptionAnswer(tempOptionAnswer);
-  }, []);
+  }, [currentQ]);
 
-
-  const handleDropOne = (index, item) => {
-    const newDroppedOne = [...droppedOne];
-    newDroppedOne[index] = item.name;
-    setDroppedOne(newDroppedOne);
+  const handleSelectAnswer = (item) => {
+    setSelectedAnswer(item);
   };
 
-  const handleDropTwo = (index, item) => {
-    const newDroppedTwo = [...droppedTwo];
-    newDroppedTwo[index] = item.name;
-    setDroppedTwo(newDroppedTwo);
-  };
+  const handleDrop = (index, group) => {
+    if (selectedAnswer) {
+      let oldAnswer = null;
 
-  // const updateDropped = (currentIndex, draggedIndex) => {
-  //   const newDropped = [...dropped];
-  //   const draggedItem = newDropped[draggedIndex];
-  //   newDropped[draggedIndex] = newDropped[currentIndex];
-  //   console.log(newDropped)
-  //   newDropped[currentIndex] = draggedItem;
-  //   setDropped(newDropped);
-
-  // };
-
-  let items = []
-
-  function areArraysEqual(arr1, arr2) {
-    let res = true;
-    arr1.forEach(el => {
-      if (!arr2.includes(el)) {
-        res = false;
+      if (group === 'one') {
+        oldAnswer = droppedOne[index];
+        const newDroppedOne = [...droppedOne];
+        newDroppedOne[index] = selectedAnswer;
+        setDroppedOne(newDroppedOne);
+      } else if (group === 'two') {
+        oldAnswer = droppedTwo[index];
+        const newDroppedTwo = [...droppedTwo];
+        newDroppedTwo[index] = selectedAnswer;
+        setDroppedTwo(newDroppedTwo);
       }
-    })
-    return res;
+
+      if (oldAnswer) {
+        setOptionAnswer(prevOptionAnswer => [...prevOptionAnswer, oldAnswer]);
+      }
+
+      setOptionAnswer(prevOptionAnswer => prevOptionAnswer.filter(answer => answer !== selectedAnswer));
+
+      setSelectedAnswer(null);
+    } else {
+      if (group === 'one' && droppedOne[index]) {
+        const itemToRemove = droppedOne[index];
+        const newDroppedOne = [...droppedOne];
+        newDroppedOne[index] = null;
+        setDroppedOne(newDroppedOne);
+        setOptionAnswer(prevOptionAnswer => [...prevOptionAnswer, itemToRemove]);
+      } else if (group === 'two' && droppedTwo[index]) {
+        const itemToRemove = droppedTwo[index];
+        const newDroppedTwo = [...droppedTwo];
+        newDroppedTwo[index] = null;
+        setDroppedTwo(newDroppedTwo);
+        setOptionAnswer(prevOptionAnswer => [...prevOptionAnswer, itemToRemove]);
+      }
+    }
+  };
+
+  const areArraysEqual = (arr1, arr2) => arr1.every(item => arr2.includes(item));
+
+  if (heartsNum === 0) {
+    setShowPopup(true);
   }
 
-
-  console.log(`CORRECT ANSWERS ${correctAnswers}`)
-  if (currentQ?.groups && currentQuizz.questions.length != currentQuestion) {
-    currentQ.groups[0].groupingItems.map(it => items.push(it.item))
-    currentQ.groups[1].groupingItems.map(it => items.push(it.item))
-  }
-
-  if (heartsNum == 0) {
-    setShowPopup(true)
-  }
-
-
-  const handleDone = (arr1, arr2) => {
-    if (currentQ?.groups && currentQuizz.questions.length - 1 == currentQuestion) {
-      setShowPopup(true)
+  const handleCheck = () => {
+    if (currentQ?.groups && currentQuizz.questions.length - 1 === currentQuestion) {
+      setShowPopup(true);
     }
 
-    const correctGroup1 = [];
-    const correctGroup2 = [];
+    const correctGroup1 = currentQ.groups[0].groupingItems.map(item => item.item);
+    const correctGroup2 = currentQ.groups[1].groupingItems.map(item => item.item);
 
-    currentQ.groups[0].groupingItems.forEach(item => correctGroup1.push(item.item))
-    currentQ.groups[1].groupingItems.forEach(item => correctGroup2.push(item.item))
+    const res = areArraysEqual(droppedOne, correctGroup1) && areArraysEqual(droppedTwo, correctGroup2);
 
-    console.log(correctGroup1, correctGroup2)
-
-    let res = areArraysEqual(droppedOne, correctGroup1) && areArraysEqual(droppedTwo, correctGroup2);
-    console.log(droppedOne, correctGroup1)
-    if (res == true) {
+    if (res) {
       setCorrectAnswers(prev => prev + 1);
+      setFeedback({ type: 'correct', message: 'Correct Answer!' });
     } else {
       setWrongAnswers(prev => prev + 1);
       setHeartsNum(prev => prev - 1);
+      setFeedback({ type: 'wrong', message: 'Wrong Answer!' });
     }
-    console.log(res)
-    setCurrentQuestion(prev => prev + 1)
-  }
 
+    setShowNextButton(true); Z
+  };
+
+  const handleNext = () => {
+    setSelectedAnswer(null);
+    setFeedback(null);
+    setShowNextButton(false);
+    setCurrentQuestion(prev => prev + 1);
+  }
 
   return (
     <div className='GroupingQuizWrapper'>
-
       <div className='GroupingQuizTitleWrapper'>
-
         <div className='GroupingQuizTitle'>
-
           <div>
-            <img src={close} alt="" />
+            <img src={close} alt="Close" />
             <h1>The battle has begun</h1>
           </div>
-
           <div className='healthResponsive'>
             <HealthBar />
           </div>
         </div>
-
         <div className='rightObenWrapper'>
           <div className='inventory'>
-            <img src={inventory} alt="" />
+            <img src={inventory} alt="Inventory" />
           </div>
-
           <div className='hearts'>
-            <div className='heartWrapper'>{heartsNum >= 1 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />}</div>
-            <div className='heartWrapper'>{heartsNum >= 2 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />}</div>
-            <div className='heartWrapper'>{heartsNum >= 3 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />}</div>
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className='heartWrapper'>
+                {heartsNum > i ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />}
+              </div>
+            ))}
           </div>
-
           <div className='sershaLogo'>
             <p>Sersha</p>
-            <img src={sershafox} alt="" />
+            <img src={sershafox} alt="Sersha" />
           </div>
         </div>
       </div>
@@ -160,7 +147,7 @@ const Grouping = ({ currentQ }) => {
             <HealthBar />
           </div>
           <div className='evilFox'>
-            <img src={evilfox} alt="" />
+            <img src={evilfox} alt="Evil Fox" />
           </div>
         </div>
 
@@ -173,168 +160,74 @@ const Grouping = ({ currentQ }) => {
             </div>
             <div className='groupingDropBoxes'>
               <div className='fruitDropBoxes'>
-                {droppedOne?.map((item, index) => {
-                  return (
-                    <DropBoxOne
-                      key={index}
-                      index={index}
-                      handleDropOne={handleDropOne}
-                      currentItem={item}
-                    // updateDropped={updateDropped}
-                    />
-                  );
-                })}
+                {droppedOne?.map((item, index) => (
+                  <DropBox
+                    key={index}
+                    index={index}
+                    currentItem={item}
+                    handleDrop={handleDrop}
+                    group="one"
+                  />
+                ))}
               </div>
               <div className='vegetableDropBoxes'>
-                {droppedTwo?.map((item, index) => {
-                  return (
-                    <DropBoxTwo
-                      key={index}
-                      index={index}
-                      handleDropTwo={handleDropTwo}
-                      currentItem={item}
-                    // updateDropped={updateDropped}
-                    />
-                  );
-                })}
+                {droppedTwo?.map((item, index) => (
+                  <DropBox
+                    key={index}
+                    index={index}
+                    currentItem={item}
+                    handleDrop={handleDrop}
+                    group="two"
+                  />
+                ))}
               </div>
             </div>
           </div>
 
           <h5 className='words'>Words</h5>
-
           <div className='groupingOfferedAnswerWrapper'>
-            {items.map((item, index) => (
-              <DraggableItem key={index} item={item} index={index} droppedOne={droppedOne} droppedTwo={droppedTwo} />
+            {optionAnswer.map((item, index) => (
+              <div
+                key={index}
+                className={`groupingOfferedAnswerDroppedWrapper ${selectedAnswer === item ? 'selected' : ''}`}
+                onClick={() => handleSelectAnswer(item)}
+              >
+                <p className='groupingOfferedAnswerDropped'>{item}</p>
+              </div>
             ))}
           </div>
 
-          {droppedOne?.includes("Drop here") && droppedTwo?.includes("Drop here") ? '' : <div className='groupingFinished' onClick={() => handleDone()}><img src={done} alt="done" />I'm Done</div>}
+          {(droppedOne.includes(null) || droppedTwo.includes(null)) || (
+            <div className='groupingFinished' onClick={showNextButton ? handleNext : handleCheck}>
+              {showNextButton ? 'Next' : 'Check'}
+            </div>
+          )}
+          {feedback && (
+            <div className={`feedback ${feedback.type}`}>
+              <p>{feedback.message}</p>
+            </div>
+          )}
         </div>
-      </div>
+      </div >
 
       <div className='footer'>
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
-    </div>
+    </div >
   );
 };
 
-const DraggableItem = ({ item, index, droppedOne, droppedTwo }) => {
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: "answer",
-    item: { name: item },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  }), [item, index]);
-
-  const isDropped = droppedOne?.includes(item) || droppedTwo?.includes(item)
-
-  if (isDropped) {
-    return (
-      <div className='groupingOfferedAnswerDroppedWrapper' key={index}>
-        <p className='groupingOfferedAnswerDropped' style={{ color: 'transparent', background: 'transparent', border: '1px dashed #FFB496', cursor: 'default' }}>{item}</p>
-      </div>
-    );
-  }
-
+const DropBox = ({ index, currentItem, handleDrop, group }) => {
   return (
-    <div className='groupingOfferedAnswerDroppedWrapper' key={index}>
-      {!isDragging && <p className='groupingOfferedAnswerDropped' ref={drag}>{item}</p>}
+    <div
+      className='dropBox'
+      onClick={() => handleDrop(index, group)}
+      style={{ backgroundColor: currentItem ? '#C26F4D' : '', color: currentItem ? '#FFFFFF' : "#FFB496", border: currentItem ? "none" : "1px dashed #FFB496" }}
+    >
+      <p>{currentItem ? currentItem : index + 1}</p>
     </div>
   );
 };
-
-const DraggableDroppedItem = ({ item, index, onDragStart }) => {
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: "droppedItem",
-    item: { name: item, index },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
-    }),
-  }), [item, index]);
-
-  return (
-    <div className='droppedItem' ref={drag} onDragStart={onDragStart} style={{ opacity: isDragging ? 0.5 : 1 }}>
-      {item}
-    </div>
-  );
-};
-
-const DropBoxTwo = ({ index, handleDropTwo, currentItem }) => {
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: ["answer", "droppedItem"],
-    drop: (item) => handleDropTwo(index, item),
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  }), [index, handleDropTwo]);
-
-  const onDragStart = (e) => {
-    e.dataTransfer.setData("index", index);
-  };
-
-  const onDragOver = (e) => {
-    e.preventDefault();
-  };
-
-  const onDrop = (e) => {
-    const draggedIndex = e.dataTransfer.getData("index");
-
-    if (index === draggedIndex) return
-
-  };
-
-  return (
-    <div ref={drop} className='dropBox' onDragOver={onDragOver} onDrop={onDrop} style={{ backgroundColor: currentItem !== "Drop here" ? '#C26F4D' : "", color: currentItem !== "Drop here" ? '#FFFFFF' : "#FFB496", border: currentItem !== "Drop here" ? "none" : "1px dashed #FFB496" }}>
-      {currentItem !== "Drop here" && (
-        <DraggableDroppedItem item={currentItem} index={index} onDragStart={onDragStart} />
-      )}
-      {currentItem === "Drop here" && <p>{currentItem}</p>}
-    </div>
-  );
-}
-
-
-const DropBoxOne = ({ index, handleDropOne, currentItem, updateDropped }) => {
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: ["answer", "droppedItem"],
-    drop: (item) => handleDropOne(index, item),
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  }), [index, handleDropOne]);
-
-
-
-
-  const onDragStart = (e) => {
-    e.dataTransfer.setData("index", index);
-  };
-
-  const onDragOver = (e) => {
-    e.preventDefault();
-  };
-
-  const onDrop = (e) => {
-    const draggedIndex = e.dataTransfer.getData("index");
-
-    if (index === draggedIndex) return
-
-  };
-
-  return (
-    <div ref={drop} className='dropBox' onDragOver={onDragOver} onDrop={onDrop} style={{ backgroundColor: currentItem !== "Drop here" ? '#C26F4D' : "", color: currentItem !== "Drop here" ? '#FFFFFF' : "#FFB496", border: currentItem !== "Drop here" ? "none" : "1px dashed #FFB496" }}>
-      {currentItem !== "Drop here" && (
-        <DraggableDroppedItem item={currentItem} index={index} onDragStart={onDragStart} />
-      )}
-      {currentItem === "Drop here" && <p>{currentItem}</p>}
-    </div>
-  );
-};
-
-
 
 export default Grouping;

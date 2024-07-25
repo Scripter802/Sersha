@@ -121,6 +121,12 @@
   margin-top: .95rem;
 }
 
+.unlike,
+.like,
+.neutralAnswer {
+  cursor: pointer;
+}
+
 .snapRightSideContent {
   flex: 1;
   display: flex;

@@ -16,6 +16,21 @@
     cursor: pointer;
 }
 
+/* .parentName,
+.childName {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+} */
+
+.invalid-feedback {
+    color: white;
+    font-size: .9rem;
+    text-align: center;
+}
+
 .passReg1,
 .passReg2 {
     position: relative;
@@ -50,7 +65,7 @@
     height: 24px;
 }
 
-.avatarWrapper {
+.avatarWrapperReg {
     margin-bottom: 1rem;
 }
 

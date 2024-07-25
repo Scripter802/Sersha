@@ -1,36 +1,110 @@
-/* gameCompletedPopup.css */
 .popup {
   position: fixed;
-  top: 0;
+  top: 90px;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 80vh;
   background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: hidden;
+}
+
+.allQuestions {
+  text-align: left;
+  color: white;
+  overflow-y: hidden;
+}
+
+.questionNum {
+  color: white;
+}
+
+.popup-content {
+  background: linear-gradient(166.72deg, #CE3D21 5.04%, #922627 90.45%);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 90%;
+  max-width: 500px;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.popup-content h2 {
+  color: #FFFFFF;
+}
+
+.popup-content p {
+  color: #FFB496;
+}
+
+.results {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  gap: .25rem;
+}
+
+.results span {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.popup-content {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.results {
-  margin: 20px 0;
-}
-
 .results .correct {
-  color: green;
+  color: #B2F0B6;
+  gap: .15rem;
 }
 
 .results .mistakes {
-  color: red;
+  color: #FFB6B6;
+  gap: .15rem;
+}
+
+.rewardsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 10px;
+  margin: 20px 0;
+
+}
+
+.singleRewardItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 30%;
+}
+
+.itemCount {
+  position: absolute;
+  top: -5px;
+  left: .5rem;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
 }
 
 .buttons button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 10px;
   padding: 10px 20px;
   border: none;
@@ -39,10 +113,13 @@
 }
 
 .buttons button:first-child {
-  background-color: #ccc;
+  background-color: #FFFFFF;
 }
 
 .buttons button:last-child {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #B2F0B6;
+}
+
+.buttons img {
+  margin-right: 5px;
 }

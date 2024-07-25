@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  const { newMessage, user, setUser } = useGlobalContext();
+  const { newMessage, setNewMessage, user, setUser, baseUrlImage } = useGlobalContext();
   const path = window.location.pathname
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
@@ -29,21 +29,31 @@ const Header = () => {
 
 
   useEffect(() => {
-    const singleUser = localStorage.getItem('userData');
+    let singleUser;
 
-    if (singleUser !== null) {
+    if (localStorage.getItem('New Message')) {
+      setNewMessage(localStorage?.getItem('New Message'))
+    }
+
+    if (localStorage.getItem('userData')) {
+      singleUser = localStorage.getItem('userData');
+    }
+
+    if (singleUser !== null || undefined) {
       setUser(JSON.parse(singleUser));
     }
   }, []);
+
+  console.log(user)
 
   return (
     <div className='headerWrapper'>
       <a className='logo' href='/' ><img src={logo} className='logoImg' alt="logo" /></a>
       <div className='navigationWrapper'>
-        <div className='map'><img src={map} alt="map" /></div>
+        <a href='/map' className={`${path === '/map' ? 'currentMap' : 'map'}`}><img src={map} alt="map" /></a>
         <a href='/minigames' className={`${path === '/minigames' || path.includes('/minigames/') ? 'currentMiniGames' : 'miniGames'}`}><img src={game} alt="game" /></a>
         <a href='/' className={`${path === '/' ? 'currentHome' : 'home'}`}><img src={home} alt="home" /></a>
-        <a href='/dm' id="messages" className={`${path === '/dm' || path.includes('/quizzes/') ? 'dm' : 'messages'}`} ><img src={messages} alt="messages" />{newMessage == 1 && <p className='messageCounter'>{newMessage}</p>}</a>
+        <a href='/dm' id="messages" className={`${path === '/dm' || path.includes('/quizzes/') ? 'dm' : 'messages'}`} ><img src={messages} alt="messages" />{newMessage >= 1 && <p className='messageCounter'>{newMessage}</p>}</a>
         <a href='/foxcustomization' className={`${path === '/foxcustomization' ? 'currentFoxCustomization' : 'foxCustomization'}`}><img src={search} alt="search" /></a>
       </div>
       <div className='rightWrapper'>
@@ -56,13 +66,13 @@ const Header = () => {
         <div className='profileWrapper'>
 
           <div className='profileInfo'>
-            <p>{user?.fullName}</p>
+            <p style={{ textAlign: "center" }}>{user?.fullName}</p>
             <p>Level {user?.level}</p>
           </div>
 
           <div className='avatarWrapper' onClick={toggleDropdown}>
             <img src={level} alt="level" className='avatar' />
-            <img src={avatar} alt="avatar" className='avatar' />
+            <img src={user?.image ? `${baseUrlImage}${user.image}` : avatar} alt="avatar" className='avatar' />
             {dropdownVisible && (
               <div className='dropdownMenu'>
                 <button onClick={handleSettings}>Settings</button>

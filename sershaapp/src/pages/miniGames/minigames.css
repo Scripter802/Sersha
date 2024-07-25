@@ -1,6 +1,10 @@
+.overflowHidden {
+  overflow-x: hidden;
+}
+
 .mainWrapper {
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 86px);
   justify-content: center;
   background: linear-gradient(0deg, rgba(146, 37, 70, 1) 0%, rgba(60, 29, 50, 1) 50%, rgba(47, 32, 47, 1) 100%);
   overflow-x: hidden;
@@ -13,6 +17,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.rectanglesWrapper {
+  overflow: hidden;
 }
 
 .contentWrapper {
@@ -38,17 +46,19 @@
 }
 
 .popup-inner {
-  background: white;
+  background: linear-gradient(166.72deg, #CE3D21 5.04%, #922627 90.45%);
+  color: white;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
+  position: relative;
 }
 
 .game-options {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 2rem;
 }
 
 .game-option {
@@ -64,7 +74,7 @@
 .close-popup-button {
   margin-top: 20px;
   padding: 10px 20px;
-  background: #f00;
+  background: #C26F4D;
   color: white;
   border: none;
   border-radius: 5px;
@@ -246,6 +256,7 @@
   .roundImagesWrapper {
     /* position: relative; */
   }
+
 
   .overflow-wrap {
     width: 100%;

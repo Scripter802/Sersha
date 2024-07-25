@@ -25,7 +25,7 @@ namespace Application.User
             public int Level { get; set; }
             public int CoinBalance { get; set; }
             public string Type { get; set; }
-            
+            public bool isFirstTimeLoggedIn { get; set; }
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -71,6 +71,7 @@ namespace Application.User
                 user.Level = request.Level != default ? request.Level : user.Level;
                 user.CoinBalance = request.CoinBalance != default ? request.CoinBalance : user.CoinBalance;
                 user.Type = request.Type ?? user.Type;
+                user.isFirstTimeLoggedIn = request.isFirstTimeLoggedIn;        
 
                 _context.Users.Update(user);
                 var success = await _context.SaveChangesAsync() > 0;

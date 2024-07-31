@@ -52,10 +52,19 @@ const AdminPanelFriendOrFoe = () => {
   useEffect(() => {
     const fetchAllQuizzes = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/0/6`);
-        setAllFriendOrFoeAssignments(response.data);
+        const response = await axios.get(`${baseUrl}/Quizzes`);
+        console.log(`response: ${response.data}`);
+        const filteredData = response.data.filter(res => res.questions[0].type === 6);
+
+        // Avoid adding duplicates
+        setAllFriendOrFoeAssignments(prev => {
+          const newAssignments = filteredData.filter(newRes =>
+            !prev.some(prevRes => prevRes.id === newRes.id)
+          );
+          return [...prev, ...newAssignments];
+        });
       } catch (error) {
-        console.error('Error fetching right answer questions:', error);
+        console.error('Error fetching Friend or Foe assignments:', error);
       }
     };
 
@@ -101,11 +110,11 @@ const AdminPanelFriendOrFoe = () => {
               {allFriendOrFoeAssignments && allFriendOrFoeAssignments.map((post, index) =>
                 <tr key={index}>
                   <td data-label="No.">{index + 1}</td>
-                  <td data-label="AuthorName">{post.text}</td>
+                  <td data-label="AuthorName">{post?.questions[0]?.text}</td>
                   <td data-label="AuthorName">Male</td>
-                  <td data-label="Image"><img src={`${baseUrlImage}${post.imagePath}`} alt="Post Image" /></td>
-                  <td data-label="AuthorName">{post.content}</td>
-                  <td data-label="Bundle">Easy</td>
+                  <td data-label="Image"><img src={`${baseUrlImage}${post?.questions[0]?.imagePath}`} alt="Post Image" /></td>
+                  <td data-label="AuthorName">{post?.questions[0]?.content}</td>
+                  <td data-label="Bundle">{post.difficulty == '0' ? 'Easy' : post.difficulty == '1' ? 'Medium' : 'Hard'}</td>
 
                   <td data-label="Edit/Delete" className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEditFriendOrFoe(index)}>Edit</button>

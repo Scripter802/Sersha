@@ -148,7 +148,7 @@ const AppProvider = ({ children }) => {
   const [snapJudgmentCreateNew, setSnapJudgmentCreateNew] = useState(false);
   const [editingSnapJudgment, setEditingSnapJudgment] = useState(null);
   const [isSnapJudgmentEdit, setIsSnapJudgmentEdit] = useState(false);
-  const [allSnapJudgmentAssignments, setAllSnapJudgmentAssignments] = useState(false);
+  const [allSnapJudgmentAssignments, setAllSnapJudgmentAssignments] = useState([]);
 
 
   /* EMOJI EMOTIONS */

@@ -15,6 +15,7 @@ const AdminPanelSnapJudgment = () => {
     allSnapJudgmentAssignments,
     setAllSnapJudgmentAssignments,
   } = useGlobalContext();
+  let dif;
   // const [postImage, setPostImage] = useState(null);
   // const [postAuthor, setPostAuthor] = useState('');
   // const [postContent, setPostContent] = useState('');
@@ -49,21 +50,42 @@ const AdminPanelSnapJudgment = () => {
     setIsSnapJudgmentEdit(true)
   };
 
-  // const handleDeleteSnapJudgment = (index) => {
+  const handleDeleteSnapJudgment = async (post) => {
+    try {
+      const response = await axios.delete(`${baseUrl}/Questions/questions/${post.id}`);
+      if (response.status === 200) {
 
-  // };
+
+        // Update the allQuizzes state by filtering out the deleted quiz
+        const updatedQuizzes = allPostingChallengeAssignments.filter(q => q.id !== post.id);
+        setAllQuizzes(updatedQuizzes);
+      }
+    } catch (error) {
+      console.error('Error deleting the question:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchAllQuizzes = async () => {
+    const fetchAllQuizzesEasy = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/0/4`);
-        setAllSnapJudgmentAssignments(response.data);
+        const response = await axios.get(`${baseUrl}/Quizzes`);
+        console.log(`response: ${response.data}`);
+        const filteredData = response.data.filter(res => res.questions[0].type === 4);
+
+        // Avoid adding duplicates
+        setAllSnapJudgmentAssignments(prev => {
+          const newAssignments = filteredData.filter(newRes =>
+            !prev.some(prevRes => prevRes.id === newRes.id) // assuming each quiz has a unique id
+          );
+          return [...prev, ...newAssignments];
+        });
       } catch (error) {
-        console.error('Error fetching right answer questions:', error);
+        console.error('Error fetching Snap Judgement questions:', error);
       }
     };
 
-    fetchAllQuizzes();
+    fetchAllQuizzesEasy();
+
   }, [snapJudgmentCreateNew, editingSnapJudgment]);
   console.log(allSnapJudgmentAssignments)
 
@@ -95,18 +117,18 @@ const AdminPanelSnapJudgment = () => {
               {allSnapJudgmentAssignments && allSnapJudgmentAssignments.map((post, index) =>
                 <tr key={index}>
                   <td data-label="No.">{index + 1}</td>
-                  <td data-label="Image"><img src={`${baseUrlImage}${post.imagePath}`} alt="Post Image" /></td>
-                  <td data-label="AuthorName">{post.text}</td>
-                  <td data-label="Content">{post.content}</td>
-                  <td data-label="AuthorName">{post.answers.map((ans, i) => (
+                  <td data-label="Image"><img src={`${baseUrlImage}${post?.questions[0]?.imagePath}`} alt="Post Image" /></td>
+                  <td data-label="AuthorName">{post?.questions[0]?.text}</td>
+                  <td data-label="Content">{post?.questions[0]?.content}</td>
+                  <td data-label="AuthorName">{post?.questions[0]?.answers.map((ans, i) => (
                     ans.isCorrect ? ans.text : ''
                   ))}</td>
-                  <td data-label="Bundle">Easy</td>
+                  <td data-label="Bundle">{post.difficulty == '0' ? 'Easy' : post.difficulty == '1' ? 'Medium' : 'Hard'}</td>
 
                   <td data-label="Edit/Delete" className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEditSnapJudgment(index)}>Edit</button>
 
-                    <button className="delete-btn" onClick={() => handleDeleteSnapJudgment(index)}>Delete</button>
+                    <button className="delete-btn" onClick={() => handleDeleteSnapJudgment(post)}>Delete</button>
                   </td>
                 </tr>
               )}

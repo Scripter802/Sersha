@@ -40,16 +40,29 @@ const AdminPanelPostingChallenge = () => {
   };
 
   useEffect(() => {
-    const fetchAllPostingChallenge = async () => {
+
+
+
+    const fetchAllQuizzes = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/0/7`);
-        setAllPostingChallengeAssignments(response.data);
+        const response = await axios.get(`${baseUrl}/Quizzes`);
+        console.log(`response: ${response.data}`);
+        const filteredData = response.data.filter(res => res.questions[0].type === 7);
+
+        // Avoid adding duplicates
+        setAllPostingChallengeAssignments(prev => {
+          const newAssignments = filteredData.filter(newRes =>
+            !prev.some(prevRes => prevRes.id === newRes.id)
+          );
+          return [...prev, ...newAssignments];
+        });
       } catch (error) {
-        console.error('Error fetching Posting Challenge assignment:', error);
+        console.error('Error fetching Emoji Emotions assignments:', error);
       }
     };
 
-    fetchAllPostingChallenge();
+    fetchAllQuizzes();
+
   }, [postingChallengeCreateNew, editingPostingChallenge]);
   console.log(allPostingChallengeAssignments)
 
@@ -82,12 +95,12 @@ const AdminPanelPostingChallenge = () => {
               {allPostingChallengeAssignments && allPostingChallengeAssignments.map((post, index) =>
                 <tr key={index}>
                   <td data-label="No.">{index + 1}</td>
-                  <td data-label="Image"><img src={`${baseUrlImage}${post.imagePath}`} alt="Post Image" /></td>
-                  <td data-label="AuthorName">{post.text}</td>
-                  <td data-label="PostContent">{post.content}</td><td data-label="AuthorName">{post.answers.map((ans, i) => (
+                  <td data-label="Image"><img src={`${baseUrlImage}${post?.questions[0]?.imagePath}`} alt="Post Image" /></td>
+                  <td data-label="AuthorName">{post?.questions[0]?.text}</td>
+                  <td data-label="PostContent">{post?.questions[0]?.content}</td><td data-label="AuthorName">{post?.questions[0]?.answers.map((ans, i) => (
                     ans.isCorrect ? ans.text : ''
                   ))}</td>
-                  <td data-label="Stage">Easy</td>
+                  <td data-label="Stage">{post.difficulty == '0' ? 'Easy' : post.difficulty == '1' ? 'Medium' : 'Hard'}</td>
                   <td data-label="Edit/Delete" className='settingsData'>
                     <button className="edit-btn" onClick={() => handleEditPostingChallenge(index)}>Edit</button>
                     <button className="delete-btn" onClick={() => handleDeletePostingChallenge(post)}>Delete</button>

@@ -32,9 +32,24 @@ const AdminPanelQuizzes = () => {
     const fetchAllQuizzes = async () => {
       try {
         const response = await axios.get(`${baseUrl}/Quizzes`);
-        setAllQuizzes(response.data);
+
+        const filteredData = response.data.filter(res =>
+          res.questions[0].type === 0 ||
+          res.questions[0].type === 1 ||
+          res.questions[0].type === 2 ||
+          res.questions[0].type === 3
+        );
+
+        // Avoid adding duplicates
+        setAllQuizzes(prev => {
+          const newAssignments = filteredData.filter(newRes =>
+            !prev.some(prevRes => prevRes.id === newRes.id)
+          );
+          return [...prev, ...newAssignments];
+        });
+
       } catch (error) {
-        console.error('Error fetching right answer questions:', error);
+        console.error('Error fetching Quizzes questions:', error);
       }
     };
 

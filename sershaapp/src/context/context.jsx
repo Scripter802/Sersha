@@ -1,4 +1,5 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
+import Cookies from 'js-cookie'
 import postimg from '../assets/images/posts/postimg.png'
 import postimg2 from '../assets/images/posts/postImg2.png'
 import authorImg from '../assets/images/posts/authorimg.png'
@@ -15,6 +16,51 @@ const AppProvider = ({ children }) => {
   // SINGLE USER
   const [user, setUser] = useState();
   const [selectedUser, setSelectedUser] = useState();
+
+  // Cookies
+  // Function to check if the user can play another quiz today
+  const canPlayAnotherQuizToday = () => {
+    const today = new Date().toISOString().split('T')[0];
+    const cookieValue = Cookies.get('todayQuizzesPlayed');
+
+    if (!cookieValue) {
+      // Cookie does not exist, user can play quizzes
+      Cookies.set('todayQuizzesPlayed', JSON.stringify({ date: today, quizzesPlayed: 0 }));
+      return true;
+    }
+
+    const { date, quizzesPlayed } = JSON.parse(cookieValue);
+
+    if (date === today) {
+      // It's the same day, check if the user has played less than 2 quizzes
+      return quizzesPlayed < 2;
+    } else {
+      // Different day, reset the cookie
+      Cookies.set('todayQuizzesPlayed', JSON.stringify({ date: today, quizzesPlayed: 0 }));
+      return true;
+    }
+  };
+
+  // Function to update the cookie after a quiz is played
+  const updateQuizzesPlayed = () => {
+    const cookieValue = Cookies.get('todayQuizzesPlayed');
+    const { date, quizzesPlayed } = JSON.parse(cookieValue);
+
+    Cookies.set('todayQuizzesPlayed', JSON.stringify({ date, quizzesPlayed: quizzesPlayed + 1 }));
+  };
+
+  const handleQuizCompletion = async () => {
+    if (canPlayAnotherQuizToday()) {
+      // User can play another quiz
+      updateQuizzesPlayed();
+      // Trigger the second DM or any other logic
+      console.log("Quiz completed. User can play another quiz today.");
+    } else {
+      console.log("User has already played two quizzes today.");
+      // Handle the case where the user can't play another quiz today
+      // E.g., send a DM or show a message
+    }
+  };
 
 
   // CLOTHING
@@ -359,6 +405,10 @@ const AppProvider = ({ children }) => {
         fillInTheBlankAPI,
         groupingAPI,
 
+        //Cookies
+        canPlayAnotherQuizToday,
+        updateQuizzesPlayed,
+        handleQuizCompletion,
 
 
         //FOX CUSTOMIZATION

@@ -4,9 +4,10 @@ import coinBlack from './../assets/images/navbar/coinBlack.png';
 import { useGlobalContext } from '../context/context.jsx';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const Header = () => {
-  const { newMessage, setNewMessage, user, setUser, baseUrlImage } = useGlobalContext();
+  const { newMessage, setNewMessage, user, setUser, baseUrlImage, canPlayAnotherQuizToday, updateQuizzesPlayed } = useGlobalContext();
   const path = window.location.pathname
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const Header = () => {
   };
 
 
+
   useEffect(() => {
     let singleUser;
 
@@ -44,7 +46,19 @@ const Header = () => {
     }
   }, []);
 
-  console.log(user)
+  useEffect(() => {
+    if (canPlayAnotherQuizToday()) {
+      const newMessageTimer = setTimeout(() => {
+        setNewMessage(1);
+        localStorage.setItem('New Message', 1);
+      }, 4000);
+      return () => clearTimeout(newMessageTimer);
+    } else {
+      localStorage.setItem('New Message', 1);
+      setNewMessage(0);
+    };
+  }, [user, canPlayAnotherQuizToday, setNewMessage]);
+
 
   return (
     <div className='headerWrapper'>

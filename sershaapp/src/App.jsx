@@ -41,7 +41,7 @@ const Layout = () => {
 
 const router = createBrowserRouter([
   {
-    element: <Layout />,  // Wrap protected routes with Layout
+    element: <Layout />,
     children: [
       {
         path: '/',

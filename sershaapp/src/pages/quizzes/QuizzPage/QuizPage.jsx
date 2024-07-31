@@ -22,7 +22,8 @@ const QuizPage = () => {
     showPopup,
     setShowPopup,
     wrongAnswers,
-    setWrongAnswers
+    setWrongAnswers,
+    handleQuizCompletion,
   } = useGlobalContext();
 
   const navigate = useNavigate();
@@ -68,6 +69,7 @@ const QuizPage = () => {
   const handlePlayGame = () => {
     // Handle play Mini-Games to retrive hearts
     console.log('Mini-games opened');
+    handleQuizCompletion();
     setShowPopup(false);
     navigate('/minigames')
   };

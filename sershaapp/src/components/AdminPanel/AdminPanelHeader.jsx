@@ -8,7 +8,7 @@ function AdminPanelHeader({ OpenSidebar }) {
   const path = window.location.pathname
 
   return (
-    <header className='header'>
+    <header className='header AdmHeader'>
       <div className='menu-icon'>
         <BsJustify className='icon' onClick={OpenSidebar} />
       </div>

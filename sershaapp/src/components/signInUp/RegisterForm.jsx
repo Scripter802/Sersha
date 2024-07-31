@@ -41,6 +41,9 @@ const RegisterForm = () => {
   const [ageError, setAgeError] = useState();
   const [phoneNumberError, setPhoneNumberError] = useState();
   const [emailError, setEmailError] = useState();
+  const [selectedAvatarImage, setSelectedAvatarImage] = useState();
+
+  console.log(`sel ${selectedAvatarImage?.imagePath}`)
 
   useEffect(() => {
     const fetchAvatars = async () => {
@@ -58,6 +61,7 @@ const RegisterForm = () => {
 
   const handleAvatarSelect = (avatar) => {
     setSelectedAvatar(avatar.id);
+    setSelectedAvatarImage(avatar);
     setShowAvatarModal(false);
   };
 
@@ -344,7 +348,7 @@ const RegisterForm = () => {
                 Avatar
                 <div className="avatar-selection" onClick={() => setShowAvatarModal(true)}>
                   {selectedAvatar ? (
-                    <img src={`${baseUrlImage}${selectedAvatar.imagePath}`} alt="Selected Avatar" />
+                    <img src={`${baseUrlImage}${selectedAvatarImage?.imagePath}`} alt="Selected Avatar" />
                   ) : (
                     <p>Choose Avatar</p>
                   )}

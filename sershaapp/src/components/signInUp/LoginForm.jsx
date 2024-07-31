@@ -11,6 +11,7 @@ import visible from '../../assets/images/login/visible.png';
 import './loginform.css';
 import Slideshow from '../SlideShow/SlideShow.jsx';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 
 const LoginForm = () => {
@@ -116,14 +117,6 @@ const LoginForm = () => {
         localStorage.setItem('userData', JSON.stringify(data));
         setUser(data);
         setIsLoggedIn(true);
-      } else if (logEmail === 'admin@admin.com' && logPassword === 'admin') {
-        const adminData = {
-          token: 'admin-token',
-          user: { email: 'admin@admin.com', name: 'Admin' },
-        };
-        loginUser(adminData.token); // Use loginUser function from context
-        localStorage.setItem('userData', JSON.stringify(adminData.user));
-        setIsLoggedIn(true);
       } else {
         const errorData = await response.json();
         setErrorMessage(errorData || "Username or Password is incorrect!");
@@ -134,7 +127,6 @@ const LoginForm = () => {
   };
 
   if (isLoggedIn == true) {
-    console.log(`user login is logged in: ${user.isFirstTimeLoggedIn}`)
     if (user && user.isFirstTimeLoggedIn == true) {
       console.log(`user login is first time: ${user.isFirstTimeLoggedIn}`)
 

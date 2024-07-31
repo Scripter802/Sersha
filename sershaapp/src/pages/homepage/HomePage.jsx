@@ -10,7 +10,7 @@ import { useGlobalContext } from '../../context/context'
 
 
 const HomePage = () => {
-  const { newMessage, setNewMessage, setUser, user } = useGlobalContext();
+  const { newMessage, setNewMessage, setUser, user, canPlayAnotherQuizToday } = useGlobalContext();
   const [newMessageSound, setNewMessageSound] = useState(false);
 
 
@@ -35,14 +35,15 @@ const HomePage = () => {
   ]
 
   useEffect(() => {
-    const newMessageTimer = setTimeout(() => {
-      setNewMessageSound(true);
-      setNewMessage(1);
-      localStorage.setItem('New Message', 1)
-    }, 4000);
-
-    return () => clearTimeout(newMessageTimer);
-  }, []);
+    if (canPlayAnotherQuizToday() && !newMessage) {
+      const newMessageTimer = setTimeout(() => {
+        setNewMessageSound(true);
+        setNewMessage(1);
+        localStorage.setItem('New Message', 1);
+      }, 4000);
+      return () => clearTimeout(newMessageTimer);
+    }
+  }, [canPlayAnotherQuizToday, newMessage, setNewMessage]);
 
 
 

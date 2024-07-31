@@ -11,7 +11,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const Dm = () => {
-  const { baseUrl, selectedMessagePreview, setSelectedMessagePreview } = useGlobalContext();
+  const { baseUrl, selectedMessagePreview, setSelectedMessagePreview, canPlayAnotherQuizToday, updateQuizzesPlayed, newMessage } = useGlobalContext();
   const [messages, setMessages] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [currentAnswer, setCurrentAnswer] = useState(null);
@@ -19,38 +19,40 @@ const Dm = () => {
   const [messageHistory, setMessageHistory] = useState([]);
   const navigate = useNavigate();
   const messagesEndRef = useRef(null);
-  const messagesPreviewRef = useRef(null)
+  const messagesPreviewRef = useRef(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" })
-  }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  };
 
   useEffect(() => {
-    scrollToBottom()
+    scrollToBottom();
   }, [messages, messageHistory]);
 
   useEffect(() => {
-    const fetchRandomChat = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}/Chat/randomChatMessage`);
-        return response.data;
-      } catch (error) {
-        console.error('Error fetching chat message:', error);
-        return null;
-      }
-    };
+    if (canPlayAnotherQuizToday()) {
+      const fetchRandomChat = async () => {
+        try {
+          const response = await axios.get(`${baseUrl}/Chat/randomChatMessage`);
+          return response.data;
+        } catch (error) {
+          console.error('Error fetching chat message:', error);
+          return null;
+        }
+      };
 
-    const fetchMessages = async () => {
-      const newMessages = [];
-      for (let i = 0; i < 1; i++) {
-        const message = await fetchRandomChat();
-        if (message) newMessages.push(message);
-      }
-      setMessages(newMessages);
-      setSelectedMessage(newMessages[0]);
-    };
+      const fetchMessages = async () => {
+        const newMessages = [];
+        for (let i = 0; i < 1; i++) {
+          const message = await fetchRandomChat();
+          if (message) newMessages.push(message);
+        }
+        setMessages(newMessages);
+        setSelectedMessage(newMessages[0]);
+      };
 
-    fetchMessages();
+      fetchMessages();
+    }
   }, [baseUrl]);
 
   const handleAnswer = (answer) => {
@@ -65,8 +67,6 @@ const Dm = () => {
 
     setMessageHistory(prevHistory => [...prevHistory, { question: selectedMessage.content, answer }]);
   };
-
-  console.log(selectedMessagePreview)
 
   return (
     <div className='dmsWrapper'>
@@ -108,9 +108,7 @@ const Dm = () => {
           </div>
           <div ref={messagesEndRef} />
         </div>
-
       </div>
-
       <div className='footer'>
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>

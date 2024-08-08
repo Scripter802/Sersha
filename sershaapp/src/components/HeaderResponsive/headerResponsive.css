@@ -23,11 +23,11 @@
   content: url('../../assets/images/navbar/coinBlack.png');
 }
 
-.responsiveMap,
-.responsiveGame,
-.responsiveHome,
-.responsiveMessages,
-.responsiveSearch {
+.mapRes,
+.miniGamesRes,
+.homeRes,
+.dmRes,
+.foxCustomizationRes {
   display: flex;
   width: 50px;
   height: 50px;
@@ -38,18 +38,22 @@
   cursor: pointer;
 }
 
-.responsiveMap:hover,
-.responsiveGame:hover,
-.responsiveHome:hover,
-.responsiveMessages:hover,
-.responsiveSearch:hover {
+.mapRes:hover,
+.miniGamesRes:hover,
+.homeRes:hover,
+.dmRes:hover,
+.foxCustomizationRes:hover {
   background: #C26F4D;
 }
 
-.responsiveDm {
+.currentMapRes,
+.currentMiniGamesRes,
+.currentHomeRes,
+.currentDmRes,
+.currentFoxCustomizationRes {
   display: flex;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   background-color: #C26F4D;
   border-radius: 100%;
   justify-content: center;
@@ -57,15 +61,9 @@
   cursor: pointer;
 }
 
-.responsiveCurrentHome {
-  display: flex;
-  width: 70px;
-  height: 70px;
-  background-color: #C26F4D;
-  border-radius: 100%;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+.currentDmRes,
+.dmRes {
+  position: relative;
 }
 
 .responsiveNavigationWrapper {
@@ -73,15 +71,55 @@
   justify-content: space-evenly;
   align-items: center;
   gap: 1rem;
-  position: absolute;
+  position: fixed;
   bottom: .5rem;
   left: 0;
   right: 0;
+  opacity: .8;
+  margin-bottom: .75rem;
 }
 
-.responsiveHome {
-  width: 70px;
-  height: 70px;
+.mute-btn-res {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.mute-btn-res img {
+  height: 40px;
+  border-radius: 50%;
+}
+
+.flexWrap {
+  display: flex;
+  align-items: center;
+  gap: .25rem;
+}
+
+.dropdownMenuRes {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdownMenuRes button {
+  background: none;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.dropdownMenuRes button:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .responsiveRightWrapper {
@@ -117,6 +155,7 @@
 .responsiveAvatarWrapper {
   display: flex;
   position: relative;
+  cursor: pointer;
 }
 
 .responsiveLevel {
@@ -137,13 +176,14 @@
 
 .responsiveCoinWrapper {
   display: flex;
-  width: 98px;
-  height: 50px;
+  /* flex-direction: column; */
+  min-height: 40px;
   justify-content: center;
   align-items: center;
   color: white;
   background: #C26F4D;
   border-radius: 30px 30px;
+  padding: .5rem;
 }
 
 .responsiveCoinWrapper:hover {

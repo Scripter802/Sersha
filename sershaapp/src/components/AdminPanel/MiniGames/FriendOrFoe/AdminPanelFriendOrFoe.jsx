@@ -72,13 +72,24 @@ const AdminPanelFriendOrFoe = () => {
   }, [friendOrFoeCreateNew, editingFriendOrFoe]);
   console.log(allFriendOrFoeAssignments)
 
-  const handleEditFriendOrFoe = (index) => {
-    setEditingFriendOrFoe(index);
+  const handleEditFriendOrFoe = (post) => {
+    setEditingFriendOrFoe(post);
     setIsFriendOrFoeEdit(true)
   };
 
-  const handleDeleteFriendOrFoe = (index) => {
+  const handleDeleteFriendOrFoe = async (post) => {
+    try {
+      const response = await axios.delete(`${baseUrl}/Quizzes/${post.id}`);
+      if (response.status === 200) {
 
+
+        // Update the allQuizzes state by filtering out the deleted quiz
+        const updatedFriendOrFoeAssignments = allFriendOrFoeAssignments.filter(q => q.id !== post.id);
+        setAllFriendOrFoeAssignments(updatedFriendOrFoeAssignments);
+      }
+    } catch (error) {
+      console.error('Error deleting the question:', error);
+    }
   };
 
 
@@ -117,9 +128,9 @@ const AdminPanelFriendOrFoe = () => {
                   <td data-label="Bundle">{post.difficulty == '0' ? 'Easy' : post.difficulty == '1' ? 'Medium' : 'Hard'}</td>
 
                   <td data-label="Edit/Delete" className='settingsData'>
-                    <button className="edit-btn" onClick={() => handleEditFriendOrFoe(index)}>Edit</button>
+                    <button className="edit-btn" onClick={() => handleEditFriendOrFoe(post)}>Edit</button>
 
-                    <button className="delete-btn" onClick={() => handleDeleteFriendOrFoe(index)}>Delete</button>
+                    <button className="delete-btn" onClick={() => handleDeleteFriendOrFoe(post)}>Delete</button>
                   </td>
                 </tr>
               )}

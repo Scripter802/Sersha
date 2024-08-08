@@ -1,42 +1,312 @@
-.map-container {
+.mapContainer {
   position: relative;
-  min-height: calc(100vh - 86px);
-  /* Adjust based on your requirement */
-  background-color: #A2302400;
-  /* Adjust based on your requirement */
   overflow-y: hidden;
-  width: 100%;
-}
-
-.map-background {
-  position: absolute;
-  height: 100%;
-  object-fit: cover;
-  overflow-x: hidden;
+  height: calc(100vh - 91px);
 }
 
 .map-item {
   position: absolute;
-  transform: translate(-50%, -50%);
-  background-color: #A2302400;
 }
 
-/* .map-icon { 
-  width: 50px; 
-  height: 50px;
-} */
+.mapWrapper {
+  height: 100%;
+  background: #A23024;
+  display: flex;
+  flex-wrap: nowrap;
+  width: fit-content;
+  margin-left: -60rem;
 
-.map-game {
+}
+
+
+.basePartWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+}
+
+.basePartWrapper img {
+  width: 100wv;
+}
+
+.gameLevel {
   position: absolute;
+  display: flex;
+  gap: 2rem;
+  transform: translate(-50%, -140%);
+}
+
+.gameLevel-down {
+  position: absolute;
+  display: flex;
+  gap: 2rem;
+  left: 50%;
+  transform: translate(-50%, 140%);
+}
+
+.title-up {
+  position: absolute;
+  width: 300px;
+  top: 25%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.title-up h3,
+.title-down h3 {
+  color: white;
+}
+
+.title-up p,
+.title-down p {
+  color: #FFB496;
+  font-size: 1.2rem;
+}
+
+.title-down {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.levelNoWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 50%;
+  background: #C26F4D;
   width: 40px;
   height: 40px;
-  transform: translate(-50%, -50%);
 }
 
-.map-line {
+.tree1 {
   position: absolute;
-  width: 100%;
-  height: auto;
-  top: 50%;
-  transform: translateY(-50%);
+  left: -10%;
+  bottom: 5%;
+}
+
+.tree2 {
+  position: absolute;
+  left: 20%;
+  top: 33%;
+}
+
+.tree3 {
+  position: absolute;
+  left: 46%;
+  bottom: 10%;
+}
+
+.tree4 {
+  position: absolute;
+  left: 42%;
+  top: 5%;
+}
+
+.tree5 {
+  position: absolute;
+  left: 75%;
+  bottom: 30%;
+}
+
+.tree6 {
+  position: absolute;
+  left: 90%;
+  bottom: 8%;
+}
+
+.tree7 {
+  position: absolute;
+  left: 25%;
+  bottom: 10%;
+}
+
+.tree8 {
+  position: absolute;
+  left: 42%;
+  top: 6%;
+}
+
+.tree9 {
+  position: absolute;
+  left: 75%;
+  bottom: 37%;
+}
+
+.tree10 {
+  position: absolute;
+  left: 90%;
+  bottom: 8%;
+}
+
+.tree11 {
+  position: absolute;
+  left: 25%;
+  top: 35%;
+}
+
+.tree12 {
+  position: absolute;
+  left: 45%;
+  bottom: 11%;
+}
+
+.tree13 {
+  position: absolute;
+  left: 45%;
+  top: 7%;
+}
+
+.tree14 {
+  position: absolute;
+  left: 70%;
+  bottom: 30%;
+}
+
+.tree15 {
+  position: absolute;
+  left: 92%;
+  bottom: 9%;
+}
+
+.tree16 {
+  position: absolute;
+  left: 20%;
+  top: 30%;
+}
+
+.tree17 {
+  position: absolute;
+  left: 47%;
+  bottom: 13%;
+}
+
+.tree18 {
+  position: absolute;
+  left: 42%;
+  top: 9%;
+}
+
+.tree19 {
+  position: absolute;
+  left: 75%;
+  bottom: 34%;
+}
+
+.tree20 {
+  position: absolute;
+  left: 92%;
+  bottom: 9%;
+}
+
+.tree21 {
+  position: absolute;
+  left: 20%;
+  top: 32%;
+}
+
+.tree22 {
+  position: absolute;
+  left: 42%;
+  top: 9%;
+}
+
+.tree23 {
+  position: absolute;
+  left: 75%;
+  bottom: 31%;
+}
+
+.tree24 {
+  position: absolute;
+  left: 92%;
+  bottom: 9%;
+}
+
+.tree25 {
+  position: absolute;
+  left: 20%;
+  top: 30%;
+}
+
+.tree26 {
+  position: absolute;
+  left: 42%;
+  top: 5%;
+}
+
+.tree27 {
+  position: absolute;
+  left: 46%;
+  bottom: 13%;
+}
+
+.tree28 {
+  position: absolute;
+  left: 75%;
+  bottom: 31%;
+}
+
+.tree29 {
+  position: absolute;
+  left: 92%;
+  bottom: 9%;
+}
+
+
+
+@media only screen and (max-width: 1000px) {
+  .mapContainer {
+    padding-bottom: 3rem;
+    height: calc(100vh);
+  }
+
+  .mapWrapper {
+    margin-left: -70rem;
+    margin-top: -2.75rem;
+    height: 95%;
+  }
+
+  .map-item {
+    scale: .6;
+  }
+
+  .trees {
+    scale: .8;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .mapContainer {
+    padding-bottom: 3rem;
+    height: calc(100vh);
+  }
+
+  .mapWrapper {
+    margin-left: -70rem;
+    margin-top: -2.75rem;
+    height: 95%;
+  }
+
+  .map-item {
+    scale: .6;
+  }
+
+  .trees {
+    scale: .8;
+  }
+
+  .gameLevel img {
+    scale: .8;
+  }
+
 }

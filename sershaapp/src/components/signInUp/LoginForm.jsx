@@ -31,7 +31,8 @@ const LoginForm = () => {
     setWindowWidth,
     loginUser,
     user,
-    setUser, // Use loginUser from context
+    setUser,
+    setIsTutorialActive
   } = useGlobalContext();
 
   const navigate = useNavigate();
@@ -98,6 +99,7 @@ const LoginForm = () => {
       password: logPassword,
     };
 
+
     try {
       const response = await fetch(`${baseUrl}/User/login`, {
         method: 'POST',
@@ -119,7 +121,7 @@ const LoginForm = () => {
         setIsLoggedIn(true);
       } else {
         const errorData = await response.json();
-        setErrorMessage(errorData || "Username or Password is incorrect!");
+        setErrorMessage(errorData.error || "Username or Password is incorrect!");
       }
     } catch (error) {
       setErrorMessage("Username or Password is incorrect!");
@@ -129,8 +131,8 @@ const LoginForm = () => {
   if (isLoggedIn == true) {
     if (user && user.isFirstTimeLoggedIn == true) {
       console.log(`user login is first time: ${user.isFirstTimeLoggedIn}`)
-
-
+      localStorage.setItem('levelStep', '0');
+      setIsTutorialActive(true);
       isFirstTimeLoggedInChange();
       return (<Slideshow />)
     }
@@ -148,8 +150,11 @@ const LoginForm = () => {
         {windowWidth > 1000 && (
           <div className='logInHeaderRightSide'>
             <p>Don’t have an account?</p>
-            <img src={skip} alt="signup" />
-            <p className='signUpButton' onClick={() => setLogIn(false)}>Sign Up</p>
+            <div className='goToSignUpBtn'>
+
+              <img src={skip} alt="signup" />
+              <p className='signUpButton' onClick={() => setLogIn(false)}>Sign Up</p>
+            </div>
           </div>
         )}
       </div>
@@ -175,9 +180,12 @@ const LoginForm = () => {
             </div>
 
             <div className="password mb-3">
+              <label className='passLabel'>
+                Password
+              </label>
               <div className="input-group passwordLogin">
-                <label>
-                  Password
+                <div className='inputPassWrapper'>
+
                   <input
                     type={logShowPassword ? "text" : "password"}
                     className={`form-control`}
@@ -187,14 +195,14 @@ const LoginForm = () => {
                     placeholder="Password"
                     onChange={(e) => setLogPassword(e.target.value)}
                   />
-                </label>
-                <button
-                  type="button"
-                  className=" btnShowHide"
-                  onClick={() => setLogShowPassword(!logShowPassword)}
-                >
-                  {logShowPassword ? <img src={visible} /> : <img src={visible} />}
-                </button>
+                  <button
+                    type="button"
+                    className=" btnShowHide"
+                    onClick={() => setLogShowPassword(!logShowPassword)}
+                  >
+                    {logShowPassword ? <img src={visible} /> : <img src={visible} />}
+                  </button>
+                </div>
                 <div className={`invalid-feedback text-start`}></div>
               </div>
 
@@ -225,17 +233,20 @@ const LoginForm = () => {
             {errorMessage && <p className="error-message">{errorMessage}</p>}
 
             {windowWidth < 1000 && (
-              <div className='logInHeaderRightSide'>
+              <div className='logInDontHaveAcc'>
                 <p>Don’t have an account?</p>
-                <img src={skip} alt="signup" />
-                <p className='signUpButton' onClick={() => setLogIn(false)}>Sign Up</p>
+                <div className='signUpButtonWrapper'>
+                  <img src={skip} alt="signup" />
+                  <p className='signUpButton' onClick={() => setLogIn(false)}>Sign Up</p>
+
+                </div>
               </div>
             )}
 
             <div className="text-center">
               <button
                 type="submit"
-                className="btn btn-primary w-100 theme-btn mx-auto"
+                className="login-btn btn-primary w-100 theme-btn mx-auto"
               >
                 <img src={circleLogin} alt="loginCircle" /> Log In
               </button>

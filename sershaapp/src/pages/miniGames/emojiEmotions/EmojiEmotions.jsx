@@ -111,7 +111,33 @@ const EmojiEmotions = () => {
     setRoughFoxDamaged('');
   };
 
-  const handleClaimPrize = () => {
+  const handleClose = () => {
+    setCorrectAnsweredMiniGames(0);
+    setIncorrectAnsweredMiniGames(0);
+    setEmojiNumber(0);
+    setSeconds(25);
+    setRoughFoxDamaged('');
+    setCorInc([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    navigate('/minigames');
+  };
+
+  const handleClaimPrize = (currentPrize) => {
+    const gameItems = JSON.parse(localStorage.getItem('gameItems')) || [];
+
+    const updatedGameItems = [...gameItems];
+
+    currentPrize.forEach((prize) => {
+      const existingItemIndex = updatedGameItems.findIndex(item => item.item === prize.item);
+
+      if (existingItemIndex !== -1) {
+        updatedGameItems[existingItemIndex].count += prize.count;
+      } else {
+        updatedGameItems.push(prize);
+      }
+    });
+
+    localStorage.setItem('gameItems', JSON.stringify(updatedGameItems));
+
     console.log('Prize claimed');
     setIsGameCompleted(false);
     navigate('/');
@@ -134,7 +160,7 @@ const EmojiEmotions = () => {
       <div className='emojiEmotionsTitleWrapper'>
 
         <div className='emojiEmotionsTitle'>
-          <img src={close} alt="closeBtn" onClick={() => navigate('/minigames')} />
+          <img src={close} alt="closeBtn" onClick={handleClose} />
           <h1>Emoji Emotions</h1>
         </div>
       </div>
@@ -232,9 +258,9 @@ const EmojiEmotions = () => {
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
-      <audio loop autoPlay>
+      {/* <audio loop autoPlay>
         <source src="/music/Music/RogueFoxFight310520241104.mp3" type="audio/mpeg" />
-      </audio>
+      </audio> */}
     </div>
   )
 }

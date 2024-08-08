@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { heart } from '../../assets/images/customization/items/index.js';
 import done from '../../assets/images/miniGames/done.png';
 import game from '../../assets/images/miniGames/game.png';
@@ -13,11 +13,20 @@ import postingChallengeRes from '../../assets/images/miniGames/postingChallengeR
 import { useNavigate } from 'react-router-dom';
 import './minigames.css';
 import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive.jsx';
-import GameSelectionPopup from './GameSelectionPopup'; // Adjust the import path if necessary
+import GameSelectionPopup from './GameSelectionPopup';
+import MusicContext from '../../context/MusicContext';
 
 const MiniGames = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const navigate = useNavigate();
+  const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
+  const music = '/music/Music/MiniGames.m4a'
+
+  useEffect(() => {
+    if (currentPlaying != music) {
+      changeMusic('/music/Music/MiniGames.m4a');
+    }
+  }, [changeMusic, music]);
 
   let body = document.querySelector('body');
   body.classList.add('overflowHidden');
@@ -79,9 +88,9 @@ const MiniGames = () => {
         </div>
       </div>
       {isPopupOpen && <GameSelectionPopup onClose={handleClosePopup} navigate={navigate} />}
-      <audio loop autoPlay>
-        <source src="/music/Music/MiniGames.m4a" type="audio/mpeg" />
-      </audio>
+      {/* <audio loop autoPlay>
+        <source src="" type="audio/mpeg" />
+      </audio> */}
 
     </div>
   );

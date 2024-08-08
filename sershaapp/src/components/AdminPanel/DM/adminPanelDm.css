@@ -103,9 +103,9 @@
 }
 
 @media only screen and (max-width: 360px) {
-  .dmsWrapper {
+  /* .dmsWrapper {
     padding: 5px;
-  }
+  } */
 
   .dmsTitleWrapper {
     padding: 5px;

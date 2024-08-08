@@ -31,8 +31,8 @@ const AdminPanelPostingChallenge = () => {
 
 
         // Update the allQuizzes state by filtering out the deleted quiz
-        const updatedQuizzes = allPostingChallengeAssignments.filter(q => q.id !== post.id);
-        setAllQuizzes(updatedQuizzes);
+        const updatedPostingAssignments = allPostingChallengeAssignments.filter(q => q.id !== post.id);
+        setAllPostingChallengeAssignments(updatedPostingAssignments);
       }
     } catch (error) {
       console.error('Error deleting the question:', error);
@@ -40,9 +40,6 @@ const AdminPanelPostingChallenge = () => {
   };
 
   useEffect(() => {
-
-
-
     const fetchAllQuizzes = async () => {
       try {
         const response = await axios.get(`${baseUrl}/Quizzes`);
@@ -57,7 +54,7 @@ const AdminPanelPostingChallenge = () => {
           return [...prev, ...newAssignments];
         });
       } catch (error) {
-        console.error('Error fetching Emoji Emotions assignments:', error);
+        console.error('Error fetching Posting challenge assignments:', error);
       }
     };
 

@@ -3,6 +3,8 @@
 * {
   font-family: "Baloo 2", sans-serif;
   font-weight: 500;
+  scrollbar-width: thin;
+  scrollbar-color: #922627 #C26F4D;
 }
 
 body {
@@ -10,7 +12,23 @@ body {
   padding: 0;
   box-sizing: border-box;
   background-color: black;
+
 }
+
+*::-webkit-scrollbar {
+  width: 1em;
+}
+
+*::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #C26F4D;
+  outline: 1px solid #922627;
+}
+
+
 
 /* QUIZZES */
 /* QUIZZES */

@@ -2,15 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '../../../../../context/context';
 import closeButton from '../../../../../assets/images/adminPanel/closeButton.png';
 import './postingChallengeEdit.css';
+import Dropzone from 'react-dropzone';
 
 const PostingChallengeEdit = () => {
-  const { editingPostingChallenge, setEditingPostingChallenge, setIsPostingChallengeEdit, allPostingChallengeAssignments, setAllPostingChallengeAssignments } = useGlobalContext();
+  const { baseUrl, baseUrlImage, editingPostingChallenge, setEditingPostingChallenge, setIsPostingChallengeEdit, allPostingChallengeAssignments, setAllPostingChallengeAssignments } = useGlobalContext();
+  const [imagePosting, setImagePosting] = useState(editingPostingChallenge?.questions[0]?.imagePath);
   const [editPostingChallenge, setEditPostingChallenge] = useState({
-    Image: null,
-    AuthorName: '',
-    PostContent: '',
-    CorrectAnswer: '',
-    Stage: '',
+    difficulty: '',
+    questions: [
+      {
+        type: '',
+        text: '',
+        answers: [
+          { text: 'Post', isCorrect: false },
+          { text: "Don't post", isCorrect: false }
+        ],
+        imagePath: '',
+        content: '',
+      }
+    ]
   });
 
   useEffect(() => {
@@ -20,14 +30,58 @@ const PostingChallengeEdit = () => {
   }, [editingPostingChallenge]);
 
   const handleSubmit = () => {
-    const updatedAssignments = allPostingChallengeAssignments.map(assignment =>
-      assignment.id === editPostingChallenge.id ? editPostingChallenge : assignment
-    );
-    setAllPostingChallengeAssignments(updatedAssignments);
+    const updatedSnapJudgmentFormData = new FormData();
+    updatedSnapJudgmentFormData.append('difficulty', editPostingChallenge.difficulty);
+    updatedSnapJudgmentFormData.append("questions[0][text]", editPostingChallenge.questions[0].text);
+    updatedSnapJudgmentFormData.append("questions[0][content]", editPostingChallenge.questions[0].content);
+    updatedSnapJudgmentFormData.append(`questions[0][type]`, editPostingChallenge.questions[0].type);
+    updatedSnapJudgmentFormData.append("questions[0][imageFile]", snapImage);
+    updatedSnapJudgmentFormData.append("questions[0][answers]", editPostingChallenge.questions[0].answers);
+
+
+    // await axios.put(`${baseUrl}/Questions/${editSnapJudgment.id}/questions/${editSnapJudgment.questions[0].id}`, updatedSnapJudgmentFormData, {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data',
+    //     'Access-Control-Allow-Origin': '*',
+    //     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+    //   },
+    // });
+
 
     setEditingPostingChallenge(null);
     setIsPostingChallengeEdit(false);
   };
+
+  const handleImageDrop = (acceptedFiles) => {
+    setImagePosting(acceptedFiles[0]);
+  };
+
+  const handleCheckboxChange = (index, isChecked) => {
+    const updatedQuestions = [...editPostingChallenge.questions];
+    const updatedAnswers = [...updatedQuestions[0].answers];
+    updatedAnswers[index].isCorrect = isChecked;
+    updatedQuestions[0] = {
+      ...updatedQuestions[0],
+      answers: updatedAnswers
+    };
+    setEditPostingChallenge({ ...editPostingChallenge, questions: updatedQuestions });
+  };
+
+  const handleInputChange = (field, value, questionIndex = null) => {
+    if (questionIndex !== null) {
+      const updatedQuestions = [...editPostingChallenge?.questions];
+      updatedQuestions[questionIndex] = {
+        ...updatedQuestions[questionIndex],
+        [field]: value,
+      };
+      setEditPostingChallenge({ ...editPostingChallenge, questions: updatedQuestions });
+    } else {
+      setEditPostingChallenge({ ...editPostingChallenge, [field]: value });
+    }
+  };
+
+
+  const dif = editPostingChallenge.difficulty === 'Easy' ? 0 : editPostingChallenge.difficulty === 'Medium' ? 1 : 2;
 
   return (
     <div className="editPostingChallengeContainer">
@@ -40,38 +94,54 @@ const PostingChallengeEdit = () => {
         <input
           className='inputField'
           type="text"
-          value={editPostingChallenge.AuthorName}
+          value={editPostingChallenge.questions[0].text}
           placeholder='Author Name'
-          onChange={(e) => setEditPostingChallenge({ ...editPostingChallenge, AuthorName: e.target.value })}
-        />
+          onChange={(e) => handleQuestionChange(0, 'text', e.target.value)} />
       </div>
       <div>
         <label className='fieldLabel'>Post Content:</label>
         <input
           className='inputField'
           type="text"
-          value={editPostingChallenge.PostContent}
+          value={editPostingChallenge.questions[0].content}
           placeholder='Post Content'
-          onChange={(e) => setEditPostingChallenge({ ...editPostingChallenge, PostContent: e.target.value })}
-        />
+          onChange={(e) => handleQuestionChange(0, 'content', e.target.value)} />
       </div>
       <div>
-        <label className='fieldLabel'>Correct Answer:</label>
-        <input
-          className='inputField'
-          type="text"
-          value={editPostingChallenge.CorrectAnswer}
-          placeholder='Correct Answer'
-          onChange={(e) => setEditPostingChallenge({ ...editPostingChallenge, CorrectAnswer: e.target.value })}
-        />
+        <label className='fieldLabel'>Upload Image:</label>
+        <Dropzone onDrop={handleImageDrop}>
+          {({ getRootProps, getInputProps }) => (
+            <div {...getRootProps()} className="dropzone">
+              <input {...getInputProps()} />
+              {imagePosting ? (
+                <img src={typeof imagePosting === 'string' ? `${baseUrlImage}/${imagePosting}` : URL.createObjectURL(imagePosting)} alt="image" className="uploaded-image" />
+              ) : (
+                <p>Drag 'n' drop an image here, or click to select an image</p>
+              )}
+            </div>
+          )}
+        </Dropzone>
+      </div>
+      <div>
+        {editPostingChallenge.questions[0].answers.map((answer, index) => (
+          <div key={index}>
+            <input
+              type="checkbox"
+              checked={answer.isCorrect}
+              onChange={(e) => handleCheckboxChange(index, e.target.checked)}
+            />
+            <label>{answer.text}</label>
+          </div>
+        ))}
       </div>
       <div>
         <label>Stage</label>
         <select
           className='dropdown'
-          value={editPostingChallenge.Stage}
-          onChange={(e) => setEditPostingChallenge({ ...editPostingChallenge, Stage: e.target.value })}
+          value={editPostingChallenge?.difficulty === 0 ? 'Easy' : editPostingChallenge?.difficulty === 1 ? 'Medium' : 'Hard'}
+          onChange={(e) => setEditPostingChallenge({ ...editPostingChallenge, difficulty: e.target.value === 'Easy' ? 0 : e.target.value === 'Medium' ? 1 : 2 })}
         >
+          <option value="" disabled>Select Bundle</option>
           <option value="Easy">Easy</option>
           <option value="Medium">Medium</option>
           <option value="Hard">Hard</option>

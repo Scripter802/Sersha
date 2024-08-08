@@ -143,7 +143,8 @@
     justify-content: center;
     color: #ffffff;
     border-radius: 20px 20px;
-    width: 180px;
+    min-width: 180px;
+    width: fit-content;
     min-height: 40px;
     margin-block: .315rem;
     cursor: pointer;
@@ -152,6 +153,10 @@
     color: #FFB496;
     font-size: 0.875rem;
     font-weight: 500;
+}
+
+.dropBox>p {
+    padding: .15rem;
 }
 
 .groupingFinished {
@@ -168,7 +173,7 @@
 }
 
 .groupingFinished:hover {
-    background-color: #0056b3;
+    background-color: #ee9d7c;
 }
 
 .GroupingquizWrapper {

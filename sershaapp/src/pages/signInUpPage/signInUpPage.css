@@ -9,6 +9,7 @@
 .leftSideWrapper {
     flex: 1;
     position: relative;
+    overflow: hidden;
 }
 
 .leftSideBackground {
@@ -155,6 +156,7 @@ article.nextSlide {
 }
 
 
+
 @media (max-width: 1000px) {
     .logInWrapper {
         display: grid;
@@ -232,7 +234,7 @@ article.nextSlide {
         background-size: cover;
         background-position: center;
         border-radius: 20px 20px;
-        margin-top: 30%;
+        margin-top: 0;
     }
 
     #leftSizeWrapper {
@@ -243,6 +245,15 @@ article.nextSlide {
         margin-top: 8rem;
         width: 80%;
         font-size: 1.25rem;
+    }
+
+    .leftSideContent {
+        height: 100vh;
+    }
+
+    .activeSlide {
+        position: unset;
+        height: unset;
     }
 
 }

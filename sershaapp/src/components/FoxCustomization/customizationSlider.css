@@ -6,6 +6,28 @@
   width: 100vw;
 }
 
+.singleImg,
+.singleImg1 {
+  margin-left: 5%;
+}
+
+.singleImg1 {
+  padding-bottom: 2rem;
+}
+
+
+
 .tns-visually-hidden {
   display: none;
+}
+
+.tns-item {
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 560px) {
+  .singleImg1 img {
+    width: 100px;
+    height: 100px;
+  }
 }

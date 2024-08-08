@@ -1,103 +1,112 @@
-.editRightAnswerQuestionContainer {
-  position: relative;
-  margin: 20px auto;
-  width: 50%;
-  background-color: transparent;
+.quiz-edit-container {
   padding: 20px;
+  background-color: #f9f9f9;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  color: #FFB496;
-  background: linear-gradient(180deg, #2F202F 0%, #460C23F2 100%);
+  max-width: 800px;
+  margin: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.editRightAnswerQuestionContainer h3 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #FFF;
+.quiz-edit-close-btn {
+  display: flex;
+  justify-content: flex-end;
 }
 
-.editRightAnswerQuestionInput {
-  width: 100%;
-  height: 40px;
-  padding: 10px;
+.quiz-edit-close-btn img {
+  cursor: pointer;
+}
+
+.quiz-edit-title {
+  font-size: 24px;
+  font-weight: bold;
   margin-bottom: 10px;
+  text-align: center;
+}
+
+.quiz-edit-question-label,
+.quiz-edit-options-label,
+.quiz-edit-bundle-label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.quiz-edit-question-input,
+.quiz-edit-option-input,
+.quiz-edit-bundle-select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box;
-  background: transparent;
-  color: #FFFFFF;
 }
 
-.questionFieldLabel,
-.optionsFieldLabel {
-  font-size: .85rem;
-  padding-bottom: .5rem;
+.quiz-edit-options {
+  margin-top: 20px;
 }
 
-.editRightAnswerOptions {
+.quiz-edit-option-box {
   display: flex;
-  flex-direction: column;
-  gap: .5rem;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-.optionBox {
-  width: 100%;
+.quiz-edit-option-input {
+  flex: 1;
+}
+
+.quiz-edit-checkbox {
+  margin-left: 10px;
+}
+
+.quiz-edit-checkbox-input {
+  transform: scale(1.2);
+}
+
+.quiz-edit-add-option {
   display: flex;
-  flex-direction: row-reverse;
-  gap: 1rem;
+  justify-content: center;
+  margin-top: 10px;
 }
 
-.optionBox label {
-  width: 100%;
-}
-
-.optionBox input[type='checkbox'] {
-  width: 30px;
-}
-
-.optionBox input {
+.quiz-edit-add-option-btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
   height: 40px;
 }
 
-.editPostBtn {
-  margin-block: 20px;
+.quiz-edit-add-option-btn-content {
+  font-size: 24px;
+}
+
+.quiz-edit-add-option-btn:hover {
+  background-color: #ee9d7c;
+}
+
+.quiz-edit-submit-btn {
+  background-color: #C26F4D;
+  ;
+  color: #fff;
   padding: 10px 20px;
-  background-color: #C26F4D;
-  color: #fff;
   border: none;
   border-radius: 4px;
+  font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
 }
 
-.editPostBtn:hover {
-  background-color: #0056b3;
-}
-
-.newOptionFieldAdd {
-  display: flex;
-  justify-content: center;
-}
-
-.addNewOptionFieldBtn {
-  margin-bottom: 20px;
-  margin-top: 10px;
-  padding: 5px 15px;
-  background-color: #C26F4D;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.incrementCharacter {
-  font-size: 20px;
-  line-height: 15px;
-}
-
-@media only screen and (max-width: 768px) {
-  .editRightAnswerQuestionContainer {
-    width: 100%;
-  }
+.quiz-edit-submit-btn:hover {
+  background-color: #218838;
 }

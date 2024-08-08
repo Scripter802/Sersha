@@ -16,6 +16,7 @@ const AppProvider = ({ children }) => {
   // SINGLE USER
   const [user, setUser] = useState();
   const [selectedUser, setSelectedUser] = useState();
+  const [userLevel, setUserLevel] = useState({ level: 1, step: 1 })
 
   // Cookies
   // Function to check if the user can play another quiz today
@@ -41,7 +42,78 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  // Function to update the cookie after a quiz is played
+  // APP TUTORIAL
+  const [isTutorialActive, setIsTutorialActive] = useState(false);
+  const [tutorial, setTutorial] = useState({
+    run: false,
+    steps: [
+      {
+        content: <><h2>Welcome!</h2><p>It's your first time with us, so to make it easier and more fun, we've prepared a short tutorial for you!</p><p>Let's begin our journey!</p></>,
+        locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+        placement: 'center',
+        target: 'body',
+      },
+      {
+        target: '.map',
+        floaterProps: {
+          disableAnimation: true,
+        },
+        content: <><h2>Map</h2><p>This is the map. Come here to see how far you’ve come in your journey, what levels you have accomplished, and how close you are to finding the rogue fox!</p></>,
+      },
+      {
+        target: '.miniGames',
+        floaterProps: {
+          disableAnimation: true,
+        },
+        content: <><h2>Mini Games</h2><p>Mini Games are designed to help you receive rewards and sharpen your skills to defeat the rogue fox!</p></>,
+      },
+      {
+        target: '.currentHome',
+        floaterProps: {
+          disableAnimation: true,
+        },
+        content: <><h2>News Feed</h2><p>Keep up to date on your team’s whereabouts and the rogue fox’s latest antics!</p></>,
+      },
+      {
+        target: '.dm',
+        floaterProps: {
+          disableAnimation: true,
+        },
+        content: <><h2>Messages</h2><p>Your teammates will send you messages throughout your journey and teach you about social media safety, but be careful, the rogue fox can strike at any second!</p></>,
+      },
+      {
+        target: '.foxCustomization',
+        floaterProps: {
+          disableAnimation: true,
+        },
+        content: <><h2>Fox Customisation</h2><p>Select from different outfits to give your Sersha fox the best look!</p></>,
+      },
+      {
+        target: '.mute-btn',
+        floaterProps: {
+          disableAnimation: true,
+        },
+        content: <><h2>Mute</h2><p>Click to turn the music on or off.</p></>,
+      },
+      {
+        target: '.tutorialBtn',
+        floaterProps: {
+          disableAnimation: true,
+        },
+        content: <><h2>Information</h2><p>Click here to read the instructions again.</p></>,
+      },
+      {
+        target: '.avatar',
+        floaterProps: {
+          disableAnimation: true,
+        },
+        content: <><h2>Information</h2><p>Click here to change your avatar or change your profile settings.</p></>,
+      },
+    ]
+  })
+
+
+
   const updateQuizzesPlayed = () => {
     const cookieValue = Cookies.get('todayQuizzesPlayed');
     const { date, quizzesPlayed } = JSON.parse(cookieValue);
@@ -51,14 +123,10 @@ const AppProvider = ({ children }) => {
 
   const handleQuizCompletion = async () => {
     if (canPlayAnotherQuizToday()) {
-      // User can play another quiz
       updateQuizzesPlayed();
-      // Trigger the second DM or any other logic
       console.log("Quiz completed. User can play another quiz today.");
     } else {
       console.log("User has already played two quizzes today.");
-      // Handle the case where the user can't play another quiz today
-      // E.g., send a DM or show a message
     }
   };
 
@@ -391,6 +459,82 @@ const AppProvider = ({ children }) => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState(0);
 
+  // MAP 
+  const [bundelsAndLevels, setBundlesAndLevels] = useState([
+    {
+      bundle: 'Easy',
+      bundleName: 'Digital City',
+      levels: [
+        {
+          levelName: 'Pixel Plaza',
+          levelDesc: 'Explore the basics of the digital world.',
+          levelNo: 1,
+          step: 0,
+          levelNameDown: 'Message Mall',
+          levelDescDown: 'Learn to chat and share safely.',
+          levelNoDown: 2,
+          stepDown: 0,
+        },
+        {
+          levelName: 'Emoji Avenue',
+          levelDesc: 'Discover different types of online posts.',
+          levelNo: 3,
+          step: 0,
+          levelNameDown: 'Secure Street',
+          levelDescDown: 'Keep your online info private.',
+          levelNoDown: 4,
+          stepDown: 0,
+        },
+        {
+          levelName: 'Wisdom Way',
+          levelDesc: 'Think twice before you click.',
+          levelNo: 5,
+          step: 0,
+          levelNameDown: 'Harmony Hub',
+          levelDescDown: 'Stay happy and healthy online.',
+          levelNoDown: 6,
+          stepDown: 0,
+        },
+        {
+          levelName: 'Bully-Free Boulevard',
+          levelDesc: 'Stand up to online bullies.',
+          levelNo: 7,
+          step: 0,
+          levelNameDown: 'Balanced Boulevard',
+          levelDescDown: 'Manage your online and offline time.',
+          levelNoDown: 8,
+          stepDown: 0,
+        },
+        {
+          levelName: 'Alert Alley',
+          levelDesc: 'Spot and avoid online strangers.',
+          levelNo: 9,
+          step: 0,
+          levelNameDown: 'Friendly Forum',
+          levelDescDown: 'Join and enjoy safe online groups.',
+          levelNoDown: 10,
+          stepDown: 0,
+        },
+        {
+          levelName: 'Clean Content Corner',
+          levelDesc: 'Handle and report bad stuff.',
+          levelNo: 11,
+          step: 0,
+          levelNameDown: 'Trendsetter Tower',
+          levelDescDown: 'Understand online influencers.',
+          levelNoDown: 12,
+          stepDown: 0,
+        },
+        {
+          levelName: "Gamer's Gateway",
+          levelDesc: 'Enjoy games safely.',
+          levelNo: 13,
+          step: 0,
+        },
+      ]
+    }
+  ]);
+
   return (
     <AppContext.Provider
       value={{
@@ -410,6 +554,9 @@ const AppProvider = ({ children }) => {
         updateQuizzesPlayed,
         handleQuizCompletion,
 
+        //APP TUTORIAL
+        tutorial, setTutorial,
+        isTutorialActive, setIsTutorialActive,
 
         //FOX CUSTOMIZATION
 
@@ -481,6 +628,8 @@ const AppProvider = ({ children }) => {
         setUser,
         selectedUser,
         setSelectedUser,
+        userLevel,
+        setUserLevel,
 
 
         // AUTHORS
@@ -651,6 +800,10 @@ const AppProvider = ({ children }) => {
         // DMS
         selectedMessagePreview,
         setSelectedMessagePreview,
+
+        // MAP
+        bundelsAndLevels,
+        setBundlesAndLevels,
 
       }}
     >

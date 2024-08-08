@@ -129,6 +129,7 @@
   font-size: 1rem;
   font-weight: 500;
   gap: 5px;
+  color: black;
 }
 
 .postingChallengeAcceptButton {
@@ -143,6 +144,7 @@
   font-size: 1rem;
   font-weight: 500;
   gap: 5px;
+  color: black;
 }
 
 .postingChallengeRightSideContent {

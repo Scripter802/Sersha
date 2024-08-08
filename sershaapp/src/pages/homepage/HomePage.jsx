@@ -5,14 +5,24 @@ import Posts from '../../components/HomePage/Posts'
 
 import './homepage.css'
 import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useGlobalContext } from '../../context/context'
+import MusicContext from '../../context/MusicContext'
+import Tutorial from '../../components/Tutorial/Tutorial'
 
 
 const HomePage = () => {
-  const { newMessage, setNewMessage, setUser, user, canPlayAnotherQuizToday } = useGlobalContext();
-  const [newMessageSound, setNewMessageSound] = useState(false);
+  const { newMessage, setNewMessage, setUser, user, canPlayAnotherQuizToday, isTutorialActive } = useGlobalContext();
+  const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
+  const music = '/music/Music/SershaThemesongMediumoptimal310520241122.mp3'
 
+  useEffect(() => {
+    if (currentPlaying != music) {
+      changeMusic('/music/Music/SershaThemesongMediumoptimal310520241122.mp3');
+    }
+  }, [changeMusic, music]);
+
+  console.log(currentPlaying, isPlaying)
 
   const posts = [
     {
@@ -34,16 +44,16 @@ const HomePage = () => {
     },
   ]
 
-  useEffect(() => {
-    if (canPlayAnotherQuizToday() && !newMessage) {
-      const newMessageTimer = setTimeout(() => {
-        setNewMessageSound(true);
-        setNewMessage(1);
-        localStorage.setItem('New Message', 1);
-      }, 4000);
-      return () => clearTimeout(newMessageTimer);
-    }
-  }, [canPlayAnotherQuizToday, newMessage, setNewMessage]);
+  // useEffect(() => {
+  //   if (canPlayAnotherQuizToday() && !newMessage) {
+  //     const newMessageTimer = setTimeout(() => {
+  //       setNewMessageSound(true);
+  //       setNewMessage(1);
+  //       localStorage.setItem('New Message', 1);
+  //     }, 4000);
+  //     return () => clearTimeout(newMessageTimer);
+  //   }
+  // }, [canPlayAnotherQuizToday, newMessage, setNewMessage]);
 
 
 
@@ -73,17 +83,20 @@ const HomePage = () => {
       {window.innerWidth < 1000 && <HeaderResponsive />}
       <div className='homePageContainer'>
         <div className='posts'>
+          {window.innerWidth > 1000 && isTutorialActive &&
+            <Tutorial />
+          }
           <Posts posts={posts} />
+          <div>
+            <button className="play-button">Let's Play!</button>
+          </div>
         </div>
+
       </div>
-      {newMessageSound == true && (
-        <audio autoPlay>
-          <source src="/music/SFX/DMs/esmmessagepingx2notificationsynthelectroniccartoon.mp3" type="audio/mpeg" />
-        </audio>
-      )}
-      <audio loop autoPlay>
+
+      {/* <audio loop autoPlay>
         <source src="/music/Music/SershaThemesongMediumoptimal310520241122.mp3" type="audio/mpeg" />
-      </audio>
+      </audio> */}
     </div>
   )
 }

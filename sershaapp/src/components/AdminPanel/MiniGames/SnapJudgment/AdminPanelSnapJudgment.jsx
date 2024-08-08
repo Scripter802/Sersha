@@ -45,20 +45,21 @@ const AdminPanelSnapJudgment = () => {
     },
   ]
 
-  const handleEditSnapJudgment = (index) => {
-    setEditingSnapJudgment(index);
+  const handleEditSnapJudgment = (post) => {
+    console.log(post)
+    setEditingSnapJudgment(post);
     setIsSnapJudgmentEdit(true)
   };
 
   const handleDeleteSnapJudgment = async (post) => {
     try {
-      const response = await axios.delete(`${baseUrl}/Questions/questions/${post.id}`);
+      const response = await axios.delete(`${baseUrl}/Quizzes/${post.id}`);
       if (response.status === 200) {
 
 
         // Update the allQuizzes state by filtering out the deleted quiz
-        const updatedQuizzes = allPostingChallengeAssignments.filter(q => q.id !== post.id);
-        setAllQuizzes(updatedQuizzes);
+        const updatedAssignments = allSnapJudgmentAssignments.filter(q => q.id !== post.id);
+        setAllSnapJudgmentAssignments(updatedAssignments);
       }
     } catch (error) {
       console.error('Error deleting the question:', error);
@@ -126,7 +127,7 @@ const AdminPanelSnapJudgment = () => {
                   <td data-label="Bundle">{post.difficulty == '0' ? 'Easy' : post.difficulty == '1' ? 'Medium' : 'Hard'}</td>
 
                   <td data-label="Edit/Delete" className='settingsData'>
-                    <button className="edit-btn" onClick={() => handleEditSnapJudgment(index)}>Edit</button>
+                    <button className="edit-btn" onClick={() => handleEditSnapJudgment(post)}>Edit</button>
 
                     <button className="delete-btn" onClick={() => handleDeleteSnapJudgment(post)}>Delete</button>
                   </td>

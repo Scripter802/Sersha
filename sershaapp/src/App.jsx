@@ -26,6 +26,9 @@ import SnapJudgment from './pages/miniGames/snapJudgment/SnapJudgment.jsx'
 import ProtectedRoute from './components/signInUp/ProtectedRoute.jsx'
 import QuizPage from './pages/quizzes/QuizzPage/QuizPage.jsx'
 import MapPage from './pages/map/MapPage.jsx'
+import SettingsPage from './pages/settingsPage/SettingsPage.jsx'
+
+import { MusicProvider } from './context/MusicContext.jsx';
 
 // Layout Component
 const Layout = () => {
@@ -50,6 +53,14 @@ const router = createBrowserRouter([
             <HomePage />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: '/settings',
+        element: (
+          <ProtectedRoute>
+            <SettingsPage />
+          </ProtectedRoute>
+        )
       },
       {
         path: '/foxcustomization',
@@ -186,7 +197,10 @@ const HTML5toTouch = {
 
 const App = () => (
   <DndProvider backend={MultiBackend} options={HTML5toTouch}>
-    <RouterProvider router={router} />
+    <MusicProvider>
+      <RouterProvider router={router} />
+
+    </MusicProvider>
   </DndProvider>
 );
 

@@ -63,8 +63,8 @@ const GameCompletedPopup = ({ correctAnswers, mistakes, onRestart, onClaimPrize,
   };
 
   return (
-    <div className="popup">
-      <div className="popup-content">
+    <div className={`popup ${!isQuizz && 'popMiniGames'}`}>
+      <div className={`${isQuizz ? 'popup-content' : 'popup-content-miniGames'}`}>
         <h2>{title} Completed</h2>
         <p>Every time you get better and better</p>
         <div className='rewardsWrapper'>
@@ -82,10 +82,10 @@ const GameCompletedPopup = ({ correctAnswers, mistakes, onRestart, onClaimPrize,
                 <div key={index}>
 
                   <p className='questionNum'>Question {index + 1}:</p>
-                  <p> {item.text}</p>
+                  <p id='questionText'> {item.text}</p>
                   Correct Answer:
                   {item.answers.map((ans, i) => (
-                    ans.isCorrect && <p key={i}> {ans.text}</p>
+                    ans.isCorrect && <p id='correctAnswerQuizzPopup' key={i}> {ans.text}</p>
                   ))}
                   <hr
                     style={{ borderTop: "1px dotted lightgrey", marginBlock: '1rem' }}
@@ -97,9 +97,9 @@ const GameCompletedPopup = ({ correctAnswers, mistakes, onRestart, onClaimPrize,
                 <div key={index}>
 
                   <p className='questionNum'>Question {index + 1}:</p>
-                  <p>{item.text}</p>
+                  <p id='questionText'>{item.text}</p>
                   Correct Answer:
-                  <p> {item.isCorrect ? "True" : "False"}</p>
+                  <p id='correctAnswerQuizzPopup'> {item.isCorrect ? "True" : "False"}</p>
                   <hr
                     style={{ borderTop: "1px dotted lightgrey", marginBlock: '1rem' }}
                   ></hr>
@@ -109,10 +109,10 @@ const GameCompletedPopup = ({ correctAnswers, mistakes, onRestart, onClaimPrize,
               return (
                 <div key={index}>
                   <p className='questionNum'>Question {index + 1}:</p>
-                  <p>{item.statement1} ____ {item.statement2}</p>
+                  <p id='questionText'>{item.statement1} ____ {item.statement2}</p>
                   Correct Answer:
                   {item.answers.map((ans, i) => (
-                    ans.isCorrect && <p key={i}> {ans.text}</p>
+                    ans.isCorrect && <p id='correctAnswerQuizzPopup' key={i}> {ans.text}</p>
                   ))}
                   <hr
                     style={{ borderTop: "1px dotted lightgrey", marginBlock: '1rem' }}
@@ -125,10 +125,10 @@ const GameCompletedPopup = ({ correctAnswers, mistakes, onRestart, onClaimPrize,
                   <p className='questionNum'>Question {index + 1}:</p>
                   {item.groups.map((group, ig) => (
                     <div key={ig}>
-                      <p> {group.name}:</p>
+                      <p id='questionText'> {group.name}:</p>
                       Correct Answer:
                       {group.groupingItems.map((groupItem, i) => (
-                        <p key={i}> {groupItem.item}</p>
+                        <p id='correctAnswerQuizzPopup' key={i}> {groupItem.item}</p>
                       ))}
 
                       <hr
@@ -154,7 +154,7 @@ const GameCompletedPopup = ({ correctAnswers, mistakes, onRestart, onClaimPrize,
             <button onClick={onPlayGame}>Play Mini-Games</button>
           )}
           {heartsNum !== 0 && correctAnswers >= 8 && (
-            <button onClick={onClaimPrize}><img src={claimPrizeIcon} alt="Claim Prize" />Claim Prize</button>
+            <button onClick={(e) => onClaimPrize(currentPrize)}><img src={claimPrizeIcon} alt="Claim Prize" />Claim Prize</button>
           )}
         </div>
       </div>

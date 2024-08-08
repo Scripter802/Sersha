@@ -39,7 +39,10 @@
   margin-block: 0.95rem;
 }
 
-
+#correct-answer-Fill {
+  background-color: #B2F0B6;
+  color: #000;
+}
 
 .fillInAssignment {
   display: flex;
@@ -50,6 +53,8 @@
   border-radius: 20px 20px;
   padding: 1rem;
   color: #FFB496;
+  flex-direction: column;
+  text-align: center;
 }
 
 .fillInAssignment img {

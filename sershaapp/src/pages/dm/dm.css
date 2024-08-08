@@ -16,6 +16,38 @@
     padding-top: 3.125rem;
     gap: 2rem;
     min-height: calc(100vh - 86px);
+    position: relative;
+}
+
+.noNewMessagesWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+.title-level-dmRes,
+.LevelTitleDmRes {
+    display: none;
+
+}
+
+.LevelTitleDm {
+    position: absolute;
+    top: -2.5rem;
+    margin-left: 50%;
+    transform: translate(-50%);
+    color: white;
+    font-size: 1.25rem;
+}
+
+.noNewMessages {
+    text-align: center;
+}
+
+.noNewMessagesWrapperRes {
+    display: none;
 }
 
 .messageHistory {
@@ -32,6 +64,7 @@
     display: flex;
     flex-direction: column;
     gap: .3rem;
+    position: relative;
 }
 
 .msgWrapper {
@@ -139,6 +172,21 @@
         border-radius: 0;
     }
 
+    .LevelTitleDmRes {
+        display: block;
+        position: absolute;
+    }
+
+    .title-level-dmRes {
+        display: block;
+        position: unset;
+    }
+
+    .LevelTitleDm {
+        position: unset;
+    }
+
+
     .dmsContainer {
         background-image: url('/src/assets/images/dms/dmsBackground.png');
         background-size: cover;
@@ -147,7 +195,24 @@
         border-radius: 0 0 30px 30px;
         margin-bottom: 4rem;
 
-        min-height: 100vh;
+        min-height: calc(100vh - 70px);
+    }
+
+
+    .noNewMessagesWrapper {
+        display: none;
+    }
+
+    .noNewMessagesWrapperRes {
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -60%);
+    }
+
+    .noNewMessagesRes {
+        text-align: center;
     }
 
     .msgPreview {

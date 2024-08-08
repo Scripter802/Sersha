@@ -9,6 +9,25 @@ import accept from '../../../assets/images/miniGames/friendOrFoe/accept.png'
 import decline from '../../../assets/images/miniGames/friendOrFoe/decline.png'
 import avatar from '../../../assets/images/miniGames/friendOrFoe/userpick.png'
 import gamePhoto from '../../../assets/images/miniGames/friendOrFoe/photo.png'
+import {
+  one,
+  two,
+  three,
+  four,
+  five,
+  six,
+  seven,
+  eight,
+  nine,
+  ten,
+  eleven,
+  twelve,
+  thirteen,
+  fourteen,
+  fiveteen,
+  sixteen,
+  seventeen
+} from '../../../assets/images/characterProfiles/index.js'
 
 import './friendOrFoe.css'
 import { useGlobalContext } from '../../../context/context';
@@ -36,7 +55,9 @@ const FriendOrFoe = () => {
   const [currentFriendOrFoe, setCurrentFriendOrFoe] = useState([]);
   const [friendOrFoeNumber, setFriendOrFoeNumber] = useState(0);
   const [isGameCompleted, setIsGameCompleted] = useState(false);
+  const profileImages = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fiveteen, sixteen, seventeen];
   const navigate = useNavigate();
+  const [randomAvatarImage, setRandomAvatarImage] = useState();
 
   useEffect(() => {
     const fetchPosting = async () => {
@@ -75,6 +96,15 @@ const FriendOrFoe = () => {
     }
   }, [seconds]);
 
+  useEffect(() => {
+    const getRandomAvatarImage = () => {
+      let randomIndex = Math.floor(Math.random() * profileImages.length);
+      setRandomAvatarImage(profileImages[randomIndex]);
+    };
+
+    getRandomAvatarImage();
+  }, [friendOrFoeNumber]);
+
   const handleAnswerClick = (selectedAnswer) => {
     const currentQuestion = currentFriendOrFoe[friendOrFoeNumber];
     if (!currentQuestion) {
@@ -100,9 +130,9 @@ const FriendOrFoe = () => {
 
     if (friendOrFoeNumber < currentFriendOrFoe.length - 1) {
       setFriendOrFoeNumber(friendOrFoeNumber + 1);
-      setSeconds(25); // Reset the timer for the next question
+      setSeconds(25);
     } else {
-      setIsGameCompleted(true); // Show the popup when the game is completed
+      setIsGameCompleted(true);
       clearInterval(intervalIdRef.current);
     }
   };
@@ -120,8 +150,33 @@ const FriendOrFoe = () => {
     setRoughFoxDamaged('');
   };
 
-  const handleClaimPrize = () => {
-    console.log('Prize claimed');
+  const handleClose = () => {
+    setCorrectAnsweredMiniGames(0);
+    setIncorrectAnsweredMiniGames(0);
+    setFriendOrFoeNumber(0);
+    setSeconds(25);
+    setRoughFoxDamaged('');
+    setCorInc([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    navigate('/minigames');
+  };
+
+  const handleClaimPrize = (currentPrize) => {
+    const gameItems = JSON.parse(localStorage.getItem('gameItems')) || [];
+
+    const updatedGameItems = [...gameItems];
+
+    currentPrize.forEach((prize) => {
+      const existingItemIndex = updatedGameItems.findIndex(item => item.item === prize.item);
+
+      if (existingItemIndex !== -1) {
+        updatedGameItems[existingItemIndex].count += prize.count;
+      } else {
+        updatedGameItems.push(prize);
+      }
+    });
+
+    localStorage.setItem('gameItems', JSON.stringify(updatedGameItems));
+
     setIsGameCompleted(false);
     navigate('/');
   };
@@ -141,7 +196,7 @@ const FriendOrFoe = () => {
       <div className='friendOrFoeTitleWrapper'>
 
         <div className='friendOrFoeTitle'>
-          <img src={close} alt="" onClick={() => navigate('/minigames')} />
+          <img src={close} alt="" onClick={handleClose} />
           <h1>Friend or Foe</h1>
         </div>
 
@@ -183,7 +238,7 @@ const FriendOrFoe = () => {
           <div className='friendOrFoeMiddleContent'>
             <div className='friendOrFoeGameCard'>
               <div className='messageGameCard'>
-                <img src={avatar} alt="userpic" />
+                <img src={randomAvatarImage} alt="userpic" />
                 <div className='middleInfoUser'>
                   <p className='messageName'>{currentFriendOrFoe[friendOrFoeNumber]?.text}</p>
                   <p className='messageText'>{currentFriendOrFoe[friendOrFoeNumber]?.content}</p>
@@ -225,9 +280,9 @@ const FriendOrFoe = () => {
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
-      <audio loop autoPlay>
+      {/* <audio loop autoPlay>
         <source src="/music/Music/RogueFoxFight310520241104.mp3" type="audio/mpeg" />
-      </audio>
+      </audio> */}
     </div>
   )
 }

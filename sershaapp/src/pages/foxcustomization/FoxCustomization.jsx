@@ -63,15 +63,13 @@ import {
   toRight,
   heart
 } from '../../assets/images/customization/items/index.js'
-
 import CustomizationSlider from '../../components/FoxCustomization/CustomizationSlider.jsx'
-
-import './foxcustomization.css'
+import './foxCustomization.css'
 import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive.jsx'
 import { useGlobalContext } from '../../context/context.jsx'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-
+import MusicContext from '../../context/MusicContext'
 
 
 
@@ -81,6 +79,14 @@ const FoxCustomization = () => {
   // const itemsBottomPart = [Apron, AstronautSuit, Book, Cape, CowboyBoots, DetectiveMagnifyingGlass, FairyWings, HoodieGreen, HoodieLightBlue, HoodiePink, HoodieRed, HoodieWhite, KnightArmour, MagicWand, NinjaBelt, PrincessGwon, SparkleWings, SuperheroSuitHighTech, Sunglasses, TshirtGreen, TshirtLightBlue, TshirtPink, TshirtRed, TshirtWhite, Tutu, WizardCloak]
   const [topPart, setTopPart] = useState([]);
   const [bottomPart, setBottomPart] = useState([]);
+  const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
+  const music = '/music/Music/SershaThemesongMediumoptimal310520241122.mp3'
+
+  useEffect(() => {
+    if (currentPlaying != music) {
+      changeMusic('/music/Music/SershaThemesongMediumoptimal310520241122.mp3');
+    }
+  }, [changeMusic, music]);
 
   useEffect(() => {
     if (localStorage.getItem('TopItem')) {
@@ -124,12 +130,12 @@ const FoxCustomization = () => {
       </div>
       <div className='customizationBackground'>
         <div className='titleWrapper'>
-          <div className='title'>Customize <span className='titleChar'>Character</span></div>
-          <div className='customizeOptions'>
+          <div className='title'>Customize your<span className='titleChar'> Sersha!</span></div>
+          {/* <div className='customizeOptions'>
             <img src={browse} alt="" />
             <img src={shop} alt="" />
             <img src={inventory} alt="" />
-          </div>
+          </div> */}
         </div>
 
         <div>
@@ -152,9 +158,9 @@ const FoxCustomization = () => {
           <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
         </div>
       </div>
-      <audio loop autoPlay>
+      {/* <audio loop autoPlay>
         <source src="/music/Music/SershaThemesongMediumoptimal310520241122.mp3" type="audio/mpeg" />
-      </audio>
+      </audio> */}
     </div>
   )
 }

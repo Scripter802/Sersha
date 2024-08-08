@@ -3,15 +3,15 @@
     flex-direction: column;
     position: relative;
     border-radius: 30px 30px;
-    min-height: calc(100vh - 86px);
+    min-height: calc(100vh - 91px);
     background-image: url('../../assets/images/customization/background.png');
     background-size: cover;
     min-width: 100vw;
 }
 
 .foxMiddle {
-    width: 400px;
-    height: 400px;
+    width: 300px;
+    height: 300px;
 }
 
 #toppart,
@@ -94,6 +94,7 @@
     align-items: center;
     justify-content: space-evenly;
     /* margin-top: 5%; */
+
 }
 
 .itemSlider {
@@ -115,35 +116,36 @@
 }
 
 .tns-lazy-img {
-    height: 80px;
-    width: 80px;
+    height: 100px;
+    width: 100px;
 }
 
 .sliderLeftButton,
 .sliderRightButton {
     background: transparent;
     border: 0;
+    cursor: pointer;
 }
 
 .sliderControls {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 20px;
+    /* bottom: 20px; */
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .sliderLeftButton {
     position: absolute;
-    left: 0;
+    left: .5rem;
 }
 
 .sliderRightButton {
     position: absolute;
-    right: 0;
+    right: .5rem;
 }
 
 .tinySlidWrapper {
@@ -172,10 +174,14 @@
 
     .titleWrapper {
         justify-content: center;
+        margin: 0;
     }
 
     .title {
-        display: none;
+        display: block;
+        width: 100%;
+        text-align: center;
+
     }
 
     .customizeOptions {
@@ -199,21 +205,21 @@
         width: 90px;
         height: 90px;
         position: absolute;
-        left: 1.1rem;
+        left: 4rem;
         bottom: 3rem;
         z-index: 1000;
     }
 
     .foxMiddle {
-        width: 280px;
-        height: 280px;
+        width: 240px;
+        height: 240px;
     }
 
     .foxBottomPart {
         width: 90px;
         height: 90px;
         position: absolute;
-        right: 1.1rem;
+        right: 4rem;
         bottom: 3rem;
     }
 
@@ -224,12 +230,13 @@
     .singleImg {
         gap: 0.5rem;
         width: 50%;
+        margin-bottom: 1rem;
     }
 
-    .singleImg>div>img {
-        width: 70px;
-        height: 70px;
-    }
+    /* .tns-lazy-img {
+        width: 110px;
+        height: 110px;
+    } */
 
     .tinySlidWrapper {
         width: 100vw;
@@ -241,5 +248,49 @@
 
     .headerCustomization {
         width: 90%;
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    .customizationBackground>.titleWrapper {
+        margin: 2rem 0 4rem 0;
+        text-align: center;
+    }
+
+    .title {
+        display: block;
+        font-size: 2rem;
+        width: 100%;
+    }
+
+    .foxTopPart {
+        width: 70px;
+        height: 70px;
+        position: absolute;
+        left: 1.1rem;
+        bottom: 3rem;
+        z-index: 1000;
+    }
+
+    .foxMiddle {
+        width: 200px;
+        height: 200px;
+    }
+
+    .foxBottomPart {
+        width: 70px;
+        height: 70px;
+        position: absolute;
+        right: 1.1rem;
+        bottom: 3rem;
+    }
+
+    .tns-lazy-img {
+        height: 90px;
+        width: 90px;
+    }
+
+    .itemSlider {
+        bottom: 5rem;
     }
 }

@@ -43,7 +43,7 @@
   display: block;
   width: 100%;
   padding: 10px;
-  background-color: #007bff;
+  background-color: #C26F4D;
   color: white;
   border: none;
   border-radius: 5px;
@@ -51,5 +51,12 @@
 }
 
 .submitBtn:hover {
-  background-color: #0056b3;
+  background-color: #ee9d7c;
+}
+
+@media only screen and (max-width: 1000px) {
+  .editSnapJudgmentContainer {
+    width: 100%;
+    margin: 0;
+  }
 }

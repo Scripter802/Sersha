@@ -46,8 +46,8 @@ const AdminPanelEmojiEmotions = () => {
     },
   ]
 
-  const handleEditEmojiEmotions = (index) => {
-    setEditingEmojiEmotions(index);
+  const handleEditEmojiEmotions = (post) => {
+    setEditingEmojiEmotions(post);
     setIsEmojiEmotionsEdit(true)
   };
 
@@ -57,8 +57,8 @@ const AdminPanelEmojiEmotions = () => {
       if (response.status === 200) {
 
         // Update the allQuizzes state by filtering out the deleted quiz
-        const updatedQuizzes = allEmojiEmotionsAssignments.filter(q => q.id !== postId);
-        setAllEmojiEmotionsAssignments(updatedQuizzes);
+        const updatedEmojiAssignment = allEmojiEmotionsAssignments.filter(q => q.id !== postId);
+        setAllEmojiEmotionsAssignments(updatedEmojiAssignment);
       }
     } catch (error) {
       console.error('Error deleting the question:', error);
@@ -128,7 +128,7 @@ const AdminPanelEmojiEmotions = () => {
                   <td data-label="Bundle">{post.difficulty == '0' ? 'Easy' : post.difficulty == '1' ? 'Medium' : 'Hard'}</td>
 
                   <td data-label="Edit/Delete" className='settingsData'>
-                    <button className="edit-btn" onClick={() => handleEditEmojiEmotions(index)}>Edit</button>
+                    <button className="edit-btn" onClick={() => handleEditEmojiEmotions(post)}>Edit</button>
 
                     <button className="delete-btn" onClick={() => handleDeleteEmojiEmotions(post.id)}>Delete</button>
                   </td>

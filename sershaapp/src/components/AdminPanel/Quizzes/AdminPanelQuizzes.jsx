@@ -54,13 +54,12 @@ const AdminPanelQuizzes = () => {
     };
 
     fetchAllQuizzes();
-  }, [quizzesEdit, quizzesCreateNew]);
+  }, [quizzesEdit, quizzesCreateNew, isSingleQuizz]);
 
   // const handleEditQuestion = (index) => {
   //   setEditingQuestion(questions[index]);
   //   setIsQuestionEdit(true);
   // };
-  console.log(allQuizzes)
 
   const handleOpenSingleQuizz = (quizz) => {
     setSelectedQuizz(quizz);

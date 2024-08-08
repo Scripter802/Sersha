@@ -1,6 +1,7 @@
 import bottomLeft from "./bottomleftzone.png"
 import bottomLeft1 from "./bottomleftzone1.png"
 import bottomLeft2 from "./bottomleftzone2.png"
+import bottomLeft2Item from "./bottomleftzone2Item.png"
 import bottomLeft3 from "./bottomleftzone3.png"
 import bottomRight from "./bottomrightzone.png"
 import bottomRight1 from "./bottomrightzone1.png"
@@ -8,6 +9,7 @@ import bottomRight2 from "./bottomrightzone2.png"
 import bottomRight3 from "./bottomrightzone3.png"
 import group from "./Group82.png"
 import group1 from "./Group83.png"
+import group29 from "./Group84.png"
 import group2 from "./Group87.png"
 import group3 from "./Group88.png"
 import group4 from "./Group94.png"
@@ -58,6 +60,7 @@ export {
   bottomLeft,
   bottomLeft1,
   bottomLeft2,
+  bottomLeft2Item,
   bottomLeft3,
   bottomRight,
   bottomRight1,
@@ -94,6 +97,7 @@ export {
   group26,
   group27,
   group28,
+  group29,
   repeatPart,
   repeatPart1,
   repeatPartTwo,

@@ -1,10 +1,9 @@
 import React from 'react';
-import './map.css';
-import background from '../../assets/images/map/mask.png'; // Replace with your actual background image path
 import {
   bottomLeft,
   bottomLeft1,
   bottomLeft2,
+  bottomLeft2Item,
   bottomLeft3,
   bottomRight,
   bottomRight1,
@@ -41,6 +40,7 @@ import {
   group26,
   group27,
   group28,
+  group29,
   repeatPart,
   repeatPart1,
   repeatPartTwo,
@@ -58,126 +58,390 @@ import {
   topRightZone2,
   topRightZone3,
 } from '../../assets/images/map/mapItems/index.js';
-import mergedMapCenter from "../../assets/images/map/mergedMap.png"
-// import centerOne from "../../assets/images/map/mapItems/repeatpartTwo.png"
-import lockGame from "../../assets/images/map/mapItems/lockLevel.png"
-import completedGame from "../../assets/images/map/mapItems/completedLevel.png"
-
-const mapsData = [
-  { id: 1, item: mergedMapCenter, position: { left: '220%', top: '50%' } },
-  { id: 1, item: repeatPartTwo, position: { left: '540.75%', top: '50%' } },
-  { id: 2, item: group18Two, position: { left: '0%', top: '85%' } },
-  { id: 3, item: group5, position: { left: '38%', top: '37%' } },
-  { id: 4, item: group8, position: { left: '58%', top: '83%' } },
-  { id: 5, item: topRightZone, position: { left: '59%', top: '15%' } },
-  { id: 6, item: group6, position: { left: '79%', top: '63%' } },
-  { id: 7, item: group1, position: { left: '99%', top: '85%' } },
-  { id: 8, item: bottomLeft, position: { left: '99%', top: '85%' } },
-  { id: 9, item: group4One, position: { left: '132%', top: '60%' } },
-  { id: 10, item: group9, position: { left: '140%', top: '15%' } },
-  { id: 11, item: topLeftZone, position: { left: '135%', top: '5%' } },
-  { id: 12, item: group7, position: { left: '161%', top: '60%' } },
-  { id: 13, item: group24, position: { left: '180%', top: '85%' } },
-  { id: 14, item: bottomRight, position: { left: '180%', top: '88%' } },
-  { id: 15, item: group11, position: { left: '200%', top: '37%' } },
-  { id: 16, item: group13, position: { left: '220%', top: '83%' } },
-  { id: 17, item: group20, position: { left: '220%', top: '15%' } },
-  { id: 18, item: topRightZone3, position: { left: '220%', top: '15%' } },
-  { id: 19, item: group12, position: { left: '245%', top: '60%' } },
-  { id: 20, item: bottomLeft2, position: { left: '263%', top: '90%' } },
-  { id: 21, item: group14, position: { left: '280%', top: '35%' } },
-  { id: 21, item: group10, position: { left: '300%', top: '83%' } },
-  { id: 21, item: group21, position: { left: '300%', top: '15%' } },
-  { id: 21, item: topLeftZone1, position: { left: '295%', top: '7%' } },
-];
-
-const gameUp = [
-  { id: 1, item: false, position: { left: '15%', top: '41%' } },
-  { id: 2, item: false, position: { left: '19.5%', top: '40.5%' } },
-  { id: 3, item: false, position: { left: '24%', top: '41%' } },
-  { id: 4, item: false, position: { left: '95%', top: '41%' } },
-  { id: 5, item: false, position: { left: '99.8%', top: '40.5%' } },
-  { id: 6, item: false, position: { left: '104.8%', top: '41%' } },
-  { id: 7, item: false, position: { left: '175%', top: '41%' } },
-  { id: 8, item: false, position: { left: '179.8%', top: '40.5%' } },
-  { id: 9, item: false, position: { left: '184.8%', top: '41%' } },
-  { id: 10, item: false, position: { left: '255%', top: '41%' } },
-  { id: 11, item: false, position: { left: '259.8%', top: '40.5%' } },
-  { id: 12, item: false, position: { left: '264.8%', top: '41%' } },
-  { id: 13, item: false, position: { left: '335%', top: '41%' } },
-  { id: 14, item: false, position: { left: '339.8%', top: '40.5%' } },
-  { id: 15, item: false, position: { left: '344.8%', top: '41%' } },
-  { id: 16, item: false, position: { left: '415%', top: '41%' } },
-  { id: 17, item: false, position: { left: '419.8%', top: '40.5%' } },
-  { id: 18, item: false, position: { left: '424.8%', top: '41%' } },
-  { id: 19, item: false, position: { left: '495%', top: '41%' } },
-  { id: 20, item: false, position: { left: '499.8%', top: '40.5%' } },
-  { id: 21, item: false, position: { left: '504.8%', top: '41%' } },
-];
-
-const gameDown = [
-  { id: 1, item: false, position: { left: '55%', top: '58%' } },
-  { id: 2, item: false, position: { left: '59.5%', top: '58%' } },
-  { id: 3, item: false, position: { left: '64%', top: '58%' } },
-  { id: 4, item: false, position: { left: '135%', top: '58%' } },
-  { id: 5, item: false, position: { left: '139.5%', top: '58%' } },
-  { id: 6, item: false, position: { left: '144%', top: '58%' } },
-  { id: 7, item: false, position: { left: '215%', top: '58%' } },
-  { id: 8, item: false, position: { left: '219.5%', top: '58%' } },
-  { id: 9, item: false, position: { left: '224%', top: '58%' } },
-  { id: 10, item: false, position: { left: '295%', top: '58%' } },
-  { id: 11, item: false, position: { left: '299.5%', top: '58%' } },
-  { id: 12, item: false, position: { left: '304%', top: '58%' } },
-  { id: 13, item: false, position: { left: '375%', top: '58%' } },
-  { id: 14, item: false, position: { left: '379.5%', top: '58%' } },
-  { id: 15, item: false, position: { left: '384%', top: '58%' } },
-  { id: 16, item: false, position: { left: '455%', top: '58%' } },
-  { id: 17, item: false, position: { left: '459.8%', top: '58%' } },
-  { id: 18, item: false, position: { left: '464.8%', top: '58%' } },
-];
+import lockGame from "../../assets/images/map/mapItems/lockLevel.png";
+import completedGame from "../../assets/images/map/mapItems/completedLevel.png";
+import './map.css';
+import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive.jsx';
+import { useContext, useEffect, useState } from 'react'
+import { useGlobalContext } from '../../context/context'
+import MusicContext from '../../context/MusicContext'
 
 const MapPage = () => {
+  const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
+  const { bundelsAndLevels, setBundlesAndLevels, user } = useGlobalContext();
+  const music = '/music/Music/SershaThemesongMediumoptimal310520241122.mp3'
+
+  useEffect(() => {
+    if (currentPlaying != music) {
+      changeMusic('/music/Music/SershaThemesongMediumoptimal310520241122.mp3');
+    }
+  }, [changeMusic, music]);
+
+  console.log(user)
+
   return (
-    <div className="map-container">
+    <div className='mapContainer'>
+      <div className='headerContainer'>
+        {window.innerWidth < 1000 && <HeaderResponsive />}
+      </div>
 
-      <img src={background} alt="Background" className="map-background" />
-      {mapsData.map((item) => (
-        <div
-          key={item.id}
-          className="map-item"
-          style={{ left: item.position.left, top: item.position.top }}
-        >
-          <img
-            src={item?.item}
-            alt={'map-path'}
-            className=""
-          />
-        </div>
-      ))}
-      {gameUp.map((game) => (
-        <div
-          key={game.id}
-          className="map-item"
-          style={{ left: game.position.left, top: game.position.top }}
-        >
-          <img src={game?.item ? completedGame : lockGame} alt="Shadow" className="map-game" />
-          {/* <img src={''} alt="Line" className="map-line" /> */}
-
+      <div className="mapWrapper">
+        <div className="basePartWrapper">
+          <img className="path" src={repeatPart} alt="" />
         </div>
 
-      ))}
-      {gameDown.map((game) => (
-        <div
-          key={game.id}
-          className="map-item"
-          style={{ left: game.position.left, top: game.position.top }}
-        >
-          <img src={game?.item ? completedGame : lockGame} alt="Shadow" className="map-game" />
-          {/* <img src={''} alt="Line" className="map-line" /> */}
+        {bundelsAndLevels.map((bundle, i) => (
+          bundle.levels.map((lvl, lvli) => {
+            let odd = lvl.levelNo % 2 === 1;
+            console.log(lvl.step)
+            return (
+              <div className="basePartWrapper">
+                <img className="path" src={repeatPart} alt="" />
+                <div className="title-up">
+                  <h3>
+                    {lvl?.levelName}
+                  </h3>
+                  <p>
+                    {lvl?.desc}
+                  </p>
+                </div>
+                <div className="gameLevel">
+                  {user?.level > lvl.levelNo || lvl.step >= 1 && user?.level == lvl.levelNo ? <img src={completedGame} alt="" /> : lvl.step < 1 && user?.level == lvl.levelNo ? <div className='levelNoWrapper'><p className='levelNo'>01</p></div> : <img src={lockGame} alt="" />}
+                  {user?.level > lvl.levelNo || lvl.step >= 2 && user?.level == lvl.levelNo ? <img src={completedGame} alt="" /> : lvl.step < 2 && user?.level == lvl.levelNo ? <div className='levelNoWrapper'><p className='levelNo'>02</p></div> : <img src={lockGame} alt="" />}
+                  {user?.level > lvl.levelNo || lvl.step >= 3 && user?.level == lvl.levelNo ? <img src={completedGame} alt="" /> : lvl.step < 3 && user?.level == lvl.levelNo ? <div className='levelNoWrapper'><p className='levelNo'>03</p></div> : <img src={lockGame} alt="" />}
+                </div>
+
+                <div className="title-down">
+                  <h3>
+                    {lvl?.levelNameDown}
+                  </h3>
+                  <p>
+                    {lvl?.descDown}
+                  </p>
+                </div>
+                <div className="gameLevel-down">
+                  {user?.level > lvl.levelNoDown || lvl.step > 1 && user?.level == lvl.levelNoDown ? <img src={completedGame} alt="" /> : lvl.step < 1 && user?.level == lvl.levelNoDown ? <div className='levelNoWrapper'><p className='levelNo'>01</p></div> : <img src={lockGame} alt="" />}
+                  {user?.level > lvl.levelNoDown || lvl.step > 2 && user?.level == lvl.levelNoDown ? <img src={completedGame} alt="" /> : lvl.step < 2 && user?.level == lvl.levelNoDown ? <div className='levelNoWrapper'><p className='levelNo'>02</p></div> : <img src={lockGame} alt="" />}
+                  {user?.level > lvl.levelNoDown || lvl.step > 3 && user?.level == lvl.levelNoDown ? <img src={completedGame} alt="" /> : lvl.step < 3 && user?.level == lvl.levelNoDown ? <div className='levelNoWrapper'><p className='levelNo'>03</p></div> : <img src={lockGame} alt="" />}
+
+                </div>
+
+                <div className='trees tree1'>
+                  <img src={group18Two} alt="tree" />
+                </div>
+                <div className='trees tree2'>
+                  <img src={group5} alt="tree" />
+                </div>
+                <div className='trees tree3'>
+                  <img src={group8} alt="tree" />
+                </div>
+                <div className='trees tree4'>
+                  <img src={group9} alt="tree" />
+                </div>
+                <div className='trees tree5'>
+                  <img src={group6} alt="tree" />
+                </div>
+                <div className='trees tree6'>
+                  <img src={group1} alt="tree" />
+
+                </div>
+
+              </div>
+
+            )
+          })
+        ))}
+
+
+        {/* <div className="basePartWrapper">
+          <img className="path" src={repeatPart} alt="" />
+
+          <div className="title-up">
+            <h3>
+              Pixel Plaza
+            </h3>
+            <p>
+              Explore the basics of the digital world.
+            </p>
+          </div>
+          <div className="gameLevel">
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+          </div>
+
+          <div className="title-down">
+            <h3>
+              Message Mall
+            </h3>
+            <p>
+              Learn to chat and share safely.
+            </p>
+          </div>
+          <div className="gameLevel-down">
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+          </div>
+
+          <div className='trees tree1'>
+            <img src={group18Two} alt="tree" />
+          </div>
+          <div className='trees tree2'>
+            <img src={group5} alt="tree" />
+          </div>
+          <div className='trees tree3'>
+            <img src={group8} alt="tree" />
+          </div>
+          <div className='trees tree4'>
+            <img src={group9} alt="tree" />
+          </div>
+          <div className='trees tree5'>
+            <img src={group6} alt="tree" />
+          </div>
+          <div className='trees tree6'>
+            <img src={group1} alt="tree" />
+
+          </div>
 
         </div>
+        <div className="basePartWrapper">
+          <img className="path" src={repeatPart} alt="" />
+          <div className="title-up">
+            <h3>
+              Emoji Avenue
+            </h3>
+            <p>
+              Discover different types of online posts.
+            </p>
+          </div>
+          <div className="gameLevel">
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+          </div>
+          <div className="title-down">
+            <h3>
+              Secure Street
+            </h3>
+            <p>
+              Keep your online info private.
+            </p>
+          </div>
+          <div className="gameLevel-down">
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+          </div>
 
-      ))}
+          <div className='trees tree7'>
+            <img src={group4One} alt="tree" />
+          </div>
+          <div className='trees tree8'>
+            <img src={group9} alt="tree" />
+          </div>
+          <div className='trees tree9'>
+            <img src={group7} alt="tree" />
+          </div>
+          <div className='trees tree10'>
+            <img src={group24} alt="tree" />
+          </div>
+
+        </div>
+        <div className="basePartWrapper">
+          <img className="path" src={repeatPart} alt="" />
+          <div className="title-up">
+            <h3>
+              Wisdom Way
+            </h3>
+            <p>
+              Think twice before you click.
+            </p>
+          </div>
+          <div className="gameLevel">
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+          </div>
+          <div className="title-down">
+            <h3>
+              Harmony Hub
+            </h3>
+            <p>
+              Stay happy and healthy online.
+            </p>
+          </div>
+          <div className="gameLevel-down">
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+          </div>
+          <div className='trees tree11'>
+            <img src={group11} alt="tree" />
+          </div>
+          <div className='trees tree12'>
+            <img src={group13} alt="tree" />
+          </div>
+          <div className='trees tree13'>
+            <img src={group20} alt="tree" />
+          </div>
+          <div className='trees tree14'>
+            <img src={group12} alt="tree" />
+          </div>
+          <div className='trees tree15'>
+            <img src={bottomLeft2Item} alt="tree" />
+          </div>
+        </div>
+        <div className="basePartWrapper">
+          <img className="path" src={repeatPart} alt="" />
+          <div className="title-up">
+            <h3>
+              Bully-Free Boulevard
+            </h3>
+            <p>
+              Stand up to online bullies.
+            </p>
+          </div>
+          <div className="gameLevel">
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+          </div>
+          <div className="title-down">
+            <h3>
+              Balanced Boulevard
+            </h3>
+            <p>
+              Manage your online and offline time.
+            </p>
+          </div>
+          <div className="gameLevel-down">
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+          </div>
+          <div className='trees tree16'>
+            <img src={group14} alt="tree" />
+          </div>
+          <div className='trees tree17'>
+            <img src={group10} alt="tree" />
+          </div>
+          <div className='trees tree18'>
+            <img src={group21} alt="tree" />
+          </div>
+          <div className='trees tree19'>
+            <img src={group7} alt="tree" />
+          </div>
+          <div className='trees tree20'>
+            <img src={group27} alt="tree" />
+          </div>
+        </div>
+        <div className="basePartWrapper">
+          <img className="path" src={repeatPart} alt="" />
+          <div className="title-up">
+            <h3>
+              Alert Alley
+            </h3>
+            <p>
+              Spot and avoid online strangers.
+            </p>
+          </div>
+          <div className="gameLevel">
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+          </div>
+          <div className="title-down">
+            <h3>
+              Friendly Forum
+            </h3>
+            <p>
+              Join and enjoy safe online groups.
+            </p>
+          </div>
+          <div className="gameLevel-down">
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+          </div>
+          <div className='trees tree21'>
+            <img src={group7} alt="tree" />
+          </div>
+          <div className='trees tree22'>
+            <img src={group25} alt="tree" />
+          </div>
+          <div className='trees tree23'>
+            <img src={group15} alt="tree" />
+          </div>
+          <div className='trees tree24'>
+            <img src={group3} alt="tree" />
+          </div>
+        </div>
+        <div className="basePartWrapper">
+          <img className="path" src={repeatPart} alt="" />
+          <div className="title-up">
+            <h3>
+              Clean Content Corner
+            </h3>
+            <p>
+              Handle and report bad stuff.
+            </p>
+          </div>
+          <div className="gameLevel">
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+          </div>
+          <div className="title-down">
+            <h3>
+              Trendsetter Tower
+            </h3>
+            <p>
+              Understand online influencers.
+            </p>
+          </div>
+          <div className="gameLevel-down">
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+          </div>
+          <div className='trees tree25'>
+            <img src={group} alt="tree" />
+          </div>
+          <div className='trees tree26'>
+            <img src={group29} alt="tree" />
+          </div>
+          <div className='trees tree27'>
+            <img src={group22} alt="tree" />
+          </div>
+          <div className='trees tree28'>
+            <img src={group17} alt="tree" />
+          </div>
+          <div className='trees tree29'>
+            <img src={group26} alt="tree" />
+          </div>
+        </div>
+        <div className="basePartWrapper">
+          <img className="path" src={repeatPart} alt="" />
+          <div className="title-up">
+            <h3>
+              Gamer's Gateway
+            </h3>
+            <p>
+              Enjoy games safely.
+            </p>
+          </div>
+          <div className="gameLevel">
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+            <img src={lockGame} alt="" />
+          </div>
+
+        </div> */}
+
+      </div>
+
+
     </div>
   );
 };

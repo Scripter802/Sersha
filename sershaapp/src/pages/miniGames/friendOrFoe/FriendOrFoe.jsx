@@ -47,7 +47,7 @@ const getRandomItems = (array, numItems) => {
 const FriendOrFoe = () => {
   const {
     baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems,
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
   const totalAnswered = correctAnsweredMiniGames + incorrectAnsweredMiniGames;
@@ -58,6 +58,7 @@ const FriendOrFoe = () => {
   const profileImages = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fiveteen, sixteen, seventeen];
   const navigate = useNavigate();
   const [randomAvatarImage, setRandomAvatarImage] = useState();
+  const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
 
   useEffect(() => {
     const fetchPosting = async () => {
@@ -92,6 +93,7 @@ const FriendOrFoe = () => {
   useEffect(() => {
     if (seconds === 0) {
       clearInterval(intervalIdRef.current);
+      gameFail.play();
       setIsGameCompleted(true);
     }
   }, [seconds]);
@@ -114,6 +116,10 @@ const FriendOrFoe = () => {
 
     const correctAnswer = currentQuestion.answers.find(ans => ans.isCorrect)?.text;
 
+
+    const correctSound = new Audio('/music/SFX/FightRogueFox/rightanswer.mp3');
+    const incorrectSound = new Audio('/music/SFX/FightRogueFox/IncorrectAnswer.mp3');
+
     console.log('Selected Answer:', selectedAnswer);
     console.log('Correct Answer:', correctAnswer);
 
@@ -122,10 +128,11 @@ const FriendOrFoe = () => {
       setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === friendOrFoeNumber ? true : item));
       handleFoxDamaged();
+      correctSound.play();
     } else {
       setIncorrectAnsweredMiniGames(incorrectAnsweredMiniGames + 1);
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === friendOrFoeNumber ? false : item));
-
+      incorrectSound.play();
     }
 
     if (friendOrFoeNumber < currentFriendOrFoe.length - 1) {
@@ -176,6 +183,7 @@ const FriendOrFoe = () => {
     });
 
     localStorage.setItem('gameItems', JSON.stringify(updatedGameItems));
+    setInventoryItems(updatedGameItems);
 
     setIsGameCompleted(false);
     navigate('/');

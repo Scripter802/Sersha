@@ -40,6 +40,7 @@
     transform: translate(-50%);
     color: white;
     font-size: 1.25rem;
+    width: 300px;
 }
 
 .noNewMessages {
@@ -184,6 +185,8 @@
 
     .LevelTitleDm {
         position: unset;
+        width: 50vw;
+        text-align: center;
     }
 
 

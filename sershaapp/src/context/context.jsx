@@ -1,10 +1,19 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 import Cookies from 'js-cookie'
-import postimg from '../assets/images/posts/postimg.png'
-import postimg2 from '../assets/images/posts/postImg2.png'
-import authorImg from '../assets/images/posts/authorimg.png'
+import coinMultiplier from '../assets/images/inventory/coinMultiplier.png';
+import correctAnswer from '../assets/images/inventory/correctAnswer.png';
+import dealDamage from '../assets/images/inventory/dealDamage.png';
+import healingPotion from '../assets/images/inventory/healingPotion.png';
+import shield from '../assets/images/inventory/shield.png';
 import axios from 'axios'
-
+import {
+  group1,
+  group5,
+  group6,
+  group8,
+  group9,
+  group18Two,
+} from '../assets/images/map/mapItems/index.js';
 import avatar from '../assets/images/navbar/userpick.png'
 
 const AppContext = createContext();
@@ -241,7 +250,7 @@ const AppProvider = ({ children }) => {
   /* _______________________________________________________________________________ */
 
 
-  /* ADMIN MINI-GAMES */
+  /*  MINI-GAMES */
   const [miniGamesActiveTab, setMiniGamesActiveTab] = useState('Snap Judgment');
   const [correctAnsweredMiniGames, setCorrectAnsweredMiniGames] = useState(0);
   const [incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames] = useState(0);
@@ -256,6 +265,23 @@ const AppProvider = ({ children }) => {
     setRoughFoxDamaged(roughFoxComments[randomIndex]);
 
   }
+
+  const renderRewardImage = (item) => {
+    switch (item) {
+      case 'Coin Multiplier':
+        return <img src={coinMultiplier} alt="Coin Multiplier" />;
+      case 'Correct Answer':
+        return <img src={correctAnswer} alt="Correct Answer" />;
+      case 'Deal Damage':
+        return <img src={dealDamage} alt="Deal Damage" />;
+      case 'Healing Potion':
+        return <img src={healingPotion} alt="Healing Potion" />;
+      case 'Shield':
+        return <img src={shield} alt="Shield" />;
+      default:
+        return null;
+    }
+  };
 
 
   /* SNAP JUDGMENT */
@@ -353,6 +379,13 @@ const AppProvider = ({ children }) => {
   const [isBottomPart, setIsBottomPart] = useState(false);
   const [selectedTopItem, setSelectedTopItem] = useState();
   const [selectedBottomItem, setSelectedBottomItem] = useState();
+  const [inventoryItems, setInventoryItems] = useState();
+
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('gameItems'))) {
+      setInventoryItems(JSON.parse(localStorage.getItem('gameItems')))
+    }
+  }, []);
 
   /* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS */
 
@@ -463,7 +496,7 @@ const AppProvider = ({ children }) => {
   const [bundelsAndLevels, setBundlesAndLevels] = useState([
     {
       bundle: 'Easy',
-      bundleName: 'Digital City',
+      bundleName: 'Metro Meadows (Easy)',
       levels: [
         {
           levelName: 'Pixel Plaza',
@@ -531,7 +564,14 @@ const AppProvider = ({ children }) => {
           levelNo: 13,
           step: 0,
         },
-      ]
+      ],
+      images: [group18Two,
+        group5,
+        group8,
+        group9,
+        group6,
+        group1,
+      ],
     }
   ]);
 
@@ -570,6 +610,7 @@ const AppProvider = ({ children }) => {
         setSelectedTopItem,
         selectedBottomItem,
         setSelectedBottomItem,
+        inventoryItems, setInventoryItems,
 
         //NewMessage
         newMessage,
@@ -721,6 +762,7 @@ const AppProvider = ({ children }) => {
         roughFoxDamaged,
         setRoughFoxDamaged,
         handleFoxDamaged,
+        renderRewardImage,
 
         // SNAP JUDGMENT ADMIN PANEL MINIGAMES SNAPJUDGMENT
         snapJudgmentCreateNew,

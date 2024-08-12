@@ -1,6 +1,6 @@
 import './settingsPage.css';
-import avatarImage from '../../assets/images/dms/userpick.png'; // Update with the correct path to the default avatar image
-import homePageBackground from '../../assets/images/home/homePageBackground.png'; // Update with the correct path to the background image
+import avatarImage from '../../assets/images/dms/userpick.png';
+import homePageBackground from '../../assets/images/home/homePageBackground.png';
 import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../context/context.jsx';
 import exchange from '../../assets/images/settingsPage/exchange.png'
@@ -65,9 +65,7 @@ const SettingsPage = () => {
 
   const toggleEditing = () => {
     if (isEditing) {
-      // Save the changes (e.g., send them to the server)
       setUser(updatedUser);
-      // Add your save logic here
     }
     setIsEditing(!isEditing);
   };

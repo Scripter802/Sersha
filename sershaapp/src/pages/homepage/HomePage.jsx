@@ -9,20 +9,22 @@ import { useContext, useEffect, useState } from 'react'
 import { useGlobalContext } from '../../context/context'
 import MusicContext from '../../context/MusicContext'
 import Tutorial from '../../components/Tutorial/Tutorial'
+import { useNavigate } from 'react-router-dom';
 
 
 const HomePage = () => {
   const { newMessage, setNewMessage, setUser, user, canPlayAnotherQuizToday, isTutorialActive } = useGlobalContext();
   const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
   const music = '/music/Music/SershaThemesongMediumoptimal310520241122.mp3'
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (currentPlaying != music) {
+    if (currentPlaying !== music) {
       changeMusic('/music/Music/SershaThemesongMediumoptimal310520241122.mp3');
     }
-  }, [changeMusic, music]);
+  }, [changeMusic, music, currentPlaying]);
 
-  console.log(currentPlaying, isPlaying)
+  console.log(currentPlaying !== music)
 
   const posts = [
     {
@@ -87,7 +89,7 @@ const HomePage = () => {
             <Tutorial />
           }
           <Posts posts={posts} />
-          <div>
+          <div onClick={() => navigate('/minigames')}>
             <button className="play-button">Let's Play!</button>
           </div>
         </div>

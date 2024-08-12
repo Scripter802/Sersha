@@ -91,73 +91,65 @@ const MapPage = () => {
         </div>
 
         {bundelsAndLevels.map((bundle, i) => (
-          bundle.levels.map((lvl, lvli) => {
-            let odd = lvl.levelNo % 2 === 1;
-            console.log(lvl.step)
-            return (
-              <div className="basePartWrapper">
-                <img className="path" src={repeatPart} alt="" />
-                <div className="title-up">
-                  <h3>
-                    {lvl?.levelName}
-                  </h3>
-                  <p>
-                    {lvl?.desc}
-                  </p>
-                </div>
-                <div className="gameLevel">
-                  {user?.level > lvl.levelNo || lvl.step >= 1 && user?.level == lvl.levelNo ? <img src={completedGame} alt="" /> : lvl.step < 1 && user?.level == lvl.levelNo ? <div className='levelNoWrapper'><p className='levelNo'>01</p></div> : <img src={lockGame} alt="" />}
-                  {user?.level > lvl.levelNo || lvl.step >= 2 && user?.level == lvl.levelNo ? <img src={completedGame} alt="" /> : lvl.step < 2 && user?.level == lvl.levelNo ? <div className='levelNoWrapper'><p className='levelNo'>02</p></div> : <img src={lockGame} alt="" />}
-                  {user?.level > lvl.levelNo || lvl.step >= 3 && user?.level == lvl.levelNo ? <img src={completedGame} alt="" /> : lvl.step < 3 && user?.level == lvl.levelNo ? <div className='levelNoWrapper'><p className='levelNo'>03</p></div> : <img src={lockGame} alt="" />}
-                </div>
+          <>
+            <h2 className='bundleName'>{bundle.bundleName}</h2>
+            {bundle.levels.map((lvl, lvli) => {
+              let odd = lvl.levelNo % 2 === 1;
+              console.log(lvl.step)
+              return (
+                <div className="basePartWrapper">
+                  <img className="path" src={repeatPart} alt="" />
+                  <div className="title-up">
+                    <h3>
+                      {lvl?.levelName}
+                    </h3>
+                    <p>
+                      {lvl?.desc}
+                    </p>
+                  </div>
+                  <div className="gameLevel">
+                    {user?.level > lvl.levelNo || lvl.step >= 1 && user?.level == lvl.levelNo ? <img src={completedGame} alt="" /> : lvl.step < 1 && user?.level == lvl.levelNo ? <div className='levelNoWrapper'><p className='levelNo'>01</p></div> : <img src={lockGame} alt="" />}
+                    {user?.level > lvl.levelNo || lvl.step >= 2 && user?.level == lvl.levelNo ? <img src={completedGame} alt="" /> : lvl.step < 2 && user?.level == lvl.levelNo ? <div className='levelNoWrapper'><p className='levelNo'>02</p></div> : <img src={lockGame} alt="" />}
+                    {user?.level > lvl.levelNo || lvl.step >= 3 && user?.level == lvl.levelNo ? <img src={completedGame} alt="" /> : lvl.step < 3 && user?.level == lvl.levelNo ? <div className='levelNoWrapper'><p className='levelNo'>03</p></div> : <img src={lockGame} alt="" />}
+                  </div>
 
-                <div className="title-down">
-                  <h3>
-                    {lvl?.levelNameDown}
-                  </h3>
-                  <p>
-                    {lvl?.descDown}
-                  </p>
-                </div>
-                <div className="gameLevel-down">
-                  {user?.level > lvl.levelNoDown || lvl.step > 1 && user?.level == lvl.levelNoDown ? <img src={completedGame} alt="" /> : lvl.step < 1 && user?.level == lvl.levelNoDown ? <div className='levelNoWrapper'><p className='levelNo'>01</p></div> : <img src={lockGame} alt="" />}
-                  {user?.level > lvl.levelNoDown || lvl.step > 2 && user?.level == lvl.levelNoDown ? <img src={completedGame} alt="" /> : lvl.step < 2 && user?.level == lvl.levelNoDown ? <div className='levelNoWrapper'><p className='levelNo'>02</p></div> : <img src={lockGame} alt="" />}
-                  {user?.level > lvl.levelNoDown || lvl.step > 3 && user?.level == lvl.levelNoDown ? <img src={completedGame} alt="" /> : lvl.step < 3 && user?.level == lvl.levelNoDown ? <div className='levelNoWrapper'><p className='levelNo'>03</p></div> : <img src={lockGame} alt="" />}
+                  <div className="title-down">
+                    <h3>
+                      {lvl?.levelNameDown}
+                    </h3>
+                    <p>
+                      {lvl?.descDown}
+                    </p>
+                  </div>
+                  <div className="gameLevel-down">
+                    {user?.level > lvl.levelNoDown || lvl.step > 1 && user?.level == lvl.levelNoDown ? <img src={completedGame} alt="" /> : lvl.step < 1 && user?.level == lvl.levelNoDown ? <div className='levelNoWrapper'><p className='levelNo'>01</p></div> : <img src={lockGame} alt="" />}
+                    {user?.level > lvl.levelNoDown || lvl.step > 2 && user?.level == lvl.levelNoDown ? <img src={completedGame} alt="" /> : lvl.step < 2 && user?.level == lvl.levelNoDown ? <div className='levelNoWrapper'><p className='levelNo'>02</p></div> : <img src={lockGame} alt="" />}
+                    {user?.level > lvl.levelNoDown || lvl.step > 3 && user?.level == lvl.levelNoDown ? <img src={completedGame} alt="" /> : lvl.step < 3 && user?.level == lvl.levelNoDown ? <div className='levelNoWrapper'><p className='levelNo'>03</p></div> : <img src={lockGame} alt="" />}
 
-                </div>
+                  </div>
 
-                <div className='trees tree1'>
-                  <img src={group18Two} alt="tree" />
-                </div>
-                <div className='trees tree2'>
-                  <img src={group5} alt="tree" />
-                </div>
-                <div className='trees tree3'>
-                  <img src={group8} alt="tree" />
-                </div>
-                <div className='trees tree4'>
-                  <img src={group9} alt="tree" />
-                </div>
-                <div className='trees tree5'>
-                  <img src={group6} alt="tree" />
-                </div>
-                <div className='trees tree6'>
-                  <img src={group1} alt="tree" />
+                  {bundle.images.map((img, i) => (
+                    <>
+                      <div className={`trees ${`tree${i + 1}`}`}>
+                        <img src={img} alt="tree" />
+                      </div>
+                    </>
+                  ))}
 
                 </div>
+              )
 
-              </div>
-
-            )
-          })
-        ))}
+            })}
+          </>
+        )
+        )}
 
 
         {/* <div className="basePartWrapper">
           <img className="path" src={repeatPart} alt="" />
-
+          
           <div className="title-up">
-            <h3>
+          <h3>
               Pixel Plaza
             </h3>
             <p>

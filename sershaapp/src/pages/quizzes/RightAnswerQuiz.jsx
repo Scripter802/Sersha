@@ -49,13 +49,18 @@ const RightAnswerQuiz = ({ currentQ }) => {
   const handleCheck = () => {
     const isCorrect = corAns.every(answer => selectedAnswers.includes(answer)) && corAns.length === selectedAnswers.length;
 
+    const correctSound = new Audio('/music/SFX/FightRogueFox/rightanswer.mp3');
+    const incorrectSound = new Audio('/music/SFX/FightRogueFox/IncorrectAnswer.mp3');
+
     if (isCorrect) {
       setCorrectAnswers(prev => prev + 1);
       setFeedback({ type: 'correct', message: 'Correct Answer!' });
+      correctSound.play();
     } else {
       setWrongAnswers(prev => prev + 1);
       setHeartsNum(prev => prev - 1);
       setFeedback({ type: 'wrong', message: 'Wrong Answer!' });
+      incorrectSound.play();
     }
 
     setShowNextButton(true);

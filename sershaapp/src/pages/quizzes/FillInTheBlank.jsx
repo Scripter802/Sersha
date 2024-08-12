@@ -80,13 +80,19 @@ const FillInTheBlank = ({ currentQ }) => {
   };
 
   const handleCheckAnswer = () => {
+
+    const correctSound = new Audio('/music/SFX/FightRogueFox/rightanswer.mp3');
+    const incorrectSound = new Audio('/music/SFX/FightRogueFox/IncorrectAnswer.mp3');
+
     if (dropped === corAns) {
       setCorrectAnswers(prev => prev + 1);
       setFeedback({ type: 'correct', message: 'Correct Answer!' });
+      correctSound.play();
     } else {
       setWrongAnswers(prev => prev + 1);
       setHeartsNum(prev => prev - 1);
       setFeedback({ type: 'wrong', message: 'Wrong Answer!' });
+      incorrectSound.play();
     }
     setChecked(true)
     setShowNextButton(true);

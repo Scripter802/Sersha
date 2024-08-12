@@ -13,7 +13,7 @@ import shield from '../../assets/images/inventory/shield.png';
 import './gameCompletedPopup.css';
 
 const GameCompletedPopup = ({ correctAnswers, mistakes, onRestart, onClaimPrize, onPlayGame, title, heartsNum, isQuizz, currentQuizz }) => {
-  const { rewardItems } = useGlobalContext();
+  const { rewardItems, renderRewardImage } = useGlobalContext();
   const [currentPrize, setCurrentPrize] = useState([]);
 
   const getRandomPrize = () => {
@@ -45,22 +45,7 @@ const GameCompletedPopup = ({ correctAnswers, mistakes, onRestart, onClaimPrize,
     setCurrentPrize(groupedPrizes);
   }, [correctAnswers, rewardItems]);
 
-  const renderRewardImage = (item) => {
-    switch (item) {
-      case 'Coin Multiplier':
-        return <img src={coinMultiplier} alt="Coin Multiplier" />;
-      case 'Correct Answer':
-        return <img src={correctAnswer} alt="Correct Answer" />;
-      case 'Deal Damage':
-        return <img src={dealDamage} alt="Deal Damage" />;
-      case 'Healing Potion':
-        return <img src={healingPotion} alt="Healing Potion" />;
-      case 'Shield':
-        return <img src={shield} alt="Shield" />;
-      default:
-        return null;
-    }
-  };
+
 
   return (
     <div className={`popup ${!isQuizz && 'popMiniGames'}`}>

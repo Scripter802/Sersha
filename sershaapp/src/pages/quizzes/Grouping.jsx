@@ -92,16 +92,21 @@ const Grouping = ({ currentQ }) => {
 
     const res = areArraysEqual(droppedOne, correctGroup1) && areArraysEqual(droppedTwo, correctGroup2);
 
+    const correctSound = new Audio('/music/SFX/FightRogueFox/rightanswer.mp3');
+    const incorrectSound = new Audio('/music/SFX/FightRogueFox/IncorrectAnswer.mp3');
+
     if (res) {
       setCorrectAnswers(prev => prev + 1);
       setFeedback({ type: 'correct', message: 'Correct Answer!' });
+      correctSound.play();
     } else {
       setWrongAnswers(prev => prev + 1);
       setHeartsNum(prev => prev - 1);
       setFeedback({ type: 'wrong', message: 'Wrong Answer!' });
+      incorrectSound.play();
     }
 
-    setShowNextButton(true); Z
+    setShowNextButton(true);
   };
 
   const handleNext = () => {

@@ -18,6 +18,12 @@
 
 }
 
+.bundleName {
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  color: white;
+}
 
 .basePartWrapper {
   position: relative;

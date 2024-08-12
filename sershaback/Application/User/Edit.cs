@@ -9,6 +9,7 @@ using Persistence;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Application.User
 {
@@ -26,6 +27,8 @@ namespace Application.User
             public int CoinBalance { get; set; }
             public string Type { get; set; }
             public bool isFirstTimeLoggedIn { get; set; }
+            public Guid AvatarImageId { get; set; }
+            
         }
 
         public class CommandValidator : AbstractValidator<Command>
@@ -71,7 +74,12 @@ namespace Application.User
                 user.Level = request.Level != default ? request.Level : user.Level;
                 user.CoinBalance = request.CoinBalance != default ? request.CoinBalance : user.CoinBalance;
                 user.Type = request.Type ?? user.Type;
-                user.isFirstTimeLoggedIn = request.isFirstTimeLoggedIn;        
+                user.isFirstTimeLoggedIn = request.isFirstTimeLoggedIn;
+
+                if(request.AvatarImageId != user.AvatarImageId && request.AvatarImageId != null){
+                    user.AvatarImageId = request.AvatarImageId;
+                    user.AvatarImage = _context.AvatarImages.FirstOrDefault(x => x.Id == request.AvatarImageId);
+                }      
 
                 _context.Users.Update(user);
                 var success = await _context.SaveChangesAsync() > 0;

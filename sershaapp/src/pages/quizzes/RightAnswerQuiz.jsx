@@ -28,8 +28,9 @@ const RightAnswerQuiz = ({ currentQ }) => {
 
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [corAns, setCorAns] = useState([]);
-  const [feedback, setFeedback] = useState(null); // For storing feedback
-  const [showNextButton, setShowNextButton] = useState(false); // To toggle "Next" button
+  const [feedback, setFeedback] = useState(null);
+  const [showNextButton, setShowNextButton] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   useEffect(() => {
     const correctAnswers = currentQ.answers.filter(q => q.isCorrect).map(q => q.text);
@@ -58,7 +59,7 @@ const RightAnswerQuiz = ({ currentQ }) => {
     }
 
     setShowNextButton(true);
-
+    setChecked(true);
 
   };
 
@@ -68,9 +69,9 @@ const RightAnswerQuiz = ({ currentQ }) => {
     } else {
       setSelectedAnswers([]);
       setCurrentQuestion(prev => prev + 1);
-      setFeedback(null); // Reset feedback
+      setFeedback(null);
       setShowNextButton(false);
-
+      setChecked(false);
     }
   }
 
@@ -129,15 +130,14 @@ const RightAnswerQuiz = ({ currentQ }) => {
             {currentQ.answers.map((msg, index) => (
               <div
                 key={index}
-                className={`rightAnswerOfferedWrapper ${selectedAnswers.includes(msg.text) ? 'selected' : ''}`}
+                className={`rightAnswerOfferedWrapper ${selectedAnswers.includes(msg.text) ? 'selected' : ''} `}
                 onClick={() => handleAnswerSelection(msg.text)}
               >
-                <p className='rightAnswerOfferedAnswers'>{msg.text}</p>
+                <p className={`rightAnswerOfferedAnswers`} id={`${checked && corAns.includes(msg.text) ? 'correct-answer' : ''}`}>{msg.text}</p>
               </div>
             ))}
             {selectedAnswers.length > 0 && (
               <div className='doneButtonWrapper'>
-
                 {showNextButton ? <button onClick={handleNext}>Next</button> : <button onClick={handleCheck}>Check</button>}
               </div>
             )}

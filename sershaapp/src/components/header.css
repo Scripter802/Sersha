@@ -54,11 +54,11 @@
     background: rgba(255, 255, 255, 0.1);
 }
 
-#messages {
+#dm {
     position: relative;
 }
 
-#messages p {
+#dm p {
 
     display: flex;
     justify-content: center;
@@ -104,6 +104,32 @@
     }
 }
 
+.mute-tutorial-wrapper {
+    display: flex;
+}
+
+.mute-btn {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+}
+
+.mute-btn img {
+    height: 50px;
+    border-radius: 50%;
+}
+
+.tutorialBtn {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+}
+
+.tutorialBtn img {
+    height: 50px;
+    border-radius: 50%;
+}
+
 .coinWrapper .coinImg {
     content: url('../assets/images/navbar/coin.png');
 }
@@ -116,7 +142,7 @@
 .map,
 .game,
 .home,
-.messages,
+.dm,
 .miniGames,
 .foxCustomization {
     display: flex;
@@ -133,15 +159,15 @@
 .game:hover,
 .home:hover,
 .miniGames:hover,
-.messages:hover,
+.dm:hover,
 .foxCustomization:hover {
     background: #C26F4D;
 }
 
-.dm {
+.currentDm {
     display: flex;
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     background-color: #C26F4D;
     border-radius: 100%;
     justify-content: center;
@@ -151,17 +177,8 @@
 }
 
 .currentMiniGames,
-.currentMap {
-    display: flex;
-    width: 60px;
-    height: 60px;
-    background-color: #C26F4D;
-    border-radius: 100%;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
+.currentMap,
+.currentFoxCustomization,
 .currentHome {
     display: flex;
     width: 70px;
@@ -173,16 +190,6 @@
     cursor: pointer;
 }
 
-.currentFoxCustomization {
-    display: flex;
-    width: 60px;
-    height: 60px;
-    background-color: #C26F4D;
-    border-radius: 100%;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
 
 .navigationWrapper {
     display: flex;
@@ -194,11 +201,6 @@
 
 .navigationWrapperResponsivness {
     display: none;
-}
-
-.home {
-    width: 70px;
-    height: 70px;
 }
 
 .coinWrapper {
@@ -231,6 +233,7 @@
     color: white;
     width: 130px;
     position: relative;
+    margin-inline: 1rem;
 }
 
 .profileInfo {
@@ -241,6 +244,7 @@
     color: white;
     width: 130px;
     margin-right: 1.15px;
+    position: relative;
 }
 
 .level {
@@ -250,7 +254,7 @@
 .avatarWrapper {
     display: flex;
     position: absolute;
-    right: -1rem;
+    right: -2rem;
     top: 50%;
 }
 

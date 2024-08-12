@@ -4,7 +4,12 @@
     width: 100%;
 }
 
-.logInHeaderRightSide {
+.goToSignUpBtn {
+    display: flex;
+    gap: .25rem;
+}
+
+.logInDontHaveAcc {
     display: flex;
     gap: 0.625rem;
     color: #FFFFFF;
@@ -20,8 +25,7 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: 50%;
-    right: 2rem;
+    right: 0;
     background-color: transparent;
     border: none;
 
@@ -37,7 +41,7 @@
     cursor: pointer;
 }
 
-.logInHeaderRightSide img {
+.logInDontHaveAcc img {
     width: 24px;
     height: 24px;
 }
@@ -92,7 +96,29 @@
     font-size: 12px;
 }
 
-.btn {
+.inputPassWrapper {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    color: #FFB496;
+    gap: .625rem;
+}
+
+.passLabel {
+    margin-bottom: .625rem;
+}
+
+.inputPassWrapper input {
+    background: transparent;
+    border: 1px solid #FFB496;
+    height: 50px;
+    border-radius: 30px 30px;
+    color: #FFB496;
+    font-size: 1rem;
+    padding-inline: 1.5rem;
+}
+
+.login-btn {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -100,6 +126,7 @@
     border-radius: 30px 30px;
     border: 0px;
     background: #FFFFFF;
+    color: black;
     height: 50px;
 }
 
@@ -109,15 +136,39 @@
 
 @media (max-width: 1000px) {
     .logInFormWrapper {
-        width: 100%;
+        width: 60%;
     }
 
-    .logInHeaderRightSide {
+    .logInDontHaveAcc {
+        display: flex;
+        flex-direction: column;
         font-size: 14px;
         gap: 0;
     }
 
-    .logInHeaderRightSide img {
+    .logInDontHaveAcc img {
         margin-left: 1rem;
+    }
+
+    .signUpButtonWrapper {
+        display: flex;
+    }
+
+    .extra {
+        margin-bottom: .25rem;
+    }
+
+    .logInHeaderWrapper {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .logInFormWrapper {
+        width: 100%;
+    }
+
+    .rightSideWrapper {
+        padding-inline: 1rem;
     }
 }

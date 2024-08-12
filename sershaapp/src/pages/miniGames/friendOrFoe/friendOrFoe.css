@@ -57,13 +57,12 @@
   background: linear-gradient(180deg, #2F202F33 0%, #460C2333 100%);
   border-radius: 10px 10px;
   padding: 40px;
-  position: relative;
 }
 
 .middleGamePhoto {
   width: 100%;
   object-fit: fill;
-  max-height: 200px;
+  height: 100%;
 }
 
 .friendOrFoeLeftSideContent {
@@ -79,11 +78,11 @@
 }
 
 .friendOrFoeGameCard {
-  width: 420px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100%;
+  /* min-height: 100%; */
 }
 
 .messageGameCard {
@@ -100,6 +99,7 @@
 .messageGameCard>img {
   width: 80px;
   height: 80px;
+  border-radius: 50%;
 }
 
 .messageName {
@@ -120,8 +120,7 @@
   justify-content: center;
   align-items: center;
   gap: .315rem;
-  position: absolute;
-  bottom: 2rem;
+  margin-top: 1rem;
 }
 
 .friendOrFoeDeclineButton {
@@ -134,6 +133,7 @@
   width: 140px;
   height: 50px;
   background: #FFB6B6;
+  color: black;
   font-size: 1rem;
   font-weight: 500;
   gap: 5px;
@@ -148,6 +148,8 @@
   width: 140px;
   height: 50px;
   background: #B2F0B6;
+
+  color: black;
   font-size: 1rem;
   font-weight: 500;
   gap: 5px;
@@ -300,7 +302,7 @@
 
   .friendOrFoeGameCard {
     margin-bottom: 2rem;
-    width: 353px;
+    width: inherit;
   }
 
   .friendOrFoeGameCard div {

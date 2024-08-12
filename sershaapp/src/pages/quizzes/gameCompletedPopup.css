@@ -1,35 +1,65 @@
 .popup {
   position: fixed;
-  top: 90px;
+  top: 0;
   left: 0;
   width: 100%;
-  height: 80vh;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  align-items: center;
   overflow-y: hidden;
+  z-index: 1000;
+}
+
+.popMiniGames {
+  align-items: center;
+  top: 0;
 }
 
 .allQuestions {
   text-align: left;
-  color: white;
+  color: #FFB496;
   overflow-y: hidden;
+  font-size: 15px;
 }
 
 .questionNum {
   color: white;
+  font-size: 15px;
 }
 
 .popup-content {
   background: linear-gradient(166.72deg, #CE3D21 5.04%, #922627 90.45%);
   padding: 20px;
+  margin-top: 6rem;
   border-radius: 10px;
   text-align: center;
   width: 90%;
+  height: 80%;
   max-width: 500px;
-  height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
+}
+
+#correctAnswerQuizzPopup {
+  color: #B2F0B6;
+  font-size: 18px;
+}
+
+#questionText {
+  color: white;
+  font-size: 18px;
+}
+
+.popup-content-miniGames {
+  background: linear-gradient(166.72deg, #CE3D21 5.04%, #922627 90.45%);
+  padding: 20px;
+  margin-top: .5rem;
+  border-radius: 10px;
+  text-align: center;
+  width: 90%;
+  height: fit-content;
+  max-width: 500px;
+  overflow-y: auto;
 }
 
 .popup-content h2 {
@@ -112,12 +142,8 @@
   cursor: pointer;
 }
 
-.buttons button:first-child {
-  background-color: #FFFFFF;
-}
-
 .buttons button:last-child {
-  background-color: #B2F0B6;
+  background-color: #C26F4D;
 }
 
 .buttons img {

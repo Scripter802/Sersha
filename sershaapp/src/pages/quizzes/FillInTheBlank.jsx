@@ -32,8 +32,9 @@ const FillInTheBlank = ({ currentQ }) => {
   const [corAns, setCorAns] = useState('');
   const [answers, setAnswers] = useState([]);
   const [showCheckButton, setShowCheckButton] = useState(false);
-  const [feedback, setFeedback] = useState(null); // For storing feedback
-  const [showNextButton, setShowNextButton] = useState(false); // To toggle "Next" button
+  const [feedback, setFeedback] = useState(null);
+  const [showNextButton, setShowNextButton] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   useEffect(() => {
     const correctAnswer = currentQ.answers.find(q => q.isCorrect);
@@ -87,7 +88,7 @@ const FillInTheBlank = ({ currentQ }) => {
       setHeartsNum(prev => prev - 1);
       setFeedback({ type: 'wrong', message: 'Wrong Answer!' });
     }
-
+    setChecked(true)
     setShowNextButton(true);
     setShowCheckButton(false);
   };
@@ -95,11 +96,13 @@ const FillInTheBlank = ({ currentQ }) => {
   const handleNext = () => {
     if (currentQuizz.questions.length - 1 === currentQuestion) {
       setShowPopup(true);
+      setChecked(false);
     } else {
       setSelectedAnswer(null);
       setDropped(null);
       setCurrentQuestion(prev => prev + 1);
-      setFeedback(null); // Reset feedback
+      setFeedback(null);
+      setChecked(false);
       setShowNextButton(false);
     }
   };
@@ -169,7 +172,7 @@ const FillInTheBlank = ({ currentQ }) => {
                 className={`fillBlankOfferedAnswersWrapper ${selectedAnswer === item.text ? 'selected' : ''}`}
                 onClick={() => handleSelectAnswer(item.text)}
               >
-                <p className='fillBlankOfferedAnswers'>{item.text}</p>
+                <p className='fillBlankOfferedAnswers' id={`${checked && corAns.includes(item.text) ? 'correct-answer-Fill' : ''}`} >{item.text}</p>
               </div>
             ))}
           </div>

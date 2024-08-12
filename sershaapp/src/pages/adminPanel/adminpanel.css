@@ -33,7 +33,7 @@ body {
 .grid-container {
   display: grid;
   grid-template-columns: 260px 1fr 1fr 1fr;
-  grid-template-rows: 0.2fr 3fr;
+  /* grid-template-rows: 0.2fr 3fr; */
   grid-template-areas:
     'sidebar header header header'
     'sidebar main main main';
@@ -246,6 +246,7 @@ body {
 .adminBackground {
   background-image: url('../../assets/images/home/homePageBackground.png');
   background-size: cover;
+  background-position: center;
 }
 
 #sidebar {
@@ -260,7 +261,7 @@ body {
 @media screen and (max-width: 992px) {
   .grid-container {
     grid-template-columns: 1fr;
-    grid-template-rows: 0.2fr 3fr;
+    /* grid-template-rows: 0.2fr 3fr; */
     grid-template-areas:
       'header'
       'main';

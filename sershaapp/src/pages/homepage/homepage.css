@@ -7,7 +7,6 @@
     background-position: center;
     border-radius: 30px 30px;
     min-height: 100vh;
-    margin-bottom: 50px;
 }
 
 .postWrapper {
@@ -20,6 +19,7 @@
     background: linear-gradient(180deg, #2F202F 0%, #460C23 100%);
     display: flex;
     align-items: center;
+    width: 600px;
 }
 
 .postWrapper img {
@@ -60,6 +60,25 @@
 
 .postBy P {
     margin-left: .5rem;
+}
+
+.play-button {
+    background-color: #3A0717;
+    color: #F37D4A;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin-block: 3rem;
+}
+
+.play-button:hover {
+    background-color: #560b25;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 @media only screen and (max-width: 1000px) {

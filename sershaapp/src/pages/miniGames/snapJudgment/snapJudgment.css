@@ -5,7 +5,7 @@
   background-size: cover;
   position: relative;
   border-radius: 30px 30px;
-  min-height: 100vh;
+  min-height: calc(100vh - 91px);
   padding-top: 2.95rem;
 }
 
@@ -58,8 +58,9 @@
 .snapGameContainer {
   display: flex;
   width: 960px;
-  height: 457px;
+  height: fit-content;
   background-image: url(../../../assets/images/miniGames/snapJudgment/snapJudgmentCardBackground.png);
+  background-size: cover;
   padding: 40px;
 }
 
@@ -77,11 +78,14 @@
 
 .snapGameCard {
   width: 206px;
-  height: 293px;
+  height: fit-content;
   background: #FFF;
   border-radius: 20px 20px;
   box-shadow: 25px 30px 45px 0px #00000031;
 
+}
+.snapGameCard img{
+  width: 100%;
 }
 
 .snapGameCard img {
@@ -91,7 +95,6 @@
 .snapProfilePhoto {
   border-radius: 20px 20px;
 }
-
 .snapProfileName {
   font-size: 12px;
   padding-inline: 25px;

@@ -84,19 +84,6 @@ const SignInUpPage = () => {
           <div className="leftSideBackground"></div>
           <div className="leftSideContent">
             {renderSlides()}
-            <div className="sliderDots">
-              {signInUpSlider.map((_, index) => (
-                <button
-                  key={index}
-                  className={index === sliderIndex ? "dot active" : "dot"}
-                  onClick={() => setSliderIndex(index)}
-                />
-              ))}
-            </div>
-            <div>
-              <button className="prev sliderBtn" onClick={() => setSliderIndex(sliderIndex - 1)}>{"<"}</button>
-              <button className="next sliderBtn" onClick={() => setSliderIndex(sliderIndex + 1)}>{">"}</button>
-            </div>
           </div>
         </div>
       )}
@@ -106,19 +93,6 @@ const SignInUpPage = () => {
             <div className="leftSideBackground"></div>
             <div className="leftSideContent">
               {renderSlides()}
-              <div className="sliderDots">
-                {signInUpSlider.map((_, index) => (
-                  <button
-                    key={index}
-                    className={index === sliderIndex ? "dot active" : "dot"}
-                    onClick={() => setSliderIndex(index)}
-                  />
-                ))}
-              </div>
-              <div>
-                <button className="prev sliderBtn" onClick={() => setSliderIndex(sliderIndex - 1)}>{"<"}</button>
-                <button className="next sliderBtn" onClick={() => setSliderIndex(sliderIndex + 1)}>{">"}</button>
-              </div>
             </div>
           </div>
           <div className='rightSideWrapper'>

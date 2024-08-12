@@ -39,13 +39,15 @@
 .btnShowHideRegister1,
 .btnShowHideRegister2 {
     position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     top: 50%;
-    right: 1.5rem;
+    right: .55rem;
+    transform: translateY(-50%);
     background-color: transparent;
     border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+
 }
 
 .btnShowHideRegister1 img,
@@ -100,7 +102,7 @@
 }
 
 .avatar-modal-content {
-    background-color: white;
+    background-color: #8D292A;
     padding: 2rem;
     border-radius: 8px;
     text-align: center;
@@ -176,6 +178,7 @@
     border-radius: 30px 30px;
     border: 0px;
     background: #FFFFFF;
+    color: black;
     height: 50px;
     cursor: pointer;
 }
@@ -183,7 +186,7 @@
 /* Media Queries for screens smaller than 1000px */
 @media (max-width: 999px) {
     .registerFormWrapper {
-        width: 100%;
+        width: 70%;
         padding: 0 1rem;
     }
 
@@ -217,7 +220,7 @@
 
     .registerHeaderWrapper {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
     }
 
     .registerButton {
@@ -248,5 +251,22 @@
     .footerWrapper {
         justify-content: flex-start;
         padding: 1rem;
+    }
+
+    .avatar-modal {
+        width: 80%;
+        height: 90vh;
+        top: auto;
+        overflow-y: scroll;
+        display: unset;
+        left: auto;
+        border-radius: 30px 30px;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .registerFormWrapper {
+        width: 90%;
     }
 }

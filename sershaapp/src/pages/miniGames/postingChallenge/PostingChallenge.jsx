@@ -90,9 +90,9 @@ const PostingChallenge = () => {
 
     if (postingNumber < currentPosting.length - 1) {
       setPostingNumber(postingNumber + 1);
-      setSeconds(25); // Reset the timer for the next question
+      setSeconds(25);
     } else {
-      setIsGameCompleted(true); // Show the popup when the game is completed
+      setIsGameCompleted(true);
       clearInterval(intervalIdRef.current);
     }
   };
@@ -109,7 +109,32 @@ const PostingChallenge = () => {
     setRoughFoxDamaged('');
   };
 
-  const handleClaimPrize = () => {
+  const handleClose = () => {
+    setCorrectAnsweredMiniGames(0);
+    setIncorrectAnsweredMiniGames(0);
+    setPostingNumber(0);
+    setSeconds(25);
+    setRoughFoxDamaged('');
+    navigate('/minigames');
+  };
+
+  const handleClaimPrize = (currentPrize) => {
+    const gameItems = JSON.parse(localStorage.getItem('gameItems')) || [];
+
+    const updatedGameItems = [...gameItems];
+
+    currentPrize.forEach((prize) => {
+      const existingItemIndex = updatedGameItems.findIndex(item => item.item === prize.item);
+
+      if (existingItemIndex !== -1) {
+        updatedGameItems[existingItemIndex].count += prize.count;
+      } else {
+        updatedGameItems.push(prize);
+      }
+    });
+
+    localStorage.setItem('gameItems', JSON.stringify(updatedGameItems));
+
     console.log('Prize claimed');
     setIsGameCompleted(false);
     navigate('/');
@@ -130,7 +155,7 @@ const PostingChallenge = () => {
       <div className='postingChallengeTitleWrapper'>
 
         <div className='postingChallengeTitle'>
-          <img src={close} alt="" onClick={() => navigate('/minigames')} />
+          <img src={close} alt="" onClick={handleClose} />
           <h1>Posting Challenge</h1>
         </div>
       </div>
@@ -209,9 +234,9 @@ const PostingChallenge = () => {
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
-      <audio loop autoPlay>
+      {/* <audio loop autoPlay>
         <source src="/music/Music/RogueFoxFight310520241104.mp3" type="audio/mpeg" />
-      </audio>
+      </audio> */}
     </div>
   );
 };

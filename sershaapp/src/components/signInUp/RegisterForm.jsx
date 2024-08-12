@@ -41,6 +41,9 @@ const RegisterForm = () => {
   const [ageError, setAgeError] = useState();
   const [phoneNumberError, setPhoneNumberError] = useState();
   const [emailError, setEmailError] = useState();
+  const [selectedAvatarImage, setSelectedAvatarImage] = useState();
+
+  console.log(`sel ${selectedAvatarImage?.imagePath}`)
 
   useEffect(() => {
     const fetchAvatars = async () => {
@@ -58,6 +61,7 @@ const RegisterForm = () => {
 
   const handleAvatarSelect = (avatar) => {
     setSelectedAvatar(avatar.id);
+    setSelectedAvatarImage(avatar);
     setShowAvatarModal(false);
   };
 
@@ -287,46 +291,46 @@ const RegisterForm = () => {
               <div className={`invalid-feedback text-start`}>{emailError}</div>
             </div>
 
-            <div className='passwordWrapper'>
+            <div className="passwordWrapper">
               <div className="regPassword mb-3">
+                <label>
+                  Password
+                </label>
                 <div className="input-group passReg1">
-                  <label>
-                    Password
-                    <input
-                      type={registerShowPassword ? "text" : "password"}
-                      className={`form-control`}
-                      name="password"
-                      id="password"
-                      value={registerPassword}
-                      placeholder="Password"
-                      onChange={(e) => setRegisterPassword(e.target.value)}
-                    />
-                  </label>
+                  <input
+                    type={registerShowPassword ? "text" : "password"}
+                    className="form-control"
+                    name="password"
+                    id="password"
+                    value={registerPassword}
+                    placeholder="Password"
+                    onChange={(e) => setRegisterPassword(e.target.value)}
+                  />
                   <button
                     type="button"
-                    className=" btnShowHideRegister1"
+                    className="btnShowHideRegister1"
                     onClick={() => setRegisterShowPassword(!registerShowPassword)}
                   >
                     <img src={visible} alt="toggle visibility" />
                   </button>
-                  <div className={`invalid-feedback text-start`}></div>
+                  <div className="invalid-feedback text-start"></div>
                 </div>
               </div>
 
               <div className="regRePassword mb-3">
+                <label>
+                  Re-password
+                </label>
                 <div className="input-group passReg2">
-                  <label>
-                    Re-password
-                    <input
-                      type={registerShowPassword ? "text" : "password"}
-                      className={`form-control`}
-                      name="rePassword"
-                      id="rePassword"
-                      value={registerRePassword}
-                      placeholder="Re-password"
-                      onChange={(e) => setRegisterRePassword(e.target.value)}
-                    />
-                  </label>
+                  <input
+                    type={registerShowPassword ? "text" : "password"}
+                    className={`form-control`}
+                    name="rePassword"
+                    id="rePassword"
+                    value={registerRePassword}
+                    placeholder="Re-password"
+                    onChange={(e) => setRegisterRePassword(e.target.value)}
+                  />
                   <button
                     type="button"
                     className=" btnShowHideRegister2"
@@ -344,7 +348,7 @@ const RegisterForm = () => {
                 Avatar
                 <div className="avatar-selection" onClick={() => setShowAvatarModal(true)}>
                   {selectedAvatar ? (
-                    <img src={`${baseUrlImage}${selectedAvatar.imagePath}`} alt="Selected Avatar" />
+                    <img src={`${baseUrlImage}${selectedAvatarImage?.imagePath}`} alt="Selected Avatar" />
                   ) : (
                     <p>Choose Avatar</p>
                   )}

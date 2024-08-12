@@ -1,0 +1,168 @@
+.settingsPageWrapper {
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: calc(100vh - 82px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-bottom: 30px; */
+}
+
+.settingsContainer {
+
+  background: linear-gradient(180deg, #2F202F 0%, #460C23F2 100%);
+  padding: 20px 20px 5px 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.contact {
+  padding-top: 1rem;
+}
+
+.avatarContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.exchange-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  background-color: white;
+  border-radius: 50%;
+  opacity: 0.35;
+}
+
+.exchange-overlay img {
+  padding-top: 5%;
+  width: inherit;
+}
+
+.avatarImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formRow,
+.formGrid {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.formRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.formColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formColumn label,
+.formRow label {
+  margin-bottom: 5px;
+}
+
+.fullNameChange,
+.parentsFullNameChange,
+.parentPhoneNumberChange,
+.emailChange,
+.birthdateChange,
+.passwordChange {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  color: white;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #C26F4D;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ee9d7c;
+}
+
+.avatarPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popupContent {
+
+  background: linear-gradient(180deg, #2F202F 0%, #460C23F2 100%);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.avatarOptions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.avatarOptions img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.avatarOptions img:hover {
+  border: 2px solid #007BFF;
+}
+
+@media only screen and (max-width: 780px) {
+  .settingsPageWrapper {
+    margin-bottom: 3rem;
+    padding-bottom: 4rem;
+  }
+
+  .settingsContainer {
+    margin-top: 100px;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+}

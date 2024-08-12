@@ -108,11 +108,35 @@ const SnapJudgment = () => {
     setRoughFoxDamaged('');
   };
 
-  const handleClaimPrize = () => {
-    console.log('Prize claimed');
+  const handleClaimPrize = (currentPrize) => {
+    const gameItems = JSON.parse(localStorage.getItem('gameItems')) || [];
+
+    const updatedGameItems = [...gameItems];
+
+    currentPrize.forEach((prize) => {
+      const existingItemIndex = updatedGameItems.findIndex(item => item.item === prize.item);
+
+      if (existingItemIndex !== -1) {
+        updatedGameItems[existingItemIndex].count += prize.count;
+      } else {
+        updatedGameItems.push(prize);
+      }
+    });
+
+    localStorage.setItem('gameItems', JSON.stringify(updatedGameItems));
+
+    console.log(currentPrize);
     setIsGameCompleted(false);
     navigate('/');
   };
+
+  const handleClose = () => {
+    setCorrectAnsweredMiniGames(0);
+    setIncorrectAnsweredMiniGames(0);
+    setSnapNumber(0);
+    setRoughFoxDamaged('');
+    navigate('/minigames');
+  }
 
 
 
@@ -131,7 +155,7 @@ const SnapJudgment = () => {
 
       <div className='snapJudgmentTitleWrapper'>
         <div className='snapJudgmentTitle'>
-          <img src={close} alt="" onClick={() => navigate('/minigames')} />
+          <img src={close} alt="" onClick={handleClose} />
           <h1>Snap Judgment</h1>
         </div>
       </div>
@@ -208,9 +232,9 @@ const SnapJudgment = () => {
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>
 
-      <audio loop autoPlay>
+      {/* <audio loop autoPlay>
         <source src="/music/Music/RogueFoxFight310520241104.mp3" type="audio/mpeg" />
-      </audio>
+      </audio> */}
     </div>
   );
 }

@@ -29,7 +29,7 @@ const QuizzesEdit = () => {
 
     // Reset the edit state
     setEditingQuestion(null);
-    setIsQuestionEdit(false);
+    setIsQuizzEdit(false);
   };
 
   const handleOptionChange = (index, value) => {
@@ -52,15 +52,15 @@ const QuizzesEdit = () => {
   };
 
   return (
-    <div className="editRightAnswerQuestionContainer">
-      <div className="close-btn" onClick={() => setIsQuizzEdit(false)}>
+    <div className="quiz-edit-container">
+      <div className="quiz-edit-close-btn" onClick={() => setIsQuizzEdit(false)}>
         <img src={closeButton} alt='close' />
       </div>
-      <h3 className="p-3 text-center">Edit Question</h3>
+      <h3 className="quiz-edit-title">Edit Question</h3>
       <div>
-        <label className='questionFieldLabel'>Question:</label>
+        <label className='quiz-edit-question-label'>Question:</label>
         <input
-          className='editRightAnswerQuestionInput'
+          className='quiz-edit-question-input'
           type="text"
           value={rightAnswerEditQuestion.Question}
           placeholder='Question'
@@ -68,22 +68,22 @@ const QuizzesEdit = () => {
         />
       </div>
 
-      <div className='editRightAnswerOptions'>
-        <label className='optionsFieldLabel'>Options (check correct answer)</label>
+      <div className='quiz-edit-options'>
+        <label className='quiz-edit-options-label'>Options (check correct answer)</label>
         {rightAnswerEditQuestion.Options.map((option, index) => (
-          <div className='optionBox' key={index}>
+          <div className='quiz-edit-option-box' key={index}>
             <label>
               <input
-                className='postProfileName'
+                className='quiz-edit-option-input'
                 type="text"
                 value={option.option}
                 placeholder={`Option ${index + 1}`}
                 onChange={(e) => handleOptionChange(index, e.target.value)}
               />
             </label>
-            <div className='checkBoxOptions'>
+            <div className='quiz-edit-checkbox'>
               <input
-                className='postProfileName'
+                className='quiz-edit-checkbox-input'
                 type="checkbox"
                 checked={option.isCorrect}
                 onChange={(e) => handleCheckboxChange(index, e.target.checked)}
@@ -91,27 +91,26 @@ const QuizzesEdit = () => {
             </div>
           </div>
         ))}
-        <div className='newOptionFieldAdd'>
-          <button className='addNewOptionFieldBtn' onClick={handleAddOption}>
-            <div className='incrementCharacter'>+</div>
+        <div className='quiz-edit-add-option'>
+          <button className='quiz-edit-add-option-btn' onClick={handleAddOption}>
+            <div className='quiz-edit-add-option-btn-content'>+</div>
           </button>
         </div>
       </div>
       <div>
-        <label>Bundle</label>
+        <label className='quiz-edit-bundle-label'>Bundle</label>
         <select
-          className='postBundles'
-          type="dropdown"
+          className='quiz-edit-bundle-select'
           value={rightAnswerEditQuestion.stage}
           placeholder='Choose a bundle'
-          onChange={(e) => setRightAnswerEditQuestion({ ...rightAnswerEditQuestion, Stage: e.target.value })}
+          onChange={(e) => setRightAnswerEditQuestion({ ...rightAnswerEditQuestion, stage: e.target.value })}
         >
           <option value="Easy">Easy Bundle</option>
           <option value="Medium">Medium Bundle</option>
           <option value="Hard">Hard Bundle</option>
         </select>
       </div>
-      <button className='editPostBtn' onClick={handleSubmit}>Submit</button>
+      <button className='quiz-edit-submit-btn' onClick={handleSubmit}>Submit</button>
     </div>
   );
 }

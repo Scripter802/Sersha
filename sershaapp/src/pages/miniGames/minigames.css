@@ -32,7 +32,8 @@
   height: 80%;
 }
 
-.popup {
+.miniGames-popup,
+.singleGame-popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -47,11 +48,45 @@
 
 .popup-inner {
   background: linear-gradient(166.72deg, #CE3D21 5.04%, #922627 90.45%);
+  width: 90%;
+  height: 70%;
   color: white;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
   position: relative;
+}
+
+
+.singleGame-popup-content {
+  background: linear-gradient(166.72deg, #CE3D21 5.04%, #922627 90.45%);
+  width: 90%;
+  max-width: 500px;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+}
+
+.singleGame-popup-content h2 {
+  color: #FFFFFF;
+  font-size: 2rem;
+}
+
+.singleGame-popup-content p {
+  color: #FFB496;
+  font-size: 1.15rem;
+}
+
+#miniGamesgoBack-button {
+  background-color: #D9D9D9;
+  color: black;
+}
+
+#playMiniGames-button {
+  background-color: #B3F0B5;
+  color: black;
 }
 
 .game-options {
@@ -67,8 +102,9 @@
 }
 
 .game-option img {
-  max-width: 100px;
-  height: auto;
+  /* max-width: 300px; */
+  max-width: 20vw;
+  max-height: inherit;
 }
 
 .close-popup-button {

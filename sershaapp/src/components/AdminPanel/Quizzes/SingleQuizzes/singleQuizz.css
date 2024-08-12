@@ -1,0 +1,132 @@
+.single-quizz-container {
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 800px;
+  margin: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.single-quizz-wrapper {
+  margin-top: 20px;
+}
+
+.single-quizz-field {
+  margin-bottom: 15px;
+}
+
+.single-quizz-label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.single-quizz-input,
+.single-quizz-select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.single-quizz-question-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.single-quizz-question-number {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.single-quizz-question-text {
+  margin-bottom: 10px;
+}
+
+.single-quizz-question-input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.single-quizz-question-details {
+  margin-top: 10px;
+}
+
+.single-quizz-options,
+.single-quizz-options-correct-incorrect,
+.single-quizz-group {
+  margin-bottom: 15px;
+}
+
+.single-quizz-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.single-quizz-option-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.single-quizz-option-label,
+.single-quizz-checkbox-label {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.single-quizz-checkbox {
+  margin-right: 5px;
+  height: unset;
+}
+
+.single-quizz-group-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.single-quizz-group-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.single-quizz-settings {
+  margin-top: 20px;
+  display: flex;
+}
+
+.single-quizz-edit-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-inline: auto;
+
+}
+
+.single-quizz-edit-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.single-quizz-delete-btn {
+  background-color: #dc3545;
+  color: white;
+}

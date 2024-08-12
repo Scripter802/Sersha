@@ -68,6 +68,8 @@ namespace Application.User
                         CoinBalance = user.CoinBalance,
                         Stage = user.Stage,
                         UserBirthDate = user.UserBirthDate,
+                        ParentPhoneNumber = user.ParentPhoneNumber,
+                        ParentsFullName = user.ParentsFullName,
                         Email = user.Email,
 
                     };

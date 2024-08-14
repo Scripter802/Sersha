@@ -63,7 +63,7 @@ import lockGame from "../../assets/images/map/mapItems/lockLevel.png";
 import completedGame from "../../assets/images/map/mapItems/completedLevel.png";
 import { useGlobalContext } from '../../context/context.jsx';
 
-const MapComponent = ({ bundle, i }) => {
+const MapComponent = ({ bundle }) => {
   const { user } = useGlobalContext();
 
   return (

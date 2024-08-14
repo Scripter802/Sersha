@@ -93,9 +93,9 @@ const RightAnswerQuiz = ({ currentQ }) => {
           </div>
         </div>
         <div className='rightObenWrapper' id='rightObenWrap'>
-          <div className='inventory'>
+          {/* <div className='inventory'>
             <img src={inventory} alt="Inventory" />
-          </div>
+          </div> */}
           <div className='hearts'>
             <div className='heartWrapper'>
               {heartsNum >= 1 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />}

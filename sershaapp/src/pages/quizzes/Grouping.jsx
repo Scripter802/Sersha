@@ -129,9 +129,9 @@ const Grouping = ({ currentQ }) => {
           </div>
         </div>
         <div className='rightObenWrapper'>
-          <div className='inventory'>
+          {/* <div className='inventory'>
             <img src={inventory} alt="Inventory" />
-          </div>
+          </div> */}
           <div className='hearts'>
             {[...Array(3)].map((_, i) => (
               <div key={i} className='heartWrapper'>

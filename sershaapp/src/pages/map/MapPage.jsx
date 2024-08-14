@@ -76,7 +76,6 @@ const MapPage = () => {
     }
   }, [changeMusic, music]);
 
-  console.log(user)
 
   return (
     <div className='mapContainer'>
@@ -89,8 +88,8 @@ const MapPage = () => {
           <img className="path" src={repeatPart} alt="" />
         </div>
 
-        {user.level <= 13 &&
-          <MapComponent bundle={bundelsAndLevels[0]} i={'0'} />
+        {user?.level <= 13 &&
+          <MapComponent bundle={bundelsAndLevels[0]} />
         }
 
 

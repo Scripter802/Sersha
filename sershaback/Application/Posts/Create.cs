@@ -68,21 +68,18 @@ namespace Application.Posts
                 
                 if (request.Image != null)
     {
-        string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "postImages", request.Stage);
+        String path = Directory.GetCurrentDirectory() + "\\wwwroot\\Images\\postImages\\" + request.Stage;
+                if(request.Image != null){
+                    FileInfo fi = new FileInfo(request.Image.FileName);
+                    string fileName = fi.Name + fi.Extension;
+                    Directory.CreateDirectory(path);
+                    path = Path.Combine(path, fileName);
 
-        string fileName = Path.GetFileName(request.Image.FileName);
-
-        Directory.CreateDirectory(path);
-
-        string filePath = Path.Combine(path, fileName);
-        // Save the image file to the specified path
-        using (var fs = new FileStream(filePath, FileMode.Create))
-        {
-            await request.Image.CopyToAsync(fs);
-        }
-
-        post.ImagePath = $"/Images/postImages/{request.Stage}/{fileName}";
-    }
+                    using (var fs = new FileStream(path, FileMode.Create)){
+                        await request.Image.CopyToAsync(fs);
+                    }
+                    post.ImagePath = "/Images/postImages/" + request.Stage + "/" + fileName;
+                }
 
                 
 

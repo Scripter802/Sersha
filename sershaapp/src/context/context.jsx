@@ -26,8 +26,8 @@ import itemEasyFondation from '../assets/images/map/mapItems/easybundle/foundati
 import avatar from '../assets/images/navbar/userpick.png'
 
 const AppContext = createContext();
-const baseUrl = "http://localhost:5000/api";
-const baseUrlImage = "http://localhost:5000";
+const baseUrl = "https://sershaback.azurewebsites.net/api";
+const baseUrlImage = "https://sershaback.azurewebsites.net";
 
 const AppProvider = ({ children }) => {
 

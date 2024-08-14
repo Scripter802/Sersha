@@ -1,4 +1,3 @@
-// MusicContext.js
 import React, { createContext, useState, useEffect, useRef } from 'react';
 
 const MusicContext = createContext();
@@ -6,32 +5,38 @@ const MusicContext = createContext();
 export const MusicProvider = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [currentPlaying, setCurrentPlaying] = useState('');
+  const [currentTime, setCurrentTime] = useState(0);
   const audioRef = useRef(new Audio());
 
   useEffect(() => {
     const audio = audioRef.current;
-    audio.src = currentPlaying;
-    audio.loop = true;
 
-    const playAudio = () => {
-      if (isPlaying) {
-        audio.play();
-      } else {
-        audio.pause();
-      }
-    };
-
-    if (currentPlaying) {
-      playAudio();
+    if (currentPlaying && audio.src !== currentPlaying) {
+      audio.src = currentPlaying;
+      audio.currentTime = currentTime;
+      audio.loop = true;
     }
 
-    return () => {
+    if (isPlaying) {
+      audio.play();
+    } else {
       audio.pause();
+    }
+
+    const handleTimeUpdate = () => {
+      setCurrentTime(audio.currentTime);
     };
+
+    audio.addEventListener('timeupdate', handleTimeUpdate);
+
+    // return () => {
+    //   audio.pause();
+    //   audio.removeEventListener('timeupdate', handleTimeUpdate);
+    // };
   }, [isPlaying, currentPlaying]);
 
   const toggleMusic = () => {
-    setIsPlaying((prevIsPlaying) => !prevIsPlaying);
+    setIsPlaying(prevIsPlaying => !prevIsPlaying);
   };
 
   const changeMusic = (newMusic) => {
@@ -42,7 +47,7 @@ export const MusicProvider = ({ children }) => {
   };
 
   return (
-    <MusicContext.Provider value={{ isPlaying, toggleMusic, currentPlaying, setCurrentPlaying, changeMusic }}>
+    <MusicContext.Provider value={{ isPlaying, toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, currentTime }}>
       {children}
     </MusicContext.Provider>
   );

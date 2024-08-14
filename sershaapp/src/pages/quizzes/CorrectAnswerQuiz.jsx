@@ -68,13 +68,19 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
   };
 
   const handleCheck = () => {
+
+    const correctSound = new Audio('/music/SFX/FightRogueFox/rightanswer.mp3');
+    const incorrectSound = new Audio('/music/SFX/FightRogueFox/IncorrectAnswer.mp3');
+
     if (selectedAnswer === currentQ.isCorrect) {
       setCorrectAnswers((prev) => prev + 1);
       setFeedback({ type: 'correct', message: 'Correct Answer!' });
+      correctSound.play();
     } else {
       setWrongAnswers((prev) => prev + 1);
       setHeartsNum((prev) => prev - 1);
       setFeedback({ type: 'wrong', message: 'Wrong Answer!' });
+      incorrectSound.play();
     }
 
     setShowNextButton(true);
@@ -86,7 +92,7 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
     } else {
       setSelectedAnswer(null);
       setCurrentQuestion((prev) => prev + 1);
-      setFeedback(null); // Reset feedback
+      setFeedback(null);
       setShowNextButton(false);
     }
   };
@@ -136,7 +142,7 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
           <div className='correctAnswerAnsWrapper'>
             {messages.map(
               (msg) =>
-                msg.name === 'Jess' && // Assuming 'Jess' is the user who should be answering
+                msg.name === 'Jess' &&
                 selectedAnswer === null &&
                 msg.answer?.map((ans, index) => (
                   <div

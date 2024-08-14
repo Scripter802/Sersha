@@ -4,7 +4,7 @@ import 'tiny-slider/dist/tiny-slider.css';
 import { useGlobalContext } from "../../context/context";
 import './customizationSlider.css'
 
-const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight }) => {
+const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight, clickSound }) => {
   const { isTopPart, isBottomPart, baseUrlImage, selectedTopItem, setSelectedTopItem, selectedBottomItem, setSelectedBottomItem } = useGlobalContext();
   const [sliderIndex, setSliderIndex] = useState(0);
   const sliderRef = useRef(null);
@@ -71,10 +71,12 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight })
   const handleTopItemClick = (el) => {
     setSelectedTopItem(el);
     localStorage.setItem('TopItem', JSON.stringify(el));
+    clickSound.play()
   };
   const handleBottomItemClick = (el) => {
     setSelectedBottomItem(el);
     localStorage.setItem('BottomItem', JSON.stringify(el));
+    clickSound.play()
   };
 
   const renderItems = (items, onClick) => {

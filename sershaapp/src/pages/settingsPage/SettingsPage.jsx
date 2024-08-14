@@ -1,11 +1,12 @@
 import './settingsPage.css';
-import avatarImage from '../../assets/images/dms/userpick.png'; // Update with the correct path to the default avatar image
-import homePageBackground from '../../assets/images/home/homePageBackground.png'; // Update with the correct path to the background image
+import avatarImage from '../../assets/images/dms/userpick.png';
+import homePageBackground from '../../assets/images/home/homePageBackground.png';
 import { useEffect, useState } from 'react';
 import { useGlobalContext } from '../../context/context.jsx';
 import exchange from '../../assets/images/settingsPage/exchange.png'
 import axios from 'axios';
 import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive.jsx';
+import visible from '../../assets/images/login/visible.png';
 
 const SettingsPage = () => {
   const { user, setUser, baseUrlImage, baseUrl } = useGlobalContext();
@@ -14,6 +15,7 @@ const SettingsPage = () => {
   const [updatedUser, setUpdatedUser] = useState({ ...user });
   const [avatars, setAvatars] = useState([]);
   const [userByEmail, setUserByEmail] = useState();
+  const [isSettingsShowPassword, setIsSettingsShowPassword] = useState(false);
 
   useEffect(() => {
     const fetchAvatars = async () => {
@@ -65,9 +67,7 @@ const SettingsPage = () => {
 
   const toggleEditing = () => {
     if (isEditing) {
-      // Save the changes (e.g., send them to the server)
       setUser(updatedUser);
-      // Add your save logic here
     }
     setIsEditing(!isEditing);
   };
@@ -80,6 +80,7 @@ const SettingsPage = () => {
     setUpdatedUser(prevState => ({
       ...prevState,
       image: newAvatar,
+      avatarImageId: newAvatar.id,
     }));
     setShowAvatarPopup(false);
   };
@@ -99,11 +100,14 @@ const SettingsPage = () => {
       fullName: updatedUser.fullName,
       parentsFullName: updatedUser.parentsFullName,
       parentPhoneNumber: updatedUser.parentPhoneNumber,
-      email: updatedUser.email,
-      userBirthDate: updatedUser.birthdate
+      userBirthDate: updatedUser.birthdate,
+      image: updatedUser?.image?.imagePath ? updatedUser?.image?.imagePath : updatedUser.image,
     };
+
+    let updatingUser = { ...updatedUser, image: userChanges.image };
+
     try {
-      const response = await axios.put(`${baseUrl}/User/${user.email}`, userChanges);
+      const response = await axios.put(`${baseUrl}/User/${user.email}`, updatingUser);
       toggleEditing();
     } catch (error) {
       console.log(error);
@@ -122,7 +126,7 @@ const SettingsPage = () => {
       <div className="settingsContainer">
         <h1>Profile Settings</h1>
         <div className="avatarContainer" onClick={handleAvatarClick}>
-          <img src={updatedUser?.image ? `${baseUrlImage}${updatedUser?.image}` : avatarImage} alt="avatar" className="avatarImage" />
+          <img src={updatedUser?.image?.imagePath ? `${baseUrlImage}${updatedUser?.image.imagePath}` : updatedUser?.image ? `${baseUrlImage}${updatedUser?.image}` : avatarImage} alt="avatar" className="avatarImage" />
           <div className='exchange-overlay'><img src={exchange} alt="exchange icon" /></div>
         </div>
         <div className="formContainer">
@@ -141,7 +145,7 @@ const SettingsPage = () => {
             </div>
             <div className="formColumn">
               <label>Email</label>
-              <input className='emailChange' type="email" name="email" value={updatedUser?.email == null ? '' : updatedUser.email} onChange={handleInputChange} disabled={!isEditing} style={{ color: isEditing && 'black' }} />
+              <input className='emailChange' type="email" name="email" value={updatedUser?.email == null ? '' : updatedUser.email} onChange={handleInputChange} disabled style={{ color: isEditing && 'black' }} />
             </div>
             <div className="formColumn">
               <label>Birthdate</label>
@@ -149,7 +153,17 @@ const SettingsPage = () => {
             </div>
             <div className="formColumn">
               <label>Password</label>
-              <input className='passwordChange' type="password" name="password" value={updatedUser?.password == null ? '' : updatedUser.password} onChange={handleInputChange} disabled={!isEditing} style={{ color: isEditing && 'black' }} />
+              <div className='passwordInputField'>
+                <input className='passwordChange' type={isSettingsShowPassword ? "text" : "password"} name="password" value={updatedUser?.password == null ? '' : updatedUser.password} onChange={handleInputChange} disabled={!isEditing} style={{ color: isEditing && 'black' }} />
+                <button
+                  type="button"
+                  className=" settingsBtnShowHide"
+                  onClick={() => setIsSettingsShowPassword(!isSettingsShowPassword)}
+                >
+                  {isSettingsShowPassword ? <img src={visible} /> : <img src={visible} />}
+                </button>
+
+              </div>
             </div>
           </div>
           {!isEditing && <button onClick={toggleEditing}>Change profile info</button>}

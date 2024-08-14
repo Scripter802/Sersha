@@ -34,7 +34,7 @@ namespace Application.Quizzes
                 RuleFor(x => x.ConversationStarter).NotEmpty().WithMessage("Conversation starter is required.");*/
         
                 RuleFor(x => x.Difficulty).IsInEnum();
-                RuleForEach(x => x.Questions).ChildRules(question =>
+                /*RuleForEach(x => x.Questions).ChildRules(question =>
                 {
                     question.RuleFor(q => q.QuestionText)
                         .NotEmpty()
@@ -50,7 +50,7 @@ namespace Application.Quizzes
                         .Must(statements => !string.IsNullOrEmpty(statements.Statement1) && !string.IsNullOrEmpty(statements.Statement2))
                         .When(q => string.IsNullOrEmpty(q.QuestionText) && q.ImageFile == null)
                         .WithMessage("QuestionText or ImageFile or Statement1 and Statement2 must be filled.");
-                });
+                });*/
             }
         }
 

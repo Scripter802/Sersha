@@ -106,16 +106,19 @@
 
 .mute-tutorial-wrapper {
     display: flex;
+    align-items: center;
 }
 
 .mute-btn {
     cursor: pointer;
     width: 50px;
     height: 50px;
+    display: flex;
+    align-items: center;
 }
 
 .mute-btn img {
-    height: 50px;
+    height: 35px;
     border-radius: 50%;
 }
 
@@ -123,10 +126,12 @@
     cursor: pointer;
     width: 50px;
     height: 50px;
+    display: flex;
+    align-items: center;
 }
 
 .tutorialBtn img {
-    height: 50px;
+    height: 35px;
     border-radius: 50%;
 }
 

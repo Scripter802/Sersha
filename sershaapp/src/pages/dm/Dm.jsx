@@ -23,6 +23,7 @@ const Dm = () => {
   const messagesPreviewRef = useRef(null);
   const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
   const music = '/music/Music/SershaThemesongMediumoptimal310520241122.mp3'
+  const sendMessageSound = new Audio('/music/SFX/DMs/sendMessage.mp3');
 
   useEffect(() => {
     if (currentPlaying != music) {
@@ -66,6 +67,7 @@ const Dm = () => {
 
   const handleAnswer = (answer) => {
     setCurrentAnswer(answer);
+    sendMessageSound.play();
 
     if (selectedMessage?.responses?.find(res => res.content === answer)?.nextMessage) {
       setSelectedMessage(selectedMessage.responses.find(res => res.content === answer).nextMessage);
@@ -80,22 +82,20 @@ const Dm = () => {
   return (
     <div className='dmsWrapper'>
       <div className='dmsContainer'>
-        <div className='LevelTitleDmRes'>{bundelsAndLevels.map((bundle, i) => (
-          bundle.levels.map((lvl, lvli) => (
-            <>
-              {lvl.levelNo == user?.level && <h3 className='title-level-dmRes'>{lvl.levelName}</h3>}
-              {lvl.levelNoDown == user?.level && <h3 className='title-level-dmRes'>{lvl.levelNameDown}</h3>}
-            </>
-          ))))}</div>
+        <div className='LevelTitleDmRes'>{bundelsAndLevels[0].levels.map((lvl, lvli) => (
+          <>
+            {lvl.levelNo == user?.level && <h3 className='title-level-dmRes'>{lvl.levelName}</h3>}
+            {lvl.levelNoDown == user?.level && <h3 className='title-level-dmRes'>{lvl.levelNameDown}</h3>}
+          </>
+        ))}</div>
         <div className={`${window.innerWidth < 780 && selectedMessagePreview ? 'responsiveNewMsgWrapper' : 'newMsgWrapper'}`}>
 
-          <div className='LevelTitleDm'>{bundelsAndLevels.map((bundle, i) => (
-            bundle.levels.map((lvl, lvli) => (
-              <>
-                {lvl.levelNo == user?.level && <h3 className='title-level-dm'>Level: {lvl.levelName}</h3>}
-                {lvl.levelNoDown == user?.level && <h3 className='title-level-dm'>Level: {lvl.levelNameDown}</h3>}
-              </>
-            ))))}</div>
+          <div className='LevelTitleDm'>{bundelsAndLevels[0].levels.map((lvl, lvli) => (
+            <>
+              {lvl.levelNo == user?.level && <h3 className='title-level-dm'>{lvl.levelName}</h3>}
+              {lvl.levelNoDown == user?.level && <h3 className='title-level-dm'>{lvl.levelNameDown}</h3>}
+            </>
+          ))}</div>
 
           {newMessage == 0 && (
             <div className='noNewMessagesWrapperRes'>

@@ -27,7 +27,7 @@ const getRandomItems = (array, numItems) => {
 const SnapJudgment = () => {
   const {
     baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems,
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
   let totalAnswered = correctAnsweredMiniGames + incorrectAnsweredMiniGames;
@@ -36,6 +36,7 @@ const SnapJudgment = () => {
   const [snapNumber, setSnapNumber] = useState(0);
   const [isGameCompleted, setIsGameCompleted] = useState(false);
   const navigate = useNavigate();
+  const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
 
   useEffect(() => {
     const fetchSnap = async () => {
@@ -65,11 +66,12 @@ const SnapJudgment = () => {
     }, 1000);
 
     return () => clearInterval(intervalIdRef.current);
-  }, []);
+  }, [isGameCompleted]);
 
   useEffect(() => {
     if (seconds === 0) {
       clearInterval(intervalIdRef.current);
+      gameFail.play();
       setIsGameCompleted(true);
     }
   }, [seconds]);
@@ -77,13 +79,20 @@ const SnapJudgment = () => {
   const handleAnswerClick = (selectedAnswer) => {
     const correctAnswerr = currentSnap[snapNumber]?.answers.find(ans => ans.isCorrect).text;
     console.log(correctAnswerr, selectedAnswer)
+
+
+    const correctSound = new Audio('/music/SFX/FightRogueFox/rightanswer.mp3');
+    const incorrectSound = new Audio('/music/SFX/FightRogueFox/IncorrectAnswer.mp3');
+
     if (selectedAnswer === correctAnswerr) {
       setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === snapNumber ? true : item));
       handleFoxDamaged();
+      correctSound.play();
     } else {
       setIncorrectAnsweredMiniGames(incorrectAnsweredMiniGames + 1);
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === snapNumber ? false : item));
+      incorrectSound.play();
     }
     console.log(corInc, snapNumber)
 
@@ -124,6 +133,7 @@ const SnapJudgment = () => {
     });
 
     localStorage.setItem('gameItems', JSON.stringify(updatedGameItems));
+    setInventoryItems(updatedGameItems);
 
     console.log(currentPrize);
     setIsGameCompleted(false);

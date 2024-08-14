@@ -1,15 +1,33 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 import Cookies from 'js-cookie'
-import postimg from '../assets/images/posts/postimg.png'
-import postimg2 from '../assets/images/posts/postImg2.png'
-import authorImg from '../assets/images/posts/authorimg.png'
+import coinMultiplier from '../assets/images/inventory/coinMultiplier.png';
+import correctAnswer from '../assets/images/inventory/correctAnswer.png';
+import dealDamage from '../assets/images/inventory/dealDamage.png';
+import healingPotion from '../assets/images/inventory/healingPotion.png';
+import shield from '../assets/images/inventory/shield.png';
 import axios from 'axios'
-
+import {
+  group1,
+  group5,
+  group6,
+  group8,
+  group9,
+  group18Two,
+} from '../assets/images/map/mapItems/index.js';
+import itemOneEasy from '../assets/images/map/mapItems/easybundle/itemOne.png'
+import itemTwoEasy from '../assets/images/map/mapItems/easybundle/itemTwo.png'
+import itemThreeEasy from '../assets/images/map/mapItems/easybundle/itemThree.png'
+import itemFourEasy from '../assets/images/map/mapItems/easybundle/itemFour.png'
+import itemFiveEasy from '../assets/images/map/mapItems/easybundle/itemFive.png'
+import itemSixEasy from '../assets/images/map/mapItems/easybundle/itemSix.png'
+import itemSevenEasy from '../assets/images/map/mapItems/easybundle/itemSeven.png'
+import itemEightEasy from '../assets/images/map/mapItems/easybundle/itemEight.png'
+import itemEasyFondation from '../assets/images/map/mapItems/easybundle/foundation.png'
 import avatar from '../assets/images/navbar/userpick.png'
 
 const AppContext = createContext();
-const baseUrl = "https://sershaback.azurewebsites.net/api";
-const baseUrlImage = "https://sershaback.azurewebsites.net";
+const baseUrl = "http://localhost:5000/api";
+const baseUrlImage = "http://localhost:5000";
 
 const AppProvider = ({ children }) => {
 
@@ -241,7 +259,7 @@ const AppProvider = ({ children }) => {
   /* _______________________________________________________________________________ */
 
 
-  /* ADMIN MINI-GAMES */
+  /*  MINI-GAMES */
   const [miniGamesActiveTab, setMiniGamesActiveTab] = useState('Snap Judgment');
   const [correctAnsweredMiniGames, setCorrectAnsweredMiniGames] = useState(0);
   const [incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames] = useState(0);
@@ -256,6 +274,23 @@ const AppProvider = ({ children }) => {
     setRoughFoxDamaged(roughFoxComments[randomIndex]);
 
   }
+
+  const renderRewardImage = (item) => {
+    switch (item) {
+      case 'Coin Multiplier':
+        return <img src={coinMultiplier} alt="Coin Multiplier" />;
+      case 'Correct Answer':
+        return <img src={correctAnswer} alt="Correct Answer" />;
+      case 'Deal Damage':
+        return <img src={dealDamage} alt="Deal Damage" />;
+      case 'Healing Potion':
+        return <img src={healingPotion} alt="Healing Potion" />;
+      case 'Shield':
+        return <img src={shield} alt="Shield" />;
+      default:
+        return null;
+    }
+  };
 
 
   /* SNAP JUDGMENT */
@@ -353,6 +388,13 @@ const AppProvider = ({ children }) => {
   const [isBottomPart, setIsBottomPart] = useState(false);
   const [selectedTopItem, setSelectedTopItem] = useState();
   const [selectedBottomItem, setSelectedBottomItem] = useState();
+  const [inventoryItems, setInventoryItems] = useState();
+
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('gameItems'))) {
+      setInventoryItems(JSON.parse(localStorage.getItem('gameItems')))
+    }
+  }, []);
 
   /* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS *//* AXIOS REQUESTS */
 
@@ -463,7 +505,7 @@ const AppProvider = ({ children }) => {
   const [bundelsAndLevels, setBundlesAndLevels] = useState([
     {
       bundle: 'Easy',
-      bundleName: 'Digital City',
+      bundleName: 'Metro Meadows (Easy)',
       levels: [
         {
           levelName: 'Pixel Plaza',
@@ -531,9 +573,184 @@ const AppProvider = ({ children }) => {
           levelNo: 13,
           step: 0,
         },
-      ]
-    }
+      ],
+      images: [
+        { item: itemOneEasy, fondation: itemEasyFondation },
+        { item: itemThreeEasy },
+        { item: itemFiveEasy },
+        { item: itemTwoEasy, fondation: itemEasyFondation },
+        { item: itemEightEasy, fondation: itemEasyFondation },
+      ],
+    },
+    {
+      bundle: 'Medium',
+      bundleName: 'Suburban Villages (Medium)',
+      levels: [
+        {
+          levelName: 'Foxy Forest',
+          levelDesc: 'Dive deeper into social media.',
+          levelNo: 1,
+          step: 0,
+          levelNameDown: 'Reynard’s Road',
+          levelDescDown: 'Advanced chatting and sharing.',
+          levelNoDown: 2,
+          stepDown: 0,
+        },
+        {
+          levelName: 'Vixen’s Village',
+          levelDesc: 'Create and share awesome content.',
+          levelNo: 3,
+          step: 0,
+          levelNameDown: 'Byte Boulevard',
+          levelDescDown: 'Enhanced safety for your data.',
+          levelNoDown: 4,
+          stepDown: 0,
+        },
+        {
+          levelName: 'Kitsune’s Keep',
+          levelDesc: 'Sharpen your digital detective skills.',
+          levelNo: 5,
+          step: 0,
+          levelNameDown: 'Sly’s Safe Zone',
+          levelDescDown: 'Master online self-care.',
+          levelNoDown: 6,
+          stepDown: 0,
+        },
+        {
+          levelName: 'Safe Haven',
+          levelDesc: 'Become a cyberbullying warrior.',
+          levelNo: 7,
+          step: 0,
+          levelNameDown: 'Respectful Ridge',
+          levelDescDown: 'Balance screen time with real life.',
+          levelNoDown: 8,
+          stepDown: 0,
+        },
+        {
+          levelName: 'Kindness Kingdom',
+          levelDesc: 'Recognise and block strangers.',
+          levelNo: 9,
+          step: 0,
+          levelNameDown: 'Trustworthy Trail',
+          levelDescDown: 'Build trustworthy connections.',
+          levelNoDown: 10,
+          stepDown: 0,
+        },
+        {
+          levelName: 'Digi Den',
+          levelDesc: 'Navigate and report harmful content.',
+          levelNo: 11,
+          step: 0,
+          levelNameDown: 'Whiz Web',
+          levelDescDown: 'Get smart about online influencers.',
+          levelNoDown: 12,
+          stepDown: 0,
+        },
+        {
+          levelName: "Guardian Grove",
+          levelDesc: 'Safe and fun gaming.',
+          levelNo: 13,
+          step: 0,
+        },
+      ],
+      images: [
+        { item: itemOneEasy, fondation: itemEasyFondation },
+        { item: itemThreeEasy },
+        { item: itemFiveEasy },
+        { item: itemTwoEasy, fondation: itemEasyFondation },
+        { item: itemEightEasy, fondation: itemEasyFondation },
+      ],
+    },
+    {
+      bundle: 'Hard',
+      bundleName: 'Mountain Heights (Hard)',
+      levels: [
+        {
+          levelName: 'Glittering Galaxy',
+          levelDesc: 'Master the world of social media.',
+          levelNo: 1,
+          step: 0,
+          levelNameDown: 'Cyber Summit',
+          levelDescDown: 'Be a pro at online communication.',
+          levelNoDown: 2,
+          stepDown: 0,
+        },
+        {
+          levelName: 'Hashtag Hills',
+          levelDesc: 'Share content like a star.',
+          levelNo: 3,
+          step: 0,
+          levelNameDown: 'Meme Meadow',
+          levelDescDown: 'Ultimate safety skills for online fun.',
+          levelNoDown: 4,
+          stepDown: 0,
+        },
+        {
+          levelName: 'Connection Cove',
+          levelDesc: 'Be a savvy information seeker.',
+          levelNo: 5,
+          step: 0,
+          levelNameDown: 'Secure Sanctuary',
+          levelDescDown: 'Be your best online self.',
+          levelNoDown: 6,
+          stepDown: 0,
+        },
+        {
+          levelName: 'Techno Terrain',
+          levelDesc: 'Lead the fight against cyberbullying.',
+          levelNo: 7,
+          step: 0,
+          levelNameDown: 'Virtue Valley',
+          levelDescDown: 'Perfect your screen-life balance.',
+          levelNoDown: 8,
+          stepDown: 0,
+        },
+        {
+          levelName: 'Mountain of Mentors',
+          levelDesc: 'Stay safe from online threats.',
+          levelNo: 9,
+          step: 0,
+          levelNameDown: 'Pawsome Peak',
+          levelDescDown: 'Create positive online spaces.',
+          levelNoDown: 10,
+          stepDown: 0,
+        },
+        {
+          levelName: 'Wisdom Woods',
+          levelDesc: 'Stay ahead of harmful content.',
+          levelNo: 11,
+          step: 0,
+          levelNameDown: 'Hero’s Haven',
+          levelDescDown: 'Wisely follow online trends.',
+          levelNoDown: 12,
+          stepDown: 0,
+        },
+        {
+          levelName: "Champion’s Crest",
+          levelDesc: 'Be a gaming champion, safely.',
+          levelNo: 13,
+          step: 0,
+        },
+      ],
+      images: [
+        { item: itemOneEasy, fondation: itemEasyFondation },
+        { item: itemThreeEasy },
+        { item: itemFiveEasy },
+        { item: itemTwoEasy, fondation: itemEasyFondation },
+        { item: itemEightEasy, fondation: itemEasyFondation },
+      ],
+    },
   ]);
+
+
+  // images: [
+  //   { item: group18Two },
+  //   { item: group5 },
+  //   { item: group8 },
+  //   { item: group9 },
+  //   { item: group6 },
+  //   { item: group1 },
+  // ],
 
   return (
     <AppContext.Provider
@@ -570,6 +787,7 @@ const AppProvider = ({ children }) => {
         setSelectedTopItem,
         selectedBottomItem,
         setSelectedBottomItem,
+        inventoryItems, setInventoryItems,
 
         //NewMessage
         newMessage,
@@ -721,6 +939,7 @@ const AppProvider = ({ children }) => {
         roughFoxDamaged,
         setRoughFoxDamaged,
         handleFoxDamaged,
+        renderRewardImage,
 
         // SNAP JUDGMENT ADMIN PANEL MINIGAMES SNAPJUDGMENT
         snapJudgmentCreateNew,

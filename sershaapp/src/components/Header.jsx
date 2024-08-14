@@ -111,13 +111,13 @@ const Header = () => {
         <a href='/foxcustomization' className={`${path === '/foxcustomization' ? 'currentFoxCustomization' : 'foxCustomization'}`}><img src={search} alt="search" /></a>
       </div>
 
-      <div className='mute-tutorial-wrapper'>
-
-        <div className='mute-btn' onClick={toggleMusic}>{!isPlaying ? <img src={volume} alt="mute button" /> : <img src={volumePlay} alt="Volume Play Button" />}</div>
-        <div className='tutorialBtn' onClick={() => setIsTutorialActive(true)}><img src={tutorialBtn} alt="tutorial btn" /></div>
-      </div>
 
       <div className='rightWrapper'>
+        <div className='mute-tutorial-wrapper'>
+
+          <div className='mute-btn' onClick={() => toggleMusic()}>{!isPlaying ? <img src={volume} alt="mute button" /> : <img src={volumePlay} alt="Volume Play Button" />}</div>
+          <div className='tutorialBtn' onClick={() => setIsTutorialActive(true)}><img src={tutorialBtn} alt="tutorial btn" /></div>
+        </div>
         <div>
           <div className='coinWrapper'>
             <img src={coin} alt="coin" className='coinImg' />
@@ -134,7 +134,7 @@ const Header = () => {
 
           <div className='avatarWrapper' onClick={toggleDropdown}>
             <img src={level} alt="level" className='avatar' />
-            <img src={user?.image ? `${baseUrlImage}${user.image}` : avatar} alt="avatar" className='avatar' />
+            <img src={user?.image?.imagePath ? `${baseUrlImage}${user.image.imagePath}` : user?.image ? `${baseUrlImage}${user.image}` : avatar} alt="avatar" className='avatar' />
             {dropdownVisible && (
               <div className='dropdownMenu'>
                 <button className='settingsBtn' onClick={handleSettings}>Settings</button>

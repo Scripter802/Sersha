@@ -155,6 +155,61 @@
     align-items: center;
 }
 
+.inventory {
+    position: fixed;
+    align-items: center;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    overflow-y: hidden;
+    z-index: 1000;
+    padding-bottom: 3rem;
+}
+
+.inventoryContent h2 {
+    color: white;
+}
+
+.noItemInventory {
+    color: white;
+    font-size: large;
+}
+
+.play-button-inventory {
+    background-color: #3A0717;
+    color: #F37D4A;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    margin-top: 2rem;
+}
+
+.inventoryContent {
+    background: linear-gradient(166.72deg, #CE3D21 5.04%, #922627 90.45%);
+    padding: 20px;
+    margin-top: .5rem;
+    border-radius: 10px;
+    text-align: center;
+    width: 90%;
+    height: fit-content;
+    min-height: 200px;
+    max-width: 500px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.customizeOptions {
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 1000px) {
     .customizationWrapper {
         flex-direction: column;

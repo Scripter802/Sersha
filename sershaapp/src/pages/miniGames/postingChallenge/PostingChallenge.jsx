@@ -28,7 +28,7 @@ const getRandomItems = (array, numItems) => {
 const PostingChallenge = () => {
   const {
     baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems,
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
   const totalAnswered = correctAnsweredMiniGames + incorrectAnsweredMiniGames;
@@ -37,6 +37,7 @@ const PostingChallenge = () => {
   const [postingNumber, setPostingNumber] = useState(0);
   const [isGameCompleted, setIsGameCompleted] = useState(false);
   const navigate = useNavigate();
+  const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
 
   useEffect(() => {
     const fetchPosting = async () => {
@@ -71,6 +72,7 @@ const PostingChallenge = () => {
   useEffect(() => {
     if (seconds === 0) {
       clearInterval(intervalIdRef.current);
+      gameFail.play();
       setIsGameCompleted(true);
     }
   }, [seconds]);
@@ -78,14 +80,19 @@ const PostingChallenge = () => {
   const handleAnswerClick = (selectedAnswer) => {
     const correctAnswer = currentPosting[postingNumber]?.answers.find(ans => ans.isCorrect).text;
 
+
+    const correctSound = new Audio('/music/SFX/FightRogueFox/rightanswer.mp3');
+    const incorrectSound = new Audio('/music/SFX/FightRogueFox/IncorrectAnswer.mp3');
+
     if (selectedAnswer === correctAnswer) {
       setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === postingNumber ? true : item));
       handleFoxDamaged();
+      correctSound.play();
     } else {
       setIncorrectAnsweredMiniGames(incorrectAnsweredMiniGames + 1);
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === postingNumber ? false : item));
-
+      incorrectSound.play();
     }
 
     if (postingNumber < currentPosting.length - 1) {
@@ -134,6 +141,7 @@ const PostingChallenge = () => {
     });
 
     localStorage.setItem('gameItems', JSON.stringify(updatedGameItems));
+    setInventoryItems(updatedGameItems);
 
     console.log('Prize claimed');
     setIsGameCompleted(false);

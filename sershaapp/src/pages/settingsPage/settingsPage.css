@@ -152,6 +152,30 @@ button:hover {
   border: 2px solid #007BFF;
 }
 
+.passwordInputField {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.settingsBtnShowHide {
+  background: none;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
+}
+
+.settingsBtnShowHide img {
+  width: 30px;
+  height: 30px;
+}
+
+
+
 @media only screen and (max-width: 780px) {
   .settingsPageWrapper {
     margin-bottom: 3rem;

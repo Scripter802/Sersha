@@ -30,7 +30,7 @@ const getRandomItems = (array, numItems) => {
 const EmojiEmotions = () => {
   const {
     baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems,
   } = useGlobalContext();
 
   const [seconds, setSeconds] = useState(25);
@@ -40,6 +40,7 @@ const EmojiEmotions = () => {
   const [emojiNumber, setEmojiNumber] = useState(0);
   const [isGameCompleted, setIsGameCompleted] = useState(false);
   const navigate = useNavigate();
+  const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
 
   useEffect(() => {
     const fetchEmoji = async () => {
@@ -74,6 +75,7 @@ const EmojiEmotions = () => {
   useEffect(() => {
     if (seconds === 0) {
       clearInterval(intervalIdRef.current);
+      gameFail.play();
       setIsGameCompleted(true);
     }
   }, [seconds]);
@@ -81,21 +83,25 @@ const EmojiEmotions = () => {
   const handleAnswerClick = (selectedAnswer) => {
     const correctAnswer = currentEmoji[emojiNumber]?.answers.find(ans => ans.isCorrect).text;
 
+    const correctSound = new Audio('/music/SFX/FightRogueFox/rightanswer.mp3');
+    const incorrectSound = new Audio('/music/SFX/FightRogueFox/IncorrectAnswer.mp3');
+
     if (selectedAnswer === correctAnswer) {
       setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === emojiNumber ? true : item));
       handleFoxDamaged();
+      correctSound.play();
     } else {
       setIncorrectAnsweredMiniGames(incorrectAnsweredMiniGames + 1);
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === emojiNumber ? false : item));
-
+      incorrectSound.play();
     }
 
     if (emojiNumber < currentEmoji.length - 1) {
       setEmojiNumber(emojiNumber + 1);
-      setSeconds(25); // Reset the timer for the next question
+      setSeconds(25);
     } else {
-      setIsGameCompleted(true); // Show the popup when the game is completed
+      setIsGameCompleted(true);
     }
   };
 
@@ -137,6 +143,7 @@ const EmojiEmotions = () => {
     });
 
     localStorage.setItem('gameItems', JSON.stringify(updatedGameItems));
+    setInventoryItems(updatedGameItems);
 
     console.log('Prize claimed');
     setIsGameCompleted(false);

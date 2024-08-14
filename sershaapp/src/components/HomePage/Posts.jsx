@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import like from '../../assets/images/posts/like.png'
+import liked from '../../assets/images/posts/liked.png'
 import { useGlobalContext } from '../../context/context';
 
 const Posts = ({ posts }) => {
@@ -11,6 +12,7 @@ const Posts = ({ posts }) => {
       getPostsPerStage();
     }
   }, [isAuthenticated])
+
   useEffect(() => {
     if (postsPerStage && postsPerStage.length > 0) {
       const selectedPosts = getRandomPosts(postsPerStage, 5);
@@ -20,12 +22,20 @@ const Posts = ({ posts }) => {
   }, [postsPerStage]);
 
   const getRandomPosts = (posts, count) => {
-    const shuffled = posts.slice().sort(() => 0.5 - Math.random()); // Create a copy of posts array to avoid mutating the original array
+    const shuffled = posts.slice().sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
   };
 
   console.log(randomPosts)
 
+  const handleLike = (post, index) => {
+    post.liked = true;
+    post.likeNum = Math.floor(Math.random() * 100);
+    let updatedPosts = [...randomPosts]
+    updatedPosts[index] = post
+    setRandomPosts(updatedPosts);
+    console.log(randomPosts)
+  }
 
 
   return (
@@ -39,10 +49,10 @@ const Posts = ({ posts }) => {
           <div className='postLikeWrapper'>
             <div className='postBy'>
               <img src={`${baseUrlImage}${post.author.authorImagePath}`} alt="postbyimg" />
-              <p>{post.authorName}</p>
+              <p>{post.author.authorName}</p>
             </div>
-            <div className='postBy' >
-              <img src={like} alt="likebtn" />
+            <div className='postBy likeBtn' onClick={() => handleLike(post, index)}>
+              {post?.liked ? <div className='likedbtn'><img src={liked} alt="liked" />{post.likeNum}</div> : <img src={like} alt="likebtn" />}
             </div>
           </div>
         </div>

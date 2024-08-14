@@ -43,7 +43,7 @@ const SnapJudgmentEdit = () => {
     updatedSnapJudgmentFormData.append("questions[0][answers]", editSnapJudgment.questions[0].answers);
 
 
-    // await axios.put(`${baseUrl}/Questions/${editSnapJudgment.id}/questions/${editSnapJudgment.questions[0].id}`, updatedSnapJudgmentFormData, {
+    // await axios.put(`${baseUrl}/Quizzes/${editSnapJudgment.id}}`, updatedSnapJudgmentFormData, {
     //   headers: {
     //     'Content-Type': 'multipart/form-data',
     //     'Access-Control-Allow-Origin': '*',

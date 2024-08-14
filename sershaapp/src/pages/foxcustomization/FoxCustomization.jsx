@@ -85,7 +85,7 @@ const FoxCustomization = () => {
   const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
   const music = '/music/Music/SershaThemesongMediumoptimal310520241122.mp3'
   const clickSound = new Audio('/music/SFX/FoxCustomisation/foxClick.mp3');
-  const [isInventory, setIsInventory] = useState(true);
+  const [isInventory, setIsInventory] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {

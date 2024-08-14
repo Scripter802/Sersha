@@ -4,11 +4,7 @@ import claimPrizeIcon from '../../assets/images/miniGames/gameCompletedPopup/cla
 import done from '../../assets/images/miniGames/correctAnswer.png';
 import incorrect from '../../assets/images/miniGames/incorrectAnswer.png';
 import { useGlobalContext } from '../../context/context';
-import coinMultiplier from '../../assets/images/inventory/coinMultiplier.png';
-import correctAnswer from '../../assets/images/inventory/correctAnswer.png';
-import dealDamage from '../../assets/images/inventory/dealDamage.png';
-import healingPotion from '../../assets/images/inventory/healingPotion.png';
-import shield from '../../assets/images/inventory/shield.png';
+
 
 import './gameCompletedPopup.css';
 

@@ -33,6 +33,27 @@
     border-radius: 100%;
 }
 
+.likedbtn {
+    background: white;
+    padding-inline: 1.15rem;
+    border-radius: 30px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-block: .25rem;
+    color: black;
+    gap: .25rem;
+}
+
+.likedbtn img {
+    width: 25px;
+    height: 25px;
+}
+
+.likeBtn {
+    cursor: pointer;
+}
+
 .postImg,
 .postTitle {
     display: flex;

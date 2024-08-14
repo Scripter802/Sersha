@@ -1,4 +1,5 @@
 import React from 'react';
+import './map.css';
 import {
   bottomLeft,
   bottomLeft1,
@@ -58,13 +59,11 @@ import {
   topRightZone2,
   topRightZone3,
 } from '../../assets/images/map/mapItems/index.js';
-import lockGame from "../../assets/images/map/mapItems/lockLevel.png";
-import completedGame from "../../assets/images/map/mapItems/completedLevel.png";
-import './map.css';
 import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive.jsx';
 import { useContext, useEffect, useState } from 'react'
 import { useGlobalContext } from '../../context/context'
 import MusicContext from '../../context/MusicContext'
+import MapComponent from '../../components/Map/MapComponent.jsx';
 
 const MapPage = () => {
   const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
@@ -90,59 +89,9 @@ const MapPage = () => {
           <img className="path" src={repeatPart} alt="" />
         </div>
 
-        {bundelsAndLevels.map((bundle, i) => (
-          <>
-            <h2 className='bundleName'>{bundle.bundleName}</h2>
-            {bundle.levels.map((lvl, lvli) => {
-              let odd = lvl.levelNo % 2 === 1;
-              console.log(lvl.step)
-              return (
-                <div className="basePartWrapper">
-                  <img className="path" src={repeatPart} alt="" />
-                  <div className="title-up">
-                    <h3>
-                      {lvl?.levelName}
-                    </h3>
-                    <p>
-                      {lvl?.desc}
-                    </p>
-                  </div>
-                  <div className="gameLevel">
-                    {user?.level > lvl.levelNo || lvl.step >= 1 && user?.level == lvl.levelNo ? <img src={completedGame} alt="" /> : lvl.step < 1 && user?.level == lvl.levelNo ? <div className='levelNoWrapper'><p className='levelNo'>01</p></div> : <img src={lockGame} alt="" />}
-                    {user?.level > lvl.levelNo || lvl.step >= 2 && user?.level == lvl.levelNo ? <img src={completedGame} alt="" /> : lvl.step < 2 && user?.level == lvl.levelNo ? <div className='levelNoWrapper'><p className='levelNo'>02</p></div> : <img src={lockGame} alt="" />}
-                    {user?.level > lvl.levelNo || lvl.step >= 3 && user?.level == lvl.levelNo ? <img src={completedGame} alt="" /> : lvl.step < 3 && user?.level == lvl.levelNo ? <div className='levelNoWrapper'><p className='levelNo'>03</p></div> : <img src={lockGame} alt="" />}
-                  </div>
-
-                  <div className="title-down">
-                    <h3>
-                      {lvl?.levelNameDown}
-                    </h3>
-                    <p>
-                      {lvl?.descDown}
-                    </p>
-                  </div>
-                  <div className="gameLevel-down">
-                    {user?.level > lvl.levelNoDown || lvl.step > 1 && user?.level == lvl.levelNoDown ? <img src={completedGame} alt="" /> : lvl.step < 1 && user?.level == lvl.levelNoDown ? <div className='levelNoWrapper'><p className='levelNo'>01</p></div> : <img src={lockGame} alt="" />}
-                    {user?.level > lvl.levelNoDown || lvl.step > 2 && user?.level == lvl.levelNoDown ? <img src={completedGame} alt="" /> : lvl.step < 2 && user?.level == lvl.levelNoDown ? <div className='levelNoWrapper'><p className='levelNo'>02</p></div> : <img src={lockGame} alt="" />}
-                    {user?.level > lvl.levelNoDown || lvl.step > 3 && user?.level == lvl.levelNoDown ? <img src={completedGame} alt="" /> : lvl.step < 3 && user?.level == lvl.levelNoDown ? <div className='levelNoWrapper'><p className='levelNo'>03</p></div> : <img src={lockGame} alt="" />}
-
-                  </div>
-
-                  {bundle.images.map((img, i) => (
-                    <>
-                      <div className={`trees ${`tree${i + 1}`}`}>
-                        <img src={img} alt="tree" />
-                      </div>
-                    </>
-                  ))}
-
-                </div>
-              )
-
-            })}
-          </>
-        )
-        )}
+        {user.level <= 13 &&
+          <MapComponent bundle={bundelsAndLevels[0]} i={'0'} />
+        }
 
 
         {/* <div className="basePartWrapper">

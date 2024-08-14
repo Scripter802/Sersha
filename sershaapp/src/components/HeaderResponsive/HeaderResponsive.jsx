@@ -100,7 +100,7 @@ const HeaderResponsive = () => {
 
           <div className='responsiveAvatarWrapper' onClick={toggleDropdown}>
             <img src={level} alt="level" className='responsiveLevel' />
-            <img src={user?.image ? `${baseUrlImage}${user.image}` : avatar} alt="avatar" className='responsiveAvatar' />
+            <img src={user?.image?.imagePath ? `${baseUrlImage}${user.image.imagePath}` : user?.image ? `${baseUrlImage}${user.image}` : avatar} alt="avatar" className='responsiveAvatar' />
             {dropdownVisible && (
               <div className='dropdownMenuRes'>
                 <button onClick={handleSettings}>Settings</button>

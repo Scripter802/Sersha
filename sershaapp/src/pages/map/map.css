@@ -18,6 +18,26 @@
 
 }
 
+.fondation {
+  position: relative;
+  width: 200px;
+  height: 150px;
+}
+
+.fondationImg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.fondationTopImg {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  z-index: 1000;
+}
+
 .bundleName {
   position: absolute;
   top: 0;

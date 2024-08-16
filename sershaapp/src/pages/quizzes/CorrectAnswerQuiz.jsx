@@ -94,10 +94,14 @@ const CorrectAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) =>
   const handleNext = () => {
     if (currentQuizz.questions.length - 1 === currentQuestion) {
       setShowPopup(true);
+      setIsCorrectAnswer(false);
+      setIsShield(false);
     } else {
       setSelectedAnswer(null);
       setCurrentQuestion((prev) => prev + 1);
       setFeedback(null);
+      setIsCorrectAnswer(false);
+      setIsShield(false);
       setShowNextButton(false);
     }
   };

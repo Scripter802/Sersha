@@ -32,6 +32,7 @@ const QuizPage = () => {
     setNewMessage,
     inventoryItems,
     renderRewardImageQuiz,
+    health, setHealth,
     isShield, setIsShield,
     isCorrectAnswer, setIsCorrectAnswer,
     isCoinMultiplier, setIsCoinMultiplier,
@@ -66,11 +67,12 @@ const QuizPage = () => {
   //     setShowPopup(true);
   //   }
   // }, [currentQuestion, currentQuizz]);
-  if (heartsNum == 0) {
+  if (heartsNum == 0 || health == 0) {
     setShowPopup(true);
   }
 
   const handleRestart = () => {
+    setHealth(100);
     setShowPopup(false);
     setCurrentQuestion(0);
     setCorrectAnswers(0);
@@ -116,6 +118,8 @@ const QuizPage = () => {
     }
   };
   console.log(user)
+
+
   const handlePlayGame = async () => {
     const fullHealth = 100;
 

@@ -12,14 +12,19 @@ import './grouping.css';
 import HealthBar from '../../components/HealthBar';
 import { useGlobalContext } from '../../context/context';
 
-const Grouping = ({ currentQ }) => {
-  const { setShowPopup, currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers, wrongAnswers, setWrongAnswers } = useGlobalContext();
+const Grouping = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
+  const { setShowPopup, currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers, wrongAnswers, setWrongAnswers,
+    isShield, setIsShield,
+    isCorrectAnswer, setIsCorrectAnswer,
+    isCoinMultiplier, setIsCoinMultiplier, } = useGlobalContext();
   const [droppedOne, setDroppedOne] = useState([]);
   const [droppedTwo, setDroppedTwo] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [optionAnswer, setOptionAnswer] = useState([]);
   const [feedback, setFeedback] = useState(null);
   const [showNextButton, setShowNextButton] = useState(false);
+  const correctGroup1 = currentQ.groups[0].groupingItems.map(item => item.item);
+  const correctGroup2 = currentQ.groups[1].groupingItems.map(item => item.item);
 
   useEffect(() => {
     setDroppedOne(new Array(currentQ.groups[0].groupingItems.length).fill(null));
@@ -87,8 +92,6 @@ const Grouping = ({ currentQ }) => {
       setShowPopup(true);
     }
 
-    const correctGroup1 = currentQ.groups[0].groupingItems.map(item => item.item);
-    const correctGroup2 = currentQ.groups[1].groupingItems.map(item => item.item);
 
     const res = areArraysEqual(droppedOne, correctGroup1) && areArraysEqual(droppedTwo, correctGroup2);
 
@@ -101,13 +104,23 @@ const Grouping = ({ currentQ }) => {
       correctSound.play();
     } else {
       setWrongAnswers(prev => prev + 1);
-      setHeartsNum(prev => prev - 1);
+      if (!isShield) {
+        setHeartsNum((prev) => prev - 1);
+      }
       setFeedback({ type: 'wrong', message: 'Wrong Answer!' });
       incorrectSound.play();
     }
 
     setShowNextButton(true);
   };
+
+  useEffect(() => {
+    if (isCorrectAnswer) {
+      setDroppedOne(correctGroup1);
+      setDroppedTwo(correctGroup2);
+    }
+
+  }, [isCorrectAnswer])
 
   const handleNext = () => {
     setSelectedAnswer(null);
@@ -129,9 +142,9 @@ const Grouping = ({ currentQ }) => {
           </div>
         </div>
         <div className='rightObenWrapper'>
-          {/* <div className='inventory'>
-            <img src={inventory} alt="Inventory" />
-          </div> */}
+          <div className='inventoryQuizz'>
+            <img src={inventory} alt='inventory' onClick={() => setIsInventoryQuiz(true)} />
+          </div>
           <div className='hearts'>
             {[...Array(3)].map((_, i) => (
               <div key={i} className='heartWrapper'>

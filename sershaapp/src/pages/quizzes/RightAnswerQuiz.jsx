@@ -12,7 +12,7 @@ import evilfox from '../../assets/images/attact/evilfox.png';
 import tictac from '../../assets/images/quiz/saybubble.png';
 import { heart } from '../../assets/images/customization/items/index';
 
-const RightAnswerQuiz = ({ currentQ }) => {
+const RightAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
   const {
     setShowPopup,
     currentQuestion,
@@ -23,7 +23,10 @@ const RightAnswerQuiz = ({ currentQ }) => {
     correctAnswers,
     setCorrectAnswers,
     wrongAnswers,
-    setWrongAnswers
+    setWrongAnswers,
+    isShield, setIsShield,
+    isCorrectAnswer, setIsCorrectAnswer,
+    isCoinMultiplier, setIsCoinMultiplier,
   } = useGlobalContext();
 
   const [selectedAnswers, setSelectedAnswers] = useState([]);
@@ -58,7 +61,9 @@ const RightAnswerQuiz = ({ currentQ }) => {
       correctSound.play();
     } else {
       setWrongAnswers(prev => prev + 1);
-      setHeartsNum(prev => prev - 1);
+      if (!isShield) {
+        setHeartsNum((prev) => prev - 1);
+      }
       setFeedback({ type: 'wrong', message: 'Wrong Answer!' });
       incorrectSound.play();
     }
@@ -92,10 +97,10 @@ const RightAnswerQuiz = ({ currentQ }) => {
             <HealthBar />
           </div>
         </div>
-        <div className='rightObenWrapper' id='rightObenWrap'>
-          {/* <div className='inventory'>
-            <img src={inventory} alt="Inventory" />
-          </div> */}
+        <div className='rightObenWrapper'>
+          <div className='inventoryQuizz'>
+            <img src={inventory} alt='inventory' onClick={() => setIsInventoryQuiz(true)} />
+          </div>
           <div className='hearts'>
             <div className='heartWrapper'>
               {heartsNum >= 1 ? <FaHeart className='heartFull' /> : <CiHeart className='heart' />}
@@ -138,7 +143,7 @@ const RightAnswerQuiz = ({ currentQ }) => {
                 className={`rightAnswerOfferedWrapper ${selectedAnswers.includes(msg.text) ? 'selected' : ''} `}
                 onClick={() => handleAnswerSelection(msg.text)}
               >
-                <p className={`rightAnswerOfferedAnswers`} id={`${checked && corAns.includes(msg.text) ? 'correct-answer' : ''}`}>{msg.text}</p>
+                <p className={`rightAnswerOfferedAnswers`} id={`${checked && corAns.includes(msg.text) || isCorrectAnswer && corAns.includes(msg.text) ? 'correct-answer' : ''}`}>{msg.text}</p>
               </div>
             ))}
             {selectedAnswers.length > 0 && (

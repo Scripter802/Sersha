@@ -13,7 +13,7 @@ import done from '../../assets/images/quiz/done.png';
 import tictac from '../../assets/images/quiz/saybubble.png';
 import { heart } from '../../assets/images/customization/items/index';
 
-const FillInTheBlank = ({ currentQ }) => {
+const FillInTheBlank = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
   const {
     setShowPopup,
     currentQuestion,
@@ -24,7 +24,10 @@ const FillInTheBlank = ({ currentQ }) => {
     correctAnswers,
     setCorrectAnswers,
     wrongAnswers,
-    setWrongAnswers
+    setWrongAnswers,
+    isShield, setIsShield,
+    isCorrectAnswer, setIsCorrectAnswer,
+    isCoinMultiplier, setIsCoinMultiplier,
   } = useGlobalContext();
 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -90,7 +93,9 @@ const FillInTheBlank = ({ currentQ }) => {
       correctSound.play();
     } else {
       setWrongAnswers(prev => prev + 1);
-      setHeartsNum(prev => prev - 1);
+      if (!isShield) {
+        setHeartsNum((prev) => prev - 1);
+      }
       setFeedback({ type: 'wrong', message: 'Wrong Answer!' });
       incorrectSound.play();
     }
@@ -126,9 +131,9 @@ const FillInTheBlank = ({ currentQ }) => {
           </div>
         </div>
         <div className='rightObenWrapper'>
-          {/* <div className='inventory'>
-            <img src={inventory} alt='' />
-          </div> */}
+          <div className='inventoryQuizz'>
+            <img src={inventory} alt='inventory' onClick={() => setIsInventoryQuiz(true)} />
+          </div>
           <div className='hearts'>
             {[...Array(3)].map((_, i) => (
               <div key={i} className='heartWrapper'>
@@ -178,7 +183,7 @@ const FillInTheBlank = ({ currentQ }) => {
                 className={`fillBlankOfferedAnswersWrapper ${selectedAnswer === item.text ? 'selected' : ''}`}
                 onClick={() => handleSelectAnswer(item.text)}
               >
-                <p className='fillBlankOfferedAnswers' id={`${checked && corAns.includes(item.text) ? 'correct-answer-Fill' : ''}`} >{item.text}</p>
+                <p className='fillBlankOfferedAnswers' id={`${checked && corAns.includes(item.text) || isCorrectAnswer && corAns.includes(item.text) ? 'correct-answer-Fill' : ''}`} >{item.text}</p>
               </div>
             ))}
           </div>

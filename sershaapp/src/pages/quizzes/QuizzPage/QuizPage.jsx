@@ -121,40 +121,30 @@ const QuizPage = () => {
 
     let oneQuestionPercent = currentQuizz?.questions?.length + correctAnswers > 0 ? fullHealth / currentQuizz?.questions?.length : 0;
     let correctPercent = oneQuestionPercent * correctAnswers;
+
+    // Calculate new coin balance separately
+    let newCoinBalance = user.coinBalance;
+
     if (correctPercent > 50 && correctPercent < 70) {
-      let userCoin = user.coinBalance + 50;
-      if (isCoinMultiplier) {
-        userCoin = userCoin * 2
-      }
-      setUser({ ...user, coinBalance: userCoin })
-    }
-    if (correctPercent >= 70 && correctPercent < 80) {
-      let userCoin = user.coinBalance + 100;
-      if (isCoinMultiplier) {
-        userCoin = userCoin * 2
-      }
-      setUser({ ...user, coinBalance: userCoin })
-    }
-    if (correctPercent >= 80 && correctPercent < 90) {
-      let userCoin = user.coinBalance + 150;
-      if (isCoinMultiplier) {
-        userCoin = userCoin * 2
-      }
-      setUser({ ...user, coinBalance: userCoin })
-    }
-    if (correctPercent >= 90 && correctPercent <= 100) {
-      let userCoin = user.coinBalance + 300;
-      if (isCoinMultiplier) {
-        userCoin = userCoin * 2
-      }
-      setUser({ ...user, coinBalance: userCoin })
+      newCoinBalance += 50;
+    } else if (correctPercent >= 70 && correctPercent < 80) {
+      newCoinBalance += 100;
+    } else if (correctPercent >= 80 && correctPercent < 90) {
+      newCoinBalance += 150;
+    } else if (correctPercent >= 90 && correctPercent <= 100) {
+      newCoinBalance += 300;
     }
 
+    if (isCoinMultiplier) {
+      newCoinBalance *= 2;
+    }
 
-    let userCoinBalanceUpdate = { coinBalance: user.coinBalance };
+    console.log('New coin balance:', newCoinBalance);
+
+    setUser({ ...user, coinBalance: newCoinBalance });
 
     try {
-      const response = await axios.put(`${baseUrl}/User/${user.email}`, userCoinBalanceUpdate);
+      await axios.put(`${baseUrl}/User/${user.email}`, { coinBalance: newCoinBalance });
     } catch (error) {
       console.log(error);
     }

@@ -44,6 +44,11 @@
   color: #000;
 }
 
+.rightObenWrapper {
+  align-items: center;
+
+}
+
 .fillInAssignment {
   display: flex;
   justify-content: space-evenly;

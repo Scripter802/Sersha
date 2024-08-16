@@ -108,6 +108,8 @@ const FillInTheBlank = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
     if (currentQuizz.questions.length - 1 === currentQuestion) {
       setShowPopup(true);
       setChecked(false);
+      setIsCorrectAnswer(false);
+      setIsShield(false);
     } else {
       setSelectedAnswer(null);
       setDropped(null);
@@ -115,6 +117,8 @@ const FillInTheBlank = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
       setFeedback(null);
       setChecked(false);
       setShowNextButton(false);
+      setIsCorrectAnswer(false);
+      setIsShield(false);
     }
   };
 

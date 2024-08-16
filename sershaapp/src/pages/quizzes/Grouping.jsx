@@ -125,6 +125,8 @@ const Grouping = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
   const handleNext = () => {
     setSelectedAnswer(null);
     setFeedback(null);
+    setIsCorrectAnswer(false);
+    setIsShield(false);
     setShowNextButton(false);
     setCurrentQuestion(prev => prev + 1);
   }

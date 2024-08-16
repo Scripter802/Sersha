@@ -11,7 +11,7 @@ const HealthBar = () => {
     const foxHealth = () => {
       let fullHealth = 100;
       let oneQuestionPercent = currentQuizz?.questions?.length + correctAnswers > 0 ? fullHealth / currentQuizz?.questions?.length : 0;
-      let lostPercentages = oneQuestionPercent * wrongAnswers;
+      let lostPercentages = oneQuestionPercent * correctAnswers;
       let healthUpdate = 100 - lostPercentages;
       setHealth(healthUpdate);
 
@@ -21,7 +21,7 @@ const HealthBar = () => {
     if (currentQuizz?.questions?.length + correctAnswers > 0) {
       foxHealth();
     }
-  }, [wrongAnswers]);
+  }, [correctAnswers]);
 
   return (
     <div className='healthBarWrapper'>

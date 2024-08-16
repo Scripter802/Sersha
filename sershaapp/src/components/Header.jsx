@@ -16,7 +16,7 @@ const Header = () => {
   const path = window.location.pathname
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
-  const { toggleMusic, isPlaying } = useContext(MusicContext);
+  const { toggleMusic, isPlaying, currentTime, setCurrentTime } = useContext(MusicContext);
   const [newMessageSound, setNewMessageSound] = useState(false);
   let levelStep = JSON.parse(localStorage.getItem('levelStep'));
 

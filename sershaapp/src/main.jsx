@@ -9,8 +9,9 @@ import { MusicProvider } from './context/MusicContext.jsx';
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
   <AppProvider>
-
-    <App />
+    <MusicProvider >
+      <App />
+    </MusicProvider>
   </AppProvider>
   // </React.StrictMode>,
 );

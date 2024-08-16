@@ -23,6 +23,15 @@ import itemSixEasy from '../assets/images/map/mapItems/easybundle/itemSix.png'
 import itemSevenEasy from '../assets/images/map/mapItems/easybundle/itemSeven.png'
 import itemEightEasy from '../assets/images/map/mapItems/easybundle/itemEight.png'
 import itemEasyFondation from '../assets/images/map/mapItems/easybundle/foundation.png'
+import itemMediumFondation from '../assets/images/map/mapItems/mediumbundle/foundation.png'
+import itemOneMedium from '../assets/images/map/mapItems/mediumbundle/itemOne.png'
+import itemTwoMedium from '../assets/images/map/mapItems/mediumbundle/itemTwo.png'
+import itemThreeMedium from '../assets/images/map/mapItems/mediumbundle/itemThree.png'
+import itemFourMedium from '../assets/images/map/mapItems/mediumbundle/itemFour.png'
+import itemFiveMedium from '../assets/images/map/mapItems/mediumbundle/itemFive.png'
+import itemSixMedium from '../assets/images/map/mapItems/mediumbundle/itemSix.png'
+import itemSevenMedium from '../assets/images/map/mapItems/mediumbundle/itemSeven.png'
+import itemEightMedium from '../assets/images/map/mapItems/mediumbundle/itemEight.png'
 import avatar from '../assets/images/navbar/userpick.png'
 
 const AppContext = createContext();
@@ -30,8 +39,8 @@ const baseUrl = "http://localhost:5000/api";
 const baseUrlImage = "http://localhost:5000";
 
 const AppProvider = ({ children }) => {
-
   // SINGLE USER
+
   const [user, setUser] = useState();
   const [selectedUser, setSelectedUser] = useState();
   const [userLevel, setUserLevel] = useState({ level: 1, step: 1 })
@@ -757,11 +766,11 @@ const AppProvider = ({ children }) => {
         },
       ],
       images: [
-        { item: itemOneEasy, fondation: itemEasyFondation },
-        { item: itemThreeEasy },
-        { item: itemFiveEasy },
-        { item: itemTwoEasy, fondation: itemEasyFondation },
-        { item: itemEightEasy, fondation: itemEasyFondation },
+        { item: itemOneMedium, fondation: itemMediumFondation },
+        { item: itemSixMedium },
+        { item: itemFiveMedium, fondation: itemMediumFondation },
+        { item: itemFourMedium, fondation: itemMediumFondation },
+        { item: itemEightMedium, fondation: itemMediumFondation },
       ],
     },
     {
@@ -856,10 +865,11 @@ const AppProvider = ({ children }) => {
   //   { item: group1 },
   // ],
 
+
+
   return (
     <AppContext.Provider
       value={{
-
         // BASE STATES - APIs// 
         baseUrl,
         baseUrlImage,

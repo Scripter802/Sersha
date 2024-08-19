@@ -67,7 +67,6 @@ namespace Application.Quizzes
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                Console.WriteLine(request.QuizName + " \n\n\n\n\n\n");
                 var quiz = await _context.Quizzes
                     .Include(q => q.Questions)
                     .ThenInclude(q => q.Answers)

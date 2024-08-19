@@ -45,10 +45,12 @@ const SingleQuizz = ({ quizz }) => {
   };
 
   const handleEditQuizz = async () => {
-
-    await axios.put(`${baseUrl}/Quizzes/${quizData.id}`, quizData);
+    try {
+      await axios.put(`${baseUrl}/Quizzes/${quizData.id}`, quizData);
+    } catch (error) {
+      console.log(error);
+    }
   };
-
   if (!quizData) return null;
 
   return (

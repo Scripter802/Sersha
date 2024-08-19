@@ -4,7 +4,7 @@ import 'tiny-slider/dist/tiny-slider.css';
 import { useGlobalContext } from "../../context/context";
 import './customizationSlider.css'
 
-const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight, clickSound }) => {
+const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight, clickSound, setSershaClickCounter }) => {
   const { isTopPart, isBottomPart, baseUrlImage, selectedTopItem, setSelectedTopItem, selectedBottomItem, setSelectedBottomItem } = useGlobalContext();
   const [sliderIndex, setSliderIndex] = useState(0);
   const sliderRef = useRef(null);
@@ -38,14 +38,31 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight, c
   }, [isTopPart, isBottomPart]);
 
   const moveSliderToLeft = () => {
-    setSliderIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    const itemsPerPage = window.innerWidth < 1000 ? 3 : 5; // 3 items for small screens, 5 for larger screens
+    const maxIndex = isTopPart
+      ? Math.ceil(itemsTopPart.length / itemsPerPage) - 1
+      : Math.ceil(itemsBottomPart.length / itemsPerPage) - 1;
+
+    setSliderIndex((prevIndex) => {
+      if (prevIndex === 0) {
+        return maxIndex; // Wrap around to the last page
+      }
+      return prevIndex - 1;
+    });
   };
 
   const moveSliderToRight = () => {
-    const maxIndex = isTopPart ? itemsTopPart.length - 1 : itemsBottomPart.length - 1;
-    console.log(maxIndex, sliderIndex)
-    setSliderIndex((prevIndex) => Math.min(prevIndex + 1, maxIndex));
-    console.log(maxIndex, sliderIndex)
+    const itemsPerPage = window.innerWidth < 1000 ? 3 : 5; // 3 items for small screens, 5 for larger screens
+    const maxIndex = isTopPart
+      ? Math.ceil(itemsTopPart.length / itemsPerPage) - 1
+      : Math.ceil(itemsBottomPart.length / itemsPerPage) - 1;
+
+    setSliderIndex((prevIndex) => {
+      if (prevIndex === maxIndex) {
+        return 0; // Wrap around to the first page
+      }
+      return prevIndex + 1;
+    });
   };
 
   const settings = {
@@ -61,9 +78,11 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight, c
     responsive: {
       0: {
         items: 3,
+        slideBy: 3,
       },
       1000: {
         items: 5,
+        slideBy: 5,
       }
     }
   };
@@ -72,11 +91,13 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight, c
     setSelectedTopItem(el);
     localStorage.setItem('TopItem', JSON.stringify(el));
     clickSound.play()
+    setSershaClickCounter((prevCounter) => prevCounter < 3 ? prevCounter + 1 : 0);
   };
   const handleBottomItemClick = (el) => {
     setSelectedBottomItem(el);
     localStorage.setItem('BottomItem', JSON.stringify(el));
     clickSound.play()
+    setSershaClickCounter((prevCounter) => prevCounter < 3 ? prevCounter + 1 : 0);
   };
 
   const renderItems = (items, onClick) => {

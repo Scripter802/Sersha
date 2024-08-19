@@ -30,7 +30,7 @@ const getRandomItems = (array, numItems) => {
 const EmojiEmotions = () => {
   const {
     baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems, handleCorrectAnswerMiniGames, setRogueClickCounter, currentVocal, setCurrentVocal, handleCurrentRogueVocal, rogueClickCounter
   } = useGlobalContext();
 
   const [seconds, setSeconds] = useState(25);
@@ -41,6 +41,7 @@ const EmojiEmotions = () => {
   const [isGameCompleted, setIsGameCompleted] = useState(false);
   const navigate = useNavigate();
   const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
+  const gameSucceed = new Audio('/music/SFX/FightRogueFox/Anotherwin.mp3');
 
   useEffect(() => {
     const fetchEmoji = async () => {
@@ -87,7 +88,7 @@ const EmojiEmotions = () => {
     const incorrectSound = new Audio('/music/SFX/FightRogueFox/IncorrectAnswer.mp3');
 
     if (selectedAnswer === correctAnswer) {
-      setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
+      handleCorrectAnswerMiniGames();
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === emojiNumber ? true : item));
       handleFoxDamaged();
       correctSound.play();
@@ -102,6 +103,8 @@ const EmojiEmotions = () => {
       setSeconds(25);
     } else {
       setIsGameCompleted(true);
+      correctAnsweredMiniGames >= 7 ? gameSucceed.play() : gameFail.play();
+      clearInterval(intervalIdRef.current);
     }
   };
 
@@ -150,7 +153,17 @@ const EmojiEmotions = () => {
     navigate('/');
   };
 
-  console.log(currentEmoji)
+  useEffect(() => {
+    if (currentVocal) {
+      let vocalAudio = new Audio(currentVocal);
+      vocalAudio.play();
+
+      setTimeout(() => {
+        setCurrentVocal('');
+        setRogueClickCounter(0);
+      }, 1000);
+    }
+  }, [currentVocal]);
 
   return (
     <div className='emojiEmotionsWrapper'>
@@ -209,13 +222,13 @@ const EmojiEmotions = () => {
           <div className='emojiEmotionsMiddleContent'>
             <div className='emojiGameCard'>
               {/* Display emojis in positions 3, 4, and 5 */}
-              <div className='emojiWrap'>
+              <div className='emojiWrap' >
                 {emojiNumber < 2 ? <img src={questionMark} alt='hidden emoji' /> : <img src={`${baseUrlImage}${currentEmoji && currentEmoji[emojiNumber - 2].imagePath}`} alt='emojis' />}
               </div>
-              <div className='emojiWrap'>
+              <div className='emojiWrap ' >
                 {emojiNumber === 0 ? <img src={questionMark} alt='hidden emoji' /> : emojiNumber === 1 ? <img src={`${baseUrlImage}${currentEmoji[emojiNumber - 1].imagePath}`} alt='emojis' /> : <img src={`${baseUrlImage}${currentEmoji[emojiNumber - 1].imagePath}`} alt='emojis' />}
               </div>
-              <div className='emojiWrap'>
+              <div className='emojiWrap' id="emojiMiddle">
                 {<img src={`${baseUrlImage}${currentEmoji[emojiNumber]?.imagePath}`} />}
                 {/* {emojiNumber === 2 && <img src={`${baseUrlImage}${currentEmoji[emojiNumber - 1]?.imagePath}`} alt='emojis' />}
                 {emojiNumber === 1 && <img src={`${baseUrlImage}${currentEmoji[emojiNumber]?.imagePath}`} alt='emojis' />}
@@ -261,7 +274,7 @@ const EmojiEmotions = () => {
         </div>
       </div>
 
-      <div className='footer'>
+      <div className='footer' id='emojiEmotionsFooter'>
         <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
         <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
       </div>

@@ -77,7 +77,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const FoxCustomization = () => {
-  const { baseUrl, baseUrlImage, isTopPart, setIsTopPart, isBottomPart, setIsBottomPart, selectedTopItem, setSelectedTopItem, selectedBottomItem, setSelectedBottomItem, inventoryItems, setInventoryItems, renderRewardImage } = useGlobalContext();
+  const { baseUrl, baseUrlImage, isTopPart, setIsTopPart, isBottomPart, setIsBottomPart, selectedTopItem, setSelectedTopItem, selectedBottomItem, setSelectedBottomItem, inventoryItems, setInventoryItems, renderRewardImage, sershaVocalisations, setSershaVocalisations, sershaClickCounter, setSershaClickCounter, handleCurrentSershaVocal, currentVocal, setCurrentVocal } = useGlobalContext();
   // const itemsTopPart = [AlienAntena, AnimalEars, AstronautHelmet, CapXBlue, CapXGreen, CapXRed, ChefHat, CowboyHat, FlowerCrown, HelmetArmour, LongHair, Mask, PiratesBandana, RegularGlasses, Sunglasses, SuperheroMask]
   // const itemsBottomPart = [Apron, AstronautSuit, Book, Cape, CowboyBoots, DetectiveMagnifyingGlass, FairyWings, HoodieGreen, HoodieLightBlue, HoodiePink, HoodieRed, HoodieWhite, KnightArmour, MagicWand, NinjaBelt, PrincessGwon, SparkleWings, SuperheroSuitHighTech, Sunglasses, TshirtGreen, TshirtLightBlue, TshirtPink, TshirtRed, TshirtWhite, Tutu, WizardCloak]
   const [topPart, setTopPart] = useState([]);
@@ -127,6 +127,32 @@ const FoxCustomization = () => {
     fetchFoxItems();
   }, []);
 
+  const handleTopPartClick = () => {
+    setIsTopPart(true);
+    setIsBottomPart(false);
+    setSershaClickCounter((prevCounter) => prevCounter < 3 ? prevCounter + 1 : 0);
+    clickSound.play();
+  }
+
+  const handleBottomPartClick = () => {
+    setIsBottomPart(true);
+    setIsTopPart(false);
+    setSershaClickCounter((prevCounter) => prevCounter < 3 ? prevCounter + 1 : 0);
+    clickSound.play();
+  }
+
+  useEffect(() => {
+    if (currentVocal) {
+      let vocalAudio = new Audio(currentVocal);
+      vocalAudio.play();
+
+      setTimeout(() => {
+        setCurrentVocal('');
+        setSershaClickCounter(0);
+      }, 1000);
+    }
+  }, [currentVocal]);
+
   console.log(`toppart: ${topPart.map(item => item.name).join(', ')} ; bottomPart: ${bottomPart.map(item => item.name).join(', ')}`);
 
   return (
@@ -147,16 +173,16 @@ const FoxCustomization = () => {
 
         <div>
           <div className='foxWrapper'>
-            <img className='foxTopPart' src={foxtoppart} onClick={() => { setIsTopPart(true); setIsBottomPart(false); clickSound.play(); }} />
+            <img className='foxTopPart' src={foxtoppart} onClick={handleTopPartClick} />
             <div className='middleFoxRelative'>
               <img className='foxMiddle' src={fox} />
               {selectedTopItem && <img src={`${baseUrlImage}${selectedTopItem.imagePath}`} className='selectedFoxItem' />}
               {selectedBottomItem && <img src={`${baseUrlImage}${selectedBottomItem.imagePath}`} className='selectedFoxItem' />}
             </div>
-            <img className='foxBottomPart' src={foxbottompart} onClick={() => { setIsBottomPart(true); setIsTopPart(false); clickSound.play(); }} />
+            <img className='foxBottomPart' src={foxbottompart} onClick={handleBottomPartClick} />
           </div>
           <div className='itemSlider'>
-            <CustomizationSlider itemsTopPart={topPart} itemsBottomPart={bottomPart} toLeft={toLeft} toRight={toRight} clickSound={clickSound} />
+            <CustomizationSlider itemsTopPart={topPart} itemsBottomPart={bottomPart} toLeft={toLeft} toRight={toRight} clickSound={clickSound} setSershaClickCounter={setSershaClickCounter} />
           </div>
         </div>
 

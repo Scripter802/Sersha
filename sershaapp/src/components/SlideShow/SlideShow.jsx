@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import levelDigitalCompass from '../../assets/images/slideshow/easyBundle/Clues/GIFS/LevelDigitalCompass.gif'
 import {
   two,
@@ -16,14 +16,18 @@ import {
   fourteen,
   fiveteen,
 } from '../../assets/images/slideshow/easyBundle/Narrative/index.js'
+import volume from '../../assets/images/navbar/volume.png'
+import volumePlay from '../../assets/images/navbar/volumePlay.png'
 import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../../context/context';
+import MusicContext from '../../context/MusicContext.jsx'
 import './slideshow.css';
 
 const Slideshow = () => {
   const navigate = useNavigate();
   const [currentGifIndex, setCurrentGifIndex] = useState(0);
   const [playBackgroundMusic, setPlayBackgroundMusic] = useState(false);
+  const { toggleMusic, isPlaying } = useContext(MusicContext);
   const { user } = useGlobalContext();
   const firstLevelGifs = [levelDigitalCompass, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, threeteen, fourteen, fiveteen];
 
@@ -57,12 +61,12 @@ const Slideshow = () => {
       <audio autoPlay>
         <source src="/music/SFX/Slideshow/LoadingSoundEffect.mp3" type="audio/mpeg" />
       </audio>
-      {playBackgroundMusic && (
+      {/* {playBackgroundMusic && (
         <audio loop autoPlay>
           <source src="/music/Music/SershaThemesongMediumoptimal310520241122.mp3" type="audio/mpeg" />
         </audio>
-      )}
-    </div>
+      )} */}
+      <div className='mute-music-slideshow' onClick={() => toggleMusic()}>{!isPlaying ? <img src={volume} alt="mute button" /> : <img src={volumePlay} alt="Volume Play Button" />}</div>    </div>
   );
 };
 

@@ -87,7 +87,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/quizz',
+        path: '/quiz',
         element: (
           <ProtectedRoute>
             <QuizPage />
@@ -197,10 +197,10 @@ const HTML5toTouch = {
 
 const App = () => (
   <DndProvider backend={MultiBackend} options={HTML5toTouch}>
-    <MusicProvider>
-      <RouterProvider router={router} />
+    {/* <MusicProvider> */}
+    <RouterProvider router={router} />
 
-    </MusicProvider>
+    {/* </MusicProvider> */}
   </DndProvider>
 );
 

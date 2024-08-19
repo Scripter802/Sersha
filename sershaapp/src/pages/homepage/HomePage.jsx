@@ -22,9 +22,8 @@ const HomePage = () => {
     if (currentPlaying !== music) {
       changeMusic('/music/Music/SershaThemesongMediumoptimal310520241122.mp3');
     }
-  }, [changeMusic, music, currentPlaying]);
+  }, [changeMusic, music]);
 
-  console.log(currentPlaying !== music)
 
   const posts = [
     {

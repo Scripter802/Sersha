@@ -91,6 +91,12 @@ const MapPage = () => {
         {user?.level <= 13 &&
           <MapComponent bundle={bundelsAndLevels[0]} />
         }
+        {user?.level > 13 && user?.level <= 26 &&
+          <MapComponent bundle={bundelsAndLevels[1]} />
+        }
+        {user?.level > 26 && user?.level <= 39 &&
+          <MapComponent bundle={bundelsAndLevels[2]} />
+        }
 
 
         {/* <div className="basePartWrapper">

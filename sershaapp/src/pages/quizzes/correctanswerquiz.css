@@ -16,6 +16,17 @@
     margin-inline: 9rem;
 }
 
+.rightObenWrapper {
+    align-items: center;
+
+}
+
+/* .inventoryQuizz {
+    position: absolute;
+    top: 10%;
+    right
+} */
+
 .correctAnswerTitle {
     display: flex;
     align-items: center;
@@ -81,6 +92,27 @@
     border-radius: 20px 20px;
     padding: .75rem;
     cursor: pointer;
+}
+
+.correctOfferedAnswersTrue {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    height: 80px;
+    width: 210px;
+    gap: 0.315rem;
+    background: #B2F0B6;
+    border-radius: 20px 20px;
+    padding: .75rem;
+    cursor: pointer;
+}
+
+.offeredTrue,
+.offeredFalse {
+    display: flex;
+    align-items: center;
+    gap: .2rem;
 }
 
 .correctOfferedAnswers:hover {

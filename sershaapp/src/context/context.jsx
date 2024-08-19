@@ -23,6 +23,15 @@ import itemSixEasy from '../assets/images/map/mapItems/easybundle/itemSix.png'
 import itemSevenEasy from '../assets/images/map/mapItems/easybundle/itemSeven.png'
 import itemEightEasy from '../assets/images/map/mapItems/easybundle/itemEight.png'
 import itemEasyFondation from '../assets/images/map/mapItems/easybundle/foundation.png'
+import itemMediumFondation from '../assets/images/map/mapItems/mediumbundle/foundation.png'
+import itemOneMedium from '../assets/images/map/mapItems/mediumbundle/itemOne.png'
+import itemTwoMedium from '../assets/images/map/mapItems/mediumbundle/itemTwo.png'
+import itemThreeMedium from '../assets/images/map/mapItems/mediumbundle/itemThree.png'
+import itemFourMedium from '../assets/images/map/mapItems/mediumbundle/itemFour.png'
+import itemFiveMedium from '../assets/images/map/mapItems/mediumbundle/itemFive.png'
+import itemSixMedium from '../assets/images/map/mapItems/mediumbundle/itemSix.png'
+import itemSevenMedium from '../assets/images/map/mapItems/mediumbundle/itemSeven.png'
+import itemEightMedium from '../assets/images/map/mapItems/mediumbundle/itemEight.png'
 import avatar from '../assets/images/navbar/userpick.png'
 
 const AppContext = createContext();
@@ -30,8 +39,8 @@ const baseUrl = "http://localhost:5000/api";
 const baseUrlImage = "http://localhost:5000";
 
 const AppProvider = ({ children }) => {
-
   // SINGLE USER
+
   const [user, setUser] = useState();
   const [selectedUser, setSelectedUser] = useState();
   const [userLevel, setUserLevel] = useState({ level: 1, step: 1 })
@@ -67,7 +76,7 @@ const AppProvider = ({ children }) => {
     steps: [
       {
         content: <><h2>Welcome!</h2><p>It's your first time with us, so to make it easier and more fun, we've prepared a short tutorial for you!</p><p>Let's begin our journey!</p></>,
-        locale: { skip: <strong aria-label="skip">S-K-I-P</strong> },
+        locale: { skip: <strong aria-label="skip">Skip</strong> },
         placement: 'center',
         target: 'body',
       },
@@ -122,10 +131,11 @@ const AppProvider = ({ children }) => {
       },
       {
         target: '.avatar',
+        locale: { last: <strong aria-label="skip">Ok</strong> },
         floaterProps: {
           disableAnimation: true,
         },
-        content: <><h2>Information</h2><p>Click here to change your avatar or change your profile settings.</p></>,
+        content: <><h2>Profile</h2><p>Click here to change your avatar or change your profile settings.</p></>,
       },
     ]
   })
@@ -268,6 +278,7 @@ const AppProvider = ({ children }) => {
   const roughFoxComments = ["Ouch!", "Yikes!", "Oof!", "Ow!", "Whoa!", "Argh!", "Dang!", "Eek!", "Gah!", "Ack!", "Ugh!"];
   const [roughFoxDamaged, setRoughFoxDamaged] = useState('');
 
+
   const handleFoxDamaged = () => {
     let randomIndex = Math.floor(Math.random() * roughFoxComments.length);
 
@@ -287,6 +298,105 @@ const AppProvider = ({ children }) => {
         return <img src={healingPotion} alt="Healing Potion" />;
       case 'Shield':
         return <img src={shield} alt="Shield" />;
+      default:
+        return null;
+    }
+  };
+
+  //QUIZZES
+  const [isShield, setIsShield] = useState(false);
+  const [isCorrectAnswer, setIsCorrectAnswer] = useState(false);
+  const [isCoinMultiplier, setIsCoinMultiplier] = useState(false);
+
+  const handleHealingPotion = () => {
+    if (heartsNum < 3) {
+      setHeartsNum(heartsNum + 1)
+
+      const updatedInventoryItems = inventoryItems.map(item => {
+        if (item.item === 'Healing Potion' && item.count > 0) {
+          return { ...item, count: item.count - 1 };
+        }
+        return item;
+      })
+        .filter(item => item.count > 0);
+
+      setInventoryItems(updatedInventoryItems);
+      localStorage.setItem('gameItems', JSON.stringify(updatedInventoryItems));
+    }
+  };
+
+  const handleDealDamage = () => {
+    setHealth(0);
+
+    const updatedInventoryItems = inventoryItems.map(item => {
+      if (item.item === 'Deal Damage' && item.count > 0) {
+        return { ...item, count: item.count - 1 };
+      }
+      return item;
+    })
+      .filter(item => item.count > 0);
+
+    setInventoryItems(updatedInventoryItems);
+    localStorage.setItem('gameItems', JSON.stringify(updatedInventoryItems));
+  };
+
+  const handleShield = () => {
+    setIsShield(true);
+
+    const updatedInventoryItems = inventoryItems.map(item => {
+      if (item.item === 'Shield' && item.count > 0) {
+        return { ...item, count: item.count - 1 };
+      }
+      return item;
+    })
+      .filter(item => item.count > 0);
+
+    setInventoryItems(updatedInventoryItems);
+    localStorage.setItem('gameItems', JSON.stringify(updatedInventoryItems));
+  };
+
+  const handleCorrectAnswer = () => {
+    setIsCorrectAnswer(true);
+
+    const updatedInventoryItems = inventoryItems.map(item => {
+      if (item.item === 'Correct Answer' && item.count > 0) {
+        return { ...item, count: item.count - 1 };
+      }
+      return item;
+    })
+      .filter(item => item.count > 0);
+
+    setInventoryItems(updatedInventoryItems);
+    localStorage.setItem('gameItems', JSON.stringify(updatedInventoryItems));
+  };
+
+  const handleCoinMultiplier = () => {
+    setIsCoinMultiplier(true);
+
+    const updatedInventoryItems = inventoryItems.map(item => {
+      if (item.item === 'Coin Multiplier' && item.count > 0) {
+        return { ...item, count: item.count - 1 };
+      }
+      return item;
+    })
+      .filter(item => item.count > 0);
+
+    setInventoryItems(updatedInventoryItems);
+    localStorage.setItem('gameItems', JSON.stringify(updatedInventoryItems));
+  };
+
+  const renderRewardImageQuiz = (item) => {
+    switch (item) {
+      case 'Coin Multiplier':
+        return <img src={coinMultiplier} alt="Coin Multiplier" onClick={handleCoinMultiplier} />;
+      case 'Correct Answer':
+        return <img src={correctAnswer} alt="Correct Answer" onClick={handleCorrectAnswer} />;
+      case 'Deal Damage':
+        return <img src={dealDamage} alt="Deal Damage" onClick={handleDealDamage} />;
+      case 'Healing Potion':
+        return <img src={healingPotion} alt="Healing Potion" onClick={handleHealingPotion} />;
+      case 'Shield':
+        return <img src={shield} alt="Shield" onClick={handleShield} />;
       default:
         return null;
     }
@@ -501,6 +611,8 @@ const AppProvider = ({ children }) => {
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [wrongAnswers, setWrongAnswers] = useState(0);
 
+  const [health, setHealth] = useState(100);
+
   // MAP 
   const [bundelsAndLevels, setBundlesAndLevels] = useState([
     {
@@ -589,76 +701,76 @@ const AppProvider = ({ children }) => {
         {
           levelName: 'Foxy Forest',
           levelDesc: 'Dive deeper into social media.',
-          levelNo: 1,
+          levelNo: 14,
           step: 0,
           levelNameDown: 'Reynard’s Road',
           levelDescDown: 'Advanced chatting and sharing.',
-          levelNoDown: 2,
+          levelNoDown: 15,
           stepDown: 0,
         },
         {
           levelName: 'Vixen’s Village',
           levelDesc: 'Create and share awesome content.',
-          levelNo: 3,
+          levelNo: 16,
           step: 0,
           levelNameDown: 'Byte Boulevard',
           levelDescDown: 'Enhanced safety for your data.',
-          levelNoDown: 4,
+          levelNoDown: 17,
           stepDown: 0,
         },
         {
           levelName: 'Kitsune’s Keep',
           levelDesc: 'Sharpen your digital detective skills.',
-          levelNo: 5,
+          levelNo: 18,
           step: 0,
           levelNameDown: 'Sly’s Safe Zone',
           levelDescDown: 'Master online self-care.',
-          levelNoDown: 6,
+          levelNoDown: 19,
           stepDown: 0,
         },
         {
           levelName: 'Safe Haven',
           levelDesc: 'Become a cyberbullying warrior.',
-          levelNo: 7,
+          levelNo: 20,
           step: 0,
           levelNameDown: 'Respectful Ridge',
           levelDescDown: 'Balance screen time with real life.',
-          levelNoDown: 8,
+          levelNoDown: 21,
           stepDown: 0,
         },
         {
           levelName: 'Kindness Kingdom',
           levelDesc: 'Recognise and block strangers.',
-          levelNo: 9,
+          levelNo: 22,
           step: 0,
           levelNameDown: 'Trustworthy Trail',
           levelDescDown: 'Build trustworthy connections.',
-          levelNoDown: 10,
+          levelNoDown: 23,
           stepDown: 0,
         },
         {
           levelName: 'Digi Den',
           levelDesc: 'Navigate and report harmful content.',
-          levelNo: 11,
+          levelNo: 24,
           step: 0,
           levelNameDown: 'Whiz Web',
           levelDescDown: 'Get smart about online influencers.',
-          levelNoDown: 12,
+          levelNoDown: 25,
           stepDown: 0,
         },
         {
           levelName: "Guardian Grove",
           levelDesc: 'Safe and fun gaming.',
-          levelNo: 13,
+          levelNo: 26,
           step: 0,
         },
       ],
       images: [
-        { item: itemOneEasy, fondation: itemEasyFondation },
-        { item: itemThreeEasy },
-        { item: itemFiveEasy },
-        { item: itemTwoEasy, fondation: itemEasyFondation },
-        { item: itemEightEasy, fondation: itemEasyFondation },
+        { item: itemOneMedium, fondation: itemMediumFondation },
+        { item: itemSixMedium },
+        { item: itemFiveMedium, fondation: itemMediumFondation },
+        { item: itemFourMedium, fondation: itemMediumFondation },
+        { item: itemEightMedium, fondation: itemMediumFondation },
       ],
     },
     {
@@ -668,76 +780,77 @@ const AppProvider = ({ children }) => {
         {
           levelName: 'Glittering Galaxy',
           levelDesc: 'Master the world of social media.',
-          levelNo: 1,
+          levelNo: 27,
           step: 0,
           levelNameDown: 'Cyber Summit',
           levelDescDown: 'Be a pro at online communication.',
-          levelNoDown: 2,
+          levelNoDown: 28,
           stepDown: 0,
         },
         {
           levelName: 'Hashtag Hills',
           levelDesc: 'Share content like a star.',
-          levelNo: 3,
+          levelNo: 29,
           step: 0,
           levelNameDown: 'Meme Meadow',
           levelDescDown: 'Ultimate safety skills for online fun.',
-          levelNoDown: 4,
+          levelNoDown: 30,
           stepDown: 0,
         },
         {
           levelName: 'Connection Cove',
           levelDesc: 'Be a savvy information seeker.',
-          levelNo: 5,
+          levelNo: 31,
           step: 0,
           levelNameDown: 'Secure Sanctuary',
           levelDescDown: 'Be your best online self.',
-          levelNoDown: 6,
+          levelNoDown: 32,
           stepDown: 0,
         },
         {
           levelName: 'Techno Terrain',
           levelDesc: 'Lead the fight against cyberbullying.',
-          levelNo: 7,
+          levelNo: 33,
           step: 0,
           levelNameDown: 'Virtue Valley',
           levelDescDown: 'Perfect your screen-life balance.',
-          levelNoDown: 8,
+          levelNoDown: 34,
           stepDown: 0,
         },
         {
           levelName: 'Mountain of Mentors',
           levelDesc: 'Stay safe from online threats.',
-          levelNo: 9,
+          levelNo: 35,
           step: 0,
           levelNameDown: 'Pawsome Peak',
           levelDescDown: 'Create positive online spaces.',
-          levelNoDown: 10,
+          levelNoDown: 36,
           stepDown: 0,
         },
         {
           levelName: 'Wisdom Woods',
           levelDesc: 'Stay ahead of harmful content.',
-          levelNo: 11,
+          levelNo: 37,
           step: 0,
           levelNameDown: 'Hero’s Haven',
           levelDescDown: 'Wisely follow online trends.',
-          levelNoDown: 12,
+          levelNoDown: 38,
           stepDown: 0,
         },
         {
           levelName: "Champion’s Crest",
           levelDesc: 'Be a gaming champion, safely.',
-          levelNo: 13,
+          levelNo: 39,
           step: 0,
         },
       ],
       images: [
-        { item: itemOneEasy, fondation: itemEasyFondation },
-        { item: itemThreeEasy },
-        { item: itemFiveEasy },
-        { item: itemTwoEasy, fondation: itemEasyFondation },
-        { item: itemEightEasy, fondation: itemEasyFondation },
+        { item: group18Two },
+        { item: group5 },
+        { item: group8 },
+        { item: group9 },
+        { item: group6 },
+        { item: group1 },
       ],
     },
   ]);
@@ -752,10 +865,11 @@ const AppProvider = ({ children }) => {
   //   { item: group1 },
   // ],
 
+
+
   return (
     <AppContext.Provider
       value={{
-
         // BASE STATES - APIs// 
         baseUrl,
         baseUrlImage,
@@ -883,6 +997,10 @@ const AppProvider = ({ children }) => {
         correctAnswers, setCorrectAnswers,
         wrongAnswers, setWrongAnswers,
         showPopup, setShowPopup,
+        health, setHealth,
+        isShield, setIsShield,
+        isCorrectAnswer, setIsCorrectAnswer,
+        isCoinMultiplier, setIsCoinMultiplier,
 
         // CORRECT INCORRECT
         correctIncorrectIsTrue, setCorrectIncorrectIsTrue,
@@ -940,6 +1058,7 @@ const AppProvider = ({ children }) => {
         setRoughFoxDamaged,
         handleFoxDamaged,
         renderRewardImage,
+        renderRewardImageQuiz,
 
         // SNAP JUDGMENT ADMIN PANEL MINIGAMES SNAPJUDGMENT
         snapJudgmentCreateNew,

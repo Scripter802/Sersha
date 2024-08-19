@@ -137,7 +137,7 @@ const FoxCustomization = () => {
 
       <div className='customizationBackground'>
         <div className='titleWrapper'>
-          <div className='title'>Customize your<span className='titleChar'> Sersha!</span></div>
+          <div className='title'>Customise your<span className='titleChar'> Sersha!</span></div>
           <div className='customizeOptions'>
             {/* <img src={browse} alt="" />
             <img src={shop} alt="" /> */}

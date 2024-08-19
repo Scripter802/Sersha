@@ -15,7 +15,7 @@ import './correctanswerquiz.css';
 import HealthBar from '../../components/HealthBar';
 import { useGlobalContext } from '../../context/context';
 
-const CorrectAnswerQuiz = ({ currentQ }) => {
+const CorrectAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
   const {
     setShowPopup,
     currentQuestion,
@@ -27,11 +27,15 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
     setCorrectAnswers,
     wrongAnswers,
     setWrongAnswers,
+    isShield, setIsShield,
+    isCorrectAnswer, setIsCorrectAnswer,
+    isCoinMultiplier, setIsCoinMultiplier,
   } = useGlobalContext();
 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [feedback, setFeedback] = useState(null); // For storing feedback
   const [showNextButton, setShowNextButton] = useState(false); // To toggle "Next" button
+  const [checked, setChecked] = useState(false);
 
   const messages = [
     {
@@ -68,7 +72,6 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
   };
 
   const handleCheck = () => {
-
     const correctSound = new Audio('/music/SFX/FightRogueFox/rightanswer.mp3');
     const incorrectSound = new Audio('/music/SFX/FightRogueFox/IncorrectAnswer.mp3');
 
@@ -78,21 +81,27 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
       correctSound.play();
     } else {
       setWrongAnswers((prev) => prev + 1);
-      setHeartsNum((prev) => prev - 1);
+      if (!isShield) {
+        setHeartsNum((prev) => prev - 1);
+      }
       setFeedback({ type: 'wrong', message: 'Wrong Answer!' });
       incorrectSound.play();
     }
-
+    setChecked(true);
     setShowNextButton(true);
   };
 
   const handleNext = () => {
     if (currentQuizz.questions.length - 1 === currentQuestion) {
       setShowPopup(true);
+      setIsCorrectAnswer(false);
+      setIsShield(false);
     } else {
       setSelectedAnswer(null);
       setCurrentQuestion((prev) => prev + 1);
       setFeedback(null);
+      setIsCorrectAnswer(false);
+      setIsShield(false);
       setShowNextButton(false);
     }
   };
@@ -110,9 +119,9 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
           </div>
         </div>
         <div className='rightObenWrapper'>
-          {/* <div className='inventory'>
+          <div className='inventoryQuizz' onClick={() => setIsInventoryQuiz(true)}>
             <img src={inventory} alt='' />
-          </div> */}
+          </div>
           <div className='hearts'>
             {[...Array(3)].map((_, i) => (
               <div key={i} className='heartWrapper'>
@@ -140,32 +149,21 @@ const CorrectAnswerQuiz = ({ currentQ }) => {
           <div className='correctAnswerAssignment'>{currentQ.text}</div>
           {selectedAnswer === null && <h5>Answer options</h5>}
           <div className='correctAnswerAnsWrapper'>
-            {messages.map(
-              (msg) =>
-                msg.name === 'Jess' &&
-                selectedAnswer === null &&
-                msg.answer?.map((ans, index) => (
-                  <div
-                    key={index}
-                    className='correctOfferedAnswersWrapper'
-                    onClick={() => handleAnswerSelection(ans)}
-                  >
-                    <p className='correctOfferedAnswers'>
-                      {ans === 'True' ? (
-                        <>
-                          <img src={done} alt='done' />
-                          {ans}
-                        </>
-                      ) : (
-                        <>
-                          <img src={incorrect} alt='done' />
-                          {ans}
-                        </>
-                      )}
-                    </p>
-                  </div>
-                ))
-            )}
+
+            <p className={`${checked && currentQ?.isCorrect || isCorrectAnswer && currentQ?.isCorrect ? 'correctOfferedAnswersTrue' : 'correctOfferedAnswers'}`} onClick={() => handleAnswerSelection('True')}>
+              <div className='offeredTrue'>
+                <img src={done} alt='done' />
+                True
+              </div>
+            </p>
+            <p className={`${checked && !currentQ?.isCorrect || isCorrectAnswer && !currentQ?.isCorrect ? 'correctOfferedAnswersTrue' : 'correctOfferedAnswers'}`} onClick={() => handleAnswerSelection('False')}>
+
+              <div className='offeredFalse'>
+                <img src={incorrect} alt='done' />
+                False
+              </div>
+
+            </p>
           </div>
           {selectedAnswer !== null && (
             <div className='doneButtonWrapper'>

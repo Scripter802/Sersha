@@ -8,6 +8,8 @@ import Grouping from '../Grouping';
 import GameCompletedPopup from '../GameCompletedPopup'; // Import the new popup component
 import { useNavigate } from 'react-router-dom';
 import MusicContext from '../../../context/MusicContext';
+import closeButton from '../../../assets/images/adminPanel/closeButton.png'
+
 
 const QuizPage = () => {
   const {
@@ -27,11 +29,18 @@ const QuizPage = () => {
     handleQuizCompletion,
     bundelsAndLevels, setBundlesAndLevels,
     user, setUser,
-    setNewMessage
+    setNewMessage,
+    inventoryItems,
+    renderRewardImageQuiz,
+    health, setHealth,
+    isShield, setIsShield,
+    isCorrectAnswer, setIsCorrectAnswer,
+    isCoinMultiplier, setIsCoinMultiplier,
   } = useGlobalContext();
   const navigate = useNavigate();
   const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
   const music = '/music/Music/RogueFoxFight310520241104.mp3'
+  const [isInventoryQuiz, setIsInventoryQuiz] = useState(false);
 
   useEffect(() => {
     if (currentPlaying != music) {
@@ -58,16 +67,21 @@ const QuizPage = () => {
   //     setShowPopup(true);
   //   }
   // }, [currentQuestion, currentQuizz]);
-  if (heartsNum == 0) {
+  if (heartsNum == 0 || health == 0) {
     setShowPopup(true);
   }
 
   const handleRestart = () => {
+    setHealth(100);
     setShowPopup(false);
     setCurrentQuestion(0);
     setCorrectAnswers(0);
     setWrongAnswers(0);
     setHeartsNum(3);
+    setIsShield(false);
+    setIsCorrectAnswer(false);
+    setIsCoinMultiplier(false);
+    setNewMessage(null);
   };
 
   console.log(heartsNum)
@@ -103,8 +117,42 @@ const QuizPage = () => {
       console.error('Error updating user level:', error);
     }
   };
+  console.log(user)
 
-  const handlePlayGame = () => {
+
+  const handlePlayGame = async () => {
+    const fullHealth = 100;
+
+    let oneQuestionPercent = currentQuizz?.questions?.length + correctAnswers > 0 ? fullHealth / currentQuizz?.questions?.length : 0;
+    let correctPercent = oneQuestionPercent * correctAnswers;
+
+    // Calculate new coin balance separately
+    let newCoinBalance = user.coinBalance;
+
+    if (correctPercent > 50 && correctPercent < 70) {
+      newCoinBalance += 50;
+    } else if (correctPercent >= 70 && correctPercent < 80) {
+      newCoinBalance += 100;
+    } else if (correctPercent >= 80 && correctPercent < 90) {
+      newCoinBalance += 150;
+    } else if (correctPercent >= 90 && correctPercent <= 100) {
+      newCoinBalance += 300;
+    }
+
+    if (isCoinMultiplier) {
+      newCoinBalance *= 2;
+    }
+
+    console.log('New coin balance:', newCoinBalance);
+
+    setUser({ ...user, coinBalance: newCoinBalance });
+
+    try {
+      await axios.put(`${baseUrl}/User/${user.email}`, { coinBalance: newCoinBalance });
+    } catch (error) {
+      console.log(error);
+    }
+
     const levelStep = JSON.parse(localStorage.getItem("levelStep"));
     let newLevelStep = 0;
     if (levelStep < 2) {
@@ -139,7 +187,7 @@ const QuizPage = () => {
           onClaimPrize={handleClaimPrize}
           heartsNum={heartsNum}
           onPlayGame={handlePlayGame}
-          title={`Quizz`}
+          title={`Quiz`}
           isQuizz={true}
           currentQuizz={currentQuizz}
         />
@@ -147,14 +195,41 @@ const QuizPage = () => {
 
       {currentQ && (
         <>
-          {currentQ.type === 0 && <RightAnswerQuiz currentQ={currentQ} />}
-          {currentQ.type === 1 && <CorrectAnswerQuiz currentQ={currentQ} />}
-          {currentQ.type === 2 && <FillInTheBlank currentQ={currentQ} />}
-          {currentQ.type === 3 && <Grouping currentQ={currentQ} />}
+          {currentQ.type === 0 && <RightAnswerQuiz currentQ={currentQ} setIsInventoryQuiz={setIsInventoryQuiz} isInventoryQuiz={isInventoryQuiz} />}
+          {currentQ.type === 1 && <CorrectAnswerQuiz currentQ={currentQ} setIsInventoryQuiz={setIsInventoryQuiz} isInventoryQuiz={isInventoryQuiz} />}
+          {currentQ.type === 2 && <FillInTheBlank currentQ={currentQ} setIsInventoryQuiz={setIsInventoryQuiz} isInventoryQuiz={isInventoryQuiz} />}
+          {currentQ.type === 3 && <Grouping currentQ={currentQ} setIsInventoryQuiz={setIsInventoryQuiz} isInventoryQuiz={isInventoryQuiz} />}
           {/* <audio loop autoPlay>
             <source src="/music/Music/RogueFoxFight310520241104.mp3" type="audio/mpeg" />
           </audio> */}
         </>
+      )}
+
+      {isInventoryQuiz && (
+        <div className={`inventoryQuizzPopup`}>
+          <div className={`inventoryContent`}>
+            <div className="close-btn" onClick={() => setIsInventoryQuiz(false)}>
+              <img src={closeButton} alt='close' />
+            </div>
+            <h2>Inventory</h2>
+            <div className='rewardsWrapper'>
+              {inventoryItems ? (inventoryItems.map(({ item, count }, i) => (
+                <div className='singleRewardItem' key={i}>
+                  {renderRewardImageQuiz(item)}
+                  <div className='itemCount'>{count}</div>
+                </div>
+              ))) : (
+                <div className='noItemInventory'>
+                  <p>You don't have any items.</p>
+                  <p>Let's play mini games and win some!</p>
+                  <div>
+                    <button onClick={() => navigate('/minigames')} className="play-button-inventory">Let's Play!</button>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

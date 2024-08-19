@@ -20,7 +20,7 @@ const Popup = () => {
   useEffect(() => {
     if (seconds === 0) {
       clearInterval(intervalIdRef.current);
-      navigate('/quizz')
+      navigate('/quiz')
     }
   }, [seconds]);
 

@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useRef } from 'react';
-
+import { useGlobalContext } from './context'
 const MusicContext = createContext();
 
 export const MusicProvider = ({ children }) => {
@@ -7,10 +7,33 @@ export const MusicProvider = ({ children }) => {
   const [currentPlaying, setCurrentPlaying] = useState('');
   const [currentTime, setCurrentTime] = useState(0);
   const audioRef = useRef(new Audio());
+  console.log(currentTime);
+  const audio = audioRef.current;
+  const handleTimeUpdate = () => {
+    setCurrentTime(audio.currentTime);
+  };
 
   useEffect(() => {
-    const audio = audioRef.current;
+    const savedTime = localStorage.getItem('currentTime');
+    if (savedTime) {
+      setCurrentTime(parseFloat(savedTime));
+    }
 
+    const savedPlaying = localStorage.getItem('currentPlaying');
+    if (savedPlaying) {
+      setCurrentPlaying(savedPlaying);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('currentPlaying', currentPlaying);
+  }, [currentPlaying]);
+
+  useEffect(() => {
+    localStorage.setItem('currentTime', currentTime);
+  }, [currentTime]);
+
+  useEffect(() => {
     if (currentPlaying && audio.src !== currentPlaying) {
       audio.src = currentPlaying;
       audio.currentTime = currentTime;
@@ -23,9 +46,6 @@ export const MusicProvider = ({ children }) => {
       audio.pause();
     }
 
-    const handleTimeUpdate = () => {
-      setCurrentTime(audio.currentTime);
-    };
 
     audio.addEventListener('timeupdate', handleTimeUpdate);
 
@@ -41,7 +61,9 @@ export const MusicProvider = ({ children }) => {
 
   const changeMusic = (newMusic) => {
     if (currentPlaying !== newMusic) {
+      console.log(currentPlaying, newMusic)
       setCurrentPlaying(newMusic);
+      setCurrentTime(0);
       setIsPlaying(true);
     }
   };

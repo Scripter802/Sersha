@@ -17,6 +17,24 @@
   border-radius: 10px;
 }
 
+
+.mute-music-slideshow {
+  position: absolute;
+  top: 65%;
+  right: .15rem;
+  cursor: pointer;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+}
+
+.mute-music-slideshow img {
+  border: 0;
+  height: 50px;
+  border-radius: 50%;
+}
+
 .arrow {
   font-size: 3rem;
   color: #fff;

@@ -39,6 +39,7 @@ const baseUrl = "https://sershaback.azurewebsites.net/api";
 const baseUrlImage = "https://sershaback.azurewebsites.net";
 
 const AppProvider = ({ children }) => {
+
   // SINGLE USER
 
   const [user, setUser] = useState();
@@ -278,6 +279,29 @@ const AppProvider = ({ children }) => {
   const roughFoxComments = ["Ouch!", "Yikes!", "Oof!", "Ow!", "Whoa!", "Argh!", "Dang!", "Eek!", "Gah!", "Ack!", "Ugh!"];
   const [roughFoxDamaged, setRoughFoxDamaged] = useState('');
 
+  const handleCorrectAnswerMiniGames = () => {
+    setCorrectAnsweredMiniGames((prevCorrectAnsweredMiniGames) => prevCorrectAnsweredMiniGames + 1);
+
+    setRogueClickCounter((prevCounter) => {
+      if (prevCounter < 3) {
+        return prevCounter + 1;
+      } else {
+        return 1;
+      }
+    });
+  };
+
+  const handleCorrectAnswerQuiz = () => {
+    setCorrectAnswers((prevCorrectAnswersQuiz) => prevCorrectAnswersQuiz + 1);
+
+    setRogueClickCounter((prevCounter) => {
+      if (prevCounter < 3) {
+        return prevCounter + 1;
+      } else {
+        return 1;
+      }
+    });
+  };
 
   const handleFoxDamaged = () => {
     let randomIndex = Math.floor(Math.random() * roughFoxComments.length);
@@ -855,16 +879,57 @@ const AppProvider = ({ children }) => {
     },
   ]);
 
+  const [sershaVocalisations, setSershaVocalisations] = useState([
+    "/music/SFX/Vocalisations/sershaVocalisations/cute.mp3",
+    "/music/SFX/Vocalisations/sershaVocalisations/hehe.mp3",
+    "/music/SFX/Vocalisations/sershaVocalisations/hummingexcited.mp3",
+    "/music/SFX/Vocalisations/sershaVocalisations/ohno.mp3",
+    "/music/SFX/Vocalisations/sershaVocalisations/ohwow.mp3",
+    "/music/SFX/Vocalisations/sershaVocalisations/ouch.mp3",
+    "/music/SFX/Vocalisations/sershaVocalisations/screamsurprised.mp3",
+    "/music/SFX/Vocalisations/sershaVocalisations/surprisedhappy.mp3",
+    "/music/SFX/Vocalisations/sershaVocalisations/yahoo.mp3"
+  ]);
+  const [rogueFoxVocalisations, setRogueFoxVocalisations] = useState([
+    "/music/SFX/Vocalisations/rogueFoxVocalisations/annoyed.mp3",
+    "/music/SFX/Vocalisations/rogueFoxVocalisations/cuteTwo.mp3",
+    "/music/SFX/Vocalisations/rogueFoxVocalisations/fight.mp3",
+    "/music/SFX/Vocalisations/rogueFoxVocalisations/fightThree.mp3",
+    "/music/SFX/Vocalisations/rogueFoxVocalisations/fightTwo.mp3",
+    "/music/SFX/Vocalisations/rogueFoxVocalisations/ouchTwo.mp3",
+    "/music/SFX/Vocalisations/rogueFoxVocalisations/slylaugh.mp3",
+    "/music/SFX/Vocalisations/rogueFoxVocalisations/strain.mp3",
+    "/music/SFX/Vocalisations/rogueFoxVocalisations/uggh.mp3",
+    "/music/SFX/Vocalisations/rogueFoxVocalisations/uhohh.mp3",
+  ]);
 
-  // images: [
-  //   { item: group18Two },
-  //   { item: group5 },
-  //   { item: group8 },
-  //   { item: group9 },
-  //   { item: group6 },
-  //   { item: group1 },
-  // ],
+  const [currentVocal, setCurrentVocal] = useState('');
+  const [sershaClickCounter, setSershaClickCounter] = useState(0);
+  const [rogueClickCounter, setRogueClickCounter] = useState(0);
 
+  const handleCurrentSershaVocal = () => {
+    let randomIndex = Math.floor(Math.random() * sershaVocalisations.length);
+
+    setCurrentVocal(sershaVocalisations[randomIndex]);
+  }
+
+  const handleCurrentRogueVocal = () => {
+    let randomIndex = Math.floor(Math.random() * rogueFoxVocalisations.length);
+
+    setCurrentVocal(rogueFoxVocalisations[randomIndex]);
+  }
+
+  useEffect(() => {
+    if (sershaClickCounter === 3) {
+      handleCurrentSershaVocal();
+    }
+  }, [sershaClickCounter, sershaVocalisations]);
+
+  useEffect(() => {
+    if (rogueClickCounter == 3) {
+      handleCurrentRogueVocal();
+    }
+  }, [rogueClickCounter, rogueFoxVocalisations])
 
 
   return (
@@ -879,6 +944,15 @@ const AppProvider = ({ children }) => {
         correctIncorrectAPI,
         fillInTheBlankAPI,
         groupingAPI,
+
+
+        sershaVocalisations, setSershaVocalisations,
+        sershaClickCounter, setSershaClickCounter,
+        rogueClickCounter, setRogueClickCounter,
+        handleCurrentSershaVocal,
+        handleCurrentRogueVocal,
+        currentVocal, setCurrentVocal,
+
 
         //Cookies
         canPlayAnotherQuizToday,
@@ -1047,6 +1121,8 @@ const AppProvider = ({ children }) => {
         setMiniGamesActiveTab,
         correctAnsweredMiniGames,
         setCorrectAnsweredMiniGames,
+        handleCorrectAnswerMiniGames,
+        handleCorrectAnswerQuiz,
         incorrectAnsweredMiniGames,
         setIncorrectAnsweredMiniGames,
         corInc,

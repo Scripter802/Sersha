@@ -8,7 +8,7 @@
 .headerWrapper {
     min-height: 50px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: .5rem;
     background: black;
@@ -17,15 +17,40 @@
     z-index: 100;
 }
 
+.headerContainer {
+    width: 100%;
+    max-width: 100vw;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+    padding-inline: 2rem;
+}
+
 .logo {
     width: 150px;
     height: 50px;
-    margin-left: 3rem;
 }
 
 .logoImg {
     width: 150px;
     height: 50px;
+}
+
+.navigationWrapper {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.rightWrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .dropdownMenu {
@@ -195,15 +220,6 @@
     cursor: pointer;
 }
 
-
-.navigationWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-left: 5rem;
-}
-
 .navigationWrapperResponsivness {
     display: none;
 }
@@ -224,21 +240,12 @@
     color: #000000;
 }
 
-.rightWrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-right: 5rem;
-}
-
 .profileWrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
-    width: 130px;
     position: relative;
-    margin-inline: 1rem;
 }
 
 .profileInfo {
@@ -249,7 +256,6 @@
     color: white;
     width: 130px;
     margin-right: 1.15px;
-    position: relative;
 }
 
 .level {
@@ -258,9 +264,7 @@
 
 .avatarWrapper {
     display: flex;
-    position: absolute;
-    right: -2rem;
-    top: 50%;
+    position: relative;
 }
 
 .avatar {
@@ -272,4 +276,58 @@
     border-radius: 100%;
     width: 50px;
     height: 50px;
+}
+
+@media (min-width: 1000px) and (max-width: 1300px) {
+
+    .map,
+    .game,
+    .home,
+    .dm,
+    .miniGames,
+    .foxCustomization {
+        width: 50px;
+        height: 50px;
+    }
+
+    .currentMiniGames,
+    .currentMap,
+    .currentFoxCustomization,
+    .currentHome,
+    .currentDm {
+        width: 60px;
+        height: 60px;
+    }
+
+    .headerContainer {
+        padding-inline: .5rem
+    }
+
+    .mute-tutorial-wrapper {
+        width: fit-content;
+    }
+
+    .mute-btn,
+    .tutorialBtn {
+        width: fit-content;
+    }
+
+    .coinWrapper {
+        width: fit-content;
+        height: 40px;
+        padding-inline: .25rem;
+        margin-right: .25rem;
+    }
+
+    .profileWrapper {
+        gap: .25rem;
+    }
+
+    .profileInfo {
+        width: fit-content;
+        margin-right: 0;
+    }
+
+
+
 }

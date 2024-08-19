@@ -47,7 +47,7 @@ const getRandomItems = (array, numItems) => {
 const FriendOrFoe = () => {
   const {
     baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems, handleCorrectAnswerMiniGames, setRogueClickCounter, currentVocal, setCurrentVocal, handleCurrentRogueVocal, rogueClickCounter
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
   const totalAnswered = correctAnsweredMiniGames + incorrectAnsweredMiniGames;
@@ -59,6 +59,9 @@ const FriendOrFoe = () => {
   const navigate = useNavigate();
   const [randomAvatarImage, setRandomAvatarImage] = useState();
   const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
+  const gameSucceed = new Audio('/music/SFX/FightRogueFox/Anotherwin.mp3');
+
+  console.log(currentVocal, rogueClickCounter)
 
   useEffect(() => {
     const fetchPosting = async () => {
@@ -114,7 +117,7 @@ const FriendOrFoe = () => {
       return;
     }
 
-    const correctAnswer = currentQuestion.answers.find(ans => ans.isCorrect)?.text;
+    const correctAnswer = currentQuestion?.answers.find(ans => ans.isCorrect)?.text;
 
 
     const correctSound = new Audio('/music/SFX/FightRogueFox/rightanswer.mp3');
@@ -125,7 +128,7 @@ const FriendOrFoe = () => {
 
     console.log(`${selectedAnswer}` === correctAnswer)
     if (`${selectedAnswer}` == correctAnswer) {
-      setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
+      handleCorrectAnswerMiniGames();
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === friendOrFoeNumber ? true : item));
       handleFoxDamaged();
       correctSound.play();
@@ -140,6 +143,7 @@ const FriendOrFoe = () => {
       setSeconds(25);
     } else {
       setIsGameCompleted(true);
+      correctAnsweredMiniGames >= 7 ? gameSucceed.play() : gameFail.play();
       clearInterval(intervalIdRef.current);
     }
   };
@@ -188,6 +192,18 @@ const FriendOrFoe = () => {
     setIsGameCompleted(false);
     navigate('/');
   };
+
+  useEffect(() => {
+    if (currentVocal) {
+      let vocalAudio = new Audio(currentVocal);
+
+      setTimeout(() => {
+        vocalAudio.play();
+        setCurrentVocal('');
+        setRogueClickCounter(0);
+      }, 1000);
+    }
+  }, [currentVocal]);
 
   return (
     <div className='friendOrFoeWrapper'>

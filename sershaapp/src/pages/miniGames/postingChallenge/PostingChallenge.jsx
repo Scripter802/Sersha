@@ -28,7 +28,7 @@ const getRandomItems = (array, numItems) => {
 const PostingChallenge = () => {
   const {
     baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems, handleCorrectAnswerMiniGames, setRogueClickCounter, currentVocal, setCurrentVocal, handleCurrentRogueVocal, rogueClickCounter
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
   const totalAnswered = correctAnsweredMiniGames + incorrectAnsweredMiniGames;
@@ -38,6 +38,7 @@ const PostingChallenge = () => {
   const [isGameCompleted, setIsGameCompleted] = useState(false);
   const navigate = useNavigate();
   const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
+  const gameSucceed = new Audio('/music/SFX/FightRogueFox/Anotherwin.mp3');
 
   useEffect(() => {
     const fetchPosting = async () => {
@@ -85,7 +86,7 @@ const PostingChallenge = () => {
     const incorrectSound = new Audio('/music/SFX/FightRogueFox/IncorrectAnswer.mp3');
 
     if (selectedAnswer === correctAnswer) {
-      setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
+      handleCorrectAnswerMiniGames();
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === postingNumber ? true : item));
       handleFoxDamaged();
       correctSound.play();
@@ -100,6 +101,7 @@ const PostingChallenge = () => {
       setSeconds(25);
     } else {
       setIsGameCompleted(true);
+      correctAnsweredMiniGames >= 7 ? gameSucceed.play() : gameFail.play();
       clearInterval(intervalIdRef.current);
     }
   };
@@ -147,6 +149,18 @@ const PostingChallenge = () => {
     setIsGameCompleted(false);
     navigate('/');
   };
+
+  useEffect(() => {
+    if (currentVocal) {
+      let vocalAudio = new Audio(currentVocal);
+
+      setTimeout(() => {
+        vocalAudio.play();
+        setCurrentVocal('');
+        setRogueClickCounter(0);
+      }, 1000);
+    }
+  }, [currentVocal]);
 
   return (
     <div className='postingChallengeWrapper'>

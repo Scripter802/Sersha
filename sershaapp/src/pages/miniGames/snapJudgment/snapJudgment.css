@@ -84,7 +84,8 @@
   box-shadow: 25px 30px 45px 0px #00000031;
 
 }
-.snapGameCard img{
+
+.snapGameCard img {
   width: 100%;
 }
 
@@ -95,6 +96,7 @@
 .snapProfilePhoto {
   border-radius: 20px 20px;
 }
+
 .snapProfileName {
   font-size: 12px;
   padding-inline: 25px;
@@ -133,6 +135,26 @@
   display: flex;
   justify-content: end;
   position: relative;
+}
+
+.snapFoxTextTought {
+  position: absolute;
+  right: 3.7rem;
+  top: 1.5rem;
+  font-size: 19px;
+  z-index: 10;
+  width: fit-content;
+  height: fit-content;
+  color: #FFB496;
+  line-height: 19px;
+}
+
+.snapFoxTought {
+  position: absolute;
+  right: 1.75rem;
+  z-index: 1;
+  width: 90px;
+  top: .75rem;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -207,8 +229,8 @@
     right: .5rem;
   }
 
-  .foxTextTought,
-  .foxTought {
+  .snapFoxTextTought,
+  .snapFoxTought {
     display: none;
   }
 

@@ -27,6 +27,8 @@ const RightAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
     isShield, setIsShield,
     isCorrectAnswer, setIsCorrectAnswer,
     isCoinMultiplier, setIsCoinMultiplier,
+    handleCorrectAnswerQuiz,
+    currentVocal, setCurrentVocal, setRogueClickCounter,
   } = useGlobalContext();
 
   const [selectedAnswers, setSelectedAnswers] = useState([]);
@@ -34,6 +36,8 @@ const RightAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
   const [feedback, setFeedback] = useState(null);
   const [showNextButton, setShowNextButton] = useState(false);
   const [checked, setChecked] = useState(false);
+  const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
+  const gameSucceed = new Audio('/music/SFX/FightRogueFox/Advancetonextlevel.mp3');
 
   useEffect(() => {
     const correctAnswers = currentQ.answers.filter(q => q.isCorrect).map(q => q.text);
@@ -56,7 +60,7 @@ const RightAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
     const incorrectSound = new Audio('/music/SFX/FightRogueFox/IncorrectAnswer.mp3');
 
     if (isCorrect) {
-      setCorrectAnswers(prev => prev + 1);
+      handleCorrectAnswerQuiz();
       setFeedback({ type: 'correct', message: 'Correct Answer!' });
       correctSound.play();
     } else {
@@ -76,6 +80,7 @@ const RightAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
   const handleNext = () => {
     if (currentQuizz.questions.length - 1 === currentQuestion) {
       setShowPopup(true);
+      correctAnswers >= 7 ? gameSucceed.play() : gameFail.play();
       setIsCorrectAnswer(false);
       setIsShield(false);
     } else {
@@ -88,6 +93,18 @@ const RightAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
       setChecked(false);
     }
   }
+
+  useEffect(() => {
+    if (currentVocal) {
+      let vocalAudio = new Audio(currentVocal);
+      vocalAudio.play();
+
+      setTimeout(() => {
+        setCurrentVocal('');
+        setRogueClickCounter(0);
+      }, 1000);
+    }
+  }, [currentVocal]);
 
   return (
     <div className='rightAnswerQuizWrapper'>

@@ -27,7 +27,7 @@ const getRandomItems = (array, numItems) => {
 const SnapJudgment = () => {
   const {
     baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
-    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems,
+    incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems, handleCorrectAnswerMiniGames, setRogueClickCounter, currentVocal, setCurrentVocal, handleCurrentRogueVocal, rogueClickCounter
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
   let totalAnswered = correctAnsweredMiniGames + incorrectAnsweredMiniGames;
@@ -37,6 +37,7 @@ const SnapJudgment = () => {
   const [isGameCompleted, setIsGameCompleted] = useState(false);
   const navigate = useNavigate();
   const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
+  const gameSucceed = new Audio('/music/SFX/FightRogueFox/Anotherwin.mp3');
 
   useEffect(() => {
     const fetchSnap = async () => {
@@ -66,7 +67,7 @@ const SnapJudgment = () => {
     }, 1000);
 
     return () => clearInterval(intervalIdRef.current);
-  }, [isGameCompleted]);
+  }, [currentSnap]);
 
   useEffect(() => {
     if (seconds === 0) {
@@ -85,7 +86,7 @@ const SnapJudgment = () => {
     const incorrectSound = new Audio('/music/SFX/FightRogueFox/IncorrectAnswer.mp3');
 
     if (selectedAnswer === correctAnswerr) {
-      setCorrectAnsweredMiniGames(correctAnsweredMiniGames + 1);
+      handleCorrectAnswerMiniGames();
       setCorInc(prevCorInc => prevCorInc.map((item, index) => index === snapNumber ? true : item));
       handleFoxDamaged();
       correctSound.play();
@@ -98,9 +99,10 @@ const SnapJudgment = () => {
 
     if (snapNumber < currentSnap.length - 1) {
       setSnapNumber(snapNumber + 1);
-      setSeconds(25); // Reset the timer for the next question
+      setSeconds(25);
     } else {
-      setIsGameCompleted(true); // Show the popup when the game is completed
+      setIsGameCompleted(true);
+      correctAnsweredMiniGames >= 7 ? gameSucceed.play() : gameFail.play();
       clearInterval(intervalIdRef.current);
     }
   };
@@ -148,7 +150,17 @@ const SnapJudgment = () => {
     navigate('/minigames');
   }
 
+  useEffect(() => {
+    if (currentVocal) {
+      let vocalAudio = new Audio(currentVocal);
+      vocalAudio.play();
 
+      setTimeout(() => {
+        setCurrentVocal('');
+        setRogueClickCounter(0);
+      }, 1000);
+    }
+  }, [currentVocal]);
 
   return (
     <div className='snapJudgmentGameWrapper'>
@@ -222,10 +234,10 @@ const SnapJudgment = () => {
 
           <div className='snapRightSideContent'>
             <div className='foxWrap'>
-              {roughFoxDamaged && <> <p className='foxTextTought'>
+              {roughFoxDamaged && <> <p className='snapFoxTextTought'>
                 {roughFoxDamaged}
               </p>
-                <img className='foxTought' src={foxTought} alt="foxtought" /></>}
+                <img className='snapFoxTought' src={foxTought} alt="foxtought" /></>}
               <img className='foxUserPick' src={foxuserpick} alt="foxuserpick" />
             </div>
             <div className='gameTimerWrapper'>

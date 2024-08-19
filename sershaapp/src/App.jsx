@@ -29,6 +29,7 @@ import MapPage from './pages/map/MapPage.jsx'
 import SettingsPage from './pages/settingsPage/SettingsPage.jsx'
 
 import { MusicProvider } from './context/MusicContext.jsx';
+import CheckoutPage from './pages/checkoutPage/CheckoutPage.jsx'
 
 // Layout Component
 const Layout = () => {
@@ -173,6 +174,14 @@ const router = createBrowserRouter([
             <AdminPanel />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: '/checkout',
+        element: (
+          <ProtectedRoute>
+            <CheckoutPage />
+          </ProtectedRoute>
+        )
       }
     ],
   },

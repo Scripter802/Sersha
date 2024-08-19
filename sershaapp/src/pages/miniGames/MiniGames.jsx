@@ -41,7 +41,7 @@ const MiniGames = () => {
 
   return (
     <div className='mainWrapper'>
-      <div className='headerContainer'>
+      <div className=''>
         {window.innerWidth < 1000 && <HeaderResponsive />}
       </div>
       <div className='miniGamesWrapper'>

@@ -109,10 +109,10 @@ const AdminPanelFriendOrFoe = () => {
             <thead>
               <tr>
                 <th>No.</th>
-                <th>Profile Name</th>
-                <th>Gender</th>
                 <th>Image</th>
                 <th>Profile Description</th>
+                <th>Profile Name</th>
+                <th>Answer</th>
                 <th>Stage</th>
                 <th>Edit/Delete</th>
               </tr>
@@ -121,10 +121,10 @@ const AdminPanelFriendOrFoe = () => {
               {allFriendOrFoeAssignments && allFriendOrFoeAssignments.map((post, index) =>
                 <tr key={index}>
                   <td data-label="No.">{index + 1}</td>
-                  <td data-label="AuthorName">{post?.questions[0]?.text}</td>
-                  <td data-label="AuthorName">Male</td>
                   <td data-label="Image"><img src={`${baseUrlImage}${post?.questions[0]?.imagePath}`} alt="Post Image" /></td>
                   <td data-label="AuthorName">{post?.questions[0]?.content}</td>
+                  <td data-label="AuthorName">{post?.questions[0]?.text}</td>
+                  <td data-label="AuthorName">{post?.questions[0]?.answers.map(ans => ans.isCorrect ? ans.text : '')}</td>
                   <td data-label="Bundle">{post.difficulty == '0' ? 'Easy' : post.difficulty == '1' ? 'Medium' : 'Hard'}</td>
 
                   <td data-label="Edit/Delete" className='settingsData'>

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
+using Domain;
 
 namespace Application.User
 {
@@ -49,9 +51,11 @@ namespace Application.User
         {
             private readonly DataContext _context;
 
+            private readonly UserManager<AppUser> _userManager;
 
-            public Handler(DataContext context)
+            public Handler(DataContext context, UserManager<AppUser> userManager)
             {
+                _userManager = userManager;
                 _context = context;
             }
 
@@ -65,9 +69,7 @@ namespace Application.User
                 {
                     throw new RestException(HttpStatusCode.NotFound, new { user = "Not found" });
                 }
-
                 user.FullName = request.FullName ?? user.FullName;
-                user.Password = request.Password ?? user.Password;  
                 user.ParentsFullName = request.ParentsFullName ?? user.ParentsFullName;
                 user.ParentPhoneNumber = request.ParentPhoneNumber ?? user.ParentPhoneNumber;
                 user.UserBirthDate = request.UserBirthDate != default ? request.UserBirthDate : user.UserBirthDate;
@@ -75,7 +77,9 @@ namespace Application.User
                 user.CoinBalance = request.CoinBalance != default ? request.CoinBalance : user.CoinBalance;
                 user.Type = request.Type ?? user.Type;
                 user.isFirstTimeLoggedIn = request.isFirstTimeLoggedIn;
-
+                /*if(request.Password != null){
+                    _userManager.ResetPasswordAsync(request.Password);
+                }*/
                 if(request.AvatarImageId != user.AvatarImageId && request.AvatarImageId != null){
                     user.AvatarImageId = request.AvatarImageId;
                     user.AvatarImage = _context.AvatarImages.FirstOrDefault(x => x.Id == request.AvatarImageId);

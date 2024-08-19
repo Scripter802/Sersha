@@ -67,6 +67,7 @@ namespace Application.Quizzes
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+                Console.WriteLine(request.QuizName + " \n\n\n\n\n\n");
                 var quiz = await _context.Quizzes
                     .Include(q => q.Questions)
                     .ThenInclude(q => q.Answers)
@@ -107,9 +108,36 @@ namespace Application.Quizzes
                         question.ImagePath = questionImagePath;
                         question.Answers = questionDto.Answers.Select(a => new Answer
                         {
+                            
                             Text = a.Text,
                             IsCorrect = a.IsCorrect
                         }).ToList();
+                        question.Content = questionDto.Content;
+                        if(question.Type == QuestionType.FillInTheBlank){
+                            (question as FillInTheBlankQuestion).Statement1 = questionDto.Statement1;
+                            (question as FillInTheBlankQuestion).Statement2 = questionDto.Statement2;
+                        }    
+                        /*if(question.Type == QuestionType.Grouping){
+                            (question as GroupingQuestion).Text = questionDto.QuestionText;
+                            
+                            Console.WriteLine(question.Id + " \n\n\n\n\n\n");
+
+                            foreach(var g in questionDto.Groups){
+                                Console.WriteLine(g.GroupName);
+                            }
+
+
+                            
+                            Console.WriteLine("\n\n\n\n\n\n");
+                            (question as GroupingQuestion).Groups = questionDto.Groups.Select(g => new Group
+                            {
+                                Name = g.GroupName,
+                                GroupingItems = g.Items.Select(i => new GroupingItem
+                                {
+                                    Item = i.Item
+                                }).ToList()
+                            }).ToList();
+                        }*/                    
                     }
                 }
 

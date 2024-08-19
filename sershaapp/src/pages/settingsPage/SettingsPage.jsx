@@ -26,25 +26,25 @@ const SettingsPage = () => {
         console.log('Error fetching avatars:', error);
       }
     }
-    const fetchUserByEmail = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}/user/${user.email}`);
-        setUserByEmail(response.data)
-        console.log(userByEmail)
-      } catch (error) {
-        console.log('Error fetching avatars:', error);
-      }
-    };
+    // const fetchUserByEmail = async () => {
+    //   try {
+    //     const response = await axios.get(`${baseUrl}/user/${user.email}`);
+    //     setUserByEmail(response.data)
+    //     console.log(userByEmail)
+    //   } catch (error) {
+    //     console.log('Error fetching avatars:', error);
+    //   }
+    // };
 
     fetchAvatars();
-    fetchUserByEmail();
+    // fetchUserByEmail();
 
   }, [baseUrl]);
 
-  useEffect(() => {
-    setUser({ ...user, parentPhoneNumber: userByEmail?.parentPhoneNumber, parentsFullName: userByEmail?.parentsFullName })
+  // useEffect(() => {
+  //   setUser({ ...user, parentPhoneNumber: userByEmail?.parentPhoneNumber, parentsFullName: userByEmail?.parentsFullName })
 
-  }, [userByEmail]);
+  // }, [userByEmail]);
 
   useEffect(() => {
     if (user) {
@@ -135,34 +135,52 @@ const SettingsPage = () => {
             <input className='fullNameChange' type="text" name="fullName" value={updatedUser?.fullName} onChange={handleInputChange} disabled={!isEditing} style={{ color: isEditing && 'black' }} />
           </div>
           <div className="formGrid">
-            <div className="formColumn">
+            <div className="formColumn a">
               <label>Parent's name</label>
               <input className='parentsFullNameChange' type="text" name="parentsFullName" value={updatedUser?.parentsFullName == null ? '' : updatedUser.parentsFullName} onChange={handleInputChange} disabled={!isEditing} style={{ color: isEditing && 'black' }} />
             </div>
-            <div className="formColumn">
+            <div className="formColumn b">
               <label>Parent's phone number</label>
               <input className='parentPhoneNumberChange' type="text" name="parentPhoneNumber" value={updatedUser?.parentPhoneNumber == null ? '' : updatedUser.parentPhoneNumber} onChange={handleInputChange} disabled={!isEditing} style={{ color: isEditing && 'black' }} />
             </div>
-            <div className="formColumn">
+            <div className="formColumn c">
               <label>Email</label>
               <input className='emailChange' type="email" name="email" value={updatedUser?.email == null ? '' : updatedUser.email} onChange={handleInputChange} disabled style={{ color: isEditing && 'black' }} />
             </div>
-            <div className="formColumn">
+            <div className="formColumn d">
               <label>Birthdate</label>
               <input className='birthdateChange' type="date" name="userBirthDate" value={birthdate} onChange={handleInputChange} disabled={!isEditing} style={{ color: isEditing && 'black' }} />
             </div>
-            <div className="formColumn">
-              <label>Password</label>
-              <div className='passwordInputField'>
-                <input className='passwordChange' type={isSettingsShowPassword ? "text" : "password"} name="password" value={updatedUser?.password == null ? '' : updatedUser.password} onChange={handleInputChange} disabled={!isEditing} style={{ color: isEditing && 'black' }} />
-                <button
-                  type="button"
-                  className=" settingsBtnShowHide"
-                  onClick={() => setIsSettingsShowPassword(!isSettingsShowPassword)}
-                >
-                  {isSettingsShowPassword ? <img src={visible} /> : <img src={visible} />}
-                </button>
 
+            <div className='passwordChangeWrapper e '>
+
+              <div className="formColumn">
+                <label>Old Password</label>
+                <div className='passwordInputField'>
+                  <input className='passwordChange' type={isSettingsShowPassword ? "text" : "password"} name="oldPassword" value={updatedUser?.oldPassword == null ? '' : updatedUser.oldPassword} onChange={handleInputChange} disabled={!isEditing} style={{ color: isEditing && 'black' }} />
+                  <button
+                    type="button"
+                    className=" settingsBtnShowHide"
+                    onClick={() => setIsSettingsShowPassword(!isSettingsShowPassword)}
+                  >
+                    {isSettingsShowPassword ? <img src={visible} /> : <img src={visible} />}
+                  </button>
+
+                </div>
+              </div>
+              <div className="formColumn">
+                <label>New Password</label>
+                <div className='passwordInputField'>
+                  <input className='passwordChange' type={isSettingsShowPassword ? "text" : "password"} name="newPassword" value={updatedUser?.newPassword == null ? '' : updatedUser.newPassword} onChange={handleInputChange} disabled={!isEditing} style={{ color: isEditing && 'black' }} />
+                  <button
+                    type="button"
+                    className=" settingsBtnShowHide"
+                    onClick={() => setIsSettingsShowPassword(!isSettingsShowPassword)}
+                  >
+                    {isSettingsShowPassword ? <img src={visible} /> : <img src={visible} />}
+                  </button>
+
+                </div>
               </div>
             </div>
           </div>

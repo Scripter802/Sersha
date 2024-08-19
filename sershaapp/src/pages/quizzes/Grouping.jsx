@@ -16,7 +16,8 @@ const Grouping = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
   const { setShowPopup, currentQuestion, currentQuizz, setCurrentQuestion, heartsNum, setHeartsNum, correctAnswers, setCorrectAnswers, wrongAnswers, setWrongAnswers,
     isShield, setIsShield,
     isCorrectAnswer, setIsCorrectAnswer,
-    isCoinMultiplier, setIsCoinMultiplier, } = useGlobalContext();
+    isCoinMultiplier, setIsCoinMultiplier, handleCorrectAnswerQuiz,
+    currentVocal, setCurrentVocal, setRogueClickCounter, } = useGlobalContext();
   const [droppedOne, setDroppedOne] = useState([]);
   const [droppedTwo, setDroppedTwo] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -25,6 +26,8 @@ const Grouping = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
   const [showNextButton, setShowNextButton] = useState(false);
   const correctGroup1 = currentQ.groups[0].groupingItems.map(item => item.item);
   const correctGroup2 = currentQ.groups[1].groupingItems.map(item => item.item);
+  const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
+  const gameSucceed = new Audio('/music/SFX/FightRogueFox/Advancetonextlevel.mp3');
 
   useEffect(() => {
     setDroppedOne(new Array(currentQ.groups[0].groupingItems.length).fill(null));
@@ -90,6 +93,8 @@ const Grouping = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
   const handleCheck = () => {
     if (currentQ?.groups && currentQuizz.questions.length - 1 === currentQuestion) {
       setShowPopup(true);
+      correctAnswers >= 7 ? gameSucceed.play() : gameFail.play();
+
     }
 
 
@@ -99,7 +104,7 @@ const Grouping = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
     const incorrectSound = new Audio('/music/SFX/FightRogueFox/IncorrectAnswer.mp3');
 
     if (res) {
-      setCorrectAnswers(prev => prev + 1);
+      handleCorrectAnswerQuiz();
       setFeedback({ type: 'correct', message: 'Correct Answer!' });
       correctSound.play();
     } else {
@@ -130,6 +135,18 @@ const Grouping = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
     setShowNextButton(false);
     setCurrentQuestion(prev => prev + 1);
   }
+
+  useEffect(() => {
+    if (currentVocal) {
+      let vocalAudio = new Audio(currentVocal);
+      vocalAudio.play();
+
+      setTimeout(() => {
+        setCurrentVocal('');
+        setRogueClickCounter(0);
+      }, 1000);
+    }
+  }, [currentVocal]);
 
   return (
     <div className='GroupingQuizWrapper'>

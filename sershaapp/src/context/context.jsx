@@ -291,6 +291,18 @@ const AppProvider = ({ children }) => {
     });
   };
 
+  const handleCorrectAnswerQuiz = () => {
+    setCorrectAnswers((prevCorrectAnswersQuiz) => prevCorrectAnswersQuiz + 1);
+
+    setRogueClickCounter((prevCounter) => {
+      if (prevCounter < 3) {
+        return prevCounter + 1;
+      } else {
+        return 1;
+      }
+    });
+  };
+
   const handleFoxDamaged = () => {
     let randomIndex = Math.floor(Math.random() * roughFoxComments.length);
 
@@ -1110,6 +1122,7 @@ const AppProvider = ({ children }) => {
         correctAnsweredMiniGames,
         setCorrectAnsweredMiniGames,
         handleCorrectAnswerMiniGames,
+        handleCorrectAnswerQuiz,
         incorrectAnsweredMiniGames,
         setIncorrectAnsweredMiniGames,
         corInc,

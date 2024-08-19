@@ -17,8 +17,10 @@
   padding: 2rem;
   border-radius: 30px;
   position: relative;
-  width: 80%;
-  max-width: 500px;
+  width: 80vw;
+  height: 80vh;
+  overflow-y: scroll;
+  margin-top: 2rem;
   text-align: center;
 }
 

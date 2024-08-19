@@ -30,12 +30,17 @@ const CorrectAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) =>
     isShield, setIsShield,
     isCorrectAnswer, setIsCorrectAnswer,
     isCoinMultiplier, setIsCoinMultiplier,
+    handleCorrectAnswerQuiz,
+    currentVocal, setCurrentVocal, setRogueClickCounter,
   } = useGlobalContext();
 
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [feedback, setFeedback] = useState(null); // For storing feedback
-  const [showNextButton, setShowNextButton] = useState(false); // To toggle "Next" button
+  const [feedback, setFeedback] = useState(null);
+  const [showNextButton, setShowNextButton] = useState(false);
   const [checked, setChecked] = useState(false);
+  const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
+  const gameSucceed = new Audio('/music/SFX/FightRogueFox/Advancetonextlevel.mp3');
+  console.log(selectedAnswer, isCorrectAnswer)
 
   const messages = [
     {
@@ -76,7 +81,7 @@ const CorrectAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) =>
     const incorrectSound = new Audio('/music/SFX/FightRogueFox/IncorrectAnswer.mp3');
 
     if (selectedAnswer === currentQ.isCorrect) {
-      setCorrectAnswers((prev) => prev + 1);
+      handleCorrectAnswerQuiz();
       setFeedback({ type: 'correct', message: 'Correct Answer!' });
       correctSound.play();
     } else {
@@ -94,6 +99,7 @@ const CorrectAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) =>
   const handleNext = () => {
     if (currentQuizz.questions.length - 1 === currentQuestion) {
       setShowPopup(true);
+      correctAnswers >= 7 ? gameSucceed.play() : gameFail.play();
       setIsCorrectAnswer(false);
       setIsShield(false);
     } else {
@@ -105,6 +111,18 @@ const CorrectAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) =>
       setShowNextButton(false);
     }
   };
+
+  useEffect(() => {
+    if (currentVocal) {
+      let vocalAudio = new Audio(currentVocal);
+      vocalAudio.play();
+
+      setTimeout(() => {
+        setCurrentVocal('');
+        setRogueClickCounter(0);
+      }, 1000);
+    }
+  }, [currentVocal]);
 
   return (
     <div className='correctAnswerQuizWrapper'>
@@ -150,20 +168,20 @@ const CorrectAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) =>
           {selectedAnswer === null && <h5>Answer options</h5>}
           <div className='correctAnswerAnsWrapper'>
 
-            <p className={`${checked && currentQ?.isCorrect || isCorrectAnswer && currentQ?.isCorrect ? 'correctOfferedAnswersTrue' : 'correctOfferedAnswers'}`} onClick={() => handleAnswerSelection('True')}>
+            <div className={`${checked && currentQ?.isCorrect || isCorrectAnswer && currentQ?.isCorrect ? 'correctOfferedAnswersTrue' : 'correctOfferedAnswers'}`} onClick={() => handleAnswerSelection('True')}>
               <div className='offeredTrue'>
                 <img src={done} alt='done' />
                 True
               </div>
-            </p>
-            <p className={`${checked && !currentQ?.isCorrect || isCorrectAnswer && !currentQ?.isCorrect ? 'correctOfferedAnswersTrue' : 'correctOfferedAnswers'}`} onClick={() => handleAnswerSelection('False')}>
+            </div>
+            <div className={`${checked && currentQ?.isCorrect || isCorrectAnswer && !currentQ?.isCorrect ? 'correctOfferedAnswersTrue' : 'correctOfferedAnswers'}`} onClick={() => handleAnswerSelection('False')}>
 
               <div className='offeredFalse'>
                 <img src={incorrect} alt='done' />
                 False
               </div>
 
-            </p>
+            </div>
           </div>
           {selectedAnswer !== null && (
             <div className='doneButtonWrapper'>

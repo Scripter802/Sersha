@@ -156,9 +156,9 @@ const EmojiEmotions = () => {
   useEffect(() => {
     if (currentVocal) {
       let vocalAudio = new Audio(currentVocal);
-      vocalAudio.play();
 
       setTimeout(() => {
+        vocalAudio.play();
         setCurrentVocal('');
         setRogueClickCounter(0);
       }, 1000);

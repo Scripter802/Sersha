@@ -73,13 +73,38 @@
 .formGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-areas: "a b"
+    "c d"
+    "e e";
   gap: 10px;
+}
+
+.a {
+  grid-area: a;
+}
+
+.b {
+  grid-area: b;
+}
+
+.c {
+  grid-area: c;
+}
+
+.d {
+  grid-area: d;
+}
+
+.e {
+  grid-area: e;
 }
 
 .formColumn {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+
 }
 
 .formColumn label,
@@ -114,7 +139,7 @@ button:hover {
 }
 
 .avatarPopup {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -123,6 +148,7 @@ button:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1000;
 }
 
 .popupContent {
@@ -142,8 +168,8 @@ button:hover {
 }
 
 .avatarOptions img {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   cursor: pointer;
 }
@@ -156,7 +182,17 @@ button:hover {
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
 }
+
+.passwordChangeWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+
 
 .settingsBtnShowHide {
   background: none;

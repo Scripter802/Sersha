@@ -150,6 +150,18 @@ const PostingChallenge = () => {
     navigate('/');
   };
 
+  useEffect(() => {
+    if (currentVocal) {
+      let vocalAudio = new Audio(currentVocal);
+
+      setTimeout(() => {
+        vocalAudio.play();
+        setCurrentVocal('');
+        setRogueClickCounter(0);
+      }, 1000);
+    }
+  }, [currentVocal]);
+
   return (
     <div className='postingChallengeWrapper'>
       {isGameCompleted && (

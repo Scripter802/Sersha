@@ -43,13 +43,13 @@ const SnapJudgmentEdit = () => {
     updatedSnapJudgmentFormData.append("questions[0][answers]", editSnapJudgment.questions[0].answers);
 
 
-    // await axios.put(`${baseUrl}/Quizzes/${editSnapJudgment.id}}`, updatedSnapJudgmentFormData, {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //     'Access-Control-Allow-Origin': '*',
-    //     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-    //   },
-    // });
+    await axios.put(`${baseUrl}/Quizzes/${editSnapJudgment.id}}`, updatedSnapJudgmentFormData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      },
+    });
 
     setEditingSnapJudgment(null);
     setIsSnapJudgmentEdit(false);
@@ -82,6 +82,7 @@ const SnapJudgmentEdit = () => {
       setEditSnapJudgment({ ...editSnapJudgment, [field]: value });
     }
   };
+
 
   return (
     <div className="editSnapJudgmentContainer">

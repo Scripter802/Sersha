@@ -84,6 +84,40 @@
   height: 80px;
 }
 
+#emojiMiddle {
+  position: relative;
+  margin: 50px auto;
+  text-align: center;
+  line-height: 100px;
+  font-size: 24px;
+}
+
+#emojiMiddle::before {
+  content: '';
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-top: 25px solid #FBA07A;
+  animation: moveUpDown 1.5s infinite;
+}
+
+@keyframes moveUpDown {
+  0% {
+    top: -35px;
+  }
+
+  50% {
+    top: -45px;
+  }
+
+  100% {
+    top: -35px;
+  }
+}
+
 .emojiGameCard {
   display: flex;
   justify-content: center;

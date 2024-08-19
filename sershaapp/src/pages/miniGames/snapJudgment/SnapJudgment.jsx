@@ -150,7 +150,17 @@ const SnapJudgment = () => {
     navigate('/minigames');
   }
 
+  useEffect(() => {
+    if (currentVocal) {
+      let vocalAudio = new Audio(currentVocal);
+      vocalAudio.play();
 
+      setTimeout(() => {
+        setCurrentVocal('');
+        setRogueClickCounter(0);
+      }, 1000);
+    }
+  }, [currentVocal]);
 
   return (
     <div className='snapJudgmentGameWrapper'>

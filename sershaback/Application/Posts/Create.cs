@@ -66,9 +66,7 @@ namespace Application.Posts
                     
                 };
                 
-                if (request.Image != null)
-    {
-        String path = Directory.GetCurrentDirectory() + "\\wwwroot\\Images\\postImages\\" + request.Stage;
+                String path = Directory.GetCurrentDirectory() + "\\wwwroot\\Images\\postImages\\" + request.Stage;
                 if(request.Image != null){
                     FileInfo fi = new FileInfo(request.Image.FileName);
                     string fileName = fi.Name + fi.Extension;

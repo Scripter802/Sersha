@@ -38,9 +38,8 @@ namespace Application.Chats
                     .ToListAsync(cancellationToken);
 
                 Random random = new Random();
-                var message = messages
-                                .OrderBy(q => random.Next())
-                                .FirstOrDefault();
+                
+                var message = messages.ElementAt(random.Next(messages.Count()));
 
                 if (message == null)
                 {

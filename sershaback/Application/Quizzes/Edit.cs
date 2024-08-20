@@ -116,27 +116,17 @@ namespace Application.Quizzes
                             (question as FillInTheBlankQuestion).Statement1 = questionDto.Statement1;
                             (question as FillInTheBlankQuestion).Statement2 = questionDto.Statement2;
                         }    
-                        /*if(question.Type == QuestionType.Grouping){
-                            (question as GroupingQuestion).Text = questionDto.QuestionText;
-                            
-                            Console.WriteLine(question.Id + " \n\n\n\n\n\n");
-
-                            foreach(var g in questionDto.Groups){
-                                Console.WriteLine(g.GroupName);
-                            }
-
-
-                            
-                            Console.WriteLine("\n\n\n\n\n\n");
+                        if(question.Type == QuestionType.Grouping){
+                            (question as GroupingQuestion).Text = questionDto.Text;
                             (question as GroupingQuestion).Groups = questionDto.Groups.Select(g => new Group
                             {
-                                Name = g.GroupName,
-                                GroupingItems = g.Items.Select(i => new GroupingItem
+                                Name = g.Name,
+                                GroupingItems = g.GroupingItems.Select(i => new GroupingItem
                                 {
                                     Item = i.Item
                                 }).ToList()
                             }).ToList();
-                        }*/                    
+                        }                   
                     }
                 }
 

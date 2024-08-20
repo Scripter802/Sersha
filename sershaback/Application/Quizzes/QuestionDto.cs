@@ -12,7 +12,7 @@ namespace Application.Quizzes
         public Guid Id { get; set; } 
         public QuestionType Type { get; set; }
         #nullable enable
-        public string? QuestionText { get; set; }
+        public string? Text { get; set; }
         public IFormFile? ImageFile { get; set; } 
         public string? ImagePath { get; set; } 
         public string? Content { get; set; } 

@@ -84,6 +84,9 @@ namespace Application.User
                 if(request.AvatarImageId != user.AvatarImageId && request.AvatarImageId != null){
                     user.AvatarImageId = request.AvatarImageId;
                     user.AvatarImage = _context.AvatarImages.FirstOrDefault(x => x.Id == request.AvatarImageId);
+                }else{
+                    user.AvatarImageId = request.AvatarImageId;
+                    user.AvatarImage = _context.AvatarImages.FirstOrDefault(x => x.Id == user.AvatarImageId);
                 }      
 
                 _context.Users.Update(user);

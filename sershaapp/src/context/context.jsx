@@ -188,8 +188,14 @@ const AppProvider = ({ children }) => {
 
   const [slideshowCreateNew, setSlideshowCreateNew] = useState(false);
   const [slideshowNew, setSlideshowNew] = useState({
-    image: null,
-    name: ''
+    level: 0,
+    slides: [
+      {
+        name: '',
+        place: 0,
+        gif: null,
+      },
+    ]
   });
   const [isSlideshowEdit, setIsSlideshowEdit] = useState(false);
   const [slideshowEditing, setSlideshowEditing] = useState(null);

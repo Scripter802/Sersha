@@ -19,8 +19,8 @@ const QuizzesCreateNew = () => {
         statement1: '',
         statement2: '',
         groups: [
-          { groupName: '', items: [{ item: '' }] },
-          { groupName: '', items: [{ item: '' }] }
+          { name: '', groupingItems: [{ item: '' }] },
+          { name: '', groupingItems: [{ item: '' }] }
         ],
       }
     ]
@@ -49,7 +49,7 @@ const QuizzesCreateNew = () => {
         formData.append(`questions[${qIndex}][isCorrect]`, question.isCorrect);
       }
       formData.append(`questions[${qIndex}][type]`, type);
-      formData.append(`questions[${qIndex}][questionText]`, question.text);
+      formData.append(`questions[${qIndex}][text]`, question.text);
       formData.append(`questions[${qIndex}][statement1]`, question.statement1);
       formData.append(`questions[${qIndex}][statement2]`, question.statement2);
 
@@ -59,9 +59,9 @@ const QuizzesCreateNew = () => {
       });
 
       question.groups.forEach((group, gIndex) => {
-        formData.append(`questions[${qIndex}][groups][${gIndex}][groupName]`, group.groupName);
-        group.items.forEach((item, iIndex) => {
-          formData.append(`questions[${qIndex}][groups][${gIndex}][items][${iIndex}][item]`, item.item);
+        formData.append(`questions[${qIndex}][groups][${gIndex}][name]`, group.name);
+        group.groupingItems.forEach((item, iIndex) => {
+          formData.append(`questions[${qIndex}][groups][${gIndex}][groupingItems][${iIndex}][item]`, item.item);
         });
       });
     });
@@ -91,8 +91,8 @@ const QuizzesCreateNew = () => {
           statement1: '',
           statement2: '',
           groups: [
-            { groupName: '', items: [{ item: '' }] },
-            { groupName: '', items: [{ item: '' }] }
+            { name: '', groupingItems: [{ item: '' }] },
+            { name: '', groupingItems: [{ item: '' }] }
           ],
           isCorrect: false,
         }
@@ -127,7 +127,7 @@ const QuizzesCreateNew = () => {
 
   const handleAddGroupItem = (qIndex, gIndex) => {
     const updatedQuestions = [...currentQuestion.questions];
-    updatedQuestions[qIndex].groups[gIndex].items.push({ item: '' });
+    updatedQuestions[qIndex].groups[gIndex].groupingItems.push({ item: '' });
     setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
   };
 
@@ -139,7 +139,7 @@ const QuizzesCreateNew = () => {
 
   const handleGroupItemChange = (qIndex, gIndex, iIndex, value) => {
     const updatedQuestions = [...currentQuestion.questions];
-    updatedQuestions[qIndex].groups[gIndex].items[iIndex].item = value;
+    updatedQuestions[qIndex].groups[gIndex].groupingItems[iIndex].item = value;
     setCurrentQuestion({ ...currentQuestion, questions: updatedQuestions });
   };
 
@@ -337,14 +337,14 @@ const QuizzesCreateNew = () => {
                 <input
                   className='inputField'
                   type="text"
-                  value={question.groups[0].groupName}
+                  value={question.groups[0].name}
                   placeholder='Group 1 Name'
-                  onChange={(e) => handleGroupChange(qIndex, 0, 'groupName', e.target.value)}
+                  onChange={(e) => handleGroupChange(qIndex, 0, 'name', e.target.value)}
                 />
               </div>
               <div className='optionsForm'>
                 <label className='fieldLabel'>Options</label>
-                {question.groups[0].items.map((item, iIndex) => (
+                {question?.groups[0]?.groupingItems.map((item, iIndex) => (
                   <div className='optionBox' key={iIndex}>
                     <input
                       className='inputField'
@@ -364,14 +364,14 @@ const QuizzesCreateNew = () => {
                 <input
                   className='inputField'
                   type="text"
-                  value={question.groups[1].groupName}
+                  value={question?.groups[1]?.name}
                   placeholder='Group 2 Name'
-                  onChange={(e) => handleGroupChange(qIndex, 1, 'groupName', e.target.value)}
+                  onChange={(e) => handleGroupChange(qIndex, 1, 'name', e.target.value)}
                 />
               </div>
               <div className='optionsForm'>
                 <label className='fieldLabel'>Options</label>
-                {question.groups[1].items.map((item, iIndex) => (
+                {question.groups[1].groupingItems.map((item, iIndex) => (
                   <div className='optionBox' key={iIndex}>
                     <input
                       className='inputField'

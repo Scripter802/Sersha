@@ -102,6 +102,8 @@ const SettingsPage = () => {
       parentPhoneNumber: updatedUser.parentPhoneNumber,
       userBirthDate: updatedUser.birthdate,
       image: updatedUser?.image?.imagePath ? updatedUser?.image?.imagePath : updatedUser.image,
+      oldPassword: updatedUser.oldPassword,
+      newPassword: updatedUser.newPassword,
     };
 
     let updatingUser = { ...updatedUser, image: userChanges.image };

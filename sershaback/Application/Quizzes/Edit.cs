@@ -103,7 +103,7 @@ namespace Application.Quizzes
                     }
                     else
                     {
-                        question.Text = questionDto.QuestionText;
+                        question.Text = questionDto.Text;
                         question.ImagePath = questionImagePath;
                         question.Answers = questionDto.Answers.Select(a => new Answer
                         {
@@ -187,7 +187,7 @@ namespace Application.Quizzes
 
                 return new RightAnswerQuestion
                 {
-                    Text = questionDto.QuestionText,
+                    Text = questionDto.Text,
                     Answers = answers,
                     ImagePath = questionImagePath
                 };

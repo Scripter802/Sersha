@@ -52,7 +52,7 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(Guid id, [FromBody] Edit.Command command)
+        public async Task<IActionResult> Edit(Guid id, [FromForm] Edit.Command command)
         {
             if (id != command.Id)
             {

@@ -4,7 +4,7 @@ import SingleQuizzCreateNew from './SingleQuizzCreateNew/SingleQuizzCreateNew';
 import axios from 'axios';
 import './singleQuizz.css';
 
-const SingleQuizz = ({ quizz }) => {
+const SingleQuizz = ({ quizz, setIsSingleQuizz }) => {
   const { baseUrl, quizzCreateNew } = useGlobalContext();
   const [quizData, setQuizData] = useState({ ...quizz });
 
@@ -47,6 +47,7 @@ const SingleQuizz = ({ quizz }) => {
   const handleEditQuizz = async () => {
     try {
       await axios.put(`${baseUrl}/Quizzes/${quizData.id}`, quizData);
+      setIsSingleQuizz(false);
     } catch (error) {
       console.log(error);
     }

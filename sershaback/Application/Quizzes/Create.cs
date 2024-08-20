@@ -34,19 +34,19 @@ namespace Application.Quizzes
                 RuleFor(x => x.Difficulty).IsInEnum();
                 RuleForEach(x => x.Questions).ChildRules(question =>
                 {
-                    question.RuleFor(q => q.QuestionText)
+                    question.RuleFor(q => q.Text)
                         .NotEmpty()
                         .When(q => q.ImageFile == null && (string.IsNullOrEmpty(q.Statement1) || string.IsNullOrEmpty(q.Statement2)))
                         .WithMessage("QuestionText or ImageFile or Statement1 and Statement2 must be filled.");
 
                     question.RuleFor(q => q.ImageFile)
                         .NotNull()
-                        .When(q => string.IsNullOrEmpty(q.QuestionText) && (string.IsNullOrEmpty(q.Statement1) || string.IsNullOrEmpty(q.Statement2)))
+                        .When(q => string.IsNullOrEmpty(q.Text) && (string.IsNullOrEmpty(q.Statement1) || string.IsNullOrEmpty(q.Statement2)))
                         .WithMessage("QuestionText or ImageFile or Statement1 and Statement2 must be filled.");
 
                     question.RuleFor(q => new { q.Statement1, q.Statement2 })
                         .Must(statements => !string.IsNullOrEmpty(statements.Statement1) && !string.IsNullOrEmpty(statements.Statement2))
-                        .When(q => string.IsNullOrEmpty(q.QuestionText) && q.ImageFile == null)
+                        .When(q => string.IsNullOrEmpty(q.Text) && q.ImageFile == null)
                         .WithMessage("QuestionText or ImageFile or Statement1 and Statement2 must be filled.");
                 });
 
@@ -145,21 +145,21 @@ namespace Application.Quizzes
                     case QuestionType.RightAnswer:
                         return new RightAnswerQuestion
                         {
-                            Text = questionDto.QuestionText,
+                            Text = questionDto.Text,
                             Answers = answers
                         };
 
                     case QuestionType.CorrectIncorrect:
                         return new CorrectIncorrectQuestion
                         {
-                            Text = questionDto.QuestionText,
+                            Text = questionDto.Text,
                             IsCorrect = questionDto.IsCorrect
                         };
 
                     case QuestionType.FillInTheBlank:
                         return new FillInTheBlankQuestion
                         {
-                            Text = questionDto.QuestionText,
+                            Text = questionDto.Text,
                             Statement1 = questionDto.Statement1,
                             Statement2 = questionDto.Statement2,
                             Answers = answers
@@ -168,11 +168,11 @@ namespace Application.Quizzes
                     case QuestionType.Grouping:
                         return new GroupingQuestion
                         {
-                            Text = questionDto.QuestionText,
+                            Text = questionDto.Text,
                             Groups = questionDto.Groups.Select(g => new Group
                             {
-                                Name = g.GroupName,
-                                GroupingItems = g.Items.Select(i => new GroupingItem
+                                Name = g.Name,
+                                GroupingItems = g.GroupingItems.Select(i => new GroupingItem
                                 {
                                     Item = i.Item
                                 }).ToList()
@@ -182,7 +182,7 @@ namespace Application.Quizzes
                     case QuestionType.SnapJudgement:
                         return new SnapJudgementQuestion
                         {
-                            Text = questionDto.QuestionText,
+                            Text = questionDto.Text,
                             Content = questionDto.Content,
                             ImagePath = questionImagePath,
                             Answers = answers
@@ -191,7 +191,7 @@ namespace Application.Quizzes
                     case QuestionType.EmojiEmotions:
                         return new EmojiEmotionsQuestion
                         {
-                            Text = questionDto.QuestionText,
+                            Text = questionDto.Text,
                             ImagePath = questionImagePath,
                             Answers = answers
                         };
@@ -199,7 +199,7 @@ namespace Application.Quizzes
                     case QuestionType.FriendOrFoe:
                         return new FriendOrFoeQuestion
                         {
-                            Text = questionDto.QuestionText,
+                            Text = questionDto.Text,
                             Content = questionDto.Content,
                             ImagePath = questionImagePath,
                             Answers = answers
@@ -208,7 +208,7 @@ namespace Application.Quizzes
                     case QuestionType.PostingChallenge:
                         return new PostingChallengeQuestion
                         {
-                            Text = questionDto.QuestionText,
+                            Text = questionDto.Text,
                             Content = questionDto.Content,
                             ImagePath = questionImagePath,
                             Answers = answers

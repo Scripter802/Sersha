@@ -5,8 +5,8 @@ namespace Application.Quizzes
 {
     public class GroupDto
     {
-        public string GroupName { get; set; }
-        public List<GroupingItemDto> Items { get; set; }
+        public string Name { get; set; }
+        public List<GroupingItemDto> GroupingItems { get; set; }
     }
 
 }

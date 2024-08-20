@@ -21,7 +21,8 @@ namespace Application.User
         {
             public string FullName { get; set; }
             public string Email { get; set; }
-            public string Password { get; set; }
+            public string OldPassword {get; set;}
+            public string NewPassword { get; set; }
             public string ParentsFullName { get; set; }
             public string ParentPhoneNumber { get; set; }
             public DateTime UserBirthDate { get; set; }
@@ -77,12 +78,15 @@ namespace Application.User
                 user.CoinBalance = request.CoinBalance != default ? request.CoinBalance : user.CoinBalance;
                 user.Type = request.Type ?? user.Type;
                 user.isFirstTimeLoggedIn = request.isFirstTimeLoggedIn;
-                /*if(request.Password != null){
-                    _userManager.ResetPasswordAsync(request.Password);
-                }*/
-                if(request.AvatarImageId != user.AvatarImageId && request.AvatarImageId != null){
+                if(request.NewPassword != null){
+                    await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+                }
+                if(request.AvatarImageId != user.AvatarImageId || request.AvatarImageId != null){
                     user.AvatarImageId = request.AvatarImageId;
                     user.AvatarImage = _context.AvatarImages.FirstOrDefault(x => x.Id == request.AvatarImageId);
+                }else{
+                    user.AvatarImageId = request.AvatarImageId;
+                    user.AvatarImage = _context.AvatarImages.FirstOrDefault(x => x.Id == user.AvatarImageId);
                 }      
 
                 _context.Users.Update(user);

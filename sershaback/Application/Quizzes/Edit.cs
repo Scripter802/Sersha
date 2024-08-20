@@ -115,9 +115,14 @@ namespace Application.Quizzes
                         if(question.Type == QuestionType.FillInTheBlank){
                             (question as FillInTheBlankQuestion).Statement1 = questionDto.Statement1;
                             (question as FillInTheBlankQuestion).Statement2 = questionDto.Statement2;
-                        }    
+                        } 
+                        if(question.Type == QuestionType.CorrectIncorrect){
+                            (question as CorrectIncorrectQuestion).IsCorrect = questionDto.IsCorrect;
+                        }   
                         if(question.Type == QuestionType.Grouping){
                             (question as GroupingQuestion).Text = questionDto.Text;
+                            var groups = _context.Groups.Where(x => x.GroupingQuestionId == question.Id).ToList();
+                            _context.Groups.RemoveRange(groups);
                             (question as GroupingQuestion).Groups = questionDto.Groups.Select(g => new Group
                             {
                                 Name = g.Name,

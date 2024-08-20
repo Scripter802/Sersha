@@ -81,7 +81,7 @@ namespace Application.User
                 if(request.NewPassword != null){
                     await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
                 }
-                if(request.AvatarImageId != user.AvatarImageId && request.AvatarImageId != null){
+                if(request.AvatarImageId != user.AvatarImageId || request.AvatarImageId != null){
                     user.AvatarImageId = request.AvatarImageId;
                     user.AvatarImage = _context.AvatarImages.FirstOrDefault(x => x.Id == request.AvatarImageId);
                 }else{

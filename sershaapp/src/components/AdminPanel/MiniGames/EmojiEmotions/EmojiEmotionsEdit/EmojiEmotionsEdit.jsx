@@ -32,9 +32,10 @@ const EmojiEmotionsEdit = () => {
   const handleSubmit = async () => {
     const updatedEmojiEmotionFormData = new FormData();
     updatedEmojiEmotionFormData.append('difficulty', editEmojiEmotion.difficulty);
+    updatedEmojiEmotionFormData.append("questions[0][id]", editEmojiEmotion.questions[0].id);
     updatedEmojiEmotionFormData.append("questions[0][text]", editEmojiEmotion.questions[0].text);
     updatedEmojiEmotionFormData.append(`questions[0][type]`, editEmojiEmotion.questions[0].type);
-    updatedEmojiEmotionFormData.append("questions[0][ImageFile]", emojiImage);
+    updatedEmojiEmotionFormData.append("questions[0].ImageFile", emojiImage);
     updatedEmojiEmotionFormData.append("questions[0][answers]", editEmojiEmotion.questions[0].answers);
 
 

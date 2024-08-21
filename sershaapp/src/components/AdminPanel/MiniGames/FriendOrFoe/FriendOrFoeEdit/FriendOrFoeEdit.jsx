@@ -34,10 +34,11 @@ const FriendOrFoeEdit = () => {
     const updatedPostingChallengeFormData = new FormData();
     updatedPostingChallengeFormData.append('id', editingFriendOrFoe.id);
     updatedPostingChallengeFormData.append('difficulty', editingFriendOrFoe.difficulty);
+    updatedPostingChallengeFormData.append("questions[0][id]", editingFriendOrFoe.questions[0].id);
     updatedPostingChallengeFormData.append("questions[0][text]", editingFriendOrFoe.questions[0].text);
     updatedPostingChallengeFormData.append("questions[0][content]", editingFriendOrFoe.questions[0].content);
     updatedPostingChallengeFormData.append(`questions[0][type]`, editingFriendOrFoe.questions[0].type);
-    updatedPostingChallengeFormData.append("questions[0][imageFile]", snapImage);
+    updatedPostingChallengeFormData.append("questions[0].imageFile", snapImage);
     updatedPostingChallengeFormData.append("questions[0][answers]", editingFriendOrFoe.questions[0].answers);
 
 

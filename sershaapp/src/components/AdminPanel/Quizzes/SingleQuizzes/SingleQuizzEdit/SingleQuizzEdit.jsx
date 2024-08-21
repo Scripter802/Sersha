@@ -4,7 +4,7 @@ import { useGlobalContext } from '../../../../../context/context';
 
 const SingleQuizzEdit = ({ quizz, onSave, onCancel }) => {
   const { selectedQuestion, setQuestionEdit, setSelectedQuestion } = useGlobalContext();
-  const [questionText, setQuestionText] = useState(selectedQuestion.text);
+  const [text, setText] = useState(selectedQuestion.text);
   const [answers, setAnswers] = useState(selectedQuestion.answers);
 
   const handleAnswerChange = (answerIndex, value) => {
@@ -14,7 +14,7 @@ const SingleQuizzEdit = ({ quizz, onSave, onCancel }) => {
   };
 
   const handleSave = () => {
-    const updatedQuestion = { ...selectedQuestion, text: questionText, answers };
+    const updatedQuestion = { ...selectedQuestion, text: text, answers };
     const updatedQuestions = [...quizz.questions];
     updatedQuestions[selectedQuestion.index] = updatedQuestion;
 
@@ -31,8 +31,8 @@ const SingleQuizzEdit = ({ quizz, onSave, onCancel }) => {
         <label>Question Text</label>
         <input
           type="text"
-          value={questionText}
-          onChange={(e) => setQuestionText(e.target.value)}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
         />
       </div>
       <div className="formGroup">

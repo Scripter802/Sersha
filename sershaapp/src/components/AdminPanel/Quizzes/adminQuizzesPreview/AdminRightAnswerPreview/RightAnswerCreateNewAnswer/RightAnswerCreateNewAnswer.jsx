@@ -8,7 +8,7 @@ import axios from 'axios';
 const RightAnswerCreateNewAnswer = () => {
   const { baseUrl, allRightAnswerQuestions, setAllRightAnswerQuestions, rightAnswerCreateNew, setRightAnswerCreateNew } = useGlobalContext();
   const [rightAnswerNewQuestion, setRightAnswerNewQuestion] = useState({
-    questionText: '',
+    text: '',
     answers: [
       { text: '', isCorrect: false },
       { text: '', isCorrect: false },
@@ -27,7 +27,7 @@ const RightAnswerCreateNewAnswer = () => {
       difficulty: dif,
       questions: [
         {
-          questionText: rightAnswerNewQuestion.questionText,
+          text: rightAnswerNewQuestion.text,
           answers: rightAnswerNewQuestion.answers.map(ans => ({
             text: ans.text,
             isCorrect: ans.isCorrect
@@ -40,7 +40,7 @@ const RightAnswerCreateNewAnswer = () => {
     // Reset form fields
     setRightAnswerNewQuestion({
       type: 0,
-      questionText: '',
+      text: '',
       answers: [
         { text: '', isCorrect: false },
         { text: '', isCorrect: false },
@@ -92,7 +92,7 @@ const RightAnswerCreateNewAnswer = () => {
       <h3 className="p-3 text-center">Create New Question</h3>
       <div>
         <label className='questionFieldLabel'>Question:</label>
-        <input className='newRightAnswerQuestionInput' type="text" value={rightAnswerNewQuestion.questionText} placeholder='Question' onChange={(e) => setRightAnswerNewQuestion({ ...rightAnswerNewQuestion, questionText: e.target.value })} />
+        <input className='newRightAnswerQuestionInput' type="text" value={rightAnswerNewQuestion.text} placeholder='Question' onChange={(e) => setRightAnswerNewQuestion({ ...rightAnswerNewQuestion, text: e.target.value })} />
       </div>
 
       <div className='newRightAnswerOptions'>

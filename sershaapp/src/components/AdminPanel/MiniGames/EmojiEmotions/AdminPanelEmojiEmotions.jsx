@@ -71,7 +71,7 @@ const AdminPanelEmojiEmotions = () => {
       try {
         const response = await axios.get(`${baseUrl}/Quizzes`);
         console.log(`response: ${response.data}`);
-        const filteredData = response.data.filter(res => res.questions[0].type === 5);
+        const filteredData = response.data.filter(res => res?.questions[0]?.type === 5);
 
         // Avoid adding duplicates
         setAllEmojiEmotionsAssignments(prev => {

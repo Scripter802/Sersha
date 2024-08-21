@@ -29,7 +29,7 @@ const EmojiEmotionsEdit = () => {
     }
   }, [editingEmojiEmotions]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const updatedEmojiEmotionFormData = new FormData();
     updatedEmojiEmotionFormData.append('difficulty', editEmojiEmotion.difficulty);
     updatedEmojiEmotionFormData.append("questions[0][text]", editEmojiEmotion.questions[0].text);
@@ -38,13 +38,13 @@ const EmojiEmotionsEdit = () => {
     updatedEmojiEmotionFormData.append("questions[0][answers]", editEmojiEmotion.questions[0].answers);
 
 
-    // await axios.put(`${baseUrl}/Questions/${editEmojiEmotion.id}/questions/${editEmojiEmotion.questions[0].id}`, updatedEmojiEmotionFormData, {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //     'Access-Control-Allow-Origin': '*',
-    //     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-    //   },
-    // });
+    await axios.put(`${baseUrl}/Quizzes/${editEmojiEmotion.id}`, updatedEmojiEmotionFormData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      },
+    });
 
     setEditingEmojiEmotions(null);
     setIsEmojiEmotionsEdit(false);

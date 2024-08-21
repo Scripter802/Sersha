@@ -31,7 +31,7 @@ const FillInTheBlankCreateNewStatement = () => {
       difficulty: difficultyMap[fillInTheBlankNewStatement.stage] || 0,
       questions: [
         {
-          questionText: '',
+          text: '',
           statement1: fillInTheBlankNewStatement.statement1,
           statement2: fillInTheBlankNewStatement.statement2,
           answers: fillInTheBlankNewStatement.answers.map(ans => ({

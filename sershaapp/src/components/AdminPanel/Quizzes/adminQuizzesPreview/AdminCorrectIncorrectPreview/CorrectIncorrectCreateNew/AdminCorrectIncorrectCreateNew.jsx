@@ -11,7 +11,7 @@ const AdminCorrectIncorrectCreateNew = () => {
     allCorrectIncorrect,
     setAllCorrectIncorrect } = useGlobalContext();
   const [correctIncorrectNewStatement, setCorrectIncorrectNewStatement] = useState({
-    questionText: '',
+    text: '',
     isCorrect: false,
     stage: '',
   });
@@ -27,7 +27,7 @@ const AdminCorrectIncorrectCreateNew = () => {
       difficulty: dif,
       questions: [
         {
-          questionText: correctIncorrectNewStatement.questionText,
+          text: correctIncorrectNewStatement.text,
           isCorrect: correctIncorrectNewStatement.isCorrect,
         }
       ]
@@ -66,7 +66,7 @@ const AdminCorrectIncorrectCreateNew = () => {
       <h3 className="p-3 text-center">Create New Statement</h3>
       <div>
         <label className='correctIncorrectStatementFieldLabel'>Statement</label>
-        <input className='newCorrectIncorrectStatementInput' style={{ marginBottom: '1rem' }} type="text" value={correctIncorrectNewStatement.questionText} placeholder='Statement' onChange={(e) => setCorrectIncorrectNewStatement({ ...correctIncorrectNewStatement, questionText: e.target.value })} />
+        <input className='newCorrectIncorrectStatementInput' style={{ marginBottom: '1rem' }} type="text" value={correctIncorrectNewStatement.text} placeholder='Statement' onChange={(e) => setCorrectIncorrectNewStatement({ ...correctIncorrectNewStatement, text: e.target.value })} />
       </div>
 
       <div className='newCorrectIncorrectOptions'>

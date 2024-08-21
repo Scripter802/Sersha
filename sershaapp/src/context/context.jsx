@@ -184,6 +184,23 @@ const AppProvider = ({ children }) => {
   const [avatarEditing, setAvatarEditing] = useState(null);
   const [allAvatars, setAllAvatars] = useState([]);
 
+  // SLIDESHOWS
+
+  const [slideshowCreateNew, setSlideshowCreateNew] = useState(false);
+  const [slideshowNew, setSlideshowNew] = useState({
+    level: 0,
+    slides: [
+      {
+        name: '',
+        place: 0,
+        gif: null,
+      },
+    ]
+  });
+  const [isSlideshowEdit, setIsSlideshowEdit] = useState(false);
+  const [slideshowEditing, setSlideshowEditing] = useState(null);
+  const [allSlideshows, setAllSlideshows] = useState([{ id: 1, level: 2, slides: [{ name: 'probni 1', place: 1, gif: '' }, { name: 'probni 2', place: 2, gif: '' }] }]);
+
 
   // NEW MESSAGE
   const [newMessage, setNewMessage] = useState(0);
@@ -1004,6 +1021,18 @@ const AppProvider = ({ children }) => {
         setAvatarEditing,
         allAvatars,
         setAllAvatars,
+
+        // SLIDESHOWS
+        slideshowCreateNew,
+        setSlideshowCreateNew,
+        slideshowNew,
+        setSlideshowNew,
+        isSlideshowEdit,
+        setIsSlideshowEdit,
+        slideshowEditing,
+        setSlideshowEditing,
+        allSlideshows,
+        setAllSlideshows,
 
         // POSTS 
         allPosts,

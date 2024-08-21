@@ -133,7 +133,7 @@ const AdminPanelQuizzes = () => {
         <div className="modal">
           <div className="modal-content">
             <span className="close" onClick={handleCloseSingleQuizz}>&times;</span>
-            <SingleQuizz quizz={selectedQuizz} />
+            <SingleQuizz quizz={selectedQuizz} setIsSingleQuizz={setIsSingleQuizz} />
           </div>
         </div>
       )}

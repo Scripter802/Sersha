@@ -34,6 +34,7 @@ namespace Persistence
         public DbSet<SershaItemsUserSelected> SershaItemsUserSelected { get; set; }
         public DbSet<ChatMessage> ChatMessages { get; set; }
         public DbSet<UserResponse> UserResponses { get; set; }
+        public DbSet<Slide> Slides { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -45,7 +46,6 @@ namespace Persistence
                 .HasForeignKey(p => p.AuthorId)
                 .OnDelete(DeleteBehavior.Cascade);   
 
-            
              builder.Entity<Quiz>()
                 .HasMany(q => q.Questions)
                 .WithOne(q => q.Quiz)

@@ -30,11 +30,25 @@ const FriendOrFoeEdit = () => {
     }
   }, [editingFriendOrFoe]);
 
-  const handleSubmit = () => {
-    const updatedAssignments = allFriendOrFoeAssignments.map(assignment =>
-      assignment.id === editFriendOrFoe.id ? editFriendOrFoe : assignment
-    );
-    setAllFriendOrFoeAssignments(updatedAssignments);
+  const handleSubmit = async () => {
+    const updatedPostingChallengeFormData = new FormData();
+    updatedPostingChallengeFormData.append('id', editingFriendOrFoe.id);
+    updatedPostingChallengeFormData.append('difficulty', editingFriendOrFoe.difficulty);
+    updatedPostingChallengeFormData.append("questions[0][id]", editingFriendOrFoe.questions[0].id);
+    updatedPostingChallengeFormData.append("questions[0][text]", editingFriendOrFoe.questions[0].text);
+    updatedPostingChallengeFormData.append("questions[0][content]", editingFriendOrFoe.questions[0].content);
+    updatedPostingChallengeFormData.append(`questions[0][type]`, editingFriendOrFoe.questions[0].type);
+    updatedPostingChallengeFormData.append("questions[0].imageFile", snapImage);
+    updatedPostingChallengeFormData.append("questions[0][answers]", editingFriendOrFoe.questions[0].answers);
+
+
+    await axios.put(`${baseUrl}/Quizzes/${editingFriendOrFoe.id}`, updatedPostingChallengeFormData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      },
+    });
 
     setEditingFriendOrFoe(null);
     setIsFriendOrFoeEdit(false);

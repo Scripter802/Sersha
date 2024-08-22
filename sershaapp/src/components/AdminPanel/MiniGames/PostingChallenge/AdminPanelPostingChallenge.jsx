@@ -44,7 +44,7 @@ const AdminPanelPostingChallenge = () => {
       try {
         const response = await axios.get(`${baseUrl}/Quizzes`);
         console.log(`response: ${response.data}`);
-        const filteredData = response.data.filter(res => res.questions[0].type === 7);
+        const filteredData = response.data.filter(res => res?.questions[0]?.type === 7);
 
         // Avoid adding duplicates
         setAllPostingChallengeAssignments(prev => {

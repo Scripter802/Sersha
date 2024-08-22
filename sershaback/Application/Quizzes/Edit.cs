@@ -30,27 +30,7 @@ namespace Application.Quizzes
         {
             public CommandValidator()
             {
-                /*RuleFor(x => x.QuizName).NotEmpty().WithMessage("Quiz name is required.");
-                RuleFor(x => x.ConversationStarter).NotEmpty().WithMessage("Conversation starter is required.");*/
-        
                 RuleFor(x => x.Difficulty).IsInEnum();
-                /*RuleForEach(x => x.Questions).ChildRules(question =>
-                {
-                    question.RuleFor(q => q.QuestionText)
-                        .NotEmpty()
-                        .When(q => q.ImageFile == null && (string.IsNullOrEmpty(q.Statement1) || string.IsNullOrEmpty(q.Statement2)))
-                        .WithMessage("QuestionText or ImageFile or Statement1 and Statement2 must be filled.");
-
-                    question.RuleFor(q => q.ImageFile)
-                        .NotNull()
-                        .When(q => string.IsNullOrEmpty(q.QuestionText) && (string.IsNullOrEmpty(q.Statement1) || string.IsNullOrEmpty(q.Statement2)))
-                        .WithMessage("QuestionText or ImageFile or Statement1 and Statement2 must be filled.");
-
-                    question.RuleFor(q => new { q.Statement1, q.Statement2 })
-                        .Must(statements => !string.IsNullOrEmpty(statements.Statement1) && !string.IsNullOrEmpty(statements.Statement2))
-                        .When(q => string.IsNullOrEmpty(q.QuestionText) && q.ImageFile == null)
-                        .WithMessage("QuestionText or ImageFile or Statement1 and Statement2 must be filled.");
-                });*/
             }
         }
 
@@ -103,35 +83,7 @@ namespace Application.Quizzes
                     }
                     else
                     {
-                        question.Text = questionDto.Text;
-                        question.ImagePath = questionImagePath;
-                        question.Answers = questionDto.Answers.Select(a => new Answer
-                        {
-                            
-                            Text = a.Text,
-                            IsCorrect = a.IsCorrect
-                        }).ToList();
-                        question.Content = questionDto.Content;
-                        if(question.Type == QuestionType.FillInTheBlank){
-                            (question as FillInTheBlankQuestion).Statement1 = questionDto.Statement1;
-                            (question as FillInTheBlankQuestion).Statement2 = questionDto.Statement2;
-                        } 
-                        if(question.Type == QuestionType.CorrectIncorrect){
-                            (question as CorrectIncorrectQuestion).IsCorrect = questionDto.IsCorrect;
-                        }   
-                        if(question.Type == QuestionType.Grouping){
-                            (question as GroupingQuestion).Text = questionDto.Text;
-                            var groups = _context.Groups.Where(x => x.GroupingQuestionId == question.Id).ToList();
-                            _context.Groups.RemoveRange(groups);
-                            (question as GroupingQuestion).Groups = questionDto.Groups.Select(g => new Group
-                            {
-                                Name = g.Name,
-                                GroupingItems = g.GroupingItems.Select(i => new GroupingItem
-                                {
-                                    Item = i.Item
-                                }).ToList()
-                            }).ToList();
-                        }                   
+                        UpdateQuestion(question, questionDto, questionImagePath);
                     }
                 }
 
@@ -141,7 +93,6 @@ namespace Application.Quizzes
                 if (success) return Unit.Value;
                 throw new Exception("Problem saving changes");
             }
-
 
             private async Task<string> SaveImage(IFormFile imageFile, Guid quizId, string folder)
             {
@@ -180,13 +131,91 @@ namespace Application.Quizzes
                     answers.Add(answer);
                 }
 
-                return new RightAnswerQuestion
+                Question question;
+
+                switch (type)
                 {
-                    Text = questionDto.Text,
-                    Answers = answers,
-                    ImagePath = questionImagePath
-                };
+                    case QuestionType.FillInTheBlank:
+                        question = new FillInTheBlankQuestion
+                        {
+                            Statement1 = questionDto.Statement1,
+                            Statement2 = questionDto.Statement2
+                        };
+                        break;
+                    case QuestionType.CorrectIncorrect:
+                        question = new CorrectIncorrectQuestion
+                        {
+                            IsCorrect = questionDto.IsCorrect
+                        };
+                        break;
+                    case QuestionType.Grouping:
+                        question = new GroupingQuestion();
+                        break;
+                    case QuestionType.FriendOrFoe:
+                        question = new FriendOrFoeQuestion();
+                        break;
+                    case QuestionType.EmojiEmotions:
+                        question = new EmojiEmotionsQuestion();
+                        break;
+                    case QuestionType.PostingChallenge:
+                        question = new PostingChallengeQuestion();
+                        break;
+                    case QuestionType.SnapJudgement:
+                        question = new SnapJudgementQuestion();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(type), "Unknown question type");
+                }
+
+                question.Text = questionDto.Text;
+                question.ImagePath = questionImagePath;
+                question.Answers = answers;
+                question.Content = questionDto.Content;
+
+                return question;
             }
+
+            private void UpdateQuestion(Question question, QuestionDto questionDto, string questionImagePath)
+            {
+                question.Text = questionDto.Text;
+                question.ImagePath = questionImagePath ?? question.ImagePath;
+                question.Answers = questionDto.Answers.Select(a => new Answer
+                {
+                    Text = a.Text,
+                    IsCorrect = a.IsCorrect
+                }).ToList();
+
+                switch (question)
+                {
+                    case FillInTheBlankQuestion fib:
+                        fib.Statement1 = questionDto.Statement1;
+                        fib.Statement2 = questionDto.Statement2;
+                        break;
+                    case CorrectIncorrectQuestion ci:
+                        ci.IsCorrect = questionDto.IsCorrect;
+                        break;
+                    case GroupingQuestion g:
+                        g.Text = questionDto.Text;
+                        var groups = _context.Groups.Where(x => x.GroupingQuestionId == g.Id).ToList();
+                        _context.Groups.RemoveRange(groups);
+                        g.Groups = questionDto.Groups.Select(grp => new Group
+                        {
+                            Name = grp.Name,
+                            GroupingItems = grp.GroupingItems.Select(i => new GroupingItem
+                            {
+                                Item = i.Item
+                            }).ToList()
+                        }).ToList();
+                        break;
+                    
+                    case FriendOrFoeQuestion ffq:
+                    case EmojiEmotionsQuestion eeq:
+                    case PostingChallengeQuestion pcq:
+                    case SnapJudgementQuestion sjq:
+                        break;
+                }
+            }
+
         }
     }
 }

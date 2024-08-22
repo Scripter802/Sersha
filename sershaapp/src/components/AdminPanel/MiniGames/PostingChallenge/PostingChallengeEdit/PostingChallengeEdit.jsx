@@ -29,23 +29,25 @@ const PostingChallengeEdit = () => {
     }
   }, [editingPostingChallenge]);
 
-  const handleSubmit = () => {
-    const updatedSnapJudgmentFormData = new FormData();
-    updatedSnapJudgmentFormData.append('difficulty', editPostingChallenge.difficulty);
-    updatedSnapJudgmentFormData.append("questions[0][text]", editPostingChallenge.questions[0].text);
-    updatedSnapJudgmentFormData.append("questions[0][content]", editPostingChallenge.questions[0].content);
-    updatedSnapJudgmentFormData.append(`questions[0][type]`, editPostingChallenge.questions[0].type);
-    updatedSnapJudgmentFormData.append("questions[0][imageFile]", snapImage);
-    updatedSnapJudgmentFormData.append("questions[0][answers]", editPostingChallenge.questions[0].answers);
+  const handleSubmit = async () => {
+    const updatedPostingChallengeFormData = new FormData();
+    updatedPostingChallengeFormData.append('id', editPostingChallenge.id);
+    updatedPostingChallengeFormData.append('difficulty', editPostingChallenge.difficulty);
+    updatedPostingChallengeFormData.append("questions[0][id]", editPostingChallenge.questions[0].id);
+    updatedPostingChallengeFormData.append("questions[0][text]", editPostingChallenge.questions[0].text);
+    updatedPostingChallengeFormData.append("questions[0][content]", editPostingChallenge.questions[0].content);
+    updatedPostingChallengeFormData.append(`questions[0][type]`, editPostingChallenge.questions[0].type);
+    updatedPostingChallengeFormData.append("questions[0].imageFile", snapImage);
+    updatedPostingChallengeFormData.append("questions[0][answers]", editPostingChallenge.questions[0].answers);
 
 
-    // await axios.put(`${baseUrl}/Questions/${editSnapJudgment.id}/questions/${editSnapJudgment.questions[0].id}`, updatedSnapJudgmentFormData, {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //     'Access-Control-Allow-Origin': '*',
-    //     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-    //   },
-    // });
+    await axios.put(`${baseUrl}/Quizzes/${editPostingChallenge.id}`, updatedPostingChallengeFormData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      },
+    });
 
 
     setEditingPostingChallenge(null);

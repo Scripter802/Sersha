@@ -35,11 +35,13 @@ const SnapJudgmentEdit = () => {
 
   const handleSubmit = async () => {
     const updatedSnapJudgmentFormData = new FormData();
+    updatedSnapJudgmentFormData.append('id', editSnapJudgment.id);
     updatedSnapJudgmentFormData.append('difficulty', editSnapJudgment.difficulty);
+    updatedSnapJudgmentFormData.append("questions[0][id]", editSnapJudgment.questions[0].id);
     updatedSnapJudgmentFormData.append("questions[0][text]", editSnapJudgment.questions[0].text);
     updatedSnapJudgmentFormData.append("questions[0][content]", editingSnapJudgment.questions[0].content);
     updatedSnapJudgmentFormData.append(`questions[0][type]`, editSnapJudgment.questions[0].type);
-    updatedSnapJudgmentFormData.append("questions[0][imageFile]", snapImage);
+    updatedSnapJudgmentFormData.append("questions[0].imageFile", snapImage);
     updatedSnapJudgmentFormData.append("questions[0][answers]", editSnapJudgment.questions[0].answers);
 
 

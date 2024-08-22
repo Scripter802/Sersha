@@ -29,7 +29,7 @@ const GroupingCreateNewGroup = () => {
       difficulty: 0,
       questions: [
         {
-          questionText: "",
+          text: "",
           groups: [
             {
               groupName: "",
@@ -71,7 +71,7 @@ const GroupingCreateNewGroup = () => {
       "difficulty": 0,
       "questions": [
         {
-          "questionText": "string",
+          "text": "string",
           "groups": [
             {
               "groupName": "Banane",

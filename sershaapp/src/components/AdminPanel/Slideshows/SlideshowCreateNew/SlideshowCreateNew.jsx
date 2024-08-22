@@ -14,31 +14,33 @@ const SlideshowCreateNew = () => {
   } = useGlobalContext();
 
   const handleSubmit = async () => {
-    // const formData = new FormData();
-    // formData.append('image', avatarNew.image);
-    // formData.append('name', avatarNew.name);
+    const formData = new FormData();
+    formData.append('level', slideshowNew.level);
+    formData.append('name', slideshowNew.name);
+    formData.append('place', slideshowNew.place);
+    formData.append('slideImage', slideshowNew.slideImage);
 
-    // try {
-    //   const response = await axios.post(`${baseUrl}/avatar`, formData, {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //     },
-    //   });
-    //   setAvatarNew({
-    //     image: null,
-    //     name: '',
-    //   });
-    //   console.log(response.data);
-    //   setAvatarCreateNew(false);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const response = await axios.post(`${baseUrl}/Slides`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setSlideshowNew({
+        slideImage: null,
+        name: '',
+        level: 0,
+        place: 0,
+      });
+      console.log(response.data);
+      setSlideshowCreateNew(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleImageChange = (file) => {
-    let slideshowItem = [...slideshowNew.slides];
-    slideshowItem.gif = file;
-    setSlideshowNew({ ...slideshowNew, slides: slideshowItem });
+    setSlideshowNew({ ...slideshowNew, slideImage: file });
   };
 
   return (
@@ -54,7 +56,7 @@ const SlideshowCreateNew = () => {
           type="text"
           value={slideshowNew.name}
           placeholder='Name'
-          onChange={(e) => { let updatedSlide = [...slideshowNew]; updatedSlide.name = e.target.value; setSlideshowNew({ ...slideshowNew, updatedSlide }) }}
+          onChange={(e) => { setSlideshowNew({ ...slideshowNew, name: e.target.value }) }}
         />
       </div>
       <div>
@@ -71,9 +73,9 @@ const SlideshowCreateNew = () => {
         <input
           className='inputField'
           type="place"
-          value={slideshowNew.slides.place}
+          value={slideshowNew.place}
           placeholder='Place'
-          onChange={(e) => { let updatedSlide = [...slideshowNew]; updatedSlide.name = e.target.value; setSlideshowNew({ ...slideshowNew, updatedSlide }) }}
+          onChange={(e) => { setSlideshowNew({ ...slideshowNew, place: e.target.value }) }}
         />
       </div>
 

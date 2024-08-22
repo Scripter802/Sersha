@@ -49,7 +49,7 @@ const PostingChallengeCreateNew = () => {
     formData.append('difficulty', dif);
     newPostingChallenge.questions.forEach((question, qIndex) => {
       formData.append(`questions[${qIndex}][type]`, 7);
-      formData.append(`questions[${qIndex}][questionText]`, question.text);
+      formData.append(`questions[${qIndex}][text]`, question.text);
       formData.append(`questions[${qIndex}][content]`, question.content);
       formData.append(`questions[${qIndex}].imageFile`, question.imageFile);
       question.answers.forEach((answer, aIndex) => {

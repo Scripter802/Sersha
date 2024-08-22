@@ -43,7 +43,10 @@ const LoginForm = () => {
     try {
       const response = await axios.put(
         `${baseUrl}/User/${user.email}`,
-        { isFirstTimeLoggedIn: false },
+        {
+          isFirstTimeLoggedIn: false,
+          email: user.email,
+        },
         {
           headers: {
             Authorization: `Bearer ${user.token}`,

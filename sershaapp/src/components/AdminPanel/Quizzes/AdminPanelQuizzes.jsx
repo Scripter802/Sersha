@@ -34,10 +34,10 @@ const AdminPanelQuizzes = () => {
         const response = await axios.get(`${baseUrl}/Quizzes`);
 
         const filteredData = response.data.filter(res =>
-          res.questions[0].type === 0 ||
-          res.questions[0].type === 1 ||
-          res.questions[0].type === 2 ||
-          res.questions[0].type === 3
+          res?.questions[0]?.type === 0 ||
+          res?.questions[0]?.type === 1 ||
+          res?.questions[0]?.type === 2 ||
+          res?.questions[0]?.type === 3
         );
 
         // Avoid adding duplicates

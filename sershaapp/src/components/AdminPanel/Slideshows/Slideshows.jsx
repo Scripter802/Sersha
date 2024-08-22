@@ -4,6 +4,7 @@ import SlideshowEdit from './SlideshowEdit/SlideshowEdit'
 import { useGlobalContext } from '../../../context/context'
 
 import './slideshows.css'
+import axios from 'axios'
 
 const Slideshows = () => {
   const { baseUrl, baseUrlImage, slideshowCreateNew, setSlideshowCreateNew, isSlideshowEdit, setIsSlideshowEdit, slideshowEditing, setSlideshowEditing, allSlideshows, setAllSlideshows } = useGlobalContext();

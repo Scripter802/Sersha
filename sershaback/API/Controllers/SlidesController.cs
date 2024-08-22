@@ -47,5 +47,12 @@ namespace API.Controllers
             }
             return NoContent(); 
         }
+
+        [HttpGet("level/{level}")]
+        public async Task<ActionResult<List<Slide>>> ListPerLevel(int level)
+        {
+            return await Mediator.Send(new ListPerLevel.Query { Level = level });
+        }
+        
     }
 }

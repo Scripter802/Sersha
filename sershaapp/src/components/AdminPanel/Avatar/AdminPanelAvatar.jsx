@@ -40,7 +40,7 @@ const AdminPanelAvatar = () => {
       if (response.status === 200) {
 
         // Update the allQuizzes state by filtering out the deleted quiz
-        const updatedAvatars = allAvatars.filter(q => q.id !== allClothing.id);
+        const updatedAvatars = allAvatars.filter(q => q.id !== allAvatars.id);
         setAllAvatars(updatedAvatars);
       }
     } catch (error) {

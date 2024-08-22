@@ -74,7 +74,7 @@ const Slideshows = () => {
                 <tr key={item?.id}>
                   <td style={{ textAlign: "center" }}>{item?.name}</td>
                   <td>
-                    <img src={`${baseUrlImage}${item?.imagePath}`} alt={`Clothing ${item.id}`} className="clothing-image" />
+                    <img src={`${baseUrlImage}${item?.filePath}`} alt={`Clothing ${item.id}`} className="clothing-image" />
 
                   </td>
                   <td style={{ textAlign: "center" }}>{item.place}</td>

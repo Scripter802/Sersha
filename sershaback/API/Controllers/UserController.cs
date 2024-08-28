@@ -58,6 +58,12 @@ namespace API.Controllers
             command.Email = email;
             return await Mediator.Send(command);
         }
+        [AllowAnonymous]
+        [HttpPut("subscribe/{email}")]
+        public async Task<ActionResult<Unit>> Subscribe(string email, Subscribe.Command command){
+            command.Email = email;
+            return await Mediator.Send(command);
+        }
 
         [AllowAnonymous]
         [HttpDelete("{email}")]

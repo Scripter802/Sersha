@@ -71,6 +71,7 @@ namespace Application.User
                         ParentPhoneNumber = user.ParentPhoneNumber,
                         ParentsFullName = user.ParentsFullName,
                         Email = user.Email,
+                        IsSubscribed = user.IsSubscribed
 
                     };
                 }

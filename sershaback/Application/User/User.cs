@@ -20,5 +20,7 @@ namespace Application.User
         public int Stage { get; set; }
         public AvatarImageDTO AvatarImage { get; set; } 
         public bool isFirstTimeLoggedIn { get; set; }
+        public bool IsSubscribed { get; set; }
+        public DateTime SubscribedUntil {get; set;}
     }
 }

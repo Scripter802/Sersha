@@ -46,7 +46,7 @@ const getRandomItems = (array, numItems) => {
 
 const FriendOrFoe = () => {
   const {
-    baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
+    baseUrl, baseUrlImage, user, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
     incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems, handleCorrectAnswerMiniGames, setRogueClickCounter, currentVocal, setCurrentVocal, handleCurrentRogueVocal, rogueClickCounter
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
@@ -64,16 +64,17 @@ const FriendOrFoe = () => {
   console.log(currentVocal, rogueClickCounter)
 
   useEffect(() => {
-    const fetchPosting = async () => {
+    const fetchPosting = async (dif) => {
       try {
-        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/0/6`);
+        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/${dif}/6`);
         setAllFriendOrFoe(response.data);
       } catch (error) {
         console.error('Error fetching right answer questions:', error);
       }
     };
 
-    fetchPosting();
+    user?.level <= 13 ? fetchPosting('0') : user?.level > 13 && user?.level <= 26 ? fetchPosting('1') : fetchPosting('2');
+
   }, [baseUrl]);
 
   useEffect(() => {

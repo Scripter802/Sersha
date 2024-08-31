@@ -557,13 +557,13 @@ const AppProvider = ({ children }) => {
     try {
       const response = await axios.get(`${baseUrl}/Author`);
       if (response.status === 200) {
-        setAllAuthors(response.data); // Directly set the data
+        setAllAuthors(response.data);
       }
       console.log(allAuthors);
     } catch (error) {
       console.error(error);
     } finally {
-      setIsPostsLoading(false); // Set loading state to false after the request is completed
+      setIsPostsLoading(false);
     }
   };
 
@@ -588,35 +588,35 @@ const AppProvider = ({ children }) => {
   //GET ALL               //GET ALL
   const getAllPosts = async () => {
     try {
-      setIsPostsLoading(true); // Set loading state to true before making the request
+      setIsPostsLoading(true);
       const response = await axios.get(`${baseUrl}/Post`);
       if (response.status === 200) {
-        setAllPosts(response.data); // Directly set the data
+        setAllPosts(response.data);
       }
     } catch (error) {
       console.error(error);
     } finally {
-      setIsPostsLoading(false); // Set loading state to false after the request is completed
+      setIsPostsLoading(false);
     }
   };
   //GET ALL POSTS PER STAGE
-  const getPostsPerStage = async () => {
+  const getPostsPerStage = async (stage) => {
     try {
-      setIsPostsLoading(true); // Set loading state to true before making the request
-      const response = await axios.get(`${baseUrl}/Post/ListPerStages/Easy`, {
+      setIsPostsLoading(true);
+      const response = await axios.get(`${baseUrl}/Post/ListPerStages/${stage}`, {
         headers: {
           "Access-Control-Allow-Origin": "*",
         }
       }
       );
       if (response.status === 200) {
-        setPostsPerStage(response.data); // Directly set the data
+        setPostsPerStage(response.data);
         console.log(postsPerStage)
       }
     } catch (error) {
       console.error(error);
     } finally {
-      setIsPostsLoading(false); // Set loading state to false after the request is completed
+      setIsPostsLoading(false);
     }
   };
   //DELETE POST
@@ -625,7 +625,7 @@ const AppProvider = ({ children }) => {
       setIsPostsLoading(true);
       const response = await axios.delete(`${baseUrl}/Post/${postId}`);
       if (response.status === 200) {
-        // Remove the deleted post from the state
+
         setAllPosts(allPosts.filter(post => post.id !== postId));
       }
     } catch (error) {

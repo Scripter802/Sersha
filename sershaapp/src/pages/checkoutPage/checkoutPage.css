@@ -101,3 +101,10 @@ small {
     height: 300px;
   }
 }
+
+@media (max-width: 1000px) {
+  .checkoutTitle {
+    position: unset;
+  }
+
+}

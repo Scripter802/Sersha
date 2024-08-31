@@ -50,16 +50,18 @@ const QuizPage = () => {
 
 
   useEffect(() => {
-    const fetchCurrentQuizz = async () => {
+    const fetchCurrentQuizz = async (dif) => {
       try {
-        const response = await axios.get(`${baseUrl}/Quizzes/randomByDifficulty/0`);
+        const response = await axios.get(`${baseUrl}/Quizzes/randomByDifficulty/${dif}`);
         setCurrentQuizz(response.data);
       } catch (error) {
         console.error('Error fetching Current Quizz:', error);
       }
     };
 
-    fetchCurrentQuizz();
+    user?.level <= 13 ? fetchCurrentQuizz('0') : user?.level > 13 && user?.level <= 26 ? fetchCurrentQuizz('1') : fetchCurrentQuizz('2');
+
+
   }, []);
 
   // useEffect(() => {

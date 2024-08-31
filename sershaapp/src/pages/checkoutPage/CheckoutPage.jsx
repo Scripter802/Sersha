@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import './checkoutPage.css'
 import { useGlobalContext } from '../../context/context'
+import { useNavigate } from 'react-router-dom';
 
 let stripePromise;
 
@@ -18,6 +19,12 @@ const CheckoutPage = () => {
   const [stripeError, setStripeError] = useState(null);
   const [isLoading, setLoading] = useState(false);
   const { user } = useGlobalContext();
+  const navigate = useNavigate();
+
+  if (user?.type == "Admin" || user?.isSubscribed == true) {
+    navigate('/')
+  }
+
   console.log(user)
 
   const yearlySubscription = {

@@ -3,16 +3,19 @@ import { Navigate } from 'react-router-dom';
 import { useGlobalContext } from '../../context/context.jsx';
 
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, user } = useGlobalContext();
+  const { isAuthenticated } = useGlobalContext();
   const [loading, setLoading] = useState(true);
-  let userdata = JSON.parse(localStorage.getItem('userData'));
+  const token = localStorage.getItem('token');
+  const userdata = JSON.parse(localStorage.getItem('userData'));
+
   useEffect(() => {
     if (userdata) {
       setLoading(false);
+    } else {
+      setLoading(true);
     }
-  }, [user]);
+  }, [userdata]);
 
-  const token = localStorage.getItem('token');
 
   if (!token) {
     return <Navigate to="/signin-up" />;
@@ -23,7 +26,6 @@ const ProtectedRoute = ({ children }) => {
   }
 
   if (userdata?.type !== "Admin" && userdata?.isSubscribed !== true) {
-    console.log(`AAAAAA ${JSON.stringify(user)}`)
     return <Navigate to="/checkout" />;
   }
 

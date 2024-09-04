@@ -204,7 +204,9 @@ const AppProvider = ({ children }) => {
     const cookieValue = Cookies.get('isSlideShowed');
 
     if (!cookieValue) {
-      Cookies.set('isSlideShowed', JSON.stringify({ level: user?.stage, isSlideShowed: false }))
+      Cookies.set('isSlideShowed', JSON.stringify({ level: user?.stage, isSlideShowed: false }), {
+        sameSite: 'None'
+      })
       setIsSlideshowShowed(false);
       return false;
     }
@@ -215,7 +217,9 @@ const AppProvider = ({ children }) => {
       setIsSlideshowShowed(isSlideShowed);
       return isSlideShowed;
     } else {
-      Cookies.set('isSlideShowed', JSON.stringify({ level: user?.stage, isSlideShowed: false }));
+      Cookies.set('isSlideShowed', JSON.stringify({ level: user?.stage, isSlideShowed: false }), {
+        sameSite: 'None',
+      });
       setIsSlideshowShowed(false);
       return false;
     }

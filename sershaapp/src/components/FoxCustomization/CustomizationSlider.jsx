@@ -40,8 +40,8 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight, c
   const moveSliderToLeft = () => {
     const itemsPerPage = window.innerWidth < 1000 ? 3 : 5;
     const maxIndex = isTopPart
-      ? Math.ceil(itemsTopPart.length / itemsPerPage) - 1
-      : Math.ceil(itemsBottomPart.length / itemsPerPage) - 1;
+      ? Math.ceil(itemsTopPart.length - itemsPerPage)
+      : Math.ceil(itemsBottomPart.length - itemsPerPage);
 
     setSliderIndex((prevIndex) => {
       if (prevIndex === 0) {
@@ -54,8 +54,8 @@ const CustomizationSlider = ({ itemsTopPart, itemsBottomPart, toLeft, toRight, c
   const moveSliderToRight = () => {
     const itemsPerPage = window.innerWidth < 1000 ? 3 : 5; // 3 items for small screens, 5 for larger screens
     const maxIndex = isTopPart
-      ? Math.ceil(itemsTopPart.length / itemsPerPage) - 1
-      : Math.ceil(itemsBottomPart.length / itemsPerPage) - 1;
+      ? Math.ceil(itemsTopPart.length - itemsPerPage)
+      : Math.ceil(itemsBottomPart.length - itemsPerPage);
 
     setSliderIndex((prevIndex) => {
       if (prevIndex === maxIndex) {

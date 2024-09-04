@@ -153,7 +153,7 @@ const FoxCustomization = () => {
     }
   }, [currentVocal]);
 
-  console.log(`toppart: ${topPart.map(item => item.name).join(', ')} ; bottomPart: ${bottomPart.map(item => item.name).join(', ')}`);
+  console.log(`toppart: ${topPart.map(item => item.imagePath)} ; bottomPart: ${bottomPart.map(item => item.name).join(', ')}`);
 
   return (
     <div className='customizationWrapper'>

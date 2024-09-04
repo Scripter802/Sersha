@@ -22,7 +22,7 @@ const ProtectedRoute = ({ children }) => {
     return <div>Loading...</div>;
   }
 
-  if (user?.type !== "Admin" && user?.isSubscribed !== true) {
+  if (user?.type !== "Admin" || user?.isSubscribed !== true) {
     console.log(`AAAAAA ${JSON.stringify(user)}`)
     return <Navigate to="/checkout" />;
   }

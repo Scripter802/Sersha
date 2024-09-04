@@ -74,7 +74,7 @@ const HeaderResponsive = () => {
       localStorage.removeItem("token");
     }
   }, []);
-
+  console.log(user)
   useEffect(() => {
     const updatedBundlesAndLevels = bundelsAndLevels.map(bundle => ({
       ...bundle,

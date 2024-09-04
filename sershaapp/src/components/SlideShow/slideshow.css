@@ -20,7 +20,7 @@
 
 .mute-music-slideshow {
   position: absolute;
-  top: 65%;
+  bottom: 0;
   right: .15rem;
   cursor: pointer;
   width: 70px;

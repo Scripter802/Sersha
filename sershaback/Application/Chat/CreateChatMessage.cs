@@ -45,12 +45,6 @@ namespace Application.Chats
                 for (int i = 0; i < request.Messages.Count; i++)
                 {
                     var messageData = request.Messages[i];
-                    Console.WriteLine("-------------------------------------\n\n\n\n\n");
-
-                    
-                    Console.WriteLine(request.SenderId);
-                    
-                    Console.WriteLine("-------------------------------------\n\n\n\n\n");
                     var chatMessage = new ChatMessage
                     {
                         Id = Guid.NewGuid(),

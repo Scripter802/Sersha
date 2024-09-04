@@ -75,6 +75,7 @@ namespace Application.User
                     ParentsFullName = request.ParentsFullName,
                     ParentPhoneNumber = request.ParentPhoneNumber,
                     UserBirthDate = request.UserBirthDate,
+                    AvatarImageId = request.AvatarImageId,
                     Type = "User",
                     Stage = 1,
                     isFirstTimeLoggedIn = true,

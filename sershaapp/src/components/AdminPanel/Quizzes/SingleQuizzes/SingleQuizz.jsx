@@ -45,13 +45,63 @@ const SingleQuizz = ({ quizz, setIsSingleQuizz }) => {
   };
 
   const handleEditQuizz = async () => {
+    const formData = new FormData();
+
+    // Append basic quiz data
+    formData.append('id', quizData.id);
+    formData.append('quizName', quizData.quizName);
+    formData.append('conversationStarter', quizData.conversationStarter);
+    formData.append('difficulty', quizData.difficulty);
+
+    // Append questions and their nested answers/groups/items
+    quizData.questions.forEach((question, qIndex) => {
+      formData.append(`questions[${qIndex}].id`, question.id);
+      formData.append(`questions[${qIndex}].text`, question.text);
+      formData.append(`questions[${qIndex}].content`, question.content);
+      formData.append(`questions[${qIndex}].quizId`, question.quizId);
+      formData.append(`questions[${qIndex}].type`, question.type);
+
+      if (question.answers) {
+        question.answers.forEach((answer, aIndex) => {
+          formData.append(`questions[${qIndex}].answers[${aIndex}].id`, answer.id);
+          formData.append(`questions[${qIndex}].answers[${aIndex}].text`, answer.text);
+          formData.append(`questions[${qIndex}].answers[${aIndex}].isCorrect`, answer.isCorrect);
+          formData.append(`questions[${qIndex}].answers[${aIndex}].questionId`, answer.questionId);
+        });
+      }
+
+      if (question.groups) {
+        question.groups.forEach((group, gIndex) => {
+          formData.append(`questions[${qIndex}].groups[${gIndex}].id`, group.id);
+          formData.append(`questions[${qIndex}].groups[${gIndex}].name`, group.name);
+          formData.append(`questions[${qIndex}].groups[${gIndex}].groupingQuestionId`, group.groupingQuestionId);
+
+          group.groupingItems.forEach((item, iIndex) => {
+            formData.append(`questions[${qIndex}].groups[${gIndex}].groupingItems[${iIndex}].id`, item.id);
+            formData.append(`questions[${qIndex}].groups[${gIndex}].groupingItems[${iIndex}].item`, item.item);
+            formData.append(`questions[${qIndex}].groups[${gIndex}].groupingItems[${iIndex}].groupId`, item.groupId);
+          });
+        });
+      }
+
+      if (question.statement1 && question.statement2) {
+        formData.append(`questions[${qIndex}].statement1`, question.statement1);
+        formData.append(`questions[${qIndex}].statement2`, question.statement2);
+      }
+    });
+
     try {
-      await axios.put(`${baseUrl}/Quizzes/${quizData.id}`, quizData);
+      await axios.put(`${baseUrl}/Quizzes/${quizData.id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       setIsSingleQuizz(false);
     } catch (error) {
       console.log(error);
     }
   };
+
   if (!quizData) return null;
 
   return (

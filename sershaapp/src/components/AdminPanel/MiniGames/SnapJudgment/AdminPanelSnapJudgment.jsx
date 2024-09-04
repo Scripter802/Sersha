@@ -56,8 +56,6 @@ const AdminPanelSnapJudgment = () => {
       const response = await axios.delete(`${baseUrl}/Quizzes/${post.id}`);
       if (response.status === 200) {
 
-
-        // Update the allQuizzes state by filtering out the deleted quiz
         const updatedAssignments = allSnapJudgmentAssignments.filter(q => q.id !== post.id);
         setAllSnapJudgmentAssignments(updatedAssignments);
       }
@@ -73,10 +71,10 @@ const AdminPanelSnapJudgment = () => {
         console.log(`response: ${response.data}`);
         const filteredData = response.data.filter(res => res?.questions[0]?.type === 4);
 
-        // Avoid adding duplicates
+
         setAllSnapJudgmentAssignments(prev => {
           const newAssignments = filteredData.filter(newRes =>
-            !prev.some(prevRes => prevRes.id === newRes.id) // assuming each quiz has a unique id
+            !prev.some(prevRes => prevRes.id === newRes.id)
           );
           return [...prev, ...newAssignments];
         });
@@ -87,8 +85,7 @@ const AdminPanelSnapJudgment = () => {
 
     fetchAllQuizzesEasy();
 
-  }, [snapJudgmentCreateNew, editingSnapJudgment]);
-  console.log(allSnapJudgmentAssignments)
+  }, [snapJudgmentCreateNew, editingSnapJudgment, isSnapJudgmentEdit]);
 
   return (
     <>

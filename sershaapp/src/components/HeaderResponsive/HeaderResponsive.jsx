@@ -13,11 +13,12 @@ import { useNavigate } from 'react-router-dom';
 import volume from '../../assets/images/navbar/volume.png'
 import volumePlay from '../../assets/images/navbar/volumePlay.png'
 import MusicContext from '../../context/MusicContext.jsx'
+import axios from 'axios';
 
 
 const HeaderResponsive = () => {
 
-  const { newMessage, setNewMessage, user, setUser, baseUrlImage, canPlayAnotherQuizToday, updateQuizzesPlayed, bundelsAndLevels, setBundlesAndLevels } = useGlobalContext();
+  const { newMessage, setNewMessage, user, setUser, baseUrl, baseUrlImage, canPlayAnotherQuizToday, updateQuizzesPlayed, bundelsAndLevels, setBundlesAndLevels } = useGlobalContext();
   const path = window.location.pathname
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
@@ -39,27 +40,39 @@ const HeaderResponsive = () => {
     navigate('/settings');
   };
 
+  // const userUpdate = async (parsedUser) => {
+  //   try {
+  //     const response = await axios.get(`${baseUrl}/User/${parsedUser.email}`);
+  //     const fetchedUser = response.data;
+
+  //     const updatedUserData = {
+  //       ...parsedUser,
+  //       type: fetchedUser.type,
+  //       level: fetchedUser.level,
+  //       coinBalance: fetchedUser.coinBalance
+  //     };
+
+  //     setUser(updatedUserData);
+
+  //     localStorage.setItem('userData', JSON.stringify(updatedUserData));
+  //   } catch (error) {
+  //     console.error('Error updating user info:', error);
+  //   }
+  // };
+
   useEffect(() => {
-    let singleUser;
+    const storedUser = localStorage.getItem('userData');
 
-    if (localStorage.getItem('New Message')) {
-      setNewMessage(localStorage?.getItem('New Message'))
-    }
+    if (storedUser && storedUser !== 'undefined') {
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
 
-
-    if (localStorage.getItem('userData')) {
-      singleUser = localStorage.getItem('userData');
-      console.log(singleUser);
-    }
-
-    if (localStorage.getItem('userData') == "undefined") {
+      // if (parsedUser?.email) {
+      //   userUpdate(parsedUser);
+      // }
+    } else {
       localStorage.removeItem("token");
     }
-
-    if (singleUser !== 'undefined') {
-      setUser(JSON.parse(singleUser));
-    }
-
   }, []);
 
   useEffect(() => {

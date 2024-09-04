@@ -70,6 +70,7 @@ const AppProvider = ({ children }) => {
     }
   };
 
+
   // APP TUTORIAL
   const [isTutorialActive, setIsTutorialActive] = useState(false);
   const [tutorial, setTutorial] = useState({
@@ -196,6 +197,55 @@ const AppProvider = ({ children }) => {
   const [isSlideshowEdit, setIsSlideshowEdit] = useState(false);
   const [slideshowEditing, setSlideshowEditing] = useState(null);
   const [allSlideshows, setAllSlideshows] = useState([{ id: 1, level: 2, slides: [{ name: 'probni 1', place: 1, gif: '' }, { name: 'probni 2', place: 2, gif: '' }] }]);
+  const [slideshowByLevel, setSlideshowByLevel] = useState();
+  const [isSlideshowShowed, setIsSlideshowShowed] = useState(false);
+
+  const handleIsSlideshowShowed = () => {
+    const cookieValue = Cookies.get('isSlideShowed');
+
+    if (!cookieValue) {
+      Cookies.set('isSlideShowed', JSON.stringify({ level: user?.stage, isSlideShowed: false }))
+      setIsSlideshowShowed(false);
+      return false;
+    }
+
+    const { level, isSlideShowed } = JSON.parse(cookieValue);
+
+    if (level == user.stage) {
+      setIsSlideshowShowed(isSlideShowed);
+      return isSlideShowed;
+    } else {
+      Cookies.set('isSlideShowed', JSON.stringify({ level: user?.stage, isSlideShowed: false }));
+      setIsSlideshowShowed(false);
+      return false;
+    }
+  }
+
+  const fetchSlideshows = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/Slides`);
+      setAllSlideshows(response.data);
+    } catch (error) {
+      console.error('Error fetching Avatars:', error);
+    }
+  }
+
+  const fetchSlideshowByLevel = async (lvl) => {
+    try {
+      const response = await axios.get(`${baseUrl}/Slides/level/${lvl}`);
+      setSlideshowByLevel(response.data);
+    } catch (error) {
+      console.error('Error fetching Avatars:', error);
+    }
+  }
+
+  const updateShowedSlideshow = () => {
+    const cookieValue = Cookies.get('isSlideShowed');
+    const { level, isSlideShowed } = JSON.parse(cookieValue);
+
+    Cookies.set('isSlideShowed', JSON.stringify({ level, isSlideShowed: true }));
+    setIsSlideshowShowed(true);
+  };
 
 
   // NEW MESSAGE
@@ -557,13 +607,13 @@ const AppProvider = ({ children }) => {
     try {
       const response = await axios.get(`${baseUrl}/Author`);
       if (response.status === 200) {
-        setAllAuthors(response.data); // Directly set the data
+        setAllAuthors(response.data);
       }
       console.log(allAuthors);
     } catch (error) {
       console.error(error);
     } finally {
-      setIsPostsLoading(false); // Set loading state to false after the request is completed
+      setIsPostsLoading(false);
     }
   };
 
@@ -572,9 +622,10 @@ const AppProvider = ({ children }) => {
   const handleDeleteAuthor = async (authorId) => {
     try {
       const response = await axios.delete(`${baseUrl}/Author/${authorId}`);
-      if (response.status === 200) {
-        // Remove the deleted post from the state
+      console.log(response)
+      if (response.statusText == 'OK') {
         setAllAuthors(allAuthors.filter(author => author.id !== authorId));
+        console.log(allAuthors)
       }
     } catch (error) {
       console.error('Failed to delete author:', error);
@@ -588,35 +639,35 @@ const AppProvider = ({ children }) => {
   //GET ALL               //GET ALL
   const getAllPosts = async () => {
     try {
-      setIsPostsLoading(true); // Set loading state to true before making the request
+      setIsPostsLoading(true);
       const response = await axios.get(`${baseUrl}/Post`);
       if (response.status === 200) {
-        setAllPosts(response.data); // Directly set the data
+        setAllPosts(response.data);
       }
     } catch (error) {
       console.error(error);
     } finally {
-      setIsPostsLoading(false); // Set loading state to false after the request is completed
+      setIsPostsLoading(false);
     }
   };
   //GET ALL POSTS PER STAGE
-  const getPostsPerStage = async () => {
+  const getPostsPerStage = async (stage) => {
     try {
-      setIsPostsLoading(true); // Set loading state to true before making the request
-      const response = await axios.get(`${baseUrl}/Post/ListPerStages/Easy`, {
+      setIsPostsLoading(true);
+      const response = await axios.get(`${baseUrl}/Post/ListPerStages/${stage}`, {
         headers: {
           "Access-Control-Allow-Origin": "*",
         }
       }
       );
       if (response.status === 200) {
-        setPostsPerStage(response.data); // Directly set the data
+        setPostsPerStage(response.data);
         console.log(postsPerStage)
       }
     } catch (error) {
       console.error(error);
     } finally {
-      setIsPostsLoading(false); // Set loading state to false after the request is completed
+      setIsPostsLoading(false);
     }
   };
   //DELETE POST
@@ -625,7 +676,7 @@ const AppProvider = ({ children }) => {
       setIsPostsLoading(true);
       const response = await axios.delete(`${baseUrl}/Post/${postId}`);
       if (response.status === 200) {
-        // Remove the deleted post from the state
+
         setAllPosts(allPosts.filter(post => post.id !== postId));
       }
     } catch (error) {
@@ -1029,6 +1080,13 @@ const AppProvider = ({ children }) => {
         setSlideshowEditing,
         allSlideshows,
         setAllSlideshows,
+        isSlideshowShowed,
+        setIsSlideshowShowed,
+        fetchSlideshows,
+        fetchSlideshowByLevel,
+        handleIsSlideshowShowed,
+        slideshowByLevel, setSlideshowByLevel,
+        updateShowedSlideshow,
 
         // POSTS 
         allPosts,

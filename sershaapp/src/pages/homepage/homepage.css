@@ -22,6 +22,12 @@
     width: 600px;
 }
 
+.slideshowWrap {
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+}
+
 .postWrapper img {
     width: 500px;
     height: 500px;

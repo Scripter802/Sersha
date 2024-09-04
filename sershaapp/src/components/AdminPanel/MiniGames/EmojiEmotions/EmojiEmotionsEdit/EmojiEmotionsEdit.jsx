@@ -32,12 +32,16 @@ const EmojiEmotionsEdit = () => {
   const handleSubmit = async () => {
     const updatedEmojiEmotionFormData = new FormData();
     updatedEmojiEmotionFormData.append('difficulty', editEmojiEmotion.difficulty);
+    updatedEmojiEmotionFormData.append("id", editEmojiEmotion.id);
     updatedEmojiEmotionFormData.append("questions[0][id]", editEmojiEmotion.questions[0].id);
     updatedEmojiEmotionFormData.append("questions[0][text]", editEmojiEmotion.questions[0].text);
     updatedEmojiEmotionFormData.append(`questions[0][type]`, editEmojiEmotion.questions[0].type);
     updatedEmojiEmotionFormData.append("questions[0].ImageFile", emojiImage);
-    updatedEmojiEmotionFormData.append("questions[0][answers]", editEmojiEmotion.questions[0].answers);
 
+    editEmojiEmotion.questions[0].answers.forEach((answer, index) => {
+      updatedEmojiEmotionFormData.append(`questions[0][answers][${index}][text]`, answer.text);
+      updatedEmojiEmotionFormData.append(`questions[0][answers][${index}][isCorrect]`, answer.isCorrect);
+    });
 
     await axios.put(`${baseUrl}/Quizzes/${editEmojiEmotion.id}`, updatedEmojiEmotionFormData, {
       headers: {
@@ -46,6 +50,9 @@ const EmojiEmotionsEdit = () => {
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
       },
     });
+
+    setAllEmojiEmotionsAssignments(prevAssignments => prevAssignments.map(assignment => assignment.id === editEmojiEmotion.id ? editEmojiEmotion : assignment));
+
 
     setEditingEmojiEmotions(null);
     setIsEmojiEmotionsEdit(false);

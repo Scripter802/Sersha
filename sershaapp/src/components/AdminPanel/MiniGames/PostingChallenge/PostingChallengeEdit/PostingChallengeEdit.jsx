@@ -3,6 +3,7 @@ import { useGlobalContext } from '../../../../../context/context';
 import closeButton from '../../../../../assets/images/adminPanel/closeButton.png';
 import './postingChallengeEdit.css';
 import Dropzone from 'react-dropzone';
+import axios from 'axios';
 
 const PostingChallengeEdit = () => {
   const { baseUrl, baseUrlImage, editingPostingChallenge, setEditingPostingChallenge, setIsPostingChallengeEdit, allPostingChallengeAssignments, setAllPostingChallengeAssignments } = useGlobalContext();
@@ -37,8 +38,12 @@ const PostingChallengeEdit = () => {
     updatedPostingChallengeFormData.append("questions[0][text]", editPostingChallenge.questions[0].text);
     updatedPostingChallengeFormData.append("questions[0][content]", editPostingChallenge.questions[0].content);
     updatedPostingChallengeFormData.append(`questions[0][type]`, editPostingChallenge.questions[0].type);
-    updatedPostingChallengeFormData.append("questions[0].imageFile", snapImage);
-    updatedPostingChallengeFormData.append("questions[0][answers]", editPostingChallenge.questions[0].answers);
+    updatedPostingChallengeFormData.append("questions[0].imageFile", imagePosting);
+
+    editPostingChallenge.questions[0].answers.forEach((answer, index) => {
+      updatedPostingChallengeFormData.append(`questions[0][answers][${index}][text]`, answer.text);
+      updatedPostingChallengeFormData.append(`questions[0][answers][${index}][isCorrect]`, answer.isCorrect);
+    });
 
 
     await axios.put(`${baseUrl}/Quizzes/${editPostingChallenge.id}`, updatedPostingChallengeFormData, {
@@ -48,6 +53,8 @@ const PostingChallengeEdit = () => {
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
       },
     });
+
+    setAllPostingChallengeAssignments(prevAssignments => prevAssignments.map(assignment => assignment.id === editPostingChallenge.id ? editPostingChallenge : assignment));
 
 
     setEditingPostingChallenge(null);
@@ -98,7 +105,7 @@ const PostingChallengeEdit = () => {
           type="text"
           value={editPostingChallenge.questions[0].text}
           placeholder='Author Name'
-          onChange={(e) => handleQuestionChange(0, 'text', e.target.value)} />
+          onChange={(e) => handleInputChange('text', e.target.value, 0)} />
       </div>
       <div>
         <label className='fieldLabel'>Post Content:</label>
@@ -107,7 +114,7 @@ const PostingChallengeEdit = () => {
           type="text"
           value={editPostingChallenge.questions[0].content}
           placeholder='Post Content'
-          onChange={(e) => handleQuestionChange(0, 'content', e.target.value)} />
+          onChange={(e) => handleInputChange('content', e.target.value, 0)} />
       </div>
       <div>
         <label className='fieldLabel'>Upload Image:</label>

@@ -29,7 +29,7 @@ const getRandomItems = (array, numItems) => {
 
 const EmojiEmotions = () => {
   const {
-    baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
+    baseUrl, baseUrlImage, user, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
     incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems, handleCorrectAnswerMiniGames, setRogueClickCounter, currentVocal, setCurrentVocal, handleCurrentRogueVocal, rogueClickCounter
   } = useGlobalContext();
 
@@ -44,16 +44,17 @@ const EmojiEmotions = () => {
   const gameSucceed = new Audio('/music/SFX/FightRogueFox/Anotherwin.mp3');
 
   useEffect(() => {
-    const fetchEmoji = async () => {
+    const fetchEmoji = async (dif) => {
       try {
-        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/0/5`);
+        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/${dif}/5`);
         setAllEmoji(response.data);
       } catch (error) {
         console.error('Error fetching Emoji games:', error);
       }
     };
 
-    fetchEmoji();
+    user?.level <= 13 ? fetchEmoji('0') : user?.level > 13 && user?.level <= 26 ? fetchEmoji('1') : fetchEmoji('2');
+
   }, [baseUrl]);
 
   useEffect(() => {

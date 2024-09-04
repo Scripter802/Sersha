@@ -15,7 +15,7 @@ import axios from 'axios';
 const Header = () => {
   const { baseUrl, newMessage, setNewMessage, user, setUser, baseUrlImage, canPlayAnotherQuizToday, updateQuizzesPlayed, bundelsAndLevels, setBundlesAndLevels, isTutorialActive, setIsTutorialActive } = useGlobalContext();
   const path = window.location.pathname
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();

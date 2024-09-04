@@ -14,7 +14,7 @@ const AvatarEdit = () => {
     setAvatarEditing,
     setAllAvatars
   } = useGlobalContext();
-
+  console.log(avatarEditing)
   const handleSubmit = async () => {
     const formData = new FormData();
     formData.append('id', avatarEditing.id);
@@ -22,7 +22,7 @@ const AvatarEdit = () => {
     formData.append('name', avatarEditing.name);
 
     try {
-      const response = await axios.put(`${baseUrl}/Avatar/${avatarEditing.id}`, formData, {
+      const response = await axios.put(`${baseUrl}/Avatar/${avatarEditing?.id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -34,7 +34,8 @@ const AvatarEdit = () => {
   };
 
   const handleImageDrop = (file) => {
-    setAvatarEditing({ ...avatarEditing, image: file });
+    setAvatarEditing({ ...avatarEditing, image: file[0], imagePath: null });
+
   };
 
   console.log(avatarEditing)
@@ -52,7 +53,7 @@ const AvatarEdit = () => {
             <div {...getRootProps()} className="dropzoneAuthor">
               <input {...getInputProps()} />
               {avatarEditing ? (
-                <img src={typeof avatarEditing.imagePath === 'string' ? `${baseUrlImage}/${avatarEditing.imagePath}` : URL.createObjectURL(clothingEditingItem.image)} alt="Author Image" className="uploaded-imageAuthor" />
+                <img src={typeof avatarEditing.imagePath === 'string' && avatarEditing.imagePath !== null ? `${baseUrlImage}/${avatarEditing.imagePath}` : URL.createObjectURL(avatarEditing.image)} alt="Author Image" className="uploaded-imageAuthor" />
               ) : (
                 <p>Drag 'n' drop an image here, or click to select an image</p>
               )}

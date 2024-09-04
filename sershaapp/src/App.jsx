@@ -30,6 +30,9 @@ import SettingsPage from './pages/settingsPage/SettingsPage.jsx'
 
 import { MusicProvider } from './context/MusicContext.jsx';
 import CheckoutPage from './pages/checkoutPage/CheckoutPage.jsx'
+import SuccessMonthly from './pages/checkoutPage/SuccessMonthly.jsx'
+import SuccessYearly from './pages/checkoutPage/SuccessYearly.jsx'
+import CancelPayment from './pages/checkoutPage/CancelPayment.jsx'
 
 // Layout Component
 const Layout = () => {
@@ -170,19 +173,33 @@ const router = createBrowserRouter([
       {
         path: '/admin',
         element: (
-          <ProtectedRoute>
-            <AdminPanel />
-          </ProtectedRoute>
+          <AdminPanel />
         ),
       },
       {
         path: '/checkout',
         element: (
-          <ProtectedRoute>
-            <CheckoutPage />
-          </ProtectedRoute>
+          <CheckoutPage />
         )
-      }
+      },
+      {
+        path: '/successmonthly',
+        element: (
+          <SuccessMonthly />
+        )
+      },
+      {
+        path: '/successyearly',
+        element: (
+          <SuccessYearly />
+        )
+      },
+      {
+        path: '/cancel',
+        element: (
+          <CancelPayment />
+        )
+      },
     ],
   },
   {

@@ -23,13 +23,17 @@ import { useGlobalContext } from '../../context/context';
 import MusicContext from '../../context/MusicContext.jsx'
 import './slideshow.css';
 
-const Slideshow = () => {
+const Slideshow = ({ lvl }) => {
   const navigate = useNavigate();
   const [currentGifIndex, setCurrentGifIndex] = useState(0);
   const [playBackgroundMusic, setPlayBackgroundMusic] = useState(false);
   const { toggleMusic, isPlaying } = useContext(MusicContext);
-  const { user } = useGlobalContext();
+  const { baseUrlImage, user, slideshowByLevel, fetchSlideshowByLevel, updateShowedSlideshow } = useGlobalContext();
   const firstLevelGifs = [levelDigitalCompass, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, threeteen, fourteen, fiveteen];
+
+  useEffect(() => {
+    fetchSlideshowByLevel(lvl);
+  }, [lvl]);
 
   useEffect(() => {
     const musicTimer = setTimeout(() => {
@@ -40,9 +44,10 @@ const Slideshow = () => {
   }, []);
 
   const handleNext = () => {
-    if (currentGifIndex < firstLevelGifs.length - 1) {
+    if (currentGifIndex < slideshowByLevel?.length - 1) {
       setCurrentGifIndex(prevIndex => prevIndex + 1);
     } else {
+      updateShowedSlideshow();
       navigate('/');
     }
   };
@@ -56,7 +61,9 @@ const Slideshow = () => {
   return (
     <div className="slideshow">
       {currentGifIndex > 0 && <div className="arrow left" onClick={handlePrev}>&#9664;</div>}
-      <img src={firstLevelGifs[currentGifIndex]} alt="Slideshow GIF" />
+      {slideshowByLevel?.length > 0 && (
+        <img src={`${baseUrlImage}${slideshowByLevel[currentGifIndex]?.filePath}`} alt="Slideshow GIF" />
+      )}
       <div className="arrow right" onClick={handleNext}>&#9654;</div>
       <audio autoPlay>
         <source src="/music/SFX/Slideshow/LoadingSoundEffect.mp3" type="audio/mpeg" />

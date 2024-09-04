@@ -32,7 +32,11 @@ const LoginForm = () => {
     loginUser,
     user,
     setUser,
-    setIsTutorialActive
+    setIsTutorialActive,
+    fetchSlideshows,
+    fetchSlideshowByLevel,
+    allSlideshows,
+    slideshowByLevel,
   } = useGlobalContext();
 
   const navigate = useNavigate();
@@ -46,6 +50,7 @@ const LoginForm = () => {
         {
           isFirstTimeLoggedIn: false,
           email: user.email,
+          stage: 1,
         },
         {
           headers: {
@@ -54,6 +59,7 @@ const LoginForm = () => {
           },
         }
       );
+      setUser({ ...user, stage: 1 })
       console.log('User updated:', response.data);
     } catch (error) {
       console.log('Error updating user:', error);
@@ -115,10 +121,9 @@ const LoginForm = () => {
       });
 
       if (response.ok) {
-        // Handle successful login
         const data = await response.json();
         console.log('Login successful:', data);
-        loginUser(data.token); // Use loginUser function from context
+        loginUser(data.token);
         localStorage.setItem('userData', JSON.stringify(data));
         setUser(data);
         setIsLoggedIn(true);
@@ -137,13 +142,17 @@ const LoginForm = () => {
       localStorage.setItem('levelStep', '0');
       setIsTutorialActive(true);
       isFirstTimeLoggedInChange();
-      return (<Slideshow />)
+      Cookies.set('isSlideShowed', JSON.stringify({ level: 1, isSlideShowed: false }));
+
+
+
+
+      return (<Slideshow lvl={'1'} />)
     }
     else {
       navigate('/');
     }
   }
-
   return (
     <>
       <div className='logInHeaderWrapper'>

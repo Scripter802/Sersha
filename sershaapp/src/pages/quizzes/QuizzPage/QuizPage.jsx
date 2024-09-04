@@ -50,16 +50,18 @@ const QuizPage = () => {
 
 
   useEffect(() => {
-    const fetchCurrentQuizz = async () => {
+    const fetchCurrentQuizz = async (dif) => {
       try {
-        const response = await axios.get(`${baseUrl}/Quizzes/randomByDifficulty/0`);
+        const response = await axios.get(`${baseUrl}/Quizzes/randomByDifficulty/${dif}`);
         setCurrentQuizz(response.data);
       } catch (error) {
         console.error('Error fetching Current Quizz:', error);
       }
     };
 
-    fetchCurrentQuizz();
+    user?.level <= 13 ? fetchCurrentQuizz('0') : user?.level > 13 && user?.level <= 26 ? fetchCurrentQuizz('1') : fetchCurrentQuizz('2');
+
+
   }, []);
 
   // useEffect(() => {
@@ -143,12 +145,15 @@ const QuizPage = () => {
       newCoinBalance *= 2;
     }
 
+    let newStage = user.stage + 1;
+
     console.log('New coin balance:', newCoinBalance);
 
-    setUser({ ...user, coinBalance: newCoinBalance });
+
+    setUser({ ...user, coinBalance: newCoinBalance, stage: newStage });
 
     try {
-      await axios.put(`${baseUrl}/User/${user.email}`, { coinBalance: newCoinBalance });
+      await axios.put(`${baseUrl}/User/${user.email}`, { coinBalance: newCoinBalance, stage: newStage });
     } catch (error) {
       console.log(error);
     }

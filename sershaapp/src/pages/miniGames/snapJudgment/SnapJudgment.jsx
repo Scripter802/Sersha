@@ -26,7 +26,7 @@ const getRandomItems = (array, numItems) => {
 
 const SnapJudgment = () => {
   const {
-    baseUrl, baseUrlImage, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
+    baseUrl, baseUrlImage, user, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
     incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems, handleCorrectAnswerMiniGames, setRogueClickCounter, currentVocal, setCurrentVocal, handleCurrentRogueVocal, rogueClickCounter
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
@@ -40,16 +40,17 @@ const SnapJudgment = () => {
   const gameSucceed = new Audio('/music/SFX/FightRogueFox/Anotherwin.mp3');
 
   useEffect(() => {
-    const fetchSnap = async () => {
+    const fetchSnap = async (dif) => {
       try {
-        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/0/4`);
+        const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/${dif}/4`);
         setAllSnap(response.data);
       } catch (error) {
         console.error('Error fetching right answer questions:', error);
       }
     };
 
-    fetchSnap();
+    user?.level <= 13 ? fetchSnap('0') : user?.level > 13 && user?.level <= 26 ? fetchSnap('1') : fetchSnap('2');
+
   }, [baseUrl]);
 
   useEffect(() => {

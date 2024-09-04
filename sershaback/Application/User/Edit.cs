@@ -64,7 +64,9 @@ namespace Application.User
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
                 var user = await _context.Users
-                    .FirstOrDefaultAsync(u => u.Email == request.Email, cancellationToken);
+                    .Where(u => u.Email == request.Email)
+                    .Include(u => u.AvatarImage)
+                    .FirstOrDefaultAsync();
 
                 if (user == null)
                 {
@@ -78,16 +80,14 @@ namespace Application.User
                 user.CoinBalance = request.CoinBalance != default ? request.CoinBalance : user.CoinBalance;
                 user.Type = request.Type ?? user.Type;
                 user.isFirstTimeLoggedIn = request.isFirstTimeLoggedIn;
+                
                 if(request.NewPassword != null){
                     await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
                 }
-                if(request.AvatarImageId != user.AvatarImageId || request.AvatarImageId != null){
+                if(request.AvatarImageId != user.AvatarImageId && request.AvatarImageId != new Guid()){
                     user.AvatarImageId = request.AvatarImageId;
                     user.AvatarImage = _context.AvatarImages.FirstOrDefault(x => x.Id == request.AvatarImageId);
-                }else{
-                    user.AvatarImageId = request.AvatarImageId;
-                    user.AvatarImage = _context.AvatarImages.FirstOrDefault(x => x.Id == user.AvatarImageId);
-                }      
+                }
 
                 _context.Users.Update(user);
                 var success = await _context.SaveChangesAsync() > 0;

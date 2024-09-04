@@ -42,8 +42,12 @@ const SnapJudgmentEdit = () => {
     updatedSnapJudgmentFormData.append("questions[0][content]", editingSnapJudgment.questions[0].content);
     updatedSnapJudgmentFormData.append(`questions[0][type]`, editSnapJudgment.questions[0].type);
     updatedSnapJudgmentFormData.append("questions[0].imageFile", snapImage);
-    updatedSnapJudgmentFormData.append("questions[0][answers]", editSnapJudgment.questions[0].answers);
 
+    editSnapJudgment.questions[0].answers.forEach((answer, index) => {
+      console.log(answer)
+      updatedSnapJudgmentFormData.append(`questions[0][answers][${index}][text]`, answer.text);
+      updatedSnapJudgmentFormData.append(`questions[0][answers][${index}][isCorrect]`, answer.isCorrect);
+    });
 
     await axios.put(`${baseUrl}/Quizzes/${editSnapJudgment.id}`, updatedSnapJudgmentFormData, {
       headers: {
@@ -52,6 +56,9 @@ const SnapJudgmentEdit = () => {
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
       },
     });
+
+    setAllSnapJudgmentAssignments(prevAssignments => prevAssignments.map(assignment => assignment.id === editSnapJudgment.id ? editSnapJudgment : assignment));
+
 
     setEditingSnapJudgment(null);
     setIsSnapJudgmentEdit(false);

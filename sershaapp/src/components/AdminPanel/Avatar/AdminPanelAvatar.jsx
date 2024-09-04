@@ -31,16 +31,16 @@ const AdminPanelAvatar = () => {
   const handleEdit = (item) => {
     setAvatarEditing(item);
     setIsAvatarEdit(true);
-    console.log(`Editing item with id ${id}`);
+    console.log(`Editing item with id ${item.id}`);
   };
 
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(`${baseUrl}/Avatar/${id}`);
-      if (response.status === 200) {
+      if (response.statusText == 'OK' || "NO CONTENT") {
 
         // Update the allQuizzes state by filtering out the deleted quiz
-        const updatedAvatars = allAvatars.filter(q => q.id !== allAvatars.id);
+        const updatedAvatars = allAvatars.filter(q => q.id !== id);
         setAllAvatars(updatedAvatars);
       }
     } catch (error) {

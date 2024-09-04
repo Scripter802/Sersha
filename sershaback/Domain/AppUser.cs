@@ -30,6 +30,10 @@ namespace Domain
         public Guid? AvatarImageId { get; set; }
         public int Stage { get; set; }
 
+        public bool IsSubscribed {get; set;}
+
+        public DateTime SubscribedUntil {get; set;}
+
         public ICollection<SershaItemsUserOwns> OwnedSershaItems { get; set; }
         public ICollection<SershaItemsUserSelected> SelectedSershaItems { get; set; }
 

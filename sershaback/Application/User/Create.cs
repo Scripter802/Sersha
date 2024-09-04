@@ -76,7 +76,9 @@ namespace Application.User
                     UserBirthDate = request.UserBirthDate,
                     Type = "User",
                     Stage = 1,
-                    isFirstTimeLoggedIn = true
+                    isFirstTimeLoggedIn = true,
+                    IsSubscribed = true,
+                    SubscribedUntil = DateTime.Today.AddDays(1)
                 };
 
                 var results = await _userMenager.CreateAsync(user, request.Password);

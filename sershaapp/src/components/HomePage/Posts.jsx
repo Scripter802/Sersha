@@ -4,12 +4,12 @@ import liked from '../../assets/images/posts/liked.png'
 import { useGlobalContext } from '../../context/context';
 
 const Posts = ({ posts }) => {
-  const { postsPerStage, baseUrlImage, isAuthenticated, randomPosts, isPostLoading, setRandomPosts, getPostsPerStage } = useGlobalContext();
+  const { postsPerStage, baseUrlImage, isAuthenticated, randomPosts, isPostLoading, setRandomPosts, getPostsPerStage, user } = useGlobalContext();
 
   useEffect(() => {
     if (isAuthenticated) {
 
-      getPostsPerStage();
+      user?.level <= 13 ? getPostsPerStage('Easy') : user?.level > 13 && user?.level <= 26 ? getPostsPerStage('Medium') : getPostsPerStage('Hard');
     }
   }, [isAuthenticated])
 

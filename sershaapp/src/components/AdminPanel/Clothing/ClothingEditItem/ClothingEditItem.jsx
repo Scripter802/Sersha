@@ -36,7 +36,7 @@ const ClothingEditItem = () => {
   };
 
   const handleImageDrop = (file) => {
-    setClothingEditingItem({ ...clothingEditingItem, image: file });
+    setClothingEditingItem({ ...clothingEditingItem, image: file[0], imagePath: null });
   };
 
   console.log(clothingEditingItem)

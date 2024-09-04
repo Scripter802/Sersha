@@ -34,5 +34,11 @@ namespace Domain
             Head,
             Body
         }
+
+        public enum SubscribtionPeriod
+        {
+            Monthly,
+            Yearly
+        }
     }
 }

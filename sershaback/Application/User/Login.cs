@@ -67,6 +67,7 @@ namespace Application.User
                         Level = user.Level,
                         CoinBalance = user.CoinBalance,
                         Stage = user.Stage,
+                        Type = user.Type,
                         UserBirthDate = user.UserBirthDate,
                         ParentPhoneNumber = user.ParentPhoneNumber,
                         ParentsFullName = user.ParentsFullName,

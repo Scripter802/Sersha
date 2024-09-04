@@ -39,7 +39,7 @@ namespace Application.Chats
 
                 Random random = new Random();
                 
-                var message = messages.ElementAt(random.Next(messages.Count()));
+                var message = messages.ElementAt(random.Next() % messages.Count());
 
                 if (message == null)
                 {

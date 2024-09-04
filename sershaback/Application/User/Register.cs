@@ -75,8 +75,11 @@ namespace Application.User
                     ParentsFullName = request.ParentsFullName,
                     ParentPhoneNumber = request.ParentPhoneNumber,
                     UserBirthDate = request.UserBirthDate,
-                    AvatarImageId = request.AvatarImageId,
-                    Type = "User"
+                    Type = "User",
+                    Stage = 1,
+                    isFirstTimeLoggedIn = true,
+                    IsSubscribed = true,
+                    SubscribedUntil = DateTime.Today.AddDays(1)
 
                 };
                 user.AvatarImage = _context.AvatarImages.FirstOrDefault(x=> x.Id == user.AvatarImageId);

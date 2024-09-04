@@ -45,8 +45,23 @@ const SingleQuizz = ({ quizz, setIsSingleQuizz }) => {
   };
 
   const handleEditQuizz = async () => {
+    const formData = new FormData();
+
+    formData.append('id', quizData.id);
+    formData.append('quizName', quizData.quizName);
+    formData.append('conversationStarter', quizData.conversationStarter);
+    formData.append('difficulty', quizData.difficulty);
+
+    quizData.questions.forEach((question, index) => {
+      formData.append(`questions[${index}]`, JSON.stringify(question));
+    });
+
     try {
-      await axios.put(`${baseUrl}/Quizzes/${quizData.id}`, quizData);
+      await axios.put(`${baseUrl}/Quizzes/${quizData.id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       setIsSingleQuizz(false);
     } catch (error) {
       console.log(error);

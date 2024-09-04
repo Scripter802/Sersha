@@ -107,4 +107,8 @@ small {
     position: unset;
   }
 
+  .checkoutPageWrapper {
+    margin-bottom: 2.5rem;
+  }
+
 }

@@ -4,6 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import './checkoutPage.css'
 import { useGlobalContext } from '../../context/context'
 import { useNavigate } from 'react-router-dom';
+import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive';
 
 let stripePromise;
 
@@ -20,12 +21,6 @@ const CheckoutPage = () => {
   const [isLoading, setLoading] = useState(false);
   const { user } = useGlobalContext();
   const navigate = useNavigate();
-
-  if (user?.type == "Admin" || user?.isSubscribed == true) {
-    navigate('/')
-  }
-
-  console.log(user)
 
   const yearlySubscription = {
     price: "price_1PoPN9DTW8RXGzBATOtbzbxP",
@@ -79,6 +74,7 @@ const CheckoutPage = () => {
 
   return (
     <div className='checkoutPageWrapper'>
+      {window.innerWidth < 1000 && <HeaderResponsive />}
       <h1 className='checkoutTitle'>Subscription  </h1>
       {/* <p className=''>Please Subscribe to Play Sersha  </p> */}
       <div className='checkoutCartWrapper'>

@@ -145,12 +145,15 @@ const QuizPage = () => {
       newCoinBalance *= 2;
     }
 
+    let newStage = user.stage + 1;
+
     console.log('New coin balance:', newCoinBalance);
 
-    setUser({ ...user, coinBalance: newCoinBalance });
+
+    setUser({ ...user, coinBalance: newCoinBalance, stage: newStage });
 
     try {
-      await axios.put(`${baseUrl}/User/${user.email}`, { coinBalance: newCoinBalance });
+      await axios.put(`${baseUrl}/User/${user.email}`, { coinBalance: newCoinBalance, stage: newStage });
     } catch (error) {
       console.log(error);
     }

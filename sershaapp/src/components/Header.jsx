@@ -40,25 +40,25 @@ const Header = () => {
 
 
 
-  const userUpdate = async (parsedUser) => {
-    try {
-      const response = await axios.get(`${baseUrl}/User/${parsedUser.email}`);
-      const fetchedUser = response.data;
+  // const userUpdate = async (parsedUser) => {
+  //   try {
+  //     const response = await axios.get(`${baseUrl}/User/${parsedUser.email}`);
+  //     const fetchedUser = response.data;
 
-      const updatedUserData = {
-        ...parsedUser,
-        type: fetchedUser.type,
-        level: fetchedUser.level,
-        coinBalance: fetchedUser.coinBalance
-      };
+  //     const updatedUserData = {
+  //       ...parsedUser,
+  //       type: fetchedUser.type,
+  //       level: fetchedUser.level,
+  //       coinBalance: fetchedUser.coinBalance
+  //     };\
 
-      setUser(updatedUserData);
+  //     setUser(updatedUserData);
 
-      localStorage.setItem('userData', JSON.stringify(updatedUserData));
-    } catch (error) {
-      console.error('Error updating user info:', error);
-    }
-  };
+  //     localStorage.setItem('userData', JSON.stringify(updatedUserData));
+  //   } catch (error) {
+  //     console.error('Error updating user info:', error);
+  //   }
+  // };
 
   useEffect(() => {
     const storedUser = localStorage.getItem('userData');
@@ -67,9 +67,9 @@ const Header = () => {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
 
-      if (parsedUser?.email) {
-        userUpdate(parsedUser);
-      }
+      // if (parsedUser?.email) {
+      //   userUpdate(parsedUser);
+      // }
     } else {
       localStorage.removeItem("token");
     }

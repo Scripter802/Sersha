@@ -10,13 +10,17 @@ import { useGlobalContext } from '../../context/context'
 import MusicContext from '../../context/MusicContext'
 import Tutorial from '../../components/Tutorial/Tutorial'
 import { useNavigate } from 'react-router-dom';
+import Slideshow from '../../components/SlideShow/SlideShow'
 
 
 const HomePage = () => {
-  const { newMessage, setNewMessage, setUser, user, canPlayAnotherQuizToday, isTutorialActive } = useGlobalContext();
+  const { newMessage, setNewMessage, setUser, user, canPlayAnotherQuizToday, isTutorialActive, handleIsSlideshowShowed, isSlideshowShowed } = useGlobalContext();
   const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
   const music = '/music/Music/SershaThemesongMediumoptimal310520241122.mp3'
   const navigate = useNavigate();
+
+
+
 
   useEffect(() => {
     if (currentPlaying !== music) {
@@ -77,6 +81,10 @@ const HomePage = () => {
 
   //   updateUserFirstTimeLogin();
   // }, [user, setUser]);
+
+  if (!handleIsSlideshowShowed()) {
+    return <div className='slideshowWrap'><Slideshow lvl={user?.stage} /></div>
+  }
 
 
   return (

@@ -12,7 +12,7 @@ const PostAuthorList = () => {
 
   useEffect(() => {
     getAllAuthors()
-  }, [createNewPostAuthor]);
+  }, [createNewPostAuthor, isPostAuthorEdit]);
 
 
 

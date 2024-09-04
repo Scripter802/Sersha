@@ -7,34 +7,25 @@ import './slideshows.css'
 import axios from 'axios'
 
 const Slideshows = () => {
-  const { baseUrl, baseUrlImage, slideshowCreateNew, setSlideshowCreateNew, isSlideshowEdit, setIsSlideshowEdit, slideshowEditing, setSlideshowEditing, allSlideshows, setAllSlideshows } = useGlobalContext();
+  const { baseUrl, baseUrlImage, fetchSlideshows, slideshowCreateNew, setSlideshowCreateNew, isSlideshowEdit, setIsSlideshowEdit, slideshowEditing, setSlideshowEditing, allSlideshows, setAllSlideshows } = useGlobalContext();
 
   useEffect(() => {
-    const fetchSlideshows = async () => {
-      try {
-        const response = await axios.get(`${baseUrl}/Slides`);
-        setAllSlideshows(response.data);
-      } catch (error) {
-        console.error('Error fetching Avatars:', error);
-      }
-    };
-
     fetchSlideshows();
+
   }, [slideshowCreateNew, isSlideshowEdit]);
 
   const handleEdit = (item) => {
     setSlideshowEditing(item);
     setIsSlideshowEdit(true);
-    console.log(`Editing item with id ${id}`);
+    console.log(`Editing item with id ${item.id}`);
   };
 
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(`${baseUrl}/Slides/${id}`);
-      if (response.status === 200) {
+      if (response.status === 200 || 204) {
 
-        // Update the allQuizzes state by filtering out the deleted quiz
-        const updatedSlideshows = allSlideshows.filter(q => q.id !== allSlideshows.id);
+        const updatedSlideshows = allSlideshows.filter(q => q.id !== id);
         setAllSlideshows(updatedSlideshows);
       }
     } catch (error) {
@@ -54,9 +45,9 @@ const Slideshows = () => {
       ) : (
         <div className="clothing-page">
           <div className='titleWrapper'>
-            <h3>Avatar</h3>
+            <h3>Slideshows</h3>
             <button className="create-new-item-btn" onClick={() => setSlideshowCreateNew(true)}>
-              Create New Avatar
+              Create New Slideshow
             </button>
           </div>
           <table className="clothing-table">

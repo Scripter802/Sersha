@@ -4,6 +4,7 @@ import closeButton from '../../../../../assets/images/adminPanel/closeButton.png
 import './friendOrFoeEdit.css';
 
 import Dropzone from 'react-dropzone';
+import axios from 'axios';
 
 const FriendOrFoeEdit = () => {
   const { baseUrl, baseUrlImage, editingFriendOrFoe, setEditingFriendOrFoe, setIsFriendOrFoeEdit, allFriendOrFoeAssignments, setAllFriendOrFoeAssignments } = useGlobalContext();
@@ -31,24 +32,31 @@ const FriendOrFoeEdit = () => {
   }, [editingFriendOrFoe]);
 
   const handleSubmit = async () => {
-    const updatedPostingChallengeFormData = new FormData();
-    updatedPostingChallengeFormData.append('id', editingFriendOrFoe.id);
-    updatedPostingChallengeFormData.append('difficulty', editingFriendOrFoe.difficulty);
-    updatedPostingChallengeFormData.append("questions[0][id]", editingFriendOrFoe.questions[0].id);
-    updatedPostingChallengeFormData.append("questions[0][text]", editingFriendOrFoe.questions[0].text);
-    updatedPostingChallengeFormData.append("questions[0][content]", editingFriendOrFoe.questions[0].content);
-    updatedPostingChallengeFormData.append(`questions[0][type]`, editingFriendOrFoe.questions[0].type);
-    updatedPostingChallengeFormData.append("questions[0].imageFile", snapImage);
-    updatedPostingChallengeFormData.append("questions[0][answers]", editingFriendOrFoe.questions[0].answers);
+    const updatedFriendOrFoeFormData = new FormData();
+    updatedFriendOrFoeFormData.append('id', editFriendOrFoe.id);
+    updatedFriendOrFoeFormData.append('difficulty', editFriendOrFoe.difficulty);
+    updatedFriendOrFoeFormData.append("questions[0][id]", editFriendOrFoe.questions[0].id);
+    updatedFriendOrFoeFormData.append("questions[0][text]", editFriendOrFoe.questions[0].text);
+    updatedFriendOrFoeFormData.append("questions[0][content]", editFriendOrFoe.questions[0].content);
+    updatedFriendOrFoeFormData.append(`questions[0][type]`, editFriendOrFoe.questions[0].type);
+    updatedFriendOrFoeFormData.append("questions[0].imageFile", friendOrFoeImage);
+
+    editingFriendOrFoe.questions[0].answers.forEach((answer, index) => {
+      updatedFriendOrFoeFormData.append(`questions[0][answers][${index}][text]`, answer.text);
+      updatedFriendOrFoeFormData.append(`questions[0][answers][${index}][isCorrect]`, answer.isCorrect);
+    });
 
 
-    await axios.put(`${baseUrl}/Quizzes/${editingFriendOrFoe.id}`, updatedPostingChallengeFormData, {
+    await axios.put(`${baseUrl}/Quizzes/${editingFriendOrFoe.id}`, updatedFriendOrFoeFormData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
       },
     });
+
+    setAllFriendOrFoeAssignments(prevAssignments => prevAssignments.map(assignment => assignment.id === editFriendOrFoe.id ? editFriendOrFoe : assignment));
+
 
     setEditingFriendOrFoe(null);
     setIsFriendOrFoeEdit(false);

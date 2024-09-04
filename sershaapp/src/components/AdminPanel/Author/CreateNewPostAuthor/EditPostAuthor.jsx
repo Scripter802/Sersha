@@ -31,6 +31,8 @@ const EditPostAuthor = () => {
 
 
     await axios.put(`${baseUrl}/Author/${editingPostAuthor.id}`, newPostAuthorFormData);
+
+
     setIsPostAuthorEdit(false);
   };
 

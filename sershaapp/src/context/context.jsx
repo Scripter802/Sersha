@@ -211,7 +211,7 @@ const AppProvider = ({ children }) => {
 
     const { level, isSlideShowed } = JSON.parse(cookieValue);
 
-    if (level == user.stage) {
+    if (level == user?.stage) {
       setIsSlideshowShowed(isSlideShowed);
       return isSlideShowed;
     } else {

@@ -35,6 +35,10 @@ const Slideshow = ({ lvl }) => {
     fetchSlideshowByLevel(lvl);
   }, [lvl]);
 
+  if (slideshowByLevel?.length == 0) {
+    navigate('/');
+  }
+
   useEffect(() => {
     const musicTimer = setTimeout(() => {
       setPlayBackgroundMusic(true);

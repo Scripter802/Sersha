@@ -82,7 +82,11 @@ const HomePage = () => {
   //   updateUserFirstTimeLogin();
   // }, [user, setUser]);
 
-  if (!handleIsSlideshowShowed()) {
+  useEffect(() => {
+    handleIsSlideshowShowed()
+  }, [handleIsSlideshowShowed])
+
+  if (!isSlideshowShowed && window.innerWidth > 1000) {
     return <div className='slideshowWrap'><Slideshow lvl={user?.stage} /></div>
   }
 

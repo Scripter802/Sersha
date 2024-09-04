@@ -43,6 +43,11 @@ const QuizPage = () => {
   const [isInventoryQuiz, setIsInventoryQuiz] = useState(false);
 
   useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('userData')));
+
+  }, []);
+
+  useEffect(() => {
     if (currentPlaying != music) {
       changeMusic('/music/Music/RogueFoxFight310520241104.mp3');
     }
@@ -58,11 +63,11 @@ const QuizPage = () => {
         console.error('Error fetching Current Quizz:', error);
       }
     };
-
+    console.log(user?.level)
     user?.level <= 13 ? fetchCurrentQuizz('0') : user?.level > 13 && user?.level <= 26 ? fetchCurrentQuizz('1') : fetchCurrentQuizz('2');
 
 
-  }, []);
+  }, [user]);
 
   // useEffect(() => {
   //   if (currentQuizz && currentQuestion === currentQuizz.questions.length - 1) {

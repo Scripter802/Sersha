@@ -26,7 +26,7 @@ const getRandomItems = (array, numItems) => {
 
 const SnapJudgment = () => {
   const {
-    baseUrl, baseUrlImage, user, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
+    baseUrl, baseUrlImage, user, setUser, correctAnsweredMiniGames, setCorrectAnsweredMiniGames,
     incorrectAnsweredMiniGames, setIncorrectAnsweredMiniGames, corInc, setCorInc, roughFoxComments, roughFoxDamaged, setRoughFoxDamaged, handleFoxDamaged, inventoryItems, setInventoryItems, handleCorrectAnswerMiniGames, setRogueClickCounter, currentVocal, setCurrentVocal, handleCurrentRogueVocal, rogueClickCounter
   } = useGlobalContext();
   const [seconds, setSeconds] = useState(25);
@@ -38,6 +38,11 @@ const SnapJudgment = () => {
   const navigate = useNavigate();
   const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
   const gameSucceed = new Audio('/music/SFX/FightRogueFox/Anotherwin.mp3');
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('userData')));
+
+  }, []);
 
   useEffect(() => {
     const fetchSnap = async (dif) => {

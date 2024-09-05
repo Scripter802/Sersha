@@ -29,7 +29,7 @@ const Popup = () => {
     <div className='popupBackground'>
       <div className='popupWrapper'>
         <img src={evilfox} alt="evilfox" />
-        <h1>Evil Fox is attacking!</h1>
+        <h1>Rogue Fox is attacking!</h1>
         <p>Prepare to defend against attacks.</p>
         <div className='timerWrapper'>
           <div className='cirkle'></div>

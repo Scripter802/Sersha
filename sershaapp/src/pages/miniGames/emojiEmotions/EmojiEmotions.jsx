@@ -62,7 +62,7 @@ const EmojiEmotions = () => {
 
     user?.level <= 13 ? fetchEmoji('0') : user?.level > 13 && user?.level <= 26 ? fetchEmoji('1') : fetchEmoji('2');
 
-  }, [baseUrl]);
+  }, [baseUrl, user]);
 
   useEffect(() => {
     if (allEmoji.length > 0) {

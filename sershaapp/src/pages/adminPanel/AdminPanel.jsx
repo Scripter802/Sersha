@@ -13,6 +13,7 @@ const AdminPanel = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { baseUrl, user, setUser } = useGlobalContext();
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
   const OpenSidebar = () => {
     if (window.innerWidth < 768) {
@@ -56,12 +57,12 @@ const AdminPanel = () => {
     }
   }, []);
 
-  console.log(user?.type == "User")
   useEffect(() => {
-    if (!user?.type == "Admin") {
+    console.log(!token && !user?.type == "Admin")
+    if (token == null && !user?.type == "Admin") {
       navigate('/');
     }
-  }, [isLoading, user]);
+  }, [isLoading, user, token]);
 
   return (
     <div className='adminBackground'>

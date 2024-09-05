@@ -8,7 +8,7 @@ const SuccessMonthly = () => {
   const { baseUrl, user, setUser } = useGlobalContext();
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  console.log(user.email)
+  console.log(user?.email)
   useEffect(() => {
     if (user?.email) {
 

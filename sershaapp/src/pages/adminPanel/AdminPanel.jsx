@@ -57,10 +57,13 @@ const AdminPanel = () => {
     }
   }, []);
 
+  let userType = user?.type;
+
   useEffect(() => {
-    console.log(!token && !user?.type == "Admin")
-    if (token == null && !user?.type == "Admin") {
+    console.log(user?.type)
+    if (!token && user?.type && user?.type !== "Admin") {
       navigate('/');
+      console.log(userType)
     }
   }, [isLoading, user, token]);
 

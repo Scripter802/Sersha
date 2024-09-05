@@ -80,7 +80,7 @@ const FriendOrFoe = () => {
 
     user?.level <= 13 ? fetchPosting('0') : user?.level > 13 && user?.level <= 26 ? fetchPosting('1') : fetchPosting('2');
 
-  }, [baseUrl]);
+  }, [baseUrl, user]);
 
   useEffect(() => {
     if (allFriendOrFoe.length > 0) {

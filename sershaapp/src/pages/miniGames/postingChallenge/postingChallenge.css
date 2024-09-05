@@ -249,9 +249,9 @@
     background-position: center;
     background-size: cover;
     background-image: url('../../../assets/images/miniGames/postingChallenge/backgroundRes.png');
-    min-height: unset;
+    min-height: 100vh;
     height: 100%;
-    padding-bottom: 12rem;
+    padding-bottom: 4rem;
   }
 
   .postingChallengeTitleWrapper {
@@ -290,7 +290,8 @@
   }
 
   .postingGameCard {
-    margin-bottom: 3rem;
+    width: 80%;
+    margin-bottom: 2rem;
   }
 
   .postingFoxWrap {
@@ -347,7 +348,7 @@
   }
 
   .postingChallengeMiddleContent {
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
   }
 
   .postingChallengeOptionAnswers {

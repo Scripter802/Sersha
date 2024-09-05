@@ -56,7 +56,7 @@ const SnapJudgment = () => {
 
     user?.level <= 13 ? fetchSnap('0') : user?.level > 13 && user?.level <= 26 ? fetchSnap('1') : fetchSnap('2');
 
-  }, [baseUrl]);
+  }, [baseUrl, user]);
 
   useEffect(() => {
     if (allSnap.length > 0) {

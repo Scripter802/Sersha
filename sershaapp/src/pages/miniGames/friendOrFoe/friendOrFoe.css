@@ -258,9 +258,9 @@
     background-position: center;
     background-size: cover;
     background-image: url('../../../assets/images/miniGames/snapJudgment/snapJudgmentCardBackgroundRes.png');
-    min-height: unset;
+    min-height: 100vh;
     height: 100%;
-    padding-bottom: 10rem;
+    padding-bottom: 2rem;
   }
 
   .friendOrFoeTitleWrapper {
@@ -366,7 +366,7 @@
 
 
   .friendOrFoeMiddleContent {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
   }
 
   .middleInfoUser {

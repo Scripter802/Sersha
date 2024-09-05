@@ -45,9 +45,12 @@ const AdminPanelUsers = () => {
 
         fetchAllUsers();
 
-        downloadDataList(allUsers);
     }, []);
 
+    useEffect(() => {
+        downloadDataList(allUsers);
+
+    }, [allUsers]);
 
 
     console.log(`DATA ${JSON.stringify(downloadData)}`);

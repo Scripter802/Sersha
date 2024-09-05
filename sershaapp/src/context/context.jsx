@@ -289,13 +289,7 @@ const AppProvider = ({ children }) => {
   const [editingPost, setEditingPost] = useState([]);
 
   /* ADMIN users */
-  const [allUsers, setAllUsers] = useState([
-    { id: 1, username: 'Frank', email: 'frank.murphy@test.com', signupDate: '12.05.2024', currentLevel: '5' },
-    { id: 2, username: 'Vic', email: 'vic.reynolds@test.com', signupDate: '12.05.2024', currentLevel: '3' },
-    { id: 3, username: 'Gina', email: 'gina.jabowski@test.com', signupDate: '12.05.2024', currentLevel: '7' },
-    { id: 4, username: 'Jessi', email: 'jessi.glaser@test.com', signupDate: '12.05.2024', currentLevel: '1' },
-    { id: 5, username: 'Jay', email: 'jay.bilzerian@test.com', signupDate: '12.05.2024', currentLevel: '4' }
-  ]);
+  const [allUsers, setAllUsers] = useState([]);
 
   /* ADMIN QUIZZES */
   const [quizzesActiveTab, setQuizzesActiveTab] = useState('Right Answer');

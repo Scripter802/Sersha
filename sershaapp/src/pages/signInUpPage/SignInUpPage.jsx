@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import cards from '../../assets/images/login/cards.png';
 import cardsRes from '../../assets/images/login/cardsRes.png';
+import logPage from '../../assets/images/login/logPage.png';
 import { useGlobalContext } from '../../context/context.jsx';
 import './signInUpPage.css';
 import LoginForm from '../../components/signInUp/LoginForm.jsx';
@@ -62,7 +63,7 @@ const SignInUpPage = () => {
       return (
         <article className={position} key={id}>
           <div className='slideImage'>
-            <img src={sliderImage} alt="loginPicture" />
+            <img src={logPage} alt="loginPicture" />
           </div>
           <div className='leftSideText'>
             <h1>{title}</h1>

@@ -33,8 +33,9 @@
     color: #FFFFFF;
 }
 
-.slideImage {
+.slideImage img {
     /* position: absolute; */
+    height: 500px;
 }
 
 .leftSideText {
@@ -44,7 +45,6 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-    margin-top: -6.5rem;
     /* top: 60vh; */
 }
 
@@ -203,6 +203,10 @@ article.nextSlide {
         margin-top: 20%;
     }
 
+    .slideImage img {
+        height: 300px;
+    }
+
     #leftSizeWrapper {
         margin-top: 50vh;
     }
@@ -235,6 +239,10 @@ article.nextSlide {
         background-position: center;
         border-radius: 20px 20px;
         margin-top: 0;
+    }
+
+    .slideImage img {
+        height: 300px;
     }
 
     #leftSizeWrapper {

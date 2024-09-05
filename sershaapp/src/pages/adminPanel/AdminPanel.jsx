@@ -58,7 +58,7 @@ const AdminPanel = () => {
 
   console.log(user?.type == "User")
   useEffect(() => {
-    if (user?.type == "User") {
+    if (!user?.type == "Admin") {
       navigate('/');
     }
   }, [isLoading, user]);

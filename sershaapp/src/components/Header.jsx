@@ -1,5 +1,6 @@
 import './header.css'
 import { game, home, logo, map, messages, rectangle, search, coin, level, avatar } from './../assets/images/navbar/index.js'
+import avatarCharacter from './../assets/images/characters/15.png'
 import coinBlack from './../assets/images/navbar/coinBlack.png';
 import { useGlobalContext } from '../context/context.jsx';
 import { useContext, useEffect, useState } from 'react';
@@ -139,7 +140,7 @@ const Header = () => {
 
             <div className='avatarWrapper' onClick={toggleDropdown}>
               <img className='avatarImageCirkle' src={level} alt="level" />
-              <img src={user?.image?.imagePath ? `${baseUrlImage}${user.image.imagePath}` : user?.image ? `${baseUrlImage}${user.image}` : avatar} alt="avatar" className='avatar' />
+              <img src={user?.image?.imagePath ? `${baseUrlImage}${user.image.imagePath}` : user?.image ? `${baseUrlImage}${user.image}` : avatarCharacter} alt="avatar" className='avatar' />
               {dropdownVisible && (
                 <div className='dropdownMenu'>
                   <button className='settingsBtn' onClick={handleSettings}>Settings</button>

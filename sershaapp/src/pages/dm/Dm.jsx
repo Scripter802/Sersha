@@ -65,6 +65,8 @@ const Dm = () => {
     }
   }, [baseUrl]);
 
+  console.log(newMessage?.length)
+
   const handleAnswer = (answer) => {
     setCurrentAnswer(answer);
     sendMessageSound.play();

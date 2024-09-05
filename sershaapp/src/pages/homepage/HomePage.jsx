@@ -14,7 +14,7 @@ import Slideshow from '../../components/SlideShow/SlideShow'
 
 
 const HomePage = () => {
-  const { newMessage, setNewMessage, setUser, user, canPlayAnotherQuizToday, isTutorialActive, handleIsSlideshowShowed, isSlideshowShowed } = useGlobalContext();
+  const { newMessage, setNewMessage, setUser, user, canPlayAnotherQuizToday, isTutorialActive, handleIsSlideshowShowed, fetchSlideshowByLevel, isSlideshowShowed, slideshowByLevel } = useGlobalContext();
   const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
   const music = '/music/Music/SershaThemesongMediumoptimal310520241122.mp3'
   const navigate = useNavigate();
@@ -86,7 +86,13 @@ const HomePage = () => {
     handleIsSlideshowShowed()
   }, [handleIsSlideshowShowed])
 
-  if (!isSlideshowShowed && window.innerWidth > 1000) {
+  useEffect(() => {
+    if (!isSlideshowShowed) {
+      fetchSlideshowByLevel(user?.stage);
+    }
+  }, [isSlideshowShowed, user]);
+
+  if (!isSlideshowShowed && window.innerWidth > 1000 && slideshowByLevel?.length > 0) {
     return <div className='slideshowWrap'><Slideshow lvl={user?.stage} /></div>
   }
 

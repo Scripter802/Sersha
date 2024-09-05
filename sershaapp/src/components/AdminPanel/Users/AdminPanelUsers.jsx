@@ -1,12 +1,36 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useGlobalContext } from '../../../context/context';
-
+import * as XLSX from 'xlsx';
 import './adminPanelUsers.css'
 import axios from 'axios';
 import UserDetailsPopup from './UserDetailsPopup/UserDetailsPopup.jsx';
 
 const AdminPanelUsers = () => {
     const { baseUrl, allUsers, setAllUsers, setSelectedUser, selectedUser } = useGlobalContext();
+    const [downloadData, setDownloadData] = useState([]);
+    const downloadDataList = (allUsers) => {
+        let updatedDownloadData = [];
+        let i = 0;
+
+        while (i < allUsers?.length) {
+            updatedDownloadData.push({
+                fullName: allUsers[i]["fullName"],
+                email: allUsers[i]["email"],
+                parentsFullName: allUsers[i]["parentsFullName"],
+                level: allUsers[i]["level"],
+                coinBalance: allUsers[i]["coinBalance"],
+                parentPhoneNumber: allUsers[i]["parentPhoneNumber"],
+                userBirthDate: allUsers[i]["userBirthDate"],
+                type: allUsers[i]["type"],
+                isSubscribed: allUsers[i]["isSubscribed"],
+                subscribedUntil: allUsers[i]["subscribedUntil"]
+
+            });
+            i++;
+        }
+
+        setDownloadData((prevData) => [...prevData, ...updatedDownloadData]);
+    };
 
     useEffect(() => {
         const fetchAllUsers = async () => {
@@ -20,7 +44,22 @@ const AdminPanelUsers = () => {
         };
 
         fetchAllUsers();
+
+        downloadDataList(allUsers);
     }, []);
+
+
+
+    console.log(`DATA ${JSON.stringify(downloadData)}`);
+
+    const downloadExcel = (allUsers) => {
+        const worksheet = XLSX.utils.json_to_sheet(allUsers);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+        //let buffer = XLSX.write(workbook, { bookType: "xlsx", type: "buffer" });
+        //XLSX.write(workbook, { bookType: "xlsx", type: "binary" });
+        XLSX.writeFile(workbook, "DataSheet.xlsx");
+    };
 
     const handleUserClick = (user) => {
         setSelectedUser(user);
@@ -42,7 +81,7 @@ const AdminPanelUsers = () => {
         <div className="userContainer">
             <div className='titleWrapper'>
                 <h3 className="p-3 text-center">All Users</h3>
-
+                <button onClick={() => downloadExcel(downloadData)}>Export user data</button>
             </div>
             {/* <button className="create-post-btn">Create New Post</button> */}
             <table className="table table-striped table-bordered">

@@ -22,6 +22,8 @@ const SuccessMonthly = () => {
           const response = await axios.put(`${baseUrl}/User/subscribe/${user?.email}`, updatingUserSubscription);
           setUser({ ...user, isSubscribed: true })
           setIsSubscribed(true);
+          localStorage.setItem('userData', JSON.stringify(user));
+          console.log(user)
         } catch (error) {
           console.log(error);
         }

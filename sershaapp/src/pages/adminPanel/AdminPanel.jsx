@@ -22,14 +22,14 @@ const AdminPanel = () => {
 
   const userUpdate = async (parsedUser) => {
     try {
-      const response = await axios.get(`${baseUrl}/User/${parsedUser.email}`);
-      const fetchedUserType = response.data.type;
+      const response = await axios.get(`${baseUrl}/User/${parsedUser?.email}`);
+      const fetchedUser = response.data;
 
       const updatedUserData = {
         ...parsedUser,
-        type: fetchedUserType,
-        level: fetchedUser.level,
-        coinBalance: fetchedUser.coinBalance
+        type: fetchedUser?.Type,
+        level: fetchedUser?.level,
+        coinBalance: fetchedUser?.coinBalance
       };
 
       setUser(updatedUserData);

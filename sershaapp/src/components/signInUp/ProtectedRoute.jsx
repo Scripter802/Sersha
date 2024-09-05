@@ -24,8 +24,8 @@ const ProtectedRoute = ({ children }) => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  if (userdata?.type !== "Admin" && userdata?.isSubscribed !== true) {
+  console.log(`SUBS ${userdata?.isSubscribed !== true}`)
+  if (userdata?.type == "User" && !userdata?.isSubscribed) {
     return <Navigate to="/checkout" />;
   }
 

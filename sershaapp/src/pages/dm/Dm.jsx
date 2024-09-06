@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import MusicContext from '../../context/MusicContext';
 
 const Dm = () => {
-  const { baseUrl, selectedMessagePreview, setSelectedMessagePreview, canPlayAnotherQuizToday, updateQuizzesPlayed, newMessage, bundelsAndLevels, user } = useGlobalContext();
+  const { baseUrl, baseUrlImage, selectedMessagePreview, setSelectedMessagePreview, canPlayAnotherQuizToday, updateQuizzesPlayed, newMessage, bundelsAndLevels, user } = useGlobalContext();
   const [messages, setMessages] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [currentAnswer, setCurrentAnswer] = useState(null);
@@ -67,7 +67,7 @@ const Dm = () => {
 
   console.log(newMessage?.length)
 
-  const handleAnswer = (answer) => {
+  const handleAnswer = (answer, image) => {
     setCurrentAnswer(answer);
     sendMessageSound.play();
 
@@ -78,9 +78,9 @@ const Dm = () => {
       setShowPopup(true);
     }
 
-    setMessageHistory(prevHistory => [...prevHistory, { question: selectedMessage.content, answer }]);
+    setMessageHistory(prevHistory => [...prevHistory, { question: selectedMessage.content, answer, image }]);
   };
-
+  console.log(messageHistory)
   return (
     <div className='dmsWrapper'>
       <div className='dmsContainer'>
@@ -126,7 +126,7 @@ const Dm = () => {
               </div>
               <div className='answerWrapper'>
                 <div className='answer'>
-                  <img src={avatar} alt="" />
+                  <img src={msg?.image ? `${baseUrlImage}${msg?.image}` : avatar} alt="" />
                   {msg.answer}
                 </div>
               </div>

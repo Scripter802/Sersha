@@ -102,13 +102,18 @@ const CorrectAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) =>
       correctAnswers >= 7 ? gameSucceed.play() : gameFail.play();
       setIsCorrectAnswer(false);
       setIsShield(false);
+      setSelectedAnswer(null);
+      setChecked(false);
+      setFeedback(null);
     } else {
       setSelectedAnswer(null);
+      setChecked(false);
       setCurrentQuestion((prev) => prev + 1);
       setFeedback(null);
       setIsCorrectAnswer(false);
       setIsShield(false);
       setShowNextButton(false);
+
     }
   };
 
@@ -174,7 +179,7 @@ const CorrectAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) =>
                 True
               </div>
             </div>
-            <div className={`${checked && currentQ?.isCorrect || isCorrectAnswer && !currentQ?.isCorrect ? 'correctOfferedAnswersTrue' : 'correctOfferedAnswers'}`} onClick={() => handleAnswerSelection('False')}>
+            <div className={`${checked && !currentQ?.isCorrect || isCorrectAnswer && !currentQ?.isCorrect ? 'correctOfferedAnswersTrue' : 'correctOfferedAnswers'}`} onClick={() => handleAnswerSelection('False')}>
 
               <div className='offeredFalse'>
                 <img src={incorrect} alt='done' />

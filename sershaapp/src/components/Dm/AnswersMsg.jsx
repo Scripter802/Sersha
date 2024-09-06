@@ -1,6 +1,11 @@
 import avatar from '../../assets/images/navbar/userpick.png';
+import { useGlobalContext } from '../../context/context';
+
 
 const AnswersMsg = ({ selectedMessage, currentAnswer, handleAnswer }) => {
+  const userData = localStorage.getItem('userData');
+  const { baseUrlImage, user, setUser } = useGlobalContext();
+
   return (
     <>
       {selectedMessage?.responses?.map(ans => (
@@ -13,7 +18,7 @@ const AnswersMsg = ({ selectedMessage, currentAnswer, handleAnswer }) => {
       {currentAnswer && (
         <div className='answerWrapper'>
           <div className='answer'>
-            <img src={avatar} alt="" />
+            <img src={userData?.image ? `${baseUrlImage}${userData?.image}` : avatar} alt="" />
             {currentAnswer}
           </div>
         </div>

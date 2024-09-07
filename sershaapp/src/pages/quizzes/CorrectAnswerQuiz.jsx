@@ -171,15 +171,15 @@ const CorrectAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) =>
           <h5>Statement</h5>
           <div className='correctAnswerAssignment'>{currentQ.text}</div>
           {selectedAnswer === null && <h5>Answer options</h5>}
-          <div className='correctAnswerAnsWrapper'>
+          <div className='correctAnswerAnsWrapper' style={selectedAnswer !== null ? { marginTop: "1rem" } : {}}>
 
-            <div className={`${checked && currentQ?.isCorrect || isCorrectAnswer && currentQ?.isCorrect ? 'correctOfferedAnswersTrue' : 'correctOfferedAnswers'}`} onClick={() => handleAnswerSelection('True')}>
+            <div className={`${checked && currentQ?.isCorrect || isCorrectAnswer && currentQ?.isCorrect ? 'correctOfferedAnswersTrue' : 'correctOfferedAnswers'}`} style={selectedAnswer && !checked ? { background: "#FFB496" } : {}} onClick={() => handleAnswerSelection('True')}>
               <div className='offeredTrue'>
                 <img src={done} alt='done' />
                 True
               </div>
             </div>
-            <div className={`${checked && !currentQ?.isCorrect || isCorrectAnswer && !currentQ?.isCorrect ? 'correctOfferedAnswersTrue' : 'correctOfferedAnswers'}`} onClick={() => handleAnswerSelection('False')}>
+            <div className={`${checked && !currentQ?.isCorrect || isCorrectAnswer && !currentQ?.isCorrect ? 'correctOfferedAnswersTrue' : 'correctOfferedAnswers'}`} style={selectedAnswer == false && !checked ? { background: "#FFB496" } : {}} onClick={() => handleAnswerSelection('False')}>
 
               <div className='offeredFalse'>
                 <img src={incorrect} alt='done' />

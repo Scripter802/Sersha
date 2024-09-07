@@ -52,18 +52,20 @@ const AdminPanel = () => {
       // if (parsedUser?.email) {
       //   userUpdate(parsedUser);
       // }
+      setIsLoading(false);
     } else {
       localStorage.removeItem("token");
+      setIsLoading(false);
     }
   }, []);
 
   let userType = user?.type;
 
   useEffect(() => {
-    console.log(user?.type)
-    if (!token && user?.type && user?.type !== "Admin") {
+    console.log(`DAAAA ${!token && user?.type && user?.type !== "Admin"}`)
+    if (!isLoading && (!token || (user?.type && user?.type !== "Admin"))) {
       navigate('/');
-      console.log(userType)
+      console.log('User type is not Admin or token is missing, redirecting...')
     }
   }, [isLoading, user, token]);
 

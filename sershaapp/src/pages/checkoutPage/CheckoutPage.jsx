@@ -35,14 +35,15 @@ const CheckoutPage = () => {
     lineItems: [monthlySubscription],
     mode: "subscription",
     successUrl: `${window.location.origin}/successmonthly`,
-    cancelUrl: `${window.location.origin}/cancel`
+    cancelUrl: `${window.location.origin}/`
   };
 
   const yearlyCheckoutOptions = {
     lineItems: [yearlySubscription],
     mode: "subscription",
+    // allow_promotion_codes,
     successUrl: `${window.location.origin}/successyearly`,
-    cancelUrl: `${window.location.origin}/cancel`
+    cancelUrl: `${window.location.origin}/`
   };
 
   const redirectToMonthlyCheckout = async () => {
@@ -50,6 +51,7 @@ const CheckoutPage = () => {
     console.log("redirectToCheckout");
 
     const stripe = await getStripe();
+
     const { error } = await stripe.redirectToCheckout(monthlyCheckoutOptions);
     console.log("Stripe checkout error", error);
 

@@ -6,6 +6,8 @@ import signUp from '../../assets/images/login/signup.png';
 import circleLoginOrange from '../../assets/images/login/circleLoginOrange.png';
 import visible from '../../assets/images/login/visible.png';
 import { useGlobalContext } from '../../context/context.jsx';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 import './registerForm.css';
 
 const RegisterForm = () => {
@@ -43,8 +45,6 @@ const RegisterForm = () => {
   const [emailError, setEmailError] = useState();
   const [selectedAvatarImage, setSelectedAvatarImage] = useState();
 
-  console.log(`sel ${selectedAvatarImage?.imagePath}`)
-
   useEffect(() => {
     const fetchAvatars = async () => {
       try {
@@ -57,7 +57,6 @@ const RegisterForm = () => {
 
     fetchAvatars();
   }, [baseUrl]);
-  console.log(selectedAvatar)
 
   const handleAvatarSelect = (avatar) => {
     setSelectedAvatar(avatar.id);
@@ -83,8 +82,6 @@ const RegisterForm = () => {
 
     const passwordRegex = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/;
 
-    console.log(passwordRegex, registerPassword)
-
     if (!passwordRegex.test(registerPassword)) {
       setErrorMessage('Password must contain minimum 8 letters: 1 uppercase letter 1 lowercase letter, 1 number, and 1 special character.');
       return;
@@ -94,7 +91,6 @@ const RegisterForm = () => {
       setErrorMessage('Passwords do not match');
       return;
     }
-
 
     const formattedDateOfBirth = new Date(registerDateOfBirth).toISOString();
 
@@ -134,7 +130,6 @@ const RegisterForm = () => {
   };
 
 
-  //  ERROR HANDLE //
 
   const parentNameHandle = (e) => {
     let parName = e;
@@ -166,16 +161,14 @@ const RegisterForm = () => {
     setRegisterDateOfBirth(dateString);
   };
 
-  const phoneHandle = (e) => {
-    let reg = /^\+?([0-9]{10,15})$/;
-    let phoneNum = e;
-    if (!phoneNum.match(reg)) {
-      setPhoneNumberError('Phone number is not valid!')
+  const phoneHandle = (phone, country, e, formattedValue) => {
+    if (!formattedValue) {
+      setPhoneNumberError('Phone number is not valid!');
     } else {
-      setPhoneNumberError('')
+      setPhoneNumberError('');
     }
-    setRegisterPhoneNumber(e);
-  }
+    setRegisterPhoneNumber(phone);
+  };
 
   const emailHandle = (e) => {
     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
@@ -187,7 +180,6 @@ const RegisterForm = () => {
     }
     setRegisterEmail(e);
   }
-  // ERROR HANDLE END //
 
   return (
     <>
@@ -262,14 +254,12 @@ const RegisterForm = () => {
               <div className="phone mb-3">
                 <label>
                   Phone number
-                  <input
-                    type="text"
-                    className={`form-control`}
-                    id="phone"
-                    name="phone"
+                  <PhoneInput
+                    country={'us'}
                     value={registerPhoneNumber}
-                    placeholder="Phone number"
-                    onChange={(e) => phoneHandle(e.target.value)}
+                    onChange={(phone, country, e, formattedValue) => phoneHandle(phone, country, e, formattedValue)}
+                    inputClass={`form-control`}
+                    placeholder="Enter phone number"
                   />
                 </label>
                 <div className={`invalid-feedback text-start`}>{phoneNumberError}</div>

@@ -13,6 +13,7 @@ import Slideshow from '../SlideShow/SlideShow.jsx';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import ResetPasswordPopup from './ResetPasswordPopup.jsx';
 
 const LoginForm = () => {
   const {
@@ -42,6 +43,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isPasswordForgot, setIsPasswordForgot] = useState(false);
 
   const isFirstTimeLoggedInChange = async () => {
     try {
@@ -100,6 +102,10 @@ const LoginForm = () => {
     }
   }, []);
 
+
+
+  console.log(isPasswordForgot)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -107,7 +113,6 @@ const LoginForm = () => {
       email: logEmail,
       password: logPassword,
     };
-
 
     try {
       const response = await fetch(`${baseUrl}/User/login`, {
@@ -155,6 +160,7 @@ const LoginForm = () => {
   }
   return (
     <>
+      {isPasswordForgot && <div className='resetWrapper'><ResetPasswordPopup /></div>}
       <div className='logInHeaderWrapper'>
         <div>
           <img src={logo} alt="sershalogo" />
@@ -234,9 +240,9 @@ const LoginForm = () => {
                   </div>
                 </div>
                 <div className="col-6">
-                  <div className="forgot-password text-end">
+                  <div className="forgot-password text-end" onClick={() => setIsPasswordForgot(true)} style={{ cursor: "pointer" }}>
                     <img src={passwordforgot} alt="forgotPassword" />
-                    <Link className='forgotPassLink' to="/forgot-password">Forgot password?</Link>
+                    <div className='forgotPassLink'>Forgot password?</div>
                   </div>
                 </div>
               </div>
@@ -267,10 +273,10 @@ const LoginForm = () => {
         </div>
       </div>
 
-      <div className='footerWrapper'>
-        <div className='footer'>
+      <div className='footerWrapperLogin'>
+        <div className='footerLogin'>
           <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
-          <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
+          <small className='madeWithLogin'>Made with <img src={heart} alt="heart" /></small>
         </div>
       </div>
     </>

@@ -150,14 +150,42 @@ article.nextSlide {
     align-items: center;
 }
 
-.footer {
+.footerWrapperReg {
+    width: 50%;
     position: absolute;
     bottom: 0;
+    padding: 1rem;
+}
+
+.footerReg {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 2rem 0;
+    color: #FFB496;
+    gap: 1rem;
+    width: 85%;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+}
+
+.madeWithReg {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    color: #FFB496;
+    font-size: 14px;
+    text-align: center;
 }
 
 
 
 @media (max-width: 1000px) {
+    .footerWrapperReg {
+        display: none;
+    }
+
     .logInWrapper {
         display: grid;
         grid-template-columns: 1fr;

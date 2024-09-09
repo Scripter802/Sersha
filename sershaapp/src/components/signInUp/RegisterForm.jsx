@@ -76,6 +76,32 @@ const RegisterForm = () => {
     setErrorMessage('');
   };
 
+  const nameParts = registerNameOfParent?.split(' ');
+  const firstName = nameParts[0];
+  const lastName = nameParts.slice(1).join(' ');
+
+  const klaviyoOptions = {
+    method: 'POST',
+    url: 'https://a.klaviyo.com/api/profiles/',
+    headers: {
+      accept: 'application/json',
+      revision: '2024-07-15',
+      'content-type': 'application/json',
+      Authorization: `Klaviyo-API-Key ${import.meta.env.VITE_APP_KLAVIYO_KEY}`
+    },
+    data: {
+      data: {
+        type: 'profile',
+        attributes: {
+          "email": registerEmail,
+          "phone_number": registerPhoneNumber,
+          "first_name": firstName,
+          "last_name": lastName,
+        }
+      }
+    }
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
 
@@ -119,15 +145,35 @@ const RegisterForm = () => {
       if (response.ok) {
         console.log('Registration successful');
         resetFormFields();
+
+        try {
+
+          axios.
+            request(klaviyoOptions)
+            .then(function (response) {
+              console.log(response.data);
+            })
+            .catch(function (error) {
+              console.error(error);
+            });
+
+        } catch (error) {
+          console.log('PROFIL ON KLAVIYO IS NOT CREATED DUE TO ERROR!')
+        }
+
+
         setLogIn(true);
       } else {
         const errorData = await response.json();
         setErrorMessage(errorData.message || 'Registration failed');
       }
-    } catch (error) {
+    }
+    catch (error) {
       setErrorMessage(error.message || 'An error occurred');
     }
-  };
+  }
+
+
 
 
 

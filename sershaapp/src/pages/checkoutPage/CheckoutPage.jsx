@@ -23,11 +23,11 @@ const CheckoutPage = () => {
   const navigate = useNavigate();
 
   const yearlySubscription = {
-    price: "price_1PoPN9DTW8RXGzBATOtbzbxP",
+    price: "price_1PxGnuDTW8RXGzBAozsI7S7y",
     quantity: 1
   };
   const monthlySubscription = {
-    price: "price_1PoPLdDTW8RXGzBAGNgaTJUQ",
+    price: "price_1PxGmeDTW8RXGzBAwOUGQUSC",
     quantity: 1
   };
 

@@ -109,10 +109,10 @@ const SignInUpPage = () => {
         </div>
       )}
       {logIn == false && (
-        <div className='footerWrapper'>
-          <div className='footer'>
+        <div className='footerWrapperReg'>
+          <div className='footerReg'>
             <small>© 2024 Kaza Swap LLC. All rights reserved.</small>
-            <small className='madeWith'>Made with <img src={heart} alt="heart" /></small>
+            <small className='madeWithReg'>Made with <img src={heart} alt="heart" /></small>
           </div>
         </div>
 

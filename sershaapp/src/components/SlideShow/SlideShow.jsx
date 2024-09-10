@@ -22,6 +22,7 @@ import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../../context/context';
 import MusicContext from '../../context/MusicContext.jsx'
 import './slideshow.css';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Slideshow = ({ lvl }) => {
   const navigate = useNavigate();
@@ -66,7 +67,11 @@ const Slideshow = ({ lvl }) => {
     <div className="slideshow">
       {currentGifIndex > 0 && <div className="arrow left" onClick={handlePrev}>&#9664;</div>}
       {slideshowByLevel?.length > 0 && (
-        <img src={`${baseUrlImage}${slideshowByLevel[currentGifIndex]?.filePath}`} alt="Slideshow GIF" />
+        <LazyLoadImage
+          src={`${baseUrlImage}${slideshowByLevel[currentGifIndex]?.filePath}`}
+          alt="Slideshow GIF"
+          effect="blur"
+        />
       )}
       <div className="arrow right" onClick={handleNext}>&#9654;</div>
       <audio autoPlay>

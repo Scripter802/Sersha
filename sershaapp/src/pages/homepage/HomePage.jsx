@@ -92,7 +92,7 @@ const HomePage = () => {
     }
   }, [isSlideshowShowed, user]);
 
-  if (!isSlideshowShowed && window.innerWidth > 1000 && slideshowByLevel?.length > 0) {
+  if (!isSlideshowShowed && slideshowByLevel?.length > 0) {
     return <div className='slideshowWrap'><Slideshow lvl={user?.stage} /></div>
   }
 

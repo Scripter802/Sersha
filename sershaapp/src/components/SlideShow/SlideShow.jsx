@@ -23,14 +23,14 @@ import { useGlobalContext } from '../../context/context';
 import MusicContext from '../../context/MusicContext.jsx'
 import './slideshow.css';
 
-const Slideshow = ({ lvl }) => {
+const Slideshow = ({ lvl, preloadedGifs }) => {
   const navigate = useNavigate();
   const [currentGifIndex, setCurrentGifIndex] = useState(0);
   const [playBackgroundMusic, setPlayBackgroundMusic] = useState(false);
   const { toggleMusic, isPlaying } = useContext(MusicContext);
   const { baseUrlImage, user, slideshowByLevel, fetchSlideshowByLevel, updateShowedSlideshow } = useGlobalContext();
   const firstLevelGifs = [levelDigitalCompass, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, threeteen, fourteen, fiveteen];
-  const [preloadedGifs, setPreloadedGifs] = useState({});
+  // const [preloadedGifs, setPreloadedGifs] = useState({});
 
   useEffect(() => {
     fetchSlideshowByLevel(lvl);
@@ -40,21 +40,21 @@ const Slideshow = ({ lvl }) => {
     navigate('/');
   }
 
-  const preloadGifs = (gifs) => {
-    const preloaded = {};
-    gifs.forEach((gif) => {
-      const img = new Image();
-      img.src = `${baseUrlImage}${gif.filePath}`;
-      preloaded[gif.filePath] = img;
-    });
-    setPreloadedGifs(preloaded);
-  };
+  // const preloadGifs = (gifs) => {
+  //   const preloaded = {};
+  //   gifs.forEach((gif) => {
+  //     const img = new Image();
+  //     img.src = `${baseUrlImage}${gif.filePath}`;
+  //     preloaded[gif.filePath] = img;
+  //   });
+  //   setPreloadedGifs(preloaded);
+  // };
 
-  useEffect(() => {
-    if (slideshowByLevel && slideshowByLevel.length > 0) {
-      preloadGifs(slideshowByLevel);
-    }
-  }, [slideshowByLevel]);
+  // useEffect(() => {
+  //   if (slideshowByLevel && slideshowByLevel.length > 0) {
+  //     preloadGifs(slideshowByLevel);
+  //   }
+  // }, [slideshowByLevel]);
 
   useEffect(() => {
     const musicTimer = setTimeout(() => {

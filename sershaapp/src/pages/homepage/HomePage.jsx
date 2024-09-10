@@ -14,10 +14,11 @@ import Slideshow from '../../components/SlideShow/SlideShow'
 
 
 const HomePage = () => {
-  const { newMessage, setNewMessage, setUser, user, canPlayAnotherQuizToday, isTutorialActive, handleIsSlideshowShowed, fetchSlideshowByLevel, isSlideshowShowed, slideshowByLevel } = useGlobalContext();
+  const { baseUrlImage, newMessage, setNewMessage, setUser, user, canPlayAnotherQuizToday, isTutorialActive, handleIsSlideshowShowed, fetchSlideshowByLevel, isSlideshowShowed, slideshowByLevel } = useGlobalContext();
   const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
   const music = '/music/Music/SershaThemesongMediumoptimal310520241122.mp3'
   const navigate = useNavigate();
+  const [preloadedGifs, setPreloadedGifs] = useState({});
   const showedSlideLS = localStorage.getItem('showedSlideshow') === 'true';
 
 
@@ -92,8 +93,24 @@ const HomePage = () => {
     }
   }, [isSlideshowShowed, user]);
 
+  const preloadGifs = (gifs) => {
+    const preloaded = {};
+    gifs.forEach((gif) => {
+      const img = new Image();
+      img.src = `${baseUrlImage}${gif.filePath}`;
+      preloaded[gif.filePath] = img;
+    });
+    setPreloadedGifs(preloaded);
+  };
+
+  useEffect(() => {
+    if (slideshowByLevel && slideshowByLevel.length > 0) {
+      preloadGifs(slideshowByLevel);
+    }
+  }, [slideshowByLevel]);
+
   if (showedSlideLS === false || (!showedSlideLS && slideshowByLevel?.length > 0)) {
-    return <div className='slideshowWrap'><Slideshow lvl={user?.stage} /></div>;
+    return <div className='slideshowWrap'><Slideshow lvl={user?.stage} preloadedGifs={preloadGifs} /></div>;
   }
 
 

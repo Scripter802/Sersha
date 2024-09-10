@@ -30,6 +30,7 @@ const Slideshow = ({ lvl }) => {
   const { toggleMusic, isPlaying } = useContext(MusicContext);
   const { baseUrlImage, user, slideshowByLevel, fetchSlideshowByLevel, updateShowedSlideshow } = useGlobalContext();
   const firstLevelGifs = [levelDigitalCompass, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, threeteen, fourteen, fiveteen];
+  const [preloadedGifs, setPreloadedGifs] = useState({});
 
   useEffect(() => {
     fetchSlideshowByLevel(lvl);
@@ -38,6 +39,22 @@ const Slideshow = ({ lvl }) => {
   if (slideshowByLevel?.length == 0) {
     navigate('/');
   }
+
+  const preloadGifs = (gifs) => {
+    const preloaded = {};
+    gifs.forEach((gif) => {
+      const img = new Image();
+      img.src = `${baseUrlImage}${gif.filePath}`;
+      preloaded[gif.filePath] = img;
+    });
+    setPreloadedGifs(preloaded);
+  };
+
+  useEffect(() => {
+    if (slideshowByLevel && slideshowByLevel.length > 0) {
+      preloadGifs(slideshowByLevel);
+    }
+  }, [slideshowByLevel]);
 
   useEffect(() => {
     const musicTimer = setTimeout(() => {
@@ -52,6 +69,7 @@ const Slideshow = ({ lvl }) => {
       setCurrentGifIndex(prevIndex => prevIndex + 1);
     } else {
       updateShowedSlideshow();
+      localStorage.setItem('showedSlideshow', true);
       navigate('/');
     }
   };
@@ -70,7 +88,11 @@ const Slideshow = ({ lvl }) => {
       {currentGifIndex > 0 && <div className="arrow left" onClick={handlePrev}>&#9664;</div>}
       {slideshowByLevel?.length > 0 && (
         <>
-          <img src={`${baseUrlImage}${slideshowByLevel[currentGifIndex]?.filePath}`} alt="Slideshow GIF" loading="lazy" />
+          <img
+            src={preloadedGifs[slideshowByLevel[currentGifIndex]?.filePath]?.src || `${baseUrlImage}${slideshowByLevel[currentGifIndex]?.filePath}`}
+            alt="Slideshow GIF"
+            loading="lazy"
+          />
           {containsClue && (
             <audio autoPlay>
               <source src="/music/SFX/Slideshow/Harpforreward.mp3" type="audio/mpeg" />

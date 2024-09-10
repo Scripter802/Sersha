@@ -110,7 +110,7 @@ const HomePage = () => {
   }, [slideshowByLevel]);
 
   if (showedSlideLS === false || (!showedSlideLS && slideshowByLevel?.length > 0)) {
-    return <div className='slideshowWrap'><Slideshow lvl={user?.stage} preloadedGifs={preloadGifs} /></div>;
+    return <div className='slideshowWrap'><Slideshow lvl={user?.stage} /></div>;
   }
 
 

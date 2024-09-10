@@ -150,7 +150,7 @@ const LoginForm = () => {
 
 
 
-      // return (<Slideshow lvl={'1'} />)
+      return (<Slideshow lvl={'1'} />)
     }
     else {
       navigate('/');

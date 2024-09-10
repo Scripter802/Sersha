@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import MusicContext from '../../context/MusicContext';
 
 const Dm = () => {
-  const { baseUrl, baseUrlImage, selectedMessagePreview, setSelectedMessagePreview, canPlayAnotherQuizToday, updateQuizzesPlayed, newMessage, bundelsAndLevels, user } = useGlobalContext();
+  const { baseUrl, baseUrlImage, getAllAuthors, allAuthors, selectedMessagePreview, setSelectedMessagePreview, canPlayAnotherQuizToday, updateQuizzesPlayed, newMessage, bundelsAndLevels, user } = useGlobalContext();
   const [messages, setMessages] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [currentAnswer, setCurrentAnswer] = useState(null);
@@ -64,6 +64,7 @@ const Dm = () => {
       };
 
       fetchMessages();
+      getAllAuthors()
     }
   }, [baseUrl]);
 

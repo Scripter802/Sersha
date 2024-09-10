@@ -104,8 +104,6 @@ const LoginForm = () => {
 
 
 
-  console.log(isPasswordForgot)
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -160,7 +158,7 @@ const LoginForm = () => {
   }
   return (
     <>
-      {isPasswordForgot && <div className='resetWrapper'><ResetPasswordPopup /></div>}
+      {isPasswordForgot && <div className='resetWrapper'><ResetPasswordPopup isPasswordForgot={isPasswordForgot} setIsPasswordForgot={setIsPasswordForgot} /></div>}
       <div className='logInHeaderWrapper'>
         <div>
           <img src={logo} alt="sershalogo" />

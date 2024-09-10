@@ -22,7 +22,6 @@ import { useNavigate } from 'react-router-dom';
 import { useGlobalContext } from '../../context/context';
 import MusicContext from '../../context/MusicContext.jsx'
 import './slideshow.css';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Slideshow = ({ lvl }) => {
   const navigate = useNavigate();
@@ -71,11 +70,7 @@ const Slideshow = ({ lvl }) => {
       {currentGifIndex > 0 && <div className="arrow left" onClick={handlePrev}>&#9664;</div>}
       {slideshowByLevel?.length > 0 && (
         <>
-          <LazyLoadImage
-            src={`${baseUrlImage}${slideshowByLevel[currentGifIndex]?.filePath}`}
-            alt="Slideshow GIF"
-            effect="blur"
-          />
+          <img src={`${baseUrlImage}${slideshowByLevel[currentGifIndex]?.filePath}`} alt="Slideshow GIF" loading="lazy" />
           {containsClue && (
             <audio autoPlay>
               <source src="/music/SFX/Slideshow/Harpforreward.mp3" type="audio/mpeg" />
@@ -86,7 +81,6 @@ const Slideshow = ({ lvl }) => {
       <audio autoPlay>
         <source src="/music/SFX/Slideshow/LoadingSoundEffect.mp3" type="audio/mpeg" />
       </audio>
-      { }
       {/* {playBackgroundMusic && (
         <audio loop autoPlay>
           <source src="/music/Music/SershaThemesongMediumoptimal310520241122.mp3" type="audio/mpeg" />

@@ -201,25 +201,33 @@ const AppProvider = ({ children }) => {
   const [isSlideshowShowed, setIsSlideshowShowed] = useState(false);
 
   const handleIsSlideshowShowed = () => {
-    const cookieValue = Cookies.get('isSlideShowed');
+    try {
+      const cookieValue = Cookies.get('isSlideShowed');
 
-    if (!cookieValue) {
-      Cookies.set('isSlideShowed', JSON.stringify({ level: user?.stage, isSlideShowed: false }), {
-        sameSite: 'None'
-      })
-      setIsSlideshowShowed(false);
-      return false;
-    }
+      if (!cookieValue) {
+        Cookies.set('isSlideShowed', JSON.stringify({ level: user?.stage, isSlideShowed: false }), {
+          expires: 30,
+          sameSite: 'None'
+        });
+        setIsSlideshowShowed(false);
+        return false;
+      }
 
-    const { level, isSlideShowed } = JSON.parse(cookieValue);
+      const { level, isSlideShowed } = JSON.parse(cookieValue);
 
-    if (level == user?.stage) {
-      setIsSlideshowShowed(isSlideShowed);
-      return isSlideShowed;
-    } else {
-      Cookies.set('isSlideShowed', JSON.stringify({ level: user?.stage, isSlideShowed: false }), {
-        sameSite: 'None',
-      });
+      if (level === user?.stage) {
+        setIsSlideshowShowed(isSlideShowed);
+        return isSlideShowed;
+      } else {
+        Cookies.set('isSlideShowed', JSON.stringify({ level: user?.stage, isSlideShowed: false }), {
+          expires: 30,
+          sameSite: 'None'
+        });
+        setIsSlideshowShowed(false);
+        return false;
+      }
+    } catch (error) {
+      console.error('Error handling slideshow state:', error);
       setIsSlideshowShowed(false);
       return false;
     }
@@ -247,7 +255,7 @@ const AppProvider = ({ children }) => {
     const cookieValue = Cookies.get('isSlideShowed');
     const { level, isSlideShowed } = JSON.parse(cookieValue);
 
-    Cookies.set('isSlideShowed', JSON.stringify({ level, isSlideShowed: true }));
+    Cookies.set('isSlideShowed', JSON.stringify({ level, isSlideShowed: true }), { expires: 30 });
     setIsSlideshowShowed(true);
   };
 

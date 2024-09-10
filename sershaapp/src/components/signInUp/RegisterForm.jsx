@@ -125,62 +125,6 @@ const RegisterForm = () => {
       if (response.ok) {
         console.log('Registration successful');
         resetFormFields();
-
-        const klaviyoOptions = {
-          method: 'POST',
-          url: 'https://a.klaviyo.com/api/profiles/',
-          headers: {
-            accept: 'application/json',
-            revision: '2024-07-15',
-            'content-type': 'application/json',
-            Authorization: `Klaviyo-API-Key ${import.meta.env.VITE_APP_KLAVIYO_KEY}`
-          },
-          data: {
-            data: {
-              type: 'profile',
-              attributes: {
-                "email": registerEmail,
-                "phone_number": registerPhoneNumber,
-                "first_name": firstName,
-                "last_name": lastName,
-              }
-            }
-          }
-        };
-
-        try {
-          const klaviyoResponse = await fetch(`https://a.klaviyo.com/api/profiles/`, {
-            method: 'POST',
-            headers: {
-              accept: 'application/json',
-              revision: '2024-07-15',
-              'content-type': 'application/json',
-              Authorization: `Klaviyo-API-Key ${import.meta.env.VITE_APP_KLAVIYO_KEY}`,
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-            },
-            body: JSON.stringify({
-              data: {
-                type: 'profile',
-                attributes: {
-                  "email": registerEmail,
-                  "phone_number": registerPhoneNumber,
-                  "first_name": firstName,
-                  "last_name": lastName,
-                }
-              }
-            })
-          });
-
-          if (!klaviyoResponse.ok) {
-            throw new Error('Failed to create Klaviyo profile');
-          }
-
-        } catch (error) {
-          console.log('PROFILE ON KLAVIYO IS NOT CREATED DUE TO ERROR!');
-        }
-
-
         setLogIn(true);
       } else {
         const errorData = await response.json();
@@ -191,10 +135,6 @@ const RegisterForm = () => {
       setErrorMessage(error.message || 'An error occurred');
     }
   }
-
-
-
-
 
   const parentNameHandle = (e) => {
     let parName = e;

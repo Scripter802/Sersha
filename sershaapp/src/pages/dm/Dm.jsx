@@ -18,6 +18,7 @@ const Dm = () => {
   const [currentAnswer, setCurrentAnswer] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [messageHistory, setMessageHistory] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const messagesEndRef = useRef(null);
   const messagesPreviewRef = useRef(null);
@@ -59,6 +60,7 @@ const Dm = () => {
         }
         setMessages(newMessages);
         setSelectedMessage(newMessages[0]);
+        setIsLoading(false);
       };
 
       fetchMessages();
@@ -99,6 +101,11 @@ const Dm = () => {
             </>
           ))}</div>
 
+          {isLoading && (
+            <div className='loadingWrapper'>
+              <h3>Loading...</h3>
+            </div>
+          )}
           {newMessage == 0 && (
             <div className='noNewMessagesWrapperRes'>
               <h3 className='noNewMessagesRes'>Congratulations, no new messages for today!</h3>
@@ -132,7 +139,11 @@ const Dm = () => {
               </div>
             </div>
           ))}
-          {selectedMessage ? (
+          {isLoading ? (
+            <div className='loadingWrapper'>
+              <h3>Loading...</h3>
+            </div>
+          ) : selectedMessage ? (
             <div className='receivedMsg'>
               <img src={avatar} alt="" />
               {selectedMessage?.content}

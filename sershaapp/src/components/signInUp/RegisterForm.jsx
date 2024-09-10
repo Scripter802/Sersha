@@ -156,11 +156,10 @@ const RegisterForm = () => {
               revision: '2024-07-15',
               'content-type': 'application/json',
               Authorization: `Klaviyo-API-Key ${import.meta.env.VITE_APP_KLAVIYO_KEY}`,
-              'Content-Type': 'application/json',
               'Access-Control-Allow-Origin': '*',
               'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
             },
-            data: {
+            body: JSON.stringify({
               data: {
                 type: 'profile',
                 attributes: {
@@ -170,12 +169,15 @@ const RegisterForm = () => {
                   "last_name": lastName,
                 }
               }
-            }
+            })
+          });
+
+          if (!klaviyoResponse.ok) {
+            throw new Error('Failed to create Klaviyo profile');
           }
-          )
 
         } catch (error) {
-          console.log('PROFIL ON KLAVIYO IS NOT CREATED DUE TO ERROR!')
+          console.log('PROFILE ON KLAVIYO IS NOT CREATED DUE TO ERROR!');
         }
 
 

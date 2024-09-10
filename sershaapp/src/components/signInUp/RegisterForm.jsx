@@ -80,27 +80,7 @@ const RegisterForm = () => {
   const firstName = nameParts[0];
   const lastName = nameParts.slice(1).join(' ');
 
-  const klaviyoOptions = {
-    method: 'POST',
-    url: 'https://a.klaviyo.com/api/profiles/',
-    headers: {
-      accept: 'application/json',
-      revision: '2024-07-15',
-      'content-type': 'application/json',
-      Authorization: `Klaviyo-API-Key ${import.meta.env.VITE_APP_KLAVIYO_KEY}`
-    },
-    data: {
-      data: {
-        type: 'profile',
-        attributes: {
-          "email": registerEmail,
-          "phone_number": registerPhoneNumber,
-          "first_name": firstName,
-          "last_name": lastName,
-        }
-      }
-    }
-  };
+
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -146,16 +126,53 @@ const RegisterForm = () => {
         console.log('Registration successful');
         resetFormFields();
 
-        try {
+        const klaviyoOptions = {
+          method: 'POST',
+          url: 'https://a.klaviyo.com/api/profiles/',
+          headers: {
+            accept: 'application/json',
+            revision: '2024-07-15',
+            'content-type': 'application/json',
+            Authorization: `Klaviyo-API-Key ${import.meta.env.VITE_APP_KLAVIYO_KEY}`
+          },
+          data: {
+            data: {
+              type: 'profile',
+              attributes: {
+                "email": registerEmail,
+                "phone_number": registerPhoneNumber,
+                "first_name": firstName,
+                "last_name": lastName,
+              }
+            }
+          }
+        };
 
-          axios.
-            request(klaviyoOptions)
-            .then(function (response) {
-              console.log(response.data);
-            })
-            .catch(function (error) {
-              console.error(error);
-            });
+        try {
+          const klaviyoResponse = await fetch(`https://a.klaviyo.com/api/profiles/`, {
+            method: 'POST',
+            headers: {
+              accept: 'application/json',
+              revision: '2024-07-15',
+              'content-type': 'application/json',
+              Authorization: `Klaviyo-API-Key ${import.meta.env.VITE_APP_KLAVIYO_KEY}`,
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+            },
+            data: {
+              data: {
+                type: 'profile',
+                attributes: {
+                  "email": registerEmail,
+                  "phone_number": registerPhoneNumber,
+                  "first_name": firstName,
+                  "last_name": lastName,
+                }
+              }
+            }
+          }
+          )
 
         } catch (error) {
           console.log('PROFIL ON KLAVIYO IS NOT CREATED DUE TO ERROR!')
@@ -213,7 +230,7 @@ const RegisterForm = () => {
     } else {
       setPhoneNumberError('');
     }
-    setRegisterPhoneNumber(phone);
+    setRegisterPhoneNumber(`+${phone}`);
   };
 
   const emailHandle = (e) => {

@@ -106,7 +106,7 @@ const Dm = () => {
               <h3>Loading...</h3>
             </div>
           )}
-          {newMessage == 0 && (
+          {!isLoading && newMessage == 0 && (
             <div className='noNewMessagesWrapperRes'>
               <h3 className='noNewMessagesRes'>Congratulations, no new messages for today!</h3>
               <h3 className='noNewMessagesRes'>Let's play Mini-games to practice and win new items for tomorrow!</h3>

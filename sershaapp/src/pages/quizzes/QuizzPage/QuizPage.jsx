@@ -156,6 +156,7 @@ const QuizPage = () => {
 
 
     setUser({ ...user, coinBalance: newCoinBalance, stage: newStage });
+    localStorage.setItem('showedSlideshow', false);
 
     try {
       await axios.put(`${baseUrl}/User/${user.email}`, { coinBalance: newCoinBalance, stage: newStage });

@@ -63,20 +63,30 @@ const Slideshow = ({ lvl }) => {
     }
   };
 
+  const currentImageName = slideshowByLevel?.[currentGifIndex]?.name || '';
+  const containsClue = currentImageName.includes("Clue");
+
   return (
     <div className="slideshow">
       {currentGifIndex > 0 && <div className="arrow left" onClick={handlePrev}>&#9664;</div>}
       {slideshowByLevel?.length > 0 && (
-        <LazyLoadImage
-          src={`${baseUrlImage}${slideshowByLevel[currentGifIndex]?.filePath}`}
-          alt="Slideshow GIF"
-          effect="blur"
-        />
+        <>
+          <LazyLoadImage
+            src={`${baseUrlImage}${slideshowByLevel[currentGifIndex]?.filePath}`}
+            alt="Slideshow GIF"
+            effect="blur"
+          />
+          {containsClue && (
+            <audio autoPlay>
+              <source src="/music/SFX/Slideshow/Harpforreward.mp3" type="audio/mpeg" />
+            </audio>)}
+        </>
       )}
       <div className="arrow right" onClick={handleNext}>&#9654;</div>
       <audio autoPlay>
         <source src="/music/SFX/Slideshow/LoadingSoundEffect.mp3" type="audio/mpeg" />
       </audio>
+      { }
       {/* {playBackgroundMusic && (
         <audio loop autoPlay>
           <source src="/music/Music/SershaThemesongMediumoptimal310520241122.mp3" type="audio/mpeg" />

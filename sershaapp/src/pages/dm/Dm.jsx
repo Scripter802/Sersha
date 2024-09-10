@@ -149,7 +149,7 @@ const Dm = () => {
               <img src={avatar} alt="" />
               {selectedMessage?.content}
             </div>
-          ) : (
+          ) : !isLoading && !selectedMessage && (
             <div className='noNewMessagesWrapper'>
               <h3 className='noNewMessages'>Congratulations, no new messages for today!</h3>
               <h3 className='noNewMessages'>Let's play Mini-games to practice and win new items for tomorrow!</h3>

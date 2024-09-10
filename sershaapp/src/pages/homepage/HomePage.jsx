@@ -18,7 +18,7 @@ const HomePage = () => {
   const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
   const music = '/music/Music/SershaThemesongMediumoptimal310520241122.mp3'
   const navigate = useNavigate();
-  const showedSlideLS = localStorage.getItem('showedSlideshow');
+  const showedSlideLS = localStorage.getItem('showedSlideshow') === 'true';
 
 
 
@@ -92,8 +92,8 @@ const HomePage = () => {
     }
   }, [isSlideshowShowed, user]);
 
-  if (!showedSlideLS || !isSlideshowShowed && slideshowByLevel?.length > 0) {
-    return <div className='slideshowWrap'><Slideshow lvl={user?.stage} /></div>
+  if (showedSlideLS === false || (!showedSlideLS && slideshowByLevel?.length > 0)) {
+    return <div className='slideshowWrap'><Slideshow lvl={user?.stage} /></div>;
   }
 
 

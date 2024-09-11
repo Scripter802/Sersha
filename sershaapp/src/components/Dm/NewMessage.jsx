@@ -2,7 +2,7 @@ import HeaderResponsive from '../HeaderResponsive/HeaderResponsive';
 import avatar from '../../assets/images/dms/userpick.png';
 import { useGlobalContext } from '../../context/context';
 
-const NewMessage = ({ messages, onSelectMessage, setSelectedMessagePreview }) => {
+const NewMessage = ({ messages, onSelectMessage, setSelectedMessagePreview, randomChoosenCharacter }) => {
   const { baseUrlImage } = useGlobalContext();
   const messageSelect = (msg) => {
     onSelectMessage(msg);
@@ -15,10 +15,10 @@ const NewMessage = ({ messages, onSelectMessage, setSelectedMessagePreview }) =>
       {messages.map(msg => (
         <div className='msgWrapper' key={msg.id} onClick={() => messageSelect(msg)}>
           <div>
-            <img src={msg.sender.authorImagePath == null ? avatar : `${baseUrlImage}${msg.sender.authorImagePath}`} alt="avatar" />
+            <img src={randomChoosenCharacter?.imageSrc} alt="message sender avatar" className='chatSenderImage' />
           </div>
           <div className="msgShortPreview">
-            <h5>{msg.sender.authorName}</h5>
+            <h5>{randomChoosenCharacter?.name}</h5>
             <p>{msg.content}</p>
           </div>
         </div>

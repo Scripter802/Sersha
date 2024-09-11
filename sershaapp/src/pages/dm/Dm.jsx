@@ -10,6 +10,10 @@ import backButton from '../../assets/images/dms/backbuttonResponsive.png';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import MusicContext from '../../context/MusicContext';
+import Jess from '../../assets/images/chatCharacterImages/Jess.png'
+import John from '../../assets/images/chatCharacterImages/John.png'
+import Nicky from '../../assets/images/chatCharacterImages/Nicky.png'
+import Sam from '../../assets/images/chatCharacterImages/Sam.png'
 
 const Dm = () => {
   const { baseUrl, baseUrlImage, getAllAuthors, allAuthors, selectedMessagePreview, setSelectedMessagePreview, canPlayAnotherQuizToday, updateQuizzesPlayed, newMessage, bundelsAndLevels, user } = useGlobalContext();
@@ -19,12 +23,20 @@ const Dm = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [messageHistory, setMessageHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [senderCharacters, setSenderCharacters] = useState([{ name: "Jess", imageSrc: Jess }, { name: "John", imageSrc: John }, { name: "Nicky", imageSrc: Nicky }, { name: "Sam", imageSrc: Sam },])
+  const [randomChoosenCharacter, setRandomChoosenCharacter] = useState();
   const navigate = useNavigate();
   const messagesEndRef = useRef(null);
   const messagesPreviewRef = useRef(null);
   const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
   const music = '/music/Music/SershaThemesongMediumoptimal310520241122.mp3'
   const sendMessageSound = new Audio('/music/SFX/DMs/sendMessage.mp3');
+
+  const getRandomSenderIndex = () => {
+    let randomIndex = Math.floor(Math.random() * senderCharacters?.length);
+
+    setRandomChoosenCharacter(senderCharacters[randomIndex]);
+  }
 
   useEffect(() => {
     if (currentPlaying != music) {
@@ -63,10 +75,9 @@ const Dm = () => {
         setIsLoading(false);
       };
       fetchMessages();
-      // getAllAuthors()
+      getRandomSenderIndex();
     }
   }, [baseUrl]);
-
 
   const handleAnswer = (answer, image) => {
     setCurrentAnswer(answer);
@@ -111,13 +122,13 @@ const Dm = () => {
               <h3 className='noNewMessagesRes'>Let's play Mini-games to practice and win new items for tomorrow!</h3>
             </div>
           )}
-          <NewMessage messages={messages} onSelectMessage={setSelectedMessage} setSelectedMessagePreview={setSelectedMessagePreview} />
+          <NewMessage messages={messages} randomChoosenCharacter={randomChoosenCharacter} onSelectMessage={setSelectedMessage} setSelectedMessagePreview={setSelectedMessagePreview} />
         </div>
 
         {window.innerWidth < 780 && selectedMessagePreview && (
           <div className='responsiveSingleMessageHeader'>
-            <div><img src={selectedMessage?.sender.authorImagePath == null ? avatar : `${baseUrl}${selectedMessage?.sender.authorImagePath}`} alt="avatar" /></div>
-            <div><p>{selectedMessage?.sender.authorName}</p></div>
+            <div><img src={randomChoosenCharacter?.imageSrc} alt="message sender avatar" className='chatSenderImage' /></div>
+            <div><p>{randomChoosenCharacter?.name}</p></div>
             <div onClick={() => setSelectedMessagePreview(false)} className='backButtonRespDm'><img src={backButton} alt="backbutton" className='resHeaderAvatarImg' /></div>
           </div>
         )
@@ -127,12 +138,12 @@ const Dm = () => {
           {messageHistory.map((msg, index) => (
             <div key={index} className='messageHistory'>
               <div className='receivedMsg'>
-                <img src={avatar} alt="" />
+                <img src={randomChoosenCharacter?.imageSrc} alt="message sender avatar" className='chatSenderImage' />
                 {msg.question}
               </div>
               <div className='answerWrapper'>
                 <div className='answer'>
-                  <img src={msg?.image ? `${baseUrlImage}${msg?.image}` : avatar} alt="" />
+                  <img src={msg?.image ? `${baseUrlImage}${msg?.image}` : avatar} className='chatSenderImage' alt="user image" />
                   {msg.answer}
                 </div>
               </div>
@@ -149,7 +160,7 @@ const Dm = () => {
             </div>
           ) : selectedMessage && (
             <div className='receivedMsg'>
-              <img src={avatar} alt="" />
+              <img src={randomChoosenCharacter?.imageSrc} alt="message sender image" className='chatSenderImage' />
               {selectedMessage?.content}
             </div>
           )

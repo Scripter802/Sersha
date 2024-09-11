@@ -16,7 +16,7 @@ const AnswersMsg = ({ selectedMessage, currentAnswer, handleAnswer }) => {
       {currentAnswer && (
         <div className='answerWrapper'>
           <div className='answer'>
-            <img src={avatar} alt="" />
+            <img src={userData?.image || avatar} alt="user image" className='chatSenderImage' />
             {currentAnswer}
           </div>
         </div>

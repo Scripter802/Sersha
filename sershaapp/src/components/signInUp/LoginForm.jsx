@@ -140,14 +140,17 @@ const LoginForm = () => {
   };
 
   if (isLoggedIn == true) {
-    if (user && user.isFirstTimeLoggedIn == true) {
+    if (user && user?.isFirstTimeLoggedIn == true) {
       console.log(`user login is first time: ${user.isFirstTimeLoggedIn}`)
       localStorage.setItem('levelStep', '0');
       setIsTutorialActive(true);
       isFirstTimeLoggedInChange();
       Cookies.set('isSlideShowed', JSON.stringify({ level: 1, isSlideShowed: false }));
 
-      return (<Slideshow lvl={'1'} />)
+      if (user?.stage > 0) {
+        return (<Slideshow lvl={'1'} />)
+
+      }
     }
     else {
       navigate('/');

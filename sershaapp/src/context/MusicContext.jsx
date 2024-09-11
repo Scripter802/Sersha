@@ -9,8 +9,10 @@ export const MusicProvider = ({ children }) => {
   const audioRef = useRef(new Audio());
   console.log(currentTime);
   const audio = audioRef.current;
+
   const handleTimeUpdate = () => {
-    setCurrentTime(audio.currentTime);
+    const roundedTime = Math.floor(audio.currentTime);
+    setCurrentTime((prevTime) => (prevTime !== roundedTime ? roundedTime : prevTime));
   };
 
   useEffect(() => {
@@ -26,11 +28,19 @@ export const MusicProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('currentPlaying', currentPlaying);
+    const currentPlayingIntervalId = setInterval(() => {
+      localStorage.setItem('currentPlaying', currentPlaying);
+    }, 5000);
+
+    return () => clearInterval(currentPlayingIntervalId);
   }, [currentPlaying]);
 
   useEffect(() => {
-    localStorage.setItem('currentTime', currentTime);
+    const currentTimeintervalId = setInterval(() => {
+      localStorage.setItem('currentTime', currentTime);
+    }, 5000);
+
+    return () => clearInterval(currentTimeintervalId);
   }, [currentTime]);
 
   useEffect(() => {
@@ -41,7 +51,11 @@ export const MusicProvider = ({ children }) => {
     }
 
     if (isPlaying) {
-      audio.play();
+      audio.muted = true;
+
+      audio.play().then(() => {
+        audio.muted = false;
+      });
     } else {
       audio.pause();
     }
@@ -49,10 +63,10 @@ export const MusicProvider = ({ children }) => {
 
     audio.addEventListener('timeupdate', handleTimeUpdate);
 
-    // return () => {
-    //   audio.pause();
-    //   audio.removeEventListener('timeupdate', handleTimeUpdate);
-    // };
+    return () => {
+      audio.pause();
+      audio.removeEventListener('timeupdate', handleTimeUpdate);
+    };
   }, [isPlaying, currentPlaying]);
 
   const toggleMusic = () => {

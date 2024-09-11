@@ -147,10 +147,8 @@ const LoginForm = () => {
       isFirstTimeLoggedInChange();
       Cookies.set('isSlideShowed', JSON.stringify({ level: 1, isSlideShowed: false }));
 
-      if (user?.stage > 0) {
-        return (<Slideshow lvl={'1'} />)
 
-      }
+      return (<Slideshow lvl={'1'} />)
     }
     else {
       navigate('/');

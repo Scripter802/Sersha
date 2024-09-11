@@ -62,13 +62,11 @@ const Dm = () => {
         setSelectedMessage(newMessages[0]);
         setIsLoading(false);
       };
-
       fetchMessages();
       // getAllAuthors()
     }
   }, [baseUrl]);
 
-  console.log(newMessage?.length)
 
   const handleAnswer = (answer, image) => {
     setCurrentAnswer(answer);
@@ -83,7 +81,7 @@ const Dm = () => {
 
     setMessageHistory(prevHistory => [...prevHistory, { question: selectedMessage.content, answer, image }]);
   };
-  console.log(messageHistory)
+
   return (
     <div className='dmsWrapper'>
       <div className='dmsContainer'>
@@ -107,7 +105,7 @@ const Dm = () => {
               <h3>Loading...</h3>
             </div>
           )}
-          {!isLoading && newMessage == 0 && (
+          {!isLoading && messages.length === 0 && (
             <div className='noNewMessagesWrapperRes'>
               <h3 className='noNewMessagesRes'>Congratulations, no new messages for today!</h3>
               <h3 className='noNewMessagesRes'>Let's play Mini-games to practice and win new items for tomorrow!</h3>
@@ -144,7 +142,7 @@ const Dm = () => {
             <div className='loadingWrapper'>
               <h3>Loading...</h3>
             </div>
-          ) : !isLoading && !selectedMessage && newMessage == 0 ? (
+          ) : !isLoading && messages.length === 0 && newMessage === 0 ? (
             <div className='noNewMessagesWrapper'>
               <h3 className='noNewMessages'>Congratulations, no new messages for today!</h3>
               <h3 className='noNewMessages'>Let's play Mini-games to practice and win new items for tomorrow!</h3>

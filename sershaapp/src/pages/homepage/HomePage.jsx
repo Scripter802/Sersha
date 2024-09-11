@@ -21,7 +21,6 @@ const HomePage = () => {
   const showedSlideLS = localStorage.getItem('showedSlideshow') === 'true';
 
 
-
   useEffect(() => {
     if (currentPlaying !== music) {
       changeMusic('/music/Music/SershaThemesongMediumoptimal310520241122.mp3');
@@ -93,9 +92,10 @@ const HomePage = () => {
   }, [isSlideshowShowed, user]);
 
 
-  if (showedSlideLS === false && user?.stage > 0 || (!showedSlideLS && slideshowByLevel?.length > 0) && user?.stage > 0) {
+  if (user?.stage > 0 && !showedSlideLS && slideshowByLevel?.length > 0) {
     return <div className='slideshowWrap'><Slideshow lvl={user?.stage} /></div>;
   }
+
 
 
   return (

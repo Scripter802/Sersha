@@ -385,7 +385,7 @@ const RegisterForm = () => {
                   className="avatar-item"
                   onClick={() => handleAvatarSelect(avatar)}
                 >
-                  <img src={`${baseUrlImage}${avatar.imagePath}`} alt={avatar.name} />
+                  <img src={`${baseUrlImage}${avatar.imagePath}`} alt={avatar.name} loading='lazy' />
                   <p>{avatar.name}</p>
                 </div>
               ))}

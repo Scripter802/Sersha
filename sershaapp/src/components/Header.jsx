@@ -106,7 +106,6 @@ const Header = () => {
     };
   }, [user, canPlayAnotherQuizToday, newMessage]);
 
-  console.log(user)
   return (
     <div className='headerWrapper'>
       <div className="headerContainer">

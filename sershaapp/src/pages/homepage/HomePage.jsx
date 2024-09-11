@@ -87,13 +87,13 @@ const HomePage = () => {
   }, [handleIsSlideshowShowed])
 
   useEffect(() => {
-    if (!isSlideshowShowed) {
+    if (!isSlideshowShowed && user?.stage > 0) {
       fetchSlideshowByLevel(user?.stage);
     }
   }, [isSlideshowShowed, user]);
 
 
-  if (showedSlideLS === false || (!showedSlideLS && slideshowByLevel?.length > 0)) {
+  if (showedSlideLS === false || (!showedSlideLS && slideshowByLevel?.length > 0) && user?.stage > 0) {
     return <div className='slideshowWrap'><Slideshow lvl={user?.stage} /></div>;
   }
 

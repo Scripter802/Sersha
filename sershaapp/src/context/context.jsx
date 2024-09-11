@@ -253,10 +253,21 @@ const AppProvider = ({ children }) => {
 
   const updateShowedSlideshow = () => {
     const cookieValue = Cookies.get('isSlideShowed');
-    const { level, isSlideShowed } = JSON.parse(cookieValue);
 
-    Cookies.set('isSlideShowed', JSON.stringify({ level, isSlideShowed: true }), { expires: 30 });
-    setIsSlideshowShowed(true);
+    if (!cookieValue) {
+      Cookies.set('isSlideShowed', JSON.stringify({ level: user?.stage, isSlideShowed: true }), {
+        expires: 365,
+        sameSite: 'None'
+      });
+      setIsSlideshowShowed(true);
+      return true;
+    }
+
+    if (cookieValue) {
+      const { level, isSlideShowed } = JSON.parse(cookieValue);
+      Cookies.set('isSlideShowed', JSON.stringify({ level, isSlideShowed: true }), { expires: 365 });
+      setIsSlideshowShowed(true);
+    }
   };
 
 

@@ -33,7 +33,9 @@ const Slideshow = ({ lvl }) => {
   const [preloadedGifs, setPreloadedGifs] = useState({});
 
   useEffect(() => {
-    fetchSlideshowByLevel(lvl);
+    if (lvl > 0) {
+      fetchSlideshowByLevel(lvl);
+    }
   }, [lvl]);
 
   if (slideshowByLevel?.length == 0) {

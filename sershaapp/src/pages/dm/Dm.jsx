@@ -53,6 +53,10 @@ const Dm = () => {
   }, [messages, messageHistory]);
 
   useEffect(() => {
+    if (!canPlayAnotherQuizToday()) {
+      setIsLoading(false);
+    }
+
     if (canPlayAnotherQuizToday()) {
       const fetchRandomChat = async () => {
         try {
@@ -77,7 +81,7 @@ const Dm = () => {
       fetchMessages();
       getRandomSenderIndex();
     }
-  }, [baseUrl]);
+  }, [baseUrl, canPlayAnotherQuizToday]);
 
   const handleAnswer = (answer, image) => {
     setCurrentAnswer(answer);

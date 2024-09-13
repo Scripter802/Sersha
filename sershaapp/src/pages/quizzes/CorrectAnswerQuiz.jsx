@@ -40,7 +40,7 @@ const CorrectAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) =>
   const [checked, setChecked] = useState(false);
   const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
   const gameSucceed = new Audio('/music/SFX/FightRogueFox/Advancetonextlevel.mp3');
-  console.log(selectedAnswer, isCorrectAnswer)
+  const [questionLocked, setQuestionLocked] = useState(false);
 
   const messages = [
     {
@@ -106,16 +106,20 @@ const CorrectAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) =>
       setChecked(false);
       setFeedback(null);
     } else {
+      setCurrentQuestion((prev) => prev + 1);
       setSelectedAnswer(null);
       setChecked(false);
-      setCurrentQuestion((prev) => prev + 1);
       setFeedback(null);
       setIsCorrectAnswer(false);
       setIsShield(false);
       setShowNextButton(false);
-
     }
+    setQuestionLocked(false);
   };
+
+  useEffect(() => {
+    setQuestionLocked(true);
+  }, [currentQuestion, currentQuizz]);
 
   useEffect(() => {
     if (currentVocal) {
@@ -169,7 +173,7 @@ const CorrectAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) =>
         </div>
         <div className='correctAnswerWrapper'>
           <h5>Statement</h5>
-          <div className='correctAnswerAssignment'>{console.log(currentQ.text)}{currentQ.text}</div>
+          <div className='correctAnswerAssignment'>{console.log(`Q TEXT ${currentQ.text} ////////Q SAMO${JSON.stringify(currentQ)}`)}{currentQ.text}</div>
           {selectedAnswer === null && <h5>Answer options</h5>}
           <div className='correctAnswerAnsWrapper' style={selectedAnswer !== null ? { marginTop: "1rem" } : {}}>
 

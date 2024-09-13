@@ -169,7 +169,7 @@ const CorrectAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) =>
         </div>
         <div className='correctAnswerWrapper'>
           <h5>Statement</h5>
-          <div className='correctAnswerAssignment'>{currentQ.text}</div>
+          <div className='correctAnswerAssignment'>{console.log(currentQ.text)}{currentQ.text}</div>
           {selectedAnswer === null && <h5>Answer options</h5>}
           <div className='correctAnswerAnsWrapper' style={selectedAnswer !== null ? { marginTop: "1rem" } : {}}>
 

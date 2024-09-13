@@ -42,6 +42,7 @@ const QuizPage = () => {
   const music = '/music/Music/RogueFoxFight310520241104.mp3'
   const [isInventoryQuiz, setIsInventoryQuiz] = useState(false);
 
+
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem('userData')));
 
@@ -54,33 +55,32 @@ const QuizPage = () => {
   }, [changeMusic, music]);
 
 
-  useEffect(() => {
-    if (!user) return;
+  const fetchCurrentQuizz = async (dif) => {
+    try {
+      const response = await axios.get(`${baseUrl}/Quizzes/randomByDifficulty/${dif}`);
+      setCurrentQuizz(response.data);
+    } catch (error) {
+      console.error('Error fetching Current Quizz:', error);
+    }
+  };
 
-    let isMounted = true;
-    const fetchCurrentQuizz = async (dif) => {
-      if (isMounted) {
-        try {
-          const response = await axios.get(`${baseUrl}/Quizzes/randomByDifficulty/${dif}`);
-          setCurrentQuizz(response.data);
-        } catch (error) {
-          console.error('Error fetching Current Quizz:', error);
-        }
+
+  useEffect(() => {
+
+    const fetchQuiz = async () => {
+      if (user?.level <= 13) {
+        fetchCurrentQuizz('0');
+      } else if (user?.level > 13 && user?.level <= 26) {
+        fetchCurrentQuizz('1');
+      } else {
+        fetchCurrentQuizz('2');
       }
     };
 
-    if (user?.level <= 13) {
-      fetchCurrentQuizz('0');
-    } else if (user?.level > 13 && user?.level <= 26) {
-      fetchCurrentQuizz('1')
-    } else {
-      fetchCurrentQuizz('2');
+    if (user) {
+      fetchQuiz();
     }
-    return () => {
-      isMounted = false;
-    };
-
-  }, [user, baseUrl]);
+  }, [user?.level, baseUrl]);
 
 
   // useEffect(() => {

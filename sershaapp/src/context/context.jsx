@@ -203,6 +203,7 @@ const AppProvider = ({ children }) => {
   const handleIsSlideshowShowed = () => {
     try {
       const cookieValue = Cookies.get('isSlideShowed');
+      const localStorageValue = localStorage.getItem('isSlideShowed');
 
       if (!cookieValue) {
         Cookies.set('isSlideShowed', JSON.stringify({ level: user?.stage, isSlideShowed: false }), {

@@ -91,6 +91,10 @@ const Dm = () => {
       setSelectedMessage(selectedMessage.responses.find(res => res.content === answer).nextMessage);
       setCurrentAnswer('');
     } else {
+      setMessages([]);
+      setSelectedMessage(null);
+      setCurrentAnswer(null);
+      setMessageHistory([]);
       setShowPopup(true);
     }
 

@@ -147,7 +147,6 @@ const QuizPage = () => {
     let oneQuestionPercent = currentQuizz?.questions?.length + correctAnswers > 0 ? fullHealth / currentQuizz?.questions?.length : 0;
     let correctPercent = oneQuestionPercent * correctAnswers;
 
-    // Calculate new coin balance separately
     let newCoinBalance = user.coinBalance;
 
     if (correctPercent > 50 && correctPercent < 70) {
@@ -197,6 +196,8 @@ const QuizPage = () => {
     console.log('Mini-games opened');
     handleQuizCompletion();
     setShowPopup(false);
+    setCurrentQuestion(0);
+    setCurrentQuizz();
     navigate('/minigames')
   };
 

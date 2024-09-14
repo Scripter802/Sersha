@@ -29,6 +29,7 @@ namespace Application.User
             public int Level { get; set; }
             public int CoinBalance { get; set; }
             public string Type { get; set; }
+            public int Stage { get; set; }
             public bool isFirstTimeLoggedIn { get; set; }
             public Guid AvatarImageId { get; set; }
             
@@ -79,6 +80,7 @@ namespace Application.User
                 user.Level = request.Level != default ? request.Level : user.Level;
                 user.CoinBalance = request.CoinBalance != default ? request.CoinBalance : user.CoinBalance;
                 user.Type = request.Type ?? user.Type;
+                user.Stage = request.Stage != default ? request.Stage : user.Stage;
                 user.isFirstTimeLoggedIn = request.isFirstTimeLoggedIn;
                 
                 if(request.NewPassword != null){

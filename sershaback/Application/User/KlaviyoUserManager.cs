@@ -39,6 +39,35 @@ namespace Application.User
         }
 
 
+        public async Task removeProfileFromList(string listId, string profileId)
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Delete,
+                RequestUri = new Uri($"https://a.klaviyo.com/api/lists/{listId}/relationships/profiles/"),
+                Headers =
+                {
+                    { "accept", "application/json" },
+                    { "revision", "2024-07-15" },
+                    { "Authorization", "Klaviyo-API-Key pk_59c0d28e591fe0a1caa0a5ebd85e8452a7" },
+                },
+                
+                Content = new StringContent($@"{{""data"":{{""type"":""profile"",""id"":""{profileId}""}}}}")
+                {
+                    Headers =
+                    {
+                        ContentType = new MediaTypeHeaderValue("application/json")
+                    }
+                }
+            };
+            using (var response = await client.SendAsync(request))
+            {
+                response.EnsureSuccessStatusCode();
+                var body = await response.Content.ReadAsStringAsync();
+            }
+        }
+
         public async Task<string> createProfile(string email, string FullName, string phoneNumber)
         {
             var client = new HttpClient();

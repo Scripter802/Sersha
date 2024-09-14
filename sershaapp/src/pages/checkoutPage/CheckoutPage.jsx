@@ -2,76 +2,44 @@ import React, { useEffect } from 'react'
 import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import './checkoutPage.css'
-import { useGlobalContext } from '../../context/context'
-import { useNavigate } from 'react-router-dom';
 import HeaderResponsive from '../../components/HeaderResponsive/HeaderResponsive';
+import { useGlobalContext } from '../../context/context';
 
-let stripePromise;
-
-const getStripe = () => {
-  if (!stripePromise) {
-    stripePromise = loadStripe(import.meta.env.VITE_APP_STRIPE_KEY);
-  }
-
-  return stripePromise;
-};
 
 const CheckoutPage = () => {
-  const [stripeError, setStripeError] = useState(null);
+  const { baseUrl, subscriptionPeriod, setSubscriptionPeriod } = useGlobalContext();
   const [isLoading, setLoading] = useState(false);
-  const { user } = useGlobalContext();
-  const navigate = useNavigate();
 
   const yearlySubscription = {
-    price: "price_1PxGnuDTW8RXGzBAozsI7S7y",
-    quantity: 1
+    priceId: "price_1PxGnuDTW8RXGzBAozsI7S7y",
   };
   const monthlySubscription = {
-    price: "price_1PxGmeDTW8RXGzBAwOUGQUSC",
-    quantity: 1
+    priceId: "price_1PxGmeDTW8RXGzBAwOUGQUSC",
   };
 
-  const monthlyCheckoutOptions = {
-    lineItems: [monthlySubscription],
-    mode: "subscription",
-    successUrl: `${window.location.origin}/successmonthly`,
-    cancelUrl: `${window.location.origin}/`
-  };
 
-  const yearlyCheckoutOptions = {
-    lineItems: [yearlySubscription],
-    mode: "subscription",
-    // allow_promotion_codes,
-    successUrl: `${window.location.origin}/successyearly`,
-    cancelUrl: `${window.location.origin}/`
-  };
-
-  const redirectToMonthlyCheckout = async () => {
+  const redirectToCheckout = async (subPlan) => {
     setLoading(true);
-    console.log("redirectToCheckout");
 
-    const stripe = await getStripe();
 
-    const { error } = await stripe.redirectToCheckout(monthlyCheckoutOptions);
-    console.log("Stripe checkout error", error);
+    try {
+      const response = await fetch(`${baseUrl}/Stripe/create-checkout-session`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(subPlan)
+      });
 
-    if (error) setStripeError(error.message);
+      const { sessionId } = await response.json();
+      const stripe = await loadStripe(import.meta.env.VITE_APP_STRIPE_KEY);
+      await stripe.redirectToCheckout({ sessionId });
+
+    } catch (error) {
+      console.error("Error:", error);
+    }
     setLoading(false);
   };
-
-  const redirectToYearlyCheckout = async () => {
-    setLoading(true);
-    console.log("redirectToCheckout");
-
-    const stripe = await getStripe();
-    const { error } = await stripe.redirectToCheckout(yearlyCheckoutOptions);
-    console.log("Stripe checkout error", error);
-
-    if (error) setStripeError(error.message);
-    setLoading(false);
-  };
-
-  if (stripeError) alert(stripeError);
 
 
   return (
@@ -81,7 +49,7 @@ const CheckoutPage = () => {
       {/* <p className=''>Please Subscribe to Play Sersha  </p> */}
       <div className='checkoutCartWrapper'>
 
-        <div className='checkoutCart' onClick={redirectToMonthlyCheckout}>
+        <div className='checkoutCart' onClick={() => { redirectToCheckout(monthlySubscription); setSubscriptionPeriod('0') }}>
           <div className='cartTitle'>
             <h2>Monthly Subscription</h2>
             {/* <h2 className='subtitle'>(1 parent, 1 child)</h2>
@@ -92,7 +60,7 @@ const CheckoutPage = () => {
           <h3 className='cartPrice'>5.99€</h3>
         </div>
 
-        <div className='checkoutCart' onClick={redirectToYearlyCheckout}>
+        <div className='checkoutCart' onClick={() => { redirectToCheckout(yearlySubscription); setSubscriptionPeriod('1') }}>
           <div className='cartTitle'>
             <h2>Yearly Subscription</h2>
             {/* <h2 className='subtitle'>(1 parent, 1 child)</h2> */}

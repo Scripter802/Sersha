@@ -49,9 +49,11 @@ namespace Application.User
             private readonly UserManager<AppUser> _userMenager;
             private readonly IJwtGenerator _jwtGenerator;
 
+        private readonly IKlaviyoUserManager _klaviyoUserManager;
 
-            public Handler(DataContext context, UserManager<AppUser> userMenager, IJwtGenerator jwtGenerator)
+            public Handler(DataContext context, UserManager<AppUser> userMenager, IJwtGenerator jwtGenerator, IKlaviyoUserManager klaviyoUserManager)
             {
+            this._klaviyoUserManager = klaviyoUserManager;
                 _userMenager=userMenager;
                 _context = context;
                 _jwtGenerator=jwtGenerator;
@@ -84,6 +86,8 @@ namespace Application.User
 
                 };
                 user.AvatarImage = _context.AvatarImages.FirstOrDefault(x=> x.Id == user.AvatarImageId);
+                var klaviyoId = await _klaviyoUserManager.createProfile(user.Email, user.ParentsFullName, user.ParentPhoneNumber);
+                user.KlaviyoID = klaviyoId;
                 //handler logic 
                 var results = await _userMenager.CreateAsync(user, request.Password);
 

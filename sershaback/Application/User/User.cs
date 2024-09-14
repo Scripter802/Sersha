@@ -22,5 +22,6 @@ namespace Application.User
         public bool isFirstTimeLoggedIn { get; set; }
         public bool IsSubscribed { get; set; }
         public DateTime SubscribedUntil {get; set;}
+        public string KlaviyoID {get; set;}
     }
 }

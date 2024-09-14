@@ -39,5 +39,7 @@ namespace Domain
 
         public bool isFirstTimeLoggedIn { get; set; } = true; 
 
+        public string KlaviyoID {get; set;}
+
     }
 }

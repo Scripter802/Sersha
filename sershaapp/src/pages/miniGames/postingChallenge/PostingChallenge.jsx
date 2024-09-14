@@ -36,6 +36,7 @@ const PostingChallenge = () => {
   const [currentPosting, setCurrentPosting] = useState([]);
   const [postingNumber, setPostingNumber] = useState(0);
   const [isGameCompleted, setIsGameCompleted] = useState(false);
+  const [isPostingFetched, setIsPostingFetched] = useState(false);
   const navigate = useNavigate();
   const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
   const gameSucceed = new Audio('/music/SFX/FightRogueFox/Anotherwin.mp3');
@@ -50,14 +51,23 @@ const PostingChallenge = () => {
       try {
         const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/${dif}/7`);
         setAllPosting(response.data);
+        setIsPostingFetched(true);
       } catch (error) {
         console.error('Error fetching right answer questions:', error);
       }
     };
-    user?.level <= 13 ? fetchPosting('0') : user?.level > 13 && user?.level <= 26 ? fetchPosting('1') : fetchPosting('2');
 
-    fetchPosting();
-  }, [baseUrl, user]);
+    if (!isPostingFetched) {  // Only fetch if not fetched yet
+      if (user?.level <= 13) {
+        fetchPosting('0');
+      } else if (user?.level > 13 && user?.level <= 26) {
+        fetchPosting('1');
+      } else {
+        fetchPosting('2');
+      }
+    }
+
+  }, [baseUrl, user, isPostingFetched]);
 
   useEffect(() => {
     if (allPosting.length > 0) {
@@ -130,6 +140,7 @@ const PostingChallenge = () => {
     setPostingNumber(0);
     setSeconds(25);
     setRoughFoxDamaged('');
+    setIsPostingFetched(false);
     navigate('/minigames');
   };
 
@@ -153,6 +164,7 @@ const PostingChallenge = () => {
 
     console.log('Prize claimed');
     setIsGameCompleted(false);
+    setIsPostingFetched(false);
     navigate('/');
   };
 

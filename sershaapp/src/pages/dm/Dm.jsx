@@ -23,7 +23,7 @@ const Dm = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [messageHistory, setMessageHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [senderCharacters, setSenderCharacters] = useState([{ name: "Jess", imageSrc: Jess }, { name: "John", imageSrc: John }, { name: "Nicky", imageSrc: Nicky }, { name: "Sam", imageSrc: Sam },])
+  const [senderCharacters] = useState([{ name: "Jess", imageSrc: Jess }, { name: "John", imageSrc: John }, { name: "Nicky", imageSrc: Nicky }, { name: "Sam", imageSrc: Sam },])
   const [randomChoosenCharacter, setRandomChoosenCharacter] = useState();
   const navigate = useNavigate();
   const messagesEndRef = useRef(null);
@@ -31,12 +31,16 @@ const Dm = () => {
   const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
   const music = '/music/Music/SershaThemesongMediumoptimal310520241122.mp3'
   const sendMessageSound = new Audio('/music/SFX/DMs/sendMessage.mp3');
+  const [messageLocked, setMessageLocked] = useState(false);
+  const [senderSelected, setSenderSelected] = useState(false);
 
   const getRandomSenderIndex = () => {
-    let randomIndex = Math.floor(Math.random() * senderCharacters?.length);
-
-    setRandomChoosenCharacter(senderCharacters[randomIndex]);
-  }
+    if (!senderSelected) {
+      let randomIndex = Math.floor(Math.random() * senderCharacters?.length);
+      setRandomChoosenCharacter(senderCharacters[randomIndex]);
+      setSenderSelected(true);
+    }
+  };
 
   useEffect(() => {
     if (currentPlaying != music) {
@@ -52,53 +56,59 @@ const Dm = () => {
     scrollToBottom();
   }, [messages, messageHistory]);
 
-  useEffect(() => {
-    if (!canPlayAnotherQuizToday()) {
-      setIsLoading(false);
+  const fetchRandomChat = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/Chat/randomChatMessage`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching chat message:', error);
+      return null;
     }
+  };
 
-    if (canPlayAnotherQuizToday()) {
-      const fetchRandomChat = async () => {
-        try {
-          const response = await axios.get(`${baseUrl}/Chat/randomChatMessage`);
-          return response.data;
-        } catch (error) {
-          console.error('Error fetching chat message:', error);
-          return null;
-        }
-      };
-
-      const fetchMessages = async () => {
-        const newMessages = [];
-        for (let i = 0; i < 1; i++) {
-          const message = await fetchRandomChat();
-          if (message) newMessages.push(message);
-        }
+  const fetchMessages = async () => {
+    if (!messageLocked) {
+      const newMessages = [];
+      const message = await fetchRandomChat();
+      if (message) {
+        newMessages.push(message);
         setMessages(newMessages);
         setSelectedMessage(newMessages[0]);
-        setIsLoading(false);
-      };
+        setMessageLocked(true);
+        getRandomSenderIndex();
+      }
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (canPlayAnotherQuizToday()) {
       fetchMessages();
-      getRandomSenderIndex();
+    } else {
+      setIsLoading(false);
     }
   }, [baseUrl, canPlayAnotherQuizToday]);
 
   const handleAnswer = (answer, image) => {
-    setCurrentAnswer(answer);
-    sendMessageSound.play();
+    const nextMessage = selectedMessage?.responses?.find(res => res.content === answer)?.nextMessage;
 
-    if (selectedMessage?.responses?.find(res => res.content === answer)?.nextMessage) {
-      setSelectedMessage(selectedMessage.responses.find(res => res.content === answer).nextMessage);
+    if (nextMessage) {
+      setSelectedMessage(nextMessage);
       setCurrentAnswer('');
     } else {
       setMessages([]);
       setSelectedMessage(null);
       setCurrentAnswer(null);
       setMessageHistory([]);
+      setMessageLocked(false);
       setShowPopup(true);
+      setSenderSelected(false);
     }
 
-    setMessageHistory(prevHistory => [...prevHistory, { question: selectedMessage.content, answer, image }]);
+    setMessageHistory(prevHistory => [
+      ...prevHistory,
+      { question: selectedMessage.content, answer, image }
+    ]);
   };
 
   return (

@@ -55,6 +55,8 @@ const FriendOrFoe = () => {
   const [currentFriendOrFoe, setCurrentFriendOrFoe] = useState([]);
   const [friendOrFoeNumber, setFriendOrFoeNumber] = useState(0);
   const [isGameCompleted, setIsGameCompleted] = useState(false);
+  const [isFriendOrFoeFetched, setIsFriendOrFoeFetched] = useState(false);
+  const [isAvatarFetched, setIsAvatarFetched] = useState(false);
   const profileImages = [one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, thirteen, fourteen, fiveteen, sixteen, seventeen];
   const navigate = useNavigate();
   const [randomAvatarImage, setRandomAvatarImage] = useState();
@@ -69,18 +71,27 @@ const FriendOrFoe = () => {
   console.log(currentVocal, rogueClickCounter)
 
   useEffect(() => {
-    const fetchPosting = async (dif) => {
+    const fetchFriendOrFoe = async (dif) => {
       try {
         const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/${dif}/6`);
         setAllFriendOrFoe(response.data);
+        setIsFriendOrFoeFetched(true);
       } catch (error) {
         console.error('Error fetching right answer questions:', error);
       }
     };
 
-    user?.level <= 13 ? fetchPosting('0') : user?.level > 13 && user?.level <= 26 ? fetchPosting('1') : fetchPosting('2');
+    if (!isFriendOrFoeFetched) {
+      if (user?.level <= 13) {
+        fetchFriendOrFoe('0');
+      } else if (user?.level > 13 && user?.level <= 26) {
+        fetchFriendOrFoe('1');
+      } else {
+        fetchFriendOrFoe('2');
+      }
+    }
 
-  }, [baseUrl, user]);
+  }, [baseUrl, user, isFriendOrFoeFetched]);
 
   useEffect(() => {
     if (allFriendOrFoe.length > 0) {
@@ -111,9 +122,12 @@ const FriendOrFoe = () => {
     const getRandomAvatarImage = () => {
       let randomIndex = Math.floor(Math.random() * profileImages.length);
       setRandomAvatarImage(profileImages[randomIndex]);
+      setIsAvatarFetched(true);
     };
 
-    getRandomAvatarImage();
+    if (!isAvatarFetched) {
+      getRandomAvatarImage();
+    }
   }, [friendOrFoeNumber]);
 
   const handleAnswerClick = (selectedAnswer) => {
@@ -174,6 +188,7 @@ const FriendOrFoe = () => {
     setSeconds(25);
     setRoughFoxDamaged('');
     setCorInc([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    isFriendOrFoeFetched(false);
     navigate('/minigames');
   };
 
@@ -196,6 +211,7 @@ const FriendOrFoe = () => {
     setInventoryItems(updatedGameItems);
 
     setIsGameCompleted(false);
+    setIsFriendOrFoeFetched(false);
     navigate('/');
   };
 
@@ -268,13 +284,13 @@ const FriendOrFoe = () => {
           <div className='friendOrFoeMiddleContent'>
             <div className='friendOrFoeGameCard'>
               <div className='messageGameCard'>
-                <img src={randomAvatarImage} alt="userpic" />
+                <img src={randomAvatarImage} alt="userpic" loading='lazy' />
                 <div className='middleInfoUser'>
                   <p className='messageName'>{currentFriendOrFoe[friendOrFoeNumber]?.text}</p>
                   <p className='messageText'>{currentFriendOrFoe[friendOrFoeNumber]?.content}</p>
                 </div>
               </div>
-              <img className='middleGamePhoto' src={`${baseUrlImage}${currentFriendOrFoe[friendOrFoeNumber]?.imagePath}`} alt='gamephoto' />
+              <img className='middleGamePhoto' src={`${baseUrlImage}${currentFriendOrFoe[friendOrFoeNumber]?.imagePath}`} alt='gamephoto' loading='lazy' />
             </div>
 
             <div className='friendOrFoeOptionAnswers'>

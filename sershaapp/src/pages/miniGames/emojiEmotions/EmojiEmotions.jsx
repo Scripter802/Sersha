@@ -39,6 +39,8 @@ const EmojiEmotions = () => {
   const [currentEmoji, setCurrentEmoji] = useState([]);
   const [emojiNumber, setEmojiNumber] = useState(0);
   const [isGameCompleted, setIsGameCompleted] = useState(false);
+  const [isEmojiFetched, setIsEmojiFetched] = useState(false);
+
   const navigate = useNavigate();
   const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
   const gameSucceed = new Audio('/music/SFX/FightRogueFox/Anotherwin.mp3');
@@ -55,14 +57,23 @@ const EmojiEmotions = () => {
       try {
         const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/${dif}/5`);
         setAllEmoji(response.data);
+        setIsEmojiFetched(true);
       } catch (error) {
         console.error('Error fetching Emoji games:', error);
       }
     };
 
-    user?.level <= 13 ? fetchEmoji('0') : user?.level > 13 && user?.level <= 26 ? fetchEmoji('1') : fetchEmoji('2');
+    if (!isEmojiFetched) {
+      if (user?.level <= 13) {
+        fetchEmoji('0');
+      } else if (user?.level > 13 && user?.level <= 26) {
+        fetchEmoji('1');
+      } else {
+        fetchEmoji('2');
+      }
+    }
 
-  }, [baseUrl, user]);
+  }, [baseUrl, user, isEmojiFetched]);
 
   useEffect(() => {
     if (allEmoji.length > 0) {
@@ -135,6 +146,7 @@ const EmojiEmotions = () => {
     setSeconds(25);
     setRoughFoxDamaged('');
     setCorInc([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    setIsEmojiFetched(false);
     navigate('/minigames');
   };
 
@@ -158,6 +170,7 @@ const EmojiEmotions = () => {
 
     console.log('Prize claimed');
     setIsGameCompleted(false);
+    setIsEmojiFetched(false);
     navigate('/');
   };
 

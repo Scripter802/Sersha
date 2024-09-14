@@ -23,7 +23,12 @@ const Dm = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [messageHistory, setMessageHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [senderCharacters] = useState([{ name: "Jess", imageSrc: Jess }, { name: "John", imageSrc: John }, { name: "Nicky", imageSrc: Nicky }, { name: "Sam", imageSrc: Sam },])
+  const senderCharacters = useRef([
+    { name: "Jess", imageSrc: Jess },
+    { name: "John", imageSrc: John },
+    { name: "Nicky", imageSrc: Nicky },
+    { name: "Sam", imageSrc: Sam },
+  ]).current;
   const [randomChoosenCharacter, setRandomChoosenCharacter] = useState();
   const navigate = useNavigate();
   const messagesEndRef = useRef(null);
@@ -33,11 +38,14 @@ const Dm = () => {
   const sendMessageSound = new Audio('/music/SFX/DMs/sendMessage.mp3');
   const [messageLocked, setMessageLocked] = useState(false);
   const [senderSelected, setSenderSelected] = useState(false);
+  const isMountedRef = useRef(false);
+  const senderSelectedRef = useRef(false);
 
   const getRandomSenderIndex = () => {
-    if (!senderSelected) {
+    if (!senderSelectedRef.current || !senderSelected) {
       let randomIndex = Math.floor(Math.random() * senderCharacters?.length);
       setRandomChoosenCharacter(senderCharacters[randomIndex]);
+      senderSelectedRef.current = true;
       setSenderSelected(true);
     }
   };
@@ -82,12 +90,15 @@ const Dm = () => {
   };
 
   useEffect(() => {
+    if (isMountedRef.current) return;
+    isMountedRef.current = true;
+
     if (canPlayAnotherQuizToday()) {
       fetchMessages();
     } else {
       setIsLoading(false);
     }
-  }, [baseUrl, canPlayAnotherQuizToday]);
+  }, [canPlayAnotherQuizToday]);
 
   const handleAnswer = (answer, image) => {
     const nextMessage = selectedMessage?.responses?.find(res => res.content === answer)?.nextMessage;

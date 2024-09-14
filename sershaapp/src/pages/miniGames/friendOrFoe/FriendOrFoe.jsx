@@ -122,7 +122,7 @@ const FriendOrFoe = () => {
     const getRandomAvatarImage = () => {
       let randomIndex = Math.floor(Math.random() * profileImages.length);
       setRandomAvatarImage(profileImages[randomIndex]);
-      isAvatarFetched(true);
+      setIsAvatarFetched(true);
     };
 
     if (!isAvatarFetched) {

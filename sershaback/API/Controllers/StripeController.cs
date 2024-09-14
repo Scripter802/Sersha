@@ -12,7 +12,7 @@ namespace API.Controllers
     {
         public StripeController()
         {
-            StripeConfiguration.ApiKey = "pk_test_51OA98hDTW8RXGzBAG7BfYQ7gzbmkSZzWnotW4z6PdvasB8dOmjvhSMIiEx7U92ALOukx926yYPSjaeaZL6FMIo5z00FeOWKRc7";
+            StripeConfiguration.ApiKey = "sk_test_51OA98hDTW8RXGzBArNMox1wf2NH2xKRJj5vNLMAxDFXnSzwZUXgo3cWfFAPlbpym9CSIbmkbvODoWF537ktf9Ymu00YbHzdg6I";
         }
 
         [AllowAnonymous]

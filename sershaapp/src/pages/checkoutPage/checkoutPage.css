@@ -78,6 +78,14 @@ small {
   font-size: 14px;
 }
 
+.afterPay {
+  background: #f2040033;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 @media (min-width: 600px) {
   .checkoutCartWrapper {
     flex-direction: row;

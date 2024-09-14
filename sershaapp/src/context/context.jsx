@@ -41,7 +41,7 @@ const baseUrlImage = "http://localhost:5000";
 const AppProvider = ({ children }) => {
 
   // SINGLE USER
-
+  const [subscriptionPeriod, setSubscriptionPeriod] = useState();
   const [user, setUser] = useState();
   const [selectedUser, setSelectedUser] = useState();
   const [userLevel, setUserLevel] = useState({ level: 1, step: 1 })

@@ -5,16 +5,15 @@ import axios from 'axios';
 
 
 const SuccessMonthly = () => {
-  const { baseUrl, user, setUser } = useGlobalContext();
+  const { baseUrl, user, setUser, subscriptionPeriod } = useGlobalContext();
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  console.log(user?.email)
   useEffect(() => {
     if (user?.email) {
 
       let updatingUserSubscription = {
         email: user?.email,
-        subscribtionPeriod: 0,
+        subscribtionPeriod: subscriptionPeriod,
       }
 
       const subscribed = async () => {
@@ -22,20 +21,28 @@ const SuccessMonthly = () => {
           const response = await axios.put(`${baseUrl}/User/subscribe/${user?.email}`, updatingUserSubscription);
           setUser({ ...user, isSubscribed: true })
           setIsSubscribed(true);
-          localStorage.setItem('userData', JSON.stringify(user));
-          console.log(user)
+          localStorage.setItem('userData', JSON.stringify({ ...user, isSubscribed: true }));
+
+
+          await axios.post(`${baseUrl}/user/add-to-klaviyo-subscibe-list`, {
+            email: user?.email
+          });
+
+
         } catch (error) {
-          console.log(error);
+          console.log("Error while subscribing:", error);
         }
       }
 
       subscribed();
     }
-  }, [user])
+  }, [user, baseUrl, setUser])
 
   if (isSubscribed) {
     return (
-      <Navigate to="/" />
+      <div className="afterPay">
+        <h1>Thank you for your subscription!</h1>
+      </div>
     )
   }
 }

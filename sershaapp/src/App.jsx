@@ -33,6 +33,7 @@ import CheckoutPage from './pages/checkoutPage/CheckoutPage.jsx'
 import SuccessMonthly from './pages/checkoutPage/SuccessMonthly.jsx'
 import SuccessYearly from './pages/checkoutPage/SuccessYearly.jsx'
 import CancelPayment from './pages/checkoutPage/CancelPayment.jsx'
+import ForgotPassword from './pages/forgotPassword/ForgotPassword.jsx'
 
 // Layout Component
 const Layout = () => {
@@ -183,15 +184,9 @@ const router = createBrowserRouter([
         )
       },
       {
-        path: '/successmonthly',
+        path: '/success',
         element: (
           <SuccessMonthly />
-        )
-      },
-      {
-        path: '/successyearly',
-        element: (
-          <SuccessYearly />
         )
       },
       {
@@ -200,6 +195,12 @@ const router = createBrowserRouter([
           <CancelPayment />
         )
       },
+      {
+        path: '/forgotPassword',
+        element: (
+          <ForgotPassword />
+        )
+      }
     ],
   },
   {

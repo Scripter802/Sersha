@@ -2,7 +2,9 @@ import React from 'react'
 
 const CancelPayment = () => {
   return (
-    <div>CancelPayment</div>
+    <div className="afterPay">
+      <h1>Your subscription failed!</h1>
+    </div>
   )
 }
 

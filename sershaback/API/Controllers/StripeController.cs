@@ -1,18 +1,22 @@
 using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Stripe;
 using Stripe.Checkout;
 using Application.Stripe;
+using System;
 
 
 namespace API.Controllers
 {
     public class StripeController: BaseController
     {
-        public StripeController()
+        public IConfiguration Configuration {get; set;}
+        public StripeController(IConfiguration configuration)
         {
-            StripeConfiguration.ApiKey = "sk_test_51OA98hDTW8RXGzBArNMox1wf2NH2xKRJj5vNLMAxDFXnSzwZUXgo3cWfFAPlbpym9CSIbmkbvODoWF537ktf9Ymu00YbHzdg6I";
+            Configuration = configuration;
+            StripeConfiguration.ApiKey = Configuration.GetSection("APIKey").GetSection("Stripe").Value;
         }
 
         [AllowAnonymous]

@@ -59,6 +59,11 @@ namespace API.Controllers
             return await Mediator.Send(command);
         }
         [AllowAnonymous]
+        [HttpPut("add-to-klaviyo-subscibe-list")]
+        public async Task<ActionResult<Unit>> AddToKlaviyoSubsribeList(AddToKlaviyoSubsribeList.Command command){
+            return await Mediator.Send(command);
+        }
+        [AllowAnonymous]
         [HttpPut("subscribe/{email}")]
         public async Task<ActionResult<Unit>> Subscribe(string email, Subscribe.Command command){
             command.Email = email;
@@ -72,7 +77,7 @@ namespace API.Controllers
             return await Mediator.Send(new Delete.Command { Email = email });
         }
 
-       [HttpGet("current")]
+        [HttpGet("current")]
         public async Task<ActionResult<User>> CurrentUser()
         {
             var user = await Mediator.Send(new CurrentUser.Query());

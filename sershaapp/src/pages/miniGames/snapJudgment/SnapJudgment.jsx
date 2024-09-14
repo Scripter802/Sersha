@@ -35,6 +35,7 @@ const SnapJudgment = () => {
   const [currentSnap, setCurrentSnap] = useState([]);
   const [snapNumber, setSnapNumber] = useState(0);
   const [isGameCompleted, setIsGameCompleted] = useState(false);
+  const [isSnapFetched, setIsSnapFetched] = useState(false);
   const navigate = useNavigate();
   const gameFail = new Audio('/music/SFX/FightRogueFox/gameFail.mp3');
   const gameSucceed = new Audio('/music/SFX/FightRogueFox/Anotherwin.mp3');
@@ -49,14 +50,23 @@ const SnapJudgment = () => {
       try {
         const response = await axios.get(`${baseUrl}/Quizzes/ListMinigameQuestionsByTypeAndDifficulty/${dif}/4`);
         setAllSnap(response.data);
+        setIsSnapFetched(true);
       } catch (error) {
         console.error('Error fetching right answer questions:', error);
       }
     };
 
-    user?.level <= 13 ? fetchSnap('0') : user?.level > 13 && user?.level <= 26 ? fetchSnap('1') : fetchSnap('2');
+    if (!isSnapFetched) {
+      if (user?.level <= 13) {
+        fetchSnap('0');
+      } else if (user?.level > 13 && user?.level <= 26) {
+        fetchSnap('1');
+      } else {
+        fetchSnap('2');
+      }
+    }
 
-  }, [baseUrl, user]);
+  }, [baseUrl, user, isSnapFetched]);
 
   useEffect(() => {
     if (allSnap.length > 0) {
@@ -145,6 +155,7 @@ const SnapJudgment = () => {
 
     console.log(currentPrize);
     setIsGameCompleted(false);
+    isSnapFetched(false);
     navigate('/');
   };
 
@@ -153,6 +164,7 @@ const SnapJudgment = () => {
     setIncorrectAnsweredMiniGames(0);
     setSnapNumber(0);
     setRoughFoxDamaged('');
+    setIsSnapFetched(false);
     navigate('/minigames');
   }
 
@@ -221,7 +233,7 @@ const SnapJudgment = () => {
 
           <div className='snapMiddleContent'>
             <div className='snapGameCard'>
-              <img className='snapProfilePhoto' src={`${baseUrlImage}${currentSnap[snapNumber]?.imagePath}`} alt="snapProfilePhoto" />
+              <img className='snapProfilePhoto' src={`${baseUrlImage}${currentSnap[snapNumber]?.imagePath}`} alt="snapProfilePhoto" loading='lazy' />
               <p className='snapProfileName'></p>
               <p className='snapPostText'>{currentSnap[snapNumber]?.content}</p>
             </div>

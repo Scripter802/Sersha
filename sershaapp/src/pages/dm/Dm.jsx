@@ -97,6 +97,7 @@ const Dm = () => {
       setCurrentAnswer('');
     } else {
       setMessages([]);
+      setRandomChoosenCharacter();
       setSelectedMessage(null);
       setCurrentAnswer(null);
       setMessageHistory([]);

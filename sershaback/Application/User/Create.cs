@@ -48,9 +48,11 @@ namespace Application.User
             private readonly UserManager<AppUser> _userMenager;
             private readonly DataContext _context;
             private readonly IJwtGenerator _jwtGenerator;
+        private readonly IKlaviyoUserManager _klaviyoUserManager;
 
-             public Handler(DataContext context, UserManager<AppUser> userMenager, IJwtGenerator jwtGenerator)
+             public Handler(DataContext context, UserManager<AppUser> userMenager, IJwtGenerator jwtGenerator, IKlaviyoUserManager klaviyoUserManager)
             {
+                _klaviyoUserManager = klaviyoUserManager;
                 _userMenager=userMenager;
                 _context = context;
                 _jwtGenerator=jwtGenerator;
@@ -80,7 +82,8 @@ namespace Application.User
                     IsSubscribed = true,
                     SubscribedUntil = DateTime.Today.AddDays(1)
                 };
-
+                var klaviyoId = await _klaviyoUserManager.createProfile(user.Email, user.ParentsFullName, user.ParentPhoneNumber);
+                user.KlaviyoID = klaviyoId;
                 var results = await _userMenager.CreateAsync(user, request.Password);
 
                 if (results.Succeeded)

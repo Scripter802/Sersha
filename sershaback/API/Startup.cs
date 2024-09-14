@@ -24,6 +24,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using System.IO;
+using Persistence.Migrations;
+using Application.User;
 
 
 namespace API
@@ -69,8 +71,8 @@ namespace API
                 });
             });
 
-            services.AddMediatR(typeof(List.Handler).Assembly);
-            services.AddAutoMapper(typeof(List.Handler));
+            services.AddMediatR(typeof(Application.Posts.List.Handler).Assembly);
+            services.AddAutoMapper(typeof(Application.Posts.List.Handler));
             //services.AddControllers();
             services.AddControllers().AddNewtonsoftJson(options =>
             {
@@ -93,7 +95,7 @@ namespace API
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy));
             })
-                .AddFluentValidation(cfg =>cfg.RegisterValidatorsFromAssemblyContaining<Create>())
+                .AddFluentValidation(cfg =>cfg.RegisterValidatorsFromAssemblyContaining<Application.Posts.Create>())
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             var builder = services.AddIdentityCore<AppUser>();
@@ -130,7 +132,8 @@ namespace API
                         ValidateIssuer = false
                     };
                 });
-
+            
+            services.AddScoped<IKlaviyoUserManager, KlaviyoUserManager>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IUserAccessor, UserAccessor>();
             services.AddScoped<DataContext>();

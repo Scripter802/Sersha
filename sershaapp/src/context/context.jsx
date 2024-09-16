@@ -35,8 +35,8 @@ import itemEightMedium from '../assets/images/map/mapItems/mediumbundle/itemEigh
 import avatar from '../assets/images/navbar/userpick.png'
 
 const AppContext = createContext();
-const baseUrl = "https://sershaback.azurewebsites.net/api";
-const baseUrlImage = "https://sershaback.azurewebsites.net";
+const baseUrl = "http://localhost:5000/api";
+const baseUrlImage = "http://localhost:5000";
 
 const AppProvider = ({ children }) => {
 

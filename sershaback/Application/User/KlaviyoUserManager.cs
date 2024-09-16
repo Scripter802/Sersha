@@ -23,7 +23,7 @@ namespace Application.User
                     { "Authorization", "Klaviyo-API-Key pk_59c0d28e591fe0a1caa0a5ebd85e8452a7" },
                 },
                 
-                Content = new StringContent($@"{{""data"":{{""type"":""profile"",""id"":""{profileId}""}}}}")
+                Content = new StringContent($@"{{""data"":[{{""type"":""profile"",""id"":""{profileId}""}}]}}")
                 {
                     Headers =
                     {
@@ -35,6 +35,7 @@ namespace Application.User
             {
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(body);
             }
         }
 
@@ -53,7 +54,7 @@ namespace Application.User
                     { "Authorization", "Klaviyo-API-Key pk_59c0d28e591fe0a1caa0a5ebd85e8452a7" },
                 },
                 
-                Content = new StringContent($@"{{""data"":{{""type"":""profile"",""id"":""{profileId}""}}}}")
+                Content = new StringContent($@"{{""data"":[{{""type"":""profile"",""id"":""{profileId}""}}]}}")
                 {
                     Headers =
                     {
@@ -87,7 +88,7 @@ namespace Application.User
 
                 
                 //Content = new StringContent($@"{{""data"":{{""type"":""profile"",""attributes"":{{""properties"":{{""newKey"":""New Value""}},""email"":""{email}"",""phone_number"":""{phoneNumber}"",""first_name"":""{FullName.Split(' ')[0]}"",""last_name"":""{FullName.Split(' ')[1]}""}}}}}}")
-                Content = new StringContent($@"{{""data"":{{""type"":""profile"",""attributes"":{{""properties"":{{""newKey"":""New Value""}},""email"":""{email}"",""first_name"":""{FullName.Split(' ')[0]}"",""last_name"":""{FullName.Split(' ')[1]}""}}}}}}")
+                Content = new StringContent($@"{{""data"":{{""type"":""profile"",""attributes"":{{""properties"":{{""newKey"":""New Value""}},""email"":""{email}"",""first_name"":""{FullName}""}}}}}}")
                 {
                     Headers =
                     {
@@ -104,6 +105,7 @@ namespace Application.User
 
                 // Extract the ID
                 string id = root.GetProperty("data").GetProperty("id").GetString();
+                Console.WriteLine(id);
                 await addProfileToList("WaD25M", id);
                 return id;
             }

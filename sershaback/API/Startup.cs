@@ -133,6 +133,9 @@ namespace API
                     };
                 });
             
+            services.AddTransient<IEmailSender>(provider =>
+                new SmtpEmailSender("smtp.gmail.com", 587, "sersha.ai", "gvpu izlk tdmn aocy")
+            );
             services.AddScoped<IKlaviyoUserManager, KlaviyoUserManager>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IUserAccessor, UserAccessor>();

@@ -97,5 +97,17 @@ namespace API.Controllers
             return Ok(new { message = "Logout successful" });
         }
 
+        [AllowAnonymous]
+        [HttpPost("reset-password-email")]
+        public async Task<ActionResult<Unit>> ResetPasswordEmail(ResetPasswordEmail.Command command){
+            return await Mediator.Send(command);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("reset-password")]
+        public async Task<ActionResult<Unit>> ResetPassword(ResetPassword.Command command){
+            return await Mediator.Send(command);
+        }
+
     }
 }

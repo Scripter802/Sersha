@@ -514,4 +514,4 @@ $RECYCLE.BIN/
 !.vscode/launch.json
 !.vscode/extensions.json
 DM script extract.txt
-sershaback/API/appsettings.json
+./sershaback/API/appsettings.json

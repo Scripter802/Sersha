@@ -86,10 +86,16 @@ const HomePage = () => {
   }, [handleIsSlideshowShowed])
 
   useEffect(() => {
-    if (!isSlideshowShowed && user?.stage > 0) {
+    if (!isSlideshowShowed && user?.stage > 0 && !showedSlideLS) {
       fetchSlideshowByLevel(user?.stage);
     }
-  }, [isSlideshowShowed, user]);
+  }, [isSlideshowShowed, user, showedSlideLS, fetchSlideshowByLevel]);
+
+  useEffect(() => {
+    if (slideshowByLevel?.length > 0) {
+      localStorage.setItem('showedSlideshow', 'true');
+    }
+  }, [slideshowByLevel]);
 
 
   if (user?.stage > 0 && !showedSlideLS && slideshowByLevel?.length > 0) {

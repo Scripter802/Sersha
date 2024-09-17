@@ -128,7 +128,6 @@ const Dm = () => {
       <div className='dmsContainer'>
         <div className='LevelTitleDmRes'>{bundelsAndLevels[0].levels.map((lvl, lvli) => (
           <>
-            {lvl.levelNo == user?.level && <h3 className='title-level-dmRes'>{lvl.levelName}</h3>}
             {lvl.levelNoDown == user?.level && <h3 className='title-level-dmRes'>{lvl.levelNameDown}</h3>}
           </>
         ))}</div>

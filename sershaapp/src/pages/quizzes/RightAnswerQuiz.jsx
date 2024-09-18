@@ -146,9 +146,9 @@ const RightAnswerQuiz = ({ currentQ, isInventoryQuiz, setIsInventoryQuiz }) => {
           </div>
           <div className='evilFox'>
             <img src={evilfox} alt="Evil Fox" />
-            <div className='tictac'>
+            {/* <div className='tictac'>
               <img src={tictac} alt="Tictac" />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className='rightAnswerWrapper'>

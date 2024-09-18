@@ -141,6 +141,7 @@ const LoginForm = () => {
 
   if (isLoggedIn == true) {
     if (user && user?.isFirstTimeLoggedIn == true) {
+      localStorage.removeItem('gameItems');
       console.log(`user login is first time: ${user.isFirstTimeLoggedIn}`)
       localStorage.setItem('levelStep', '0');
       setIsTutorialActive(true);

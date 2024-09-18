@@ -98,15 +98,15 @@ const HomePage = () => {
   // }, [user, setUser]);
 
   useEffect(() => {
-    userUpdate()
     handleIsSlideshowShowed()
-  }, [handleIsSlideshowShowed])
+    userUpdate()
+  }, [])
 
   useEffect(() => {
     if (!isSlideshowShowed && user?.stage > 0 && !showedSlideLS) {
       fetchSlideshowByLevel(user?.stage);
     }
-  }, [isSlideshowShowed, user, showedSlideLS, fetchSlideshowByLevel]);
+  }, [user, showedSlideLS]);
 
   useEffect(() => {
     if (slideshowByLevel?.length > 0) {

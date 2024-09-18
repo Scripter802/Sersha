@@ -170,7 +170,16 @@ const QuizPage = () => {
 
     setUser({ ...user, coinBalance: newCoinBalance, stage: newStage });
     localStorage.setItem('showedSlideshow', false);
-    localStorage.setItem('userData', JSON.stringify(user));
+
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData && userData.stage !== undefined) {
+      const updatedUserData = { ...userData, stage: userData.stage + 1 };
+      localStorage.setItem('userData', JSON.stringify(updatedUserData));
+      console.log('User stage updated:', updatedUserData);
+    } else {
+      console.error('User data or stage not found');
+    }
+
 
     try {
       await axios.put(`${baseUrl}/User/${user.email}`, { coinBalance: newCoinBalance, stage: newStage });

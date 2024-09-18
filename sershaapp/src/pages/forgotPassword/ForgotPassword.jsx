@@ -25,14 +25,12 @@ const ForgotPassword = () => {
   }, []);
 
   const handleSubmit = () => {
-    // Submit new password logic with token and email
     console.log('Token:', token);
     console.log('Email:', email);
     console.log('New Password:', newPassword);
     console.log('Re-entered Password:', newRePassword);
 
-    // Perform password reset request with token, email, and new password
-    // Example API call:
+
     axios.post(`${baseUrl}/User/reset-password`, { token, email, password: newPassword })
   };
 

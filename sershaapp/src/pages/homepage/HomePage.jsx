@@ -11,14 +11,17 @@ import MusicContext from '../../context/MusicContext'
 import Tutorial from '../../components/Tutorial/Tutorial'
 import { useNavigate } from 'react-router-dom';
 import Slideshow from '../../components/SlideShow/SlideShow'
+import axios from 'axios'
 
 
 const HomePage = () => {
-  const { baseUrlImage, newMessage, setNewMessage, setUser, user, canPlayAnotherQuizToday, isTutorialActive, handleIsSlideshowShowed, fetchSlideshowByLevel, isSlideshowShowed, slideshowByLevel } = useGlobalContext();
+  const { baseUrl, baseUrlImage, newMessage, setNewMessage, setUser, user, canPlayAnotherQuizToday, isTutorialActive, handleIsSlideshowShowed, fetchSlideshowByLevel, isSlideshowShowed, slideshowByLevel } = useGlobalContext();
   const { toggleMusic, currentPlaying, setCurrentPlaying, changeMusic, isPlaying } = useContext(MusicContext);
   const music = '/music/Music/SershaThemesongMediumoptimal310520241122.mp3'
   const navigate = useNavigate();
   const showedSlideLS = localStorage.getItem('showedSlideshow') === 'true';
+  const [updatedUser, setUpdatedUser] = useState();
+
 
 
   useEffect(() => {
@@ -59,6 +62,19 @@ const HomePage = () => {
   //   }
   // }, [canPlayAnotherQuizToday, newMessage, setNewMessage]);
 
+  const userUpdate = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/user/${user?.email}`);
+      if (response.status === 200) {
+        setUpdatedUser(response.data);
+        setUser({ ...user, stage: updatedUser?.stage });
+        localStorage.setItem('userData', JSON.stringify(user));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
 
   // useEffect(() => {
@@ -82,6 +98,7 @@ const HomePage = () => {
   // }, [user, setUser]);
 
   useEffect(() => {
+    userUpdate()
     handleIsSlideshowShowed()
   }, [handleIsSlideshowShowed])
 

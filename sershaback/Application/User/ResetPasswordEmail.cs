@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Net;
 using System.Threading;
@@ -45,7 +46,10 @@ namespace Application.User
                 var token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
                 var resetLink = $"https://game.sersha.ai/resetPassword?token={token}&email={user.Email}";
+                Console.WriteLine(resetLink);
+                Console.WriteLine(user.Email);
                 await _emailSender.SendEmailAsync(user.Email, "Reset Password", $"Please reset your password by clicking <a href='{resetLink}'>here</a>.");
+                
                 return Unit.Value;
 
 

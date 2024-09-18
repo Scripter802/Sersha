@@ -163,13 +163,14 @@ const QuizPage = () => {
       newCoinBalance *= 2;
     }
 
-    let newStage = user.stage + 1;
+    let newStage = user?.stage + 1;
 
     console.log('New coin balance:', newCoinBalance);
 
 
     setUser({ ...user, coinBalance: newCoinBalance, stage: newStage });
     localStorage.setItem('showedSlideshow', false);
+    localStorage.setItem('userData', JSON.stringify(user));
 
     try {
       await axios.put(`${baseUrl}/User/${user.email}`, { coinBalance: newCoinBalance, stage: newStage });

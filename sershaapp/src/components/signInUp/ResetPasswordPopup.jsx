@@ -1,15 +1,25 @@
 import React, { useState } from 'react'
 import closeButton from '../../assets/images/adminPanel/closeButton.png'
 import './resetPasswordPopup.css'
+import { useGlobalContext } from '../../context/context';
+import axios from 'axios';
 
 const ResetPasswordPopup = ({ isPasswordForgot, setIsPasswordForgot }) => {
+  const { baseUrl } = useGlobalContext();
   const [inputedEmail, setInputedEmail] = useState('');
   const [isSubmited, setIsSubmited] = useState(false);
 
-  const handleSubmitResetPass = () => {
+  const handleSubmitResetPass = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(`${baseUrl}/User/reset-password-email`, { email: inputedEmail });
+    } catch (error) {
+      console.log('Reset password error:', error);
+    }
     setIsSubmited(true);
+  };
 
-  }
+
 
   return (
     <div className='passwordForgotWrapper'>
@@ -25,7 +35,7 @@ const ResetPasswordPopup = ({ isPasswordForgot, setIsPasswordForgot }) => {
           </>
         ) : (
 
-          <form>
+          <form onSubmit={handleSubmitResetPass}>
             <div className="email mb-3">
               <label>
 
@@ -41,7 +51,7 @@ const ResetPasswordPopup = ({ isPasswordForgot, setIsPasswordForgot }) => {
               </label>
               <div className={`invalid-feedback text-start`}></div>
             </div>
-            <button id='resetPassBtn' onClick={handleSubmitResetPass}>Submit</button>
+            <button id='resetPassBtn'>Submit</button>
           </form >
         )}
       </div >

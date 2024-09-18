@@ -66,9 +66,9 @@ const HomePage = () => {
     try {
       const response = await axios.get(`${baseUrl}/user/${user?.email}`);
       if (response.status === 200) {
-        setUpdatedUser(response.data);
-        setUser({ ...user, stage: updatedUser?.stage });
-        localStorage.setItem('userData', JSON.stringify(user));
+        const updatedUserData = { ...user, stage: response.data?.stage };
+        setUser(updatedUserData);
+        localStorage.setItem('userData', JSON.stringify(updatedUserData));
       }
     } catch (error) {
       console.error(error);
@@ -98,8 +98,8 @@ const HomePage = () => {
   // }, [user, setUser]);
 
   useEffect(() => {
-    handleIsSlideshowShowed()
     userUpdate()
+    handleIsSlideshowShowed()
   }, [])
 
   useEffect(() => {

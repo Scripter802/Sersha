@@ -1,25 +1,48 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
 import visible from '../../assets/images/login/visible.png';
-import './forgotPassword.css'
+import './forgotPassword.css';
+import { useGlobalContext } from '../../context/context';
+import axios from 'axios';
 
 const ForgotPassword = () => {
+  const { baseUrl } = useGlobalContext();
   const [newShowPassword, setNewShowPassword] = useState(false);
   const [newReShowPassword, setNewReShowPassword] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const [newRePassword, setNewRePassword] = useState('');
+  const [token, setToken] = useState('');
+  const [email, setEmail] = useState('');
 
 
+  useEffect(() => {
+    // Extract token and email from URL
+    const queryParams = new URLSearchParams(window.location.search);
+    const token = queryParams.get('token');
+    const email = queryParams.get('email');
+
+    setToken(token);
+    setEmail(email);
+  }, []);
+
+  const handleSubmit = () => {
+    // Submit new password logic with token and email
+    console.log('Token:', token);
+    console.log('Email:', email);
+    console.log('New Password:', newPassword);
+    console.log('Re-entered Password:', newRePassword);
+
+    // Perform password reset request with token, email, and new password
+    // Example API call:
+    axios.post(`${baseUrl}/User/reset-password`, { token, email, password: newPassword })
+  };
 
   return (
     <div className='forgotPasswordWrapper'>
       <h1>Please enter a new password!</h1>
       <div>
-
         <div className="passwordWrapper">
           <div className="regPassword mb-3">
-            <label>
-              Password
-            </label>
+            <label>Password</label>
             <div className="input-group passReg1">
               <input
                 type={newShowPassword ? "text" : "password"}
@@ -37,18 +60,15 @@ const ForgotPassword = () => {
               >
                 <img src={visible} alt="toggle visibility" />
               </button>
-              <div className="invalid-feedback text-start"></div>
             </div>
           </div>
 
           <div className="regRePassword mb-3">
-            <label>
-              Re-password
-            </label>
+            <label>Re-password</label>
             <div className="input-group passReg2">
               <input
                 type={newReShowPassword ? "text" : "password"}
-                className={`form-control`}
+                className="form-control"
                 name="rePassword"
                 id="rePassword"
                 value={newRePassword}
@@ -57,20 +77,20 @@ const ForgotPassword = () => {
               />
               <button
                 type="button"
-                className=" btnShowHideRegister2"
+                className="btnShowHideRegister2"
                 onClick={() => setNewReShowPassword(!newReShowPassword)}
               >
                 <img src={visible} alt="toggle visibility" />
               </button>
-              <div className={`invalid-feedback text-start`}></div>
             </div>
           </div>
         </div>
-
       </div>
-      <button className='submitBtnForgotPass'>Submit</button>
+      <button className='submitBtnForgotPass' onClick={handleSubmit}>
+        Submit
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default ForgotPassword
+export default ForgotPassword;

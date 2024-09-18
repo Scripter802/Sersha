@@ -38,9 +38,7 @@ const Slideshow = ({ lvl }) => {
     }
   }, [lvl]);
 
-  if (slideshowByLevel?.length == 0) {
-    navigate('/');
-  }
+
 
   const preloadGifs = (gifs) => {
     const preloaded = {};

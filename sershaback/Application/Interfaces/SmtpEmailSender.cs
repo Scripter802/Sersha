@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace Application.Interfaces
                 Credentials = new NetworkCredential(_smtpUser, _smtpPass),
                 EnableSsl = true,
             };
+            Console.WriteLine(_smtpUser);
             var mailMessage = new MailMessage
             {
                 From = new MailAddress(_smtpUser),

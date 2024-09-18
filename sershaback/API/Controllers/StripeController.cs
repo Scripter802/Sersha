@@ -34,13 +34,13 @@ namespace API.Controllers
                         Quantity = 1,
                     },
                 },
-                /*Discounts = new List<SessionDiscountOptions>
+                 Discounts = new List<SessionDiscountOptions>
                 {
                     new SessionDiscountOptions
                     {
-                        Coupon = "{{COUPON_ID}}",
+                        Coupon = request.CouponID,
                     },
-                },*/
+                },
                 Mode = "subscription",
                 SuccessUrl = "https://game.sersha.ai/success?session_id={CHECKOUT_SESSION_ID}",
                 CancelUrl = "https://game.sersha.ai/",

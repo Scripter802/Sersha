@@ -181,9 +181,11 @@ const QuizPage = () => {
     let newLevelStep = 0;
     if (levelStep < 2) {
       newLevelStep = levelStep + 1;
+      localStorage.setItem('showedSlideshow', false);
     } else {
       const userNewLevel = user?.level + 1
       setUser({ ...user, level: userNewLevel });
+      localStorage.setItem('showedSlideshow', false);
       userLevelUpdate(userNewLevel);
       localStorage.setItem('userData', JSON.stringify(user));
       newLevelStep = 0;

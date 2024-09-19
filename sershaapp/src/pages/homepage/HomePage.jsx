@@ -108,14 +108,9 @@ const HomePage = () => {
     }
   }, [user, showedSlideLS]);
 
-  useEffect(() => {
-    if (slideshowByLevel?.length > 0) {
-      localStorage.setItem('showedSlideshow', 'true');
-    }
-  }, [slideshowByLevel]);
-
 
   if (user?.stage > 0 && !showedSlideLS && slideshowByLevel?.length > 0) {
+    localStorage.setItem('showedSlideshow', 'false');
     return <div className='slideshowWrap'><Slideshow lvl={user?.stage} /></div>;
   }
 

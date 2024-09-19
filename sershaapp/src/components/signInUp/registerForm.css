@@ -222,6 +222,7 @@
 
 .registerFormWrapper h1 {
     color: #FFFFFF;
+    font-size: 1.5rem;
 }
 
 .registerFormWrapper label {
@@ -250,7 +251,7 @@
     width: 100%;
     background: transparent;
     border: 1px solid #FFB496;
-    height: 50px;
+    height: 40px;
     border-radius: 30px 30px;
     color: #FFB496;
     font-size: 1rem;
@@ -277,6 +278,14 @@
         padding: 0 1rem;
     }
 
+    .registerFormWrapper label {
+        text-align: center;
+    }
+
+    .form-control.phone {
+        text-align: start;
+    }
+
     .regFormWrapper {
         width: 100%;
     }
@@ -297,6 +306,7 @@
         width: 100%;
         font-size: 0.875rem;
         height: 40px;
+        text-align: center;
     }
 
     .react-tel-input .form-control {
@@ -327,7 +337,7 @@
     }
 
     .registerFormWrapper h1 {
-        margin-block: 1.5rem;
+        margin: .5rem;
         font-size: 1.5rem;
     }
 

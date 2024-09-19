@@ -44,6 +44,7 @@ const LoginForm = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isPasswordForgot, setIsPasswordForgot] = useState(false);
+  const [firstTimeHandled, setFirstTimeHandled] = useState(false);
 
   const isFirstTimeLoggedInChange = async () => {
     try {

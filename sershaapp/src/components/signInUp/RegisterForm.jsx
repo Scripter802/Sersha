@@ -203,6 +203,12 @@ const RegisterForm = () => {
 
       <div className='registerFormWrapper'>
         <h1>Sign Up</h1>
+
+        <div className='messageLogin'>
+          <p>Enjoy 24 hours of free access to Sersha!</p>
+          <p>For the best learning experience, we recommend starting your first session on a desktop, where you'll find instructions on how to play the game. Afterward, feel free to continue your journey on mobile, laptop, or tablet.</p>
+
+        </div>
         <div className='regFormWrapper'>
           <form onSubmit={handleRegister}>
             <div className='namesFieldWrapper'>
@@ -257,13 +263,13 @@ const RegisterForm = () => {
               </div>
 
               <div className="phone mb-3">
-                <label>
+                <label className=' phone'>
                   Phone number
                   <PhoneInput
                     country={'us'}
                     value={registerPhoneNumber}
                     onChange={(phone, country, e, formattedValue) => phoneHandle(phone, country, e, formattedValue)}
-                    inputClass={`form-control`}
+                    inputClass={`form-control phone`}
                     placeholder="Enter phone number"
                   />
                 </label>

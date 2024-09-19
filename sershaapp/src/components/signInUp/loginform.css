@@ -145,6 +145,15 @@
     padding: 1rem;
 }
 
+.messageLogin {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    text-align: center;
+    color: white;
+    margin-block: .25rem;
+}
+
 .footerLogin {
     display: flex;
     justify-content: space-between;
@@ -170,6 +179,12 @@
 @media (max-width: 1000px) {
     .logInFormWrapper {
         width: 60%;
+    }
+
+    .messageLogin {
+        width: 115%;
+        color: white;
+        margin-bottom: .25rem;
     }
 
     .logInDontHaveAcc {

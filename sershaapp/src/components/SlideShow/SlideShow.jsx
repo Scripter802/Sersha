@@ -27,7 +27,7 @@ const Slideshow = ({ lvl }) => {
   const navigate = useNavigate();
   const [currentGifIndex, setCurrentGifIndex] = useState(0);
   const [playBackgroundMusic, setPlayBackgroundMusic] = useState(false);
-  const { toggleMusic, isPlaying } = useContext(MusicContext);
+  const { toggleMusic, isPlaying, setIsPlaying } = useContext(MusicContext);
   const { baseUrlImage, user, slideshowByLevel, fetchSlideshowByLevel, updateShowedSlideshow } = useGlobalContext();
   const firstLevelGifs = [levelDigitalCompass, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve, threeteen, fourteen, fiveteen];
   const [preloadedGifs, setPreloadedGifs] = useState({});
@@ -110,7 +110,12 @@ const Slideshow = ({ lvl }) => {
       )} */}
       <div
         className='mute-music-slideshow'
-        onClick={() => toggleMusic()}
+        onClick={() => {
+          toggleMusic();
+          if (window.innerWidth < 1000) {
+            setIsPlaying(!isPlaying)
+          }
+        }}
       >
         <p className='musicText'>Click for Music</p>
         {!isPlaying ? <img src={volume} alt="mute button" /> : <img src={volumePlay} alt="Volume Play Button" />}

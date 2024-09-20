@@ -13,7 +13,6 @@ const Tutorial = () => {
   };
 
   useEffect(() => {
-    // Start the tutorial when the component mounts
     handleTutorialStart();
   }, []);
 

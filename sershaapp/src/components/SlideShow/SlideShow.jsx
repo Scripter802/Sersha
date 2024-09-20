@@ -108,7 +108,16 @@ const Slideshow = ({ lvl }) => {
           <source src="/music/Music/SershaThemesongMediumoptimal310520241122.mp3" type="audio/mpeg" />
         </audio>
       )} */}
-      <div className='mute-music-slideshow' onClick={() => toggleMusic()}>{!isPlaying ? <img src={volume} alt="mute button" /> : <img src={volumePlay} alt="Volume Play Button" />}</div>    </div>
+      <div
+        className='mute-music-slideshow'
+        onClick={() => toggleMusic()}
+      >
+        <p className='musicText'>Click for Music</p>
+        {!isPlaying ? <img src={volume} alt="mute button" /> : <img src={volumePlay} alt="Volume Play Button" />}
+
+
+      </div>
+    </div>
   );
 };
 

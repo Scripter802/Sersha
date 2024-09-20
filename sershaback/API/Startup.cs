@@ -26,6 +26,9 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using System.IO;
 using Persistence.Migrations;
 using Application.User;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
 
 
 namespace API
@@ -78,7 +81,18 @@ namespace API
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+            services.AddQuartz(q =>{
+                q.UseMicrosoftDependencyInjectionScopedJobFactory();
+                var jobKey = new JobKey("UpdateSubscriptionJob");
+                
+                q.AddJob<UpdateSubscriptionJob>(opts => opts.WithIdentity(jobKey));
 
+                q.AddTrigger(opts => opts
+                    .ForJob(jobKey)
+                    .WithIdentity("UpdateSubscriptionJob-trigger")
+                    .WithCronSchedule("0 2 0 * * ?")
+                );
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo{
@@ -132,10 +146,11 @@ namespace API
                         ValidateIssuer = false
                     };
                 });
-            
             services.AddTransient<IEmailSender>(provider =>
                 new SmtpEmailSender("smtp.gmail.com", 587, "ruth@sersha.ai", "gvpu izlk tdmn aocy")
             );
+            
+            services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
             services.AddScoped<IKlaviyoUserManager, KlaviyoUserManager>();
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IUserAccessor, UserAccessor>();

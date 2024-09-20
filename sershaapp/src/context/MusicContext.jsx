@@ -3,7 +3,7 @@ import { useGlobalContext } from './context'
 const MusicContext = createContext();
 
 export const MusicProvider = ({ children }) => {
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(window.innerWidth < 1000 ? false : true);
   const [currentPlaying, setCurrentPlaying] = useState('');
   const [currentTime, setCurrentTime] = useState(0);
   const audioRef = useRef(new Audio());

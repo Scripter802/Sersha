@@ -112,9 +112,7 @@ const Slideshow = ({ lvl }) => {
         className='mute-music-slideshow'
         onClick={() => {
           toggleMusic();
-          if (window.innerWidth < 1000) {
-            setIsPlaying(!isPlaying)
-          }
+
         }}
       >
         <p className='musicText'>Click for Music</p>

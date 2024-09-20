@@ -4,8 +4,9 @@ import Joyride from 'react-joyride';
 import './tutorial.css';
 
 const Tutorial = () => {
-  const { tutorial, setTutorial, setIsTutorialActive } = useGlobalContext();
+  const { tutorial, setTutorial, setIsTutorialActive, tutorialMobileSteps } = useGlobalContext();
   const [tutorialStarted, setTutorialStarted] = useState(false);
+  const isMobile = window.innerWidth < 1000;
 
   const handleTutorialStart = () => {
     setTutorialStarted(true);
@@ -35,7 +36,7 @@ const Tutorial = () => {
             scrollToFirstStep
             showProgress
             showSkipButton
-            steps={tutorial.steps}
+            steps={isMobile ? tutorialMobileSteps?.steps : tutorial.steps}
             hideCloseButton
             styles={{
               options: {

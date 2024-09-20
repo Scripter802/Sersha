@@ -142,6 +142,68 @@ const AppProvider = ({ children }) => {
     ]
   })
 
+  const [tutorialMobileSteps, setTutorialMobileSteps] = useState({
+    run: false,
+    steps: [
+      {
+        content: <><h2>Welcome!</h2><p>It's your first time with us, so to make it easier and more fun, we've prepared a short tutorial for you!</p><p>Let's begin our journey!</p></>,
+        locale: { skip: <strong aria-label="skip">Skip</strong> },
+        placement: 'center',
+        target: 'body',
+      },
+      {
+        target: '.mapRes',
+        floaterProps: {
+          disableAnimation: true,
+        },
+        content: <><h2>Map</h2><p>This is the map. Come here to see how far you’ve come in your journey, what levels you have accomplished, and how close you are to finding the rogue fox!</p></>,
+      },
+      {
+        target: '.miniGamesRes',
+        floaterProps: {
+          disableAnimation: true,
+        },
+        content: <><h2>Mini Games</h2><p>Mini Games are designed to help you receive rewards and sharpen your skills to defeat the rogue fox!</p></>,
+      },
+      {
+        target: '.currentHomeRes',
+        floaterProps: {
+          disableAnimation: true,
+        },
+        content: <><h2>News Feed</h2><p>Keep up to date on your team’s whereabouts and the rogue fox’s latest antics!</p></>,
+      },
+      {
+        target: '.messages',
+        floaterProps: {
+          disableAnimation: true,
+        },
+        content: <><h2>Messages</h2><p>Your teammates will send you messages throughout your journey and teach you about social media safety, but be careful, the rogue fox can strike at any second!</p></>,
+      },
+      {
+        target: '.foxCustomizationRes',
+        floaterProps: {
+          disableAnimation: true,
+        },
+        content: <><h2>Fox Customisation</h2><p>Select from different outfits to give your Sersha fox the best look!</p></>,
+      },
+      {
+        target: '.mute-btn-res',
+        floaterProps: {
+          disableAnimation: true,
+        },
+        content: <><h2>Mute</h2><p>Click to turn the music on or off.</p></>,
+      },
+      {
+        target: '.responsiveAvatarWrapper',
+        locale: { last: <strong aria-label="skip">Ok</strong> },
+        floaterProps: {
+          disableAnimation: true,
+        },
+        content: <><h2>Profile</h2><p>Click here to change your avatar or change your profile settings.</p></>,
+      },
+    ]
+  })
+
 
 
   const updateQuizzesPlayed = () => {
@@ -1045,6 +1107,7 @@ const AppProvider = ({ children }) => {
 
         //APP TUTORIAL
         tutorial, setTutorial,
+        tutorialMobileSteps, setTutorialMobileSteps,
         isTutorialActive, setIsTutorialActive,
 
         //FOX CUSTOMIZATION

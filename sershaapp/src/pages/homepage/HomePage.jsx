@@ -121,7 +121,7 @@ const HomePage = () => {
       {window.innerWidth < 1000 && <HeaderResponsive />}
       <div className='homePageContainer'>
         <div className='posts'>
-          {window.innerWidth > 1000 && isTutorialActive &&
+          {isTutorialActive &&
             <Tutorial />
           }
           <Posts posts={posts} />

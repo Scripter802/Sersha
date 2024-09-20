@@ -66,9 +66,9 @@ const HomePage = () => {
     try {
       const response = await axios.get(`${baseUrl}/user/${user?.email}`);
       if (response.status === 200) {
-        setUpdatedUser(response.data);
-        setUser({ ...user, stage: updatedUser?.stage });
-        localStorage.setItem('userData', JSON.stringify(user));
+        const updatedUserData = { ...user, stage: response.data?.stage };
+        setUser(updatedUserData);
+        localStorage.setItem('userData', JSON.stringify(updatedUserData));
       }
     } catch (error) {
       console.error(error);
@@ -100,22 +100,17 @@ const HomePage = () => {
   useEffect(() => {
     userUpdate()
     handleIsSlideshowShowed()
-  }, [handleIsSlideshowShowed])
+  }, [])
 
   useEffect(() => {
     if (!isSlideshowShowed && user?.stage > 0 && !showedSlideLS) {
       fetchSlideshowByLevel(user?.stage);
     }
-  }, [isSlideshowShowed, user, showedSlideLS, fetchSlideshowByLevel]);
-
-  useEffect(() => {
-    if (slideshowByLevel?.length > 0) {
-      localStorage.setItem('showedSlideshow', 'true');
-    }
-  }, [slideshowByLevel]);
+  }, [user, showedSlideLS]);
 
 
   if (user?.stage > 0 && !showedSlideLS && slideshowByLevel?.length > 0) {
+    localStorage.setItem('showedSlideshow', 'false');
     return <div className='slideshowWrap'><Slideshow lvl={user?.stage} /></div>;
   }
 
@@ -126,7 +121,7 @@ const HomePage = () => {
       {window.innerWidth < 1000 && <HeaderResponsive />}
       <div className='homePageContainer'>
         <div className='posts'>
-          {window.innerWidth > 1000 && isTutorialActive &&
+          {isTutorialActive &&
             <Tutorial />
           }
           <Posts posts={posts} />

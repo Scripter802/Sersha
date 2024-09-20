@@ -17,15 +17,18 @@
   border-radius: 10px;
 }
 
+.musicText {
+  display: none;
+}
 
 .mute-music-slideshow {
+  display: flex;
   position: absolute;
   bottom: 0;
   right: .15rem;
   cursor: pointer;
   width: 70px;
   height: 70px;
-  display: flex;
   justify-content: center;
 }
 
@@ -49,8 +52,8 @@
 
 @keyframes pulse {
   0% {
-    transform: rotate(0deg);
     transform: scale(0.7);
+    transform: rotate(0deg);
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
   }
 
@@ -79,4 +82,57 @@
 
 .arrow.right {
   right: 20px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .mute-music-slideshow {
+    flex-direction: column;
+    align-items: center;
+    bottom: 2.5rem;
+    right: .75rem;
+    width: 120px;
+    height: 65px;
+  }
+
+  .musicText {
+    display: block;
+    text-align: center;
+
+    animation: bounce 5s infinite;
+  }
+
+  @keyframes bounce {
+    0% {
+      transform: scale(0.9) translate(0%, 0%) rotate(0deg);
+    }
+
+    30% {
+      transform: scale(0.94) translate(-10%, 0%) rotate(-10deg);
+    }
+
+    50% {
+      transform: scale(0.98) translate(5%, 0%) rotate(10deg);
+    }
+
+    70% {
+      transform: scale(0.98) translate(-10%, 0%) rotate(-10deg);
+    }
+
+    100% {
+      transform: scale(1) translate(0%, 0%) rotate(0deg);
+    }
+  }
+
+}
+
+@media only screen and (min-width: 421px) and (max-width: 880px) {
+  .mute-music-slideshow img {
+    height: 45px;
+  }
+
+  .mute-music-slideshow {
+    width: 30%;
+    flex-direction: column;
+    bottom: .75rem;
+  }
 }

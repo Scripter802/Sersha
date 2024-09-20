@@ -44,6 +44,7 @@ const LoginForm = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isPasswordForgot, setIsPasswordForgot] = useState(false);
+  const [firstTimeHandled, setFirstTimeHandled] = useState(false);
 
   const isFirstTimeLoggedInChange = async () => {
     try {
@@ -61,7 +62,7 @@ const LoginForm = () => {
           },
         }
       );
-      setUser({ ...user, stage: 1 })
+      setUser({ ...user, stage: 1, isFirstTimeLoggedIn: false })
       console.log('User updated:', response.data);
     } catch (error) {
       console.log('Error updating user:', error);
@@ -145,15 +146,15 @@ const LoginForm = () => {
       console.log(`user login is first time: ${user.isFirstTimeLoggedIn}`)
       localStorage.setItem('levelStep', '0');
       setIsTutorialActive(true);
-      isFirstTimeLoggedInChange();
       Cookies.set('isSlideShowed', JSON.stringify({ level: 1, isSlideShowed: false }));
 
-
       return (<Slideshow lvl={'1'} />)
+
     }
     else {
       navigate('/');
     }
+    isFirstTimeLoggedInChange();
   }
   return (
     <>

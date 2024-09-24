@@ -13,6 +13,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.15" />
     <PackageReference Include="System.Text.Encodings.Web" Version="5.0.0" />
     <PackageReference Include="System.Text.Json" Version="5.0.0" />
+    <PackageReference Include="Quartz" Version="3.2.0" />
+    <PackageReference Include="Quartz.Extensions.Hosting" Version="3.2.0" />
+    <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.2.0" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>

@@ -86,7 +86,7 @@ const RegisterForm = () => {
     e.preventDefault();
 
 
-    const passwordRegex = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/;
+    const passwordRegex = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){6,50}$/;
 
     if (!passwordRegex.test(registerPassword)) {
       setErrorMessage('Password must contain minimum 8 letters: 1 uppercase letter 1 lowercase letter, 1 number, and 1 special character.');
